@@ -1,0 +1,1 @@
+-- Schema: complaints, classifications, artifacts, audit_log tables
