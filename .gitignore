@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+*.whl
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Node / Frontend
+node_modules/
+frontend/dist/
+frontend/build/
+.next/
+
+# Audio files (large, should not be in git — use git-lfs or external storage)
+*.wav
+*.mp3
+*.ogg
+*.webm
+*.flac
+*.m4a
+
+# Database
+*.db
+*.sqlite3
+
+# Secrets & local config
+.env
+.env.local
+.env.*.local
+
+# Audit buffer (local fallback when DB is unreachable)
+audit_buffer.jsonl
+
+# Test / coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# OS
+Thumbs.db

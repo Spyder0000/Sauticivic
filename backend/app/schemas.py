@@ -70,11 +70,11 @@ class OutcomeStatus(str, Enum):
 
 @dataclass
 class IntakeOutcome:
-    """The final result of one intake, before artifact generation.
+    """The final result of one intake.
 
-    Either we ROUTED (and `domain` says where), or we abstained and set
-    `clarifying_question`. `reasons` is always populated so every decision is
-    explainable in the audit log.
+    Either we ROUTED (and `domain` + `artifact` say where and what was generated),
+    or we abstained and set `clarifying_question`. `reasons` is always populated
+    so every decision is explainable in the audit log.
     """
 
     status: OutcomeStatus
@@ -82,5 +82,7 @@ class IntakeOutcome:
     classification: ClassificationResult | None = None
     extraction: ExtractionResult | None = None
     domain: Domain | None = None            # set when status == ROUTED
+    artifact: dict | None = None            # the generated ticket or brief; set when status == ROUTED
     clarifying_question: str | None = None  # set when status == NEEDS_CLARIFICATION
     reasons: list[str] = field(default_factory=list)
+

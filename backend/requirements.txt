@@ -1,0 +1,29 @@
+# SautiCivic Bridge — Python dependencies
+# Install: pip install -r requirements.txt
+
+# --- Core ---
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+pydantic==2.10.4
+pydantic-settings==2.7.1
+
+# --- Database ---
+asyncpg==0.30.0
+sqlalchemy[asyncio]==2.0.36
+alembic==1.14.1
+psycopg2-binary==2.9.10
+
+# --- ASR / ML ---
+openai-whisper==20240930
+deepgram-sdk==3.8.1
+httpx==0.28.1
+
+# --- Testing ---
+pytest==8.3.4
+pytest-asyncio==0.25.0
+pytest-cov==6.0.0
+
+# --- Utilities ---
+python-dotenv==1.0.1
+python-multipart==0.0.20
+aiofiles==24.1.0
