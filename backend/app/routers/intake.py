@@ -5,14 +5,19 @@ Endpoints
 POST /intake
     Accept a text complaint and run the full intake pipeline.
     Body: {"text": "..."}
+    Response includes a session_id for clarification follow-ups.
 
 POST /intake/voice
     Accept an audio file upload, transcribe via Sahara v2.5 (or Whisper
     fallback), then run the exact same pipeline as the text path.
     Form field: `audio` (WAV/MP3/OGG, max 25 MB)
+    Response includes a session_id.
 
-Both paths call `run_intake()` — the gate protects both identically.
-No separate code path for voice vs. text. Per ARCHITECTURE.md design rule.
+POST /intake/{session_id}/clarify
+    Accept a citizen's answer to a clarifying question.
+    Body: {"answer": "..."}
+    Re-runs the pipeline on the combined context (original + all answers so far).
+    Enforces gate_max_clarification_rounds from config.
 """
 from __future__ import annotations
 
@@ -22,14 +27,32 @@ from dataclasses import asdict
 from fastapi import APIRouter, HTTPException, UploadFile
 from pydantic import BaseModel
 
+from ..config import settings
 from ..pipeline import run_intake
 from ..services.sahara_asr import transcribe_audio
+from ..session_store import (
+    add_clarification,
+    build_combined_transcript,
+    create_session,
+    get_session,
+)
 
 log = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/intake", tags=["intake"])
 
 _MAX_AUDIO_BYTES = 25 * 1024 * 1024  # 25 MB hard cap
+
+
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+def _outcome_with_session(outcome, session_id: str) -> dict:
+    """Serialize outcome + attach session_id."""
+    result = asdict(outcome)
+    result["session_id"] = session_id
+    return result
 
 
 # ---------------------------------------------------------------------------
@@ -45,10 +68,12 @@ def intake_text(req: TextIntakeRequest) -> dict:
     """Classify + gate a text complaint.
 
     Returns a ROUTED outcome (domain + artifact) or a NEEDS_CLARIFICATION
-    outcome (clarifying question, no artifact).
+    outcome (clarifying question, no artifact). Always includes a session_id
+    for follow-up clarification calls.
     """
-    outcome = run_intake(req.text)
-    return asdict(outcome)
+    session_id = create_session(req.text)
+    outcome = run_intake(req.text, session_id=session_id)
+    return _outcome_with_session(outcome, session_id)
 
 
 # ---------------------------------------------------------------------------
@@ -66,7 +91,6 @@ async def intake_voice(audio: UploadFile) -> dict:
     large-v3 fallback. The fallback runs locally for single requests;
     full corpus runs should use bench/models/run_whisper.py on Colab/cloud.
     """
-    # --- Size guard ---
     audio_bytes = await audio.read()
     if len(audio_bytes) > _MAX_AUDIO_BYTES:
         raise HTTPException(
@@ -76,7 +100,6 @@ async def intake_voice(audio: UploadFile) -> dict:
     if not audio_bytes:
         raise HTTPException(status_code=400, detail="Audio file is empty.")
 
-    # --- Transcribe ---
     filename = audio.filename or "audio.wav"
     try:
         asr_result = transcribe_audio(audio_bytes, filename)
@@ -92,13 +115,69 @@ async def intake_voice(audio: UploadFile) -> dict:
         filename, asr_result.backend, asr_result.language, len(asr_result.transcript),
     )
 
-    # --- Same pipeline as text path ---
-    outcome = run_intake(asr_result.transcript)
-    result = asdict(outcome)
-    # Attach ASR metadata for the audit log / frontend display
+    session_id = create_session(asr_result.transcript)
+    outcome = run_intake(asr_result.transcript, session_id=session_id)
+    result = _outcome_with_session(outcome, session_id)
     result["asr"] = {
         "backend": asr_result.backend,
         "language": asr_result.language,
         "confidence": asr_result.confidence,
     }
+    return result
+
+
+# ---------------------------------------------------------------------------
+# Clarification endpoint
+# ---------------------------------------------------------------------------
+
+class ClarifyRequest(BaseModel):
+    answer: str
+
+
+@router.post("/{session_id}/clarify")
+def intake_clarify(session_id: str, req: ClarifyRequest) -> dict:
+    """Re-run the pipeline with a citizen's clarification answer.
+
+    Retrieves the prior session state (original transcript + previous answers),
+    appends the new answer, and re-runs run_intake() on the combined context.
+    The gate makes a fresh decision on each round — it may still abstain if
+    the combined context still isn't confident enough.
+
+    Enforces gate_max_clarification_rounds (from config.py). Returns 400 if
+    the session has already hit the limit — the citizen should be escalated
+    to human review.
+
+    Returns the same IntakeOutcome shape as POST /intake, always with the
+    same session_id so the frontend can chain calls.
+    """
+    state = get_session(session_id)
+    if state is None:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Session '{session_id}' not found. Sessions are in-memory and reset on server restart.",
+        )
+
+    max_rounds = settings.gate_max_clarification_rounds
+    if len(state.clarification_rounds) >= max_rounds:
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                f"Maximum clarification rounds ({max_rounds}) reached for session '{session_id}'. "
+                "Please contact a human advisor for further assistance."
+            ),
+        )
+
+    # Append this answer and build the combined transcript
+    state = add_clarification(session_id, req.answer.strip())
+    combined = build_combined_transcript(state)
+
+    log.info(
+        "Clarify: session=%s round=%d combined_len=%d",
+        session_id, len(state.clarification_rounds), len(combined),
+    )
+
+    outcome = run_intake(combined, session_id=session_id)
+    result = _outcome_with_session(outcome, session_id)
+    result["clarification_round"] = len(state.clarification_rounds)
+    result["rounds_remaining"] = max_rounds - len(state.clarification_rounds)
     return result
