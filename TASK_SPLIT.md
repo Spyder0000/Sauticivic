@@ -4,6 +4,9 @@
 
 > Note: drizzy765 and Agoro Timilehin are the same person. Tasks previously split across both are now consolidated under one role.
 
+> **Compute rule (non-negotiable):** Local machine runs backend server, pytest, and text-only metric scripts only.
+> All audio model inference — Whisper large-v3, Sahara corpus runner, Deepgram, audio preprocessing — runs on **Google Colab or cloud**. Model runners write transcript JSONs to `bench/results/transcripts/<model>/` and results are committed back.
+
 ---
 
 ## drizzy765 / Agoro Timilehin - Group Lead

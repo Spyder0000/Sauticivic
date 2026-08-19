@@ -166,10 +166,20 @@ This is the single most rigor-demonstrating piece of the whole benchmark — it 
 ### 4.4 Preprocessing A/B check
 Before trusting any benchmark number, spot-check a sample of converted audio against the same clips run through Sahara's own web UI manually. If they diverge, treat it as a preprocessing bug, not a model weakness — this is exactly the class of bug that nearly derailed AEGIS's benchmark and was the winning team's most credibility-building disclosure.
 
-### 4.5 Models benchmarked
+### 4.5 Compute Environment (updated decision)
+**The local dev machine does NOT run audio model inference.** Whisper large-v3 is too large; Sahara/Deepgram are cloud APIs.
+
+| Workload | Where |
+|----------|-------|
+| Backend server, pytest, text metric scripts | **Local** |
+| `run_whisper.py`, `run_sahara.py`, `run_deepgram.py`, `convert_and_validate.py` | **Google Colab / cloud** |
+
+Model scripts write transcript JSONs to `bench/results/transcripts/<model>/` which are committed back to the repo so metric computation can happen locally.
+
+### 4.6 Models benchmarked
 Sahara v2.5, Whisper large-v3, Deepgram Nova-3.
 
-### 4.6 Version transparency
+### 4.7 Version transparency
 Every methodology correction gets a new results file (`v1_results.json`, `v2_results.json`...), preserved, with a documented before/after delta in `REPORT.md`. Never silently overwrite a prior run.
 
 ---

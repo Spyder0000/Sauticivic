@@ -79,6 +79,27 @@ The abstain path produces a `clarifying_question`, but the architecture must als
 4. The clarification chain (original → question → answer → re-classification) is stored in the audit log, linked by `session_id`.
 5. Maximum 3 clarification rounds per session. After 3 abstentions, escalate to human review.
 
+## Compute Environment — Benchmarking Runs on Colab / Cloud
+> **The local dev machine does NOT run model inference.** Whisper large-v3, Sahara v2.5, and Deepgram Nova-3 corpus runs are too heavy for the local system.
+
+| Workload | Where it runs |
+|----------|--------------|
+| `backend/` FastAPI server + Postgres | Local via `docker-compose up` |
+| `pytest` unit tests | Local |
+| `bench/metrics/downstream_accuracy.py` (text-only, no audio) | Local |
+| `bench/models/run_whisper.py` — Whisper large-v3 inference | **Google Colab / cloud** |
+| `bench/models/run_sahara.py` — Sahara API calls | **Google Colab / cloud** (or any machine with API key) |
+| `bench/models/run_deepgram.py` — Deepgram API calls | **Google Colab / cloud** |
+| `bench/audio_preprocessing/convert_and_validate.py` | **Google Colab / cloud** (ffmpeg + reference tool) |
+
+**Workflow for cloud runs:**
+1. Mount the repo in Colab (or clone it) — audio files stay in `bench/corpus/tier_a_recorded/audio/`
+2. Run the relevant model script (`run_whisper.py`, `run_sahara.py`, etc.)
+3. Scripts write transcript JSONs to `bench/results/transcripts/<model>/` — commit those results back
+4. All metric computation (`wer.py`, `downstream_accuracy.py`, `run_full_benchmark.py`) then runs locally on the committed transcripts
+
+**Why this matters for the scripts:** `run_whisper.py`, `run_sahara.py`, `run_deepgram.py` must write their output to a portable path (configurable `--output-dir`) so results can be pulled back from Colab without repo restructuring.
+
 ## Concurrency & Rate Limiting
 - External API calls (Sahara, Deepgram, Whisper) are rate-limited per provider. The benchmark runner must respect these limits (configurable delay between clips).
 - Multiple simultaneous `/intake` requests are supported — each gets its own pipeline execution context. No shared mutable state between requests.
