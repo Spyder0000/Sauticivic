@@ -104,13 +104,28 @@ def compare_clip(clip: dict, asr_transcript: str | None = None) -> dict:
     }
 
 
-def run_oracle_comparison(corpus_path: Path | str) -> dict:
+def run_oracle_comparison(
+    corpus_path: Path | str,
+    asr_transcripts: dict[str, str] | None = None,
+) -> dict:
     """Run the oracle-vs-ASR comparison across the full corpus.
+
+    Args:
+        corpus_path: Path to the ground-truth corpus JSON.
+        asr_transcripts: Optional {clip_id: asr_transcript} map. When provided,
+            each clip's real ASR transcript is used for the "ASR run" (which is
+            what makes asr_fault meaningful). Clips absent from the map fall back
+            to the ground-truth transcript (asr == oracle) for that clip. The
+            default (None) reproduces the ground-truth-as-both behavior exactly.
 
     Returns aggregate bucket counts and per-clip details.
     """
     corpus = load_corpus(corpus_path)
-    results = [compare_clip(clip) for clip in corpus]
+    asr_transcripts = asr_transcripts or {}
+    results = [
+        compare_clip(clip, asr_transcript=asr_transcripts.get(clip["clip_id"]))
+        for clip in corpus
+    ]
 
     total = len(results)
     buckets = {
@@ -129,19 +144,33 @@ def run_oracle_comparison(corpus_path: Path | str) -> dict:
         1 for r in abstentions if r["expected_outcome"] == "routed"
     )
 
+    clips_with_real_asr = sum(
+        1 for r in results if not r["asr_transcript_same_as_gt"]
+    )
+    if asr_transcripts:
+        limitation = (
+            f"Real ASR transcripts supplied for {clips_with_real_asr}/{total} clips; "
+            "clips without a supplied transcript fell back to ground-truth "
+            "(asr == oracle) for that clip. asr_fault is meaningful for the clips "
+            "that had real ASR input."
+        )
+    else:
+        limitation = (
+            "No real ASR model — ground-truth transcript used as both ASR and "
+            "oracle input. asr_fault is 0 by construction. This run validates the "
+            "script's bucketing logic, not a real ASR-vs-reasoning split."
+        )
+
     summary = {
         "total_clips": total,
         "buckets": buckets,
+        "clips_with_real_asr": clips_with_real_asr,
         "abstention_correlation": {
             "total_abstentions": len(abstentions),
             "warranted": warranted_abstentions,
             "unwarranted": unwarranted_abstentions,
         },
-        "limitation": (
-            "v1: No real ASR model — ground-truth transcript used as both ASR and "
-            "oracle input. asr_fault is 0 by construction. This run validates the "
-            "script's bucketing logic, not a real ASR-vs-reasoning split."
-        ),
+        "limitation": limitation,
     }
 
     return {"summary": summary, "per_clip": results}
