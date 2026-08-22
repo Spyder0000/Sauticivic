@@ -1,11 +1,24 @@
 """Inter-annotator agreement — Cohen's Kappa + disagreement log.
 
 Used to validate the dual-labeler ground truth for the Tier A corpus.
-Two independent native speakers label each clip; this script computes how
-much they agree and flags every disagreement for reconciliation.
+Two independent native speakers label each clip on two distinct tasks:
+  1. Transcription (transcript_heard) — feeds WER reference text.
+  2. Domain Classification (domain_judgment) — independent judgment on
+     whether the clip is "infrastructure", "legal", or "ambiguous".
 
-Disagreement cases become ambiguous_subset.json — the primary test set for
-validating the abstain gate actually fires where it should (per IMPL_PLAN §4.1).
+Disagreements on domain_judgment reveal genuinely hard/borderline cases and
+populate ambiguous_subset.json — the primary test set for validating that
+the abstain gate fires on ambiguous civic reports (per IMPL_PLAN §4.1).
+
+Clip Schema for Labelers:
+    {
+      "clip_id": "synth_011",
+      "transcript_heard": "the council come demolish my shop without any notice or paper",
+      "domain_judgment": "ambiguous",
+      "entities_heard": {"party": null, "location": null},
+      "labeler_confidence": "medium",
+      "notes": "could be local gov demolition (infra) or unlawful seizure (legal)"
+    }
 
 Functions
 ---------
@@ -20,13 +33,14 @@ write_ambiguous_subset(disagreements, output_path)
     Write disagreement cases to ambiguous_subset.json for use as the
     abstain-gate test set.
 
-Label vocabulary (must match ground_truth.json expected_domain values):
+Domain Judgment Vocabulary:
     "infrastructure" | "legal" | "ambiguous"
 
 Usage:
     PYTHONPATH=. python3 -m bench.metrics.inter_annotator_agreement \\
         bench/corpus/tier_a_recorded/ground_truth_labeler1.json \\
-        bench/corpus/tier_a_recorded/ground_truth_labeler2.json
+        bench/corpus/tier_a_recorded/ground_truth_labeler2.json \\
+        --write-ambiguous bench/corpus/tier_a_recorded/ambiguous_subset.json
 """
 from __future__ import annotations
 
@@ -125,14 +139,30 @@ def _load_labels(path: Path | str) -> list[dict]:
         return json.load(f)
 
 
+def _get_domain(clip: dict) -> str:
+    """Extract domain judgment supporting both new schema and legacy keys."""
+    return clip.get("domain_judgment") or clip.get("expected_domain") or "ambiguous"
+
+
+def _get_transcript(clip: dict) -> str:
+    """Extract transcript heard supporting both new schema and legacy keys."""
+    return clip.get("transcript_heard") or clip.get("transcript") or ""
+
+
 def agreement_report(
     labeler1_path: Path | str,
     labeler2_path: Path | str,
 ) -> dict:
     """Full inter-annotator agreement report.
 
-    Each labeler file must be a JSON array of clip dicts with at least:
-        {"clip_id": "...", "expected_domain": "infrastructure"|"legal"|"ambiguous"}
+    Each labeler file is a JSON array of clip dicts with:
+        {
+            "clip_id": "...",
+            "transcript_heard": "...",
+            "domain_judgment": "infrastructure" | "legal" | "ambiguous",
+            "entities_heard": {...},
+            "labeler_confidence": "high" | "medium" | "low"
+        }
 
     Returns:
         {
@@ -151,8 +181,8 @@ def agreement_report(
     only_in_1 = sorted(set(clips1) - set(clips2))
     only_in_2 = sorted(set(clips2) - set(clips1))
 
-    labels_a = [clips1[cid]["expected_domain"] for cid in common_ids]
-    labels_b = [clips2[cid]["expected_domain"] for cid in common_ids]
+    labels_a = [_get_domain(clips1[cid]) for cid in common_ids]
+    labels_b = [_get_domain(clips2[cid]) for cid in common_ids]
 
     kappa_result = cohen_kappa(labels_a, labels_b)
 
@@ -160,29 +190,37 @@ def agreement_report(
     disagreements = []
     for cid in common_ids:
         c1, c2 = clips1[cid], clips2[cid]
-        label_a = c1["expected_domain"]
-        label_b = c2["expected_domain"]
+        label_a = _get_domain(c1)
+        label_b = _get_domain(c2)
         agree = label_a == label_b
+
+        transcript_a = _get_transcript(c1)
+        transcript_b = _get_transcript(c2)
 
         row = {
             "clip_id": cid,
             "label_a": label_a,
             "label_b": label_b,
             "agree": agree,
-            "transcript": c1.get("transcript", c2.get("transcript", "")),
+            "transcript_a": transcript_a,
+            "transcript_b": transcript_b,
+            "confidence_a": c1.get("labeler_confidence", ""),
+            "confidence_b": c2.get("labeler_confidence", ""),
+            "entities_a": c1.get("entities_heard") or c1.get("expected_entities", {}),
+            "entities_b": c2.get("entities_heard") or c2.get("expected_entities", {}),
             "notes_a": c1.get("notes", ""),
             "notes_b": c2.get("notes", ""),
         }
         per_clip.append(row)
-        if not agree:
+        if not agree or label_a == "ambiguous" or label_b == "ambiguous":
             disagreements.append(row)
 
     return {
         "kappa": kappa_result,
         "per_clip": per_clip,
         "disagreements": disagreements,
-        "agreement_count": kappa_result["n"] - len(disagreements),
-        "disagreement_count": len(disagreements),
+        "agreement_count": kappa_result["n"] - sum(1 for r in per_clip if not r["agree"]),
+        "disagreement_count": sum(1 for r in per_clip if not r["agree"]),
         "clips_only_in_labeler1": only_in_1,
         "clips_only_in_labeler2": only_in_2,
     }
@@ -196,10 +234,10 @@ def write_ambiguous_subset(
     disagreements: list[dict],
     output_path: Path | str,
 ) -> None:
-    """Write disagreement cases to ambiguous_subset.json.
+    """Write disagreement/ambiguous cases to ambiguous_subset.json.
 
     These clips become the primary abstain-gate test set: the gate should fire
-    on all of them (since even expert labelers disagreed on the domain).
+    on all of them (since native labelers disagreed on the domain or marked ambiguous).
 
     Output format matches ground_truth.json:
         [{"clip_id": ..., "transcript": ..., "expected_domain": "ambiguous",
@@ -208,12 +246,18 @@ def write_ambiguous_subset(
     subset = [
         {
             "clip_id": d["clip_id"],
-            "transcript": d["transcript"],
+            "transcript": d["transcript_a"] or d["transcript_b"],
             "expected_domain": "ambiguous",
             "expected_outcome": "needs_clarification",
             "labeler1_domain": d["label_a"],
             "labeler2_domain": d["label_b"],
-            "notes": f"Labeler disagreement: A={d['label_a']}, B={d['label_b']}. {d['notes_a']}",
+            "labeler1_confidence": d.get("confidence_a", ""),
+            "labeler2_confidence": d.get("confidence_b", ""),
+            "notes": (
+                f"Labeler disagreement/ambiguity: A={d['label_a']} (conf={d.get('confidence_a', 'N/A')}), "
+                f"B={d['label_b']} (conf={d.get('confidence_b', 'N/A')}). "
+                f"{d['notes_a']} {d['notes_b']}".strip()
+            ),
         }
         for d in disagreements
     ]

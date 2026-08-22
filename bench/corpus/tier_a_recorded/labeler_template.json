@@ -1,0 +1,24 @@
+[
+  {
+    "clip_id": "synth_001",
+    "transcript_heard": "There is a big pothole for Allen Avenue junction, e don spoil plenty tyre.",
+    "domain_judgment": "infrastructure",
+    "entities_heard": {
+      "location": "Allen Avenue",
+      "complaint_type": "pothole"
+    },
+    "labeler_confidence": "high",
+    "notes": "Clear infrastructure report"
+  },
+  {
+    "clip_id": "synth_011",
+    "transcript_heard": "The council come demolish my shop without any notice or paper.",
+    "domain_judgment": "ambiguous",
+    "entities_heard": {
+      "party": "council",
+      "location": null
+    },
+    "labeler_confidence": "medium",
+    "notes": "Could be local gov public works (infrastructure) or unlawful demolition/tenancy violation (legal)"
+  }
+]

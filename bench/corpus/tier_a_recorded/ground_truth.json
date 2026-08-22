@@ -118,5 +118,125 @@
     "expected_entities": {"party": "employer", "grievance_type": "harass, harassment, sack, sacked"},
     "expected_outcome": "routed",
     "notes": "Clear legal — employer + harassment + sack threat"
+  },
+  {
+    "clip_id": "synth_016",
+    "transcript": "The bridge for Third Mainland don crack, everybody dey fear to drive pass am.",
+    "expected_domain": "infrastructure",
+    "expected_entities": {"location": "Third Mainland", "complaint_type": "bridge, crack"},
+    "expected_outcome": "routed",
+    "notes": "Clear infrastructure — bridge damage + explicit location"
+  },
+  {
+    "clip_id": "synth_017",
+    "transcript": "Borehole wey dem dig for Agege community don spoil since last month, we no get water.",
+    "expected_domain": "infrastructure",
+    "expected_entities": {"location": "Agege", "complaint_type": "borehole, water"},
+    "expected_outcome": "routed",
+    "notes": "Clear infrastructure — water source + explicit location"
+  },
+  {
+    "clip_id": "synth_018",
+    "transcript": "Refuse dey pile up for Mushin market, nobody don come carry am for two weeks.",
+    "expected_domain": "infrastructure",
+    "expected_entities": {"location": "Mushin", "complaint_type": "refuse, waste"},
+    "expected_outcome": "routed",
+    "notes": "Clear infrastructure — waste collection + explicit location"
+  },
+  {
+    "clip_id": "synth_019",
+    "transcript": "Traffic light for Berger junction no dey work again, e don cause accident twice.",
+    "expected_domain": "infrastructure",
+    "expected_entities": {"location": "Berger", "complaint_type": "traffic light"},
+    "expected_outcome": "routed",
+    "notes": "Clear infrastructure — traffic signal + explicit location"
+  },
+  {
+    "clip_id": "synth_020",
+    "transcript": "My oga refuse to give me my final entitlement after I don work for the company ten years.",
+    "expected_domain": "legal",
+    "expected_entities": {"party": "oga, employer", "grievance_type": "entitlement, unpaid"},
+    "expected_outcome": "routed",
+    "notes": "Clear legal — employer + unpaid entitlement dispute"
+  },
+  {
+    "clip_id": "synth_021",
+    "transcript": "The estate security beat my son and lock am for gatehouse without informing anybody.",
+    "expected_domain": "legal",
+    "expected_entities": {"party": "security", "grievance_type": "assault, detain"},
+    "expected_outcome": "routed",
+    "notes": "Clear legal — assault + unlawful detention by private security"
+  },
+  {
+    "clip_id": "synth_022",
+    "transcript": "My business partner don run away with our joint account money, refuse to answer my call.",
+    "expected_domain": "legal",
+    "expected_entities": {"party": "business partner", "grievance_type": "fraud, theft"},
+    "expected_outcome": "routed",
+    "notes": "Clear legal — financial fraud between named party"
+  },
+  {
+    "clip_id": "synth_023",
+    "transcript": "Agent wey collect my house rent for one whole year don disappear, landlord say na my problem.",
+    "expected_domain": "legal",
+    "expected_entities": {"party": "agent, landlord", "grievance_type": "fraud, rent"},
+    "expected_outcome": "routed",
+    "notes": "Clear legal — rental fraud + named parties"
+  },
+  {
+    "clip_id": "synth_024",
+    "transcript": "My husband don chase me and the children comot for house, refuse to give us money for feeding.",
+    "expected_domain": "legal",
+    "expected_entities": {"party": "husband", "grievance_type": "domestic dispute, neglect"},
+    "expected_outcome": "routed",
+    "notes": "Clear legal — domestic/family grievance, high-stakes, must never be misrouted"
+  },
+  {
+    "clip_id": "synth_025",
+    "transcript": "Dem cut down all the tree for our street, now everywhere hot and dusty.",
+    "expected_domain": "ambiguous",
+    "expected_entities": {},
+    "expected_outcome": "needs_clarification",
+    "notes": "Ambiguous — environmental complaint, unclear if infra ticket or a grievance against whoever ordered it. Gate should abstain."
+  },
+  {
+    "clip_id": "synth_026",
+    "transcript": "Something wrong for our compound but I no fit explain am well well.",
+    "expected_domain": "ambiguous",
+    "expected_entities": {},
+    "expected_outcome": "needs_clarification",
+    "notes": "No signal — vague complaint, no domain keywords. Gate should abstain."
+  },
+  {
+    "clip_id": "synth_027",
+    "transcript": "The community leader don collect money from everybody for borehole wey never complete since two years.",
+    "expected_domain": "ambiguous",
+    "expected_entities": {},
+    "expected_outcome": "needs_clarification",
+    "notes": "Genuinely dual — infrastructure failure (borehole) + possible fraud by a named party (community leader). Gate should abstain."
+  },
+  {
+    "clip_id": "synth_028",
+    "transcript": "Dem block the only road wey we dey use enter our area, say na private property now.",
+    "expected_domain": "ambiguous",
+    "expected_entities": {},
+    "expected_outcome": "needs_clarification",
+    "notes": "Genuinely dual — road access (infra) + property/land rights dispute (legal). Gate should abstain."
+  },
+  {
+    "clip_id": "synth_029",
+    "transcript": "I wan report wetin happen yesterday but I no sure who go handle am.",
+    "expected_domain": "ambiguous",
+    "expected_entities": {},
+    "expected_outcome": "needs_clarification",
+    "notes": "No signal — citizen explicitly unsure of category themselves. Gate should abstain."
+  },
+  {
+    "clip_id": "synth_030",
+    "transcript": "The market association chairman don ban my shop for no reason, say I no follow their rule.",
+    "expected_domain": "ambiguous",
+    "expected_entities": {},
+    "expected_outcome": "needs_clarification",
+    "notes": "Genuinely dual — informal governance dispute (legal-adjacent) vs. commercial/market administration (unclear jurisdiction). Gate should abstain."
   }
 ]
