@@ -88,7 +88,7 @@ def _tool_available(tool: str) -> bool:
 
 
 def _probe_duration(path: Path) -> float | None:
-    """Return the media duration in seconds via ffprobe, or None on failure."""
+    """Return the media duration in seconds via ffprobe or ffmpeg fallback, or None on failure."""
     try:
         out = subprocess.run(
             [
@@ -101,7 +101,22 @@ def _probe_duration(path: Path) -> float | None:
         )
         return float(out.stdout.strip())
     except (FileNotFoundError, subprocess.CalledProcessError, ValueError):
-        return None
+        pass
+
+    try:
+        out = subprocess.run(
+            ["ffmpeg", "-i", str(path)],
+            capture_output=True, text=True,
+        )
+        import re
+        m = re.search(r"Duration:\s*(\d+):(\d+):(\d+\.\d+)", out.stderr)
+        if m:
+            h, mins, s = m.groups()
+            return int(h) * 3600 + int(mins) * 60 + float(s)
+    except Exception:
+        pass
+
+    return None
 
 
 def _convert(src: Path, dst: Path, target_sr: int) -> None:

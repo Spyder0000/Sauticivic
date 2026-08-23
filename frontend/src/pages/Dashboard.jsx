@@ -1,25 +1,54 @@
 import React, { useState } from 'react';
-import { 
-  LayoutDashboard, 
-  PlusCircle, 
-  FolderKanban, 
-  History as HistoryIcon, 
-  Bell, 
-  BarChart3, 
-  Settings, 
-  LogOut, 
-  TrendingUp, 
-  Search, 
-  Sparkles,
+import {
+  LayoutDashboard,
+  PlusCircle,
+  FolderKanban,
+  History as HistoryIcon,
+  Bell,
+  BarChart3,
+  Settings,
+  LogOut,
+  Search,
   HelpCircle,
   Building2,
-  Scale
+  Scale,
+  Mic,
+  ShieldCheck,
 } from 'lucide-react';
 
 import VoiceIntake from '../components/VoiceIntake';
 import ClassificationView from '../components/ClassificationView';
 import TicketCard from '../components/TicketCard';
 import LegalBriefCard from '../components/LegalBriefCard';
+import Brandmark from '../components/Brandmark';
+import Waveform from '../components/Waveform';
+
+const NAV = [
+  { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { id: 'new-intake', label: 'New Intake', icon: PlusCircle, highlight: true },
+  { id: 'cases', label: 'My Cases', icon: FolderKanban },
+  { id: 'history', label: 'History', icon: HistoryIcon },
+  { id: 'analytics', label: 'Analytics', icon: BarChart3 },
+  { id: 'settings', label: 'Settings', icon: Settings },
+];
+
+const HEADERS = {
+  'new-intake': { title: 'New intake', sub: 'Speak or type a complaint — routed to the right desk, or held for a question.' },
+  dashboard: { title: 'Overview', sub: 'How the bridge is performing across municipal and legal routes.' },
+  cases: { title: 'My cases', sub: 'Every report you’ve filed, across both routes.' },
+  history: { title: 'History', sub: 'A full timeline of past intakes and their outcomes.' },
+  analytics: { title: 'Analytics', sub: 'Gate reliability and transcription coverage.' },
+  settings: { title: 'Settings', sub: 'Language and account preferences.' },
+};
+
+// Honest metrics — what the numbers mean, not invented week-over-week deltas.
+const METRICS = [
+  { label: 'Total intakes', value: '24', note: 'across both routes', Icon: Mic, tone: 'text-palm' },
+  { label: 'Infrastructure', value: '14', note: 'municipal tickets', Icon: Building2, tone: 'text-palm' },
+  { label: 'Legal grievances', value: '8', note: 'aid briefs prepared', Icon: Scale, tone: 'text-iris' },
+  { label: 'Abstained', value: '2', note: 'held for a question', Icon: HelpCircle, tone: 'text-gold-deep' },
+  { label: 'Abstention rate', value: '8.3%', note: 'caught before misfiling · τ = 70%', Icon: ShieldCheck, tone: 'text-palm', wide: true },
+];
 
 export default function Dashboard() {
   const [activeNav, setActiveNav] = useState('new-intake'); // 'dashboard' | 'new-intake' | 'cases' | 'history' | 'analytics' | 'settings'
@@ -268,50 +297,44 @@ export default function Dashboard() {
     return matchesCategory && matchesSearch;
   });
 
+  const header = HEADERS[activeNav] || HEADERS['new-intake'];
+  const showCasesTable = activeNav === 'dashboard' || activeNav === 'cases' || activeNav === 'history';
+
   return (
-    <div className="min-h-screen bg-[#F6FAFB] flex flex-col lg:flex-row text-[#0F172A] font-sans">
-      {/* 1. Left Sidebar Navigation matching image1.jpeg */}
-      <aside className="w-full lg:w-64 bg-[#0A1C16] text-white flex flex-col justify-between p-6 shrink-0">
-        <div className="space-y-8">
-          {/* Logo & Brand Header */}
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-xl bg-brand-accent flex items-center justify-center text-brand-sidebar font-extrabold shadow-sm">
-              <Sparkles className="w-6 h-6" />
+    <div className="min-h-screen bg-paper text-ink font-sans flex flex-col lg:flex-row">
+      {/* Sidebar — quiet ink surface; the brand mark IS a voice */}
+      <aside className="w-full lg:w-64 bg-ink text-white flex flex-col justify-between p-6 shrink-0">
+        <div className="space-y-9">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl2 bg-mint text-ink flex items-center justify-center shadow-sm">
+              <Brandmark className="w-6 h-6" />
             </div>
             <div>
-              <h1 className="text-base font-bold font-display tracking-tight text-white">SautiCivic</h1>
-              <p className="text-[11px] text-emerald-400 font-mono font-medium">Bridge · Sahara v2.5</p>
+              <h1 className="text-base font-display tracking-tight text-white">SautiCivic</h1>
+              <p className="text-[11px] text-mint/80 font-mono">Bridge · Sahara v2.5</p>
             </div>
           </div>
 
-          {/* Navigation Links */}
-          <nav className="space-y-1.5">
-            {[
-              { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-              { id: 'new-intake', label: 'New Intake', icon: PlusCircle, highlight: true },
-              { id: 'cases', label: 'My Cases', icon: FolderKanban },
-              { id: 'history', label: 'History', icon: HistoryIcon },
-              { id: 'analytics', label: 'Analytics', icon: BarChart3 },
-              { id: 'settings', label: 'Settings', icon: Settings },
-            ].map(item => {
+          <nav className="space-y-1">
+            {NAV.map(item => {
               const Icon = item.icon;
               const isActive = activeNav === item.id;
               return (
                 <button
                   key={item.id}
                   onClick={() => setActiveNav(item.id)}
-                  className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold font-display transition-all ${
-                    isActive 
-                      ? 'bg-brand-accent text-[#0A1C16] shadow-sm font-bold' 
-                      : 'text-gray-300 hover:text-white hover:bg-white/10'
+                  className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                    isActive
+                      ? 'bg-mint text-ink font-semibold shadow-sm'
+                      : 'text-paper/60 hover:text-white hover:bg-white/[0.06]'
                   }`}
                 >
-                  <div className="flex items-center space-x-3">
+                  <span className="flex items-center gap-3">
                     <Icon className="w-4 h-4" />
-                    <span>{item.label}</span>
-                  </div>
-                  {item.id === 'new-intake' && !isActive && (
-                    <span className="w-2 h-2 rounded-full bg-brand-accent animate-pulse" />
+                    {item.label}
+                  </span>
+                  {item.highlight && !isActive && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-mint animate-breathe" />
                   )}
                 </button>
               );
@@ -319,163 +342,150 @@ export default function Dashboard() {
           </nav>
         </div>
 
-        {/* User Profile Pill at Bottom of Sidebar */}
         <div className="pt-6 border-t border-white/10 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="w-9 h-9 rounded-full bg-emerald-700 text-white flex items-center justify-center font-bold text-xs border border-emerald-500/40">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-full bg-palm-dark text-mint flex items-center justify-center font-semibold text-xs ring-1 ring-mint/20">
               AB
             </div>
             <div>
-              <p className="text-xs font-bold font-display text-white">Aisha Bello</p>
-              <p className="text-[10px] text-gray-400 font-mono">Citizen · Lagos</p>
+              <p className="text-xs font-semibold text-white">Aisha Bello</p>
+              <p className="text-[10px] text-paper/50 font-mono">Citizen · Lagos</p>
             </div>
           </div>
-          <button className="text-gray-400 hover:text-white transition-colors" title="Log out">
+          <button className="text-paper/50 hover:text-white transition-colors" title="Log out">
             <LogOut className="w-4 h-4" />
           </button>
         </div>
       </aside>
 
-      {/* 2. Main Content Area */}
+      {/* Main */}
       <main className="flex-1 flex flex-col min-w-0 overflow-y-auto">
-        {/* Top Header Bar */}
-        <header className="bg-white border-b border-gray-200 px-6 lg:px-10 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 sticky top-0 z-20">
+        {/* Contextual header — no invented greeting */}
+        <header className="bg-surface border-b border-line px-6 lg:px-10 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 sticky top-0 z-20">
           <div>
-            <h2 className="text-xl font-bold font-display text-gray-900 flex items-center space-x-2">
-              <span>Welcome back, Aisha</span>
-              <span className="text-lg">👋</span>
-            </h2>
-            <p className="text-xs text-gray-500 mt-0.5">
-              Here's what's happening with your cases.
-            </p>
+            <h2 className="text-xl font-display tracking-tight text-ink">{header.title}</h2>
+            <p className="text-xs text-muted mt-0.5">{header.sub}</p>
           </div>
 
-          <div className="flex items-center space-x-3">
-            <button 
+          <div className="flex items-center gap-3">
+            <button
               onClick={() => {
                 setCurrentOutcome(null);
                 setActiveNav('new-intake');
               }}
-              className="px-4 py-2 rounded-xl bg-brand-primary hover:bg-brand-primaryHover text-white text-xs font-bold font-display flex items-center space-x-2 shadow-sm transition-all"
+              className="px-4 py-2 rounded-full bg-palm hover:bg-palm-dark text-white text-xs font-semibold flex items-center gap-2 shadow-sm transition-colors"
             >
               <PlusCircle className="w-4 h-4" />
-              <span>+ New Intake</span>
+              New intake
             </button>
-            <button className="p-2 rounded-xl border border-gray-200 hover:bg-gray-50 text-gray-600 relative">
+            <button className="p-2 rounded-full border border-line hover:bg-paper text-muted relative transition-colors" title="Notifications">
               <Bell className="w-4 h-4" />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500" />
+              <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-gold" />
             </button>
           </div>
         </header>
 
         <div className="p-6 lg:p-10 space-y-8 max-w-7xl mx-auto w-full">
-          {/* Top Metrics Cards (Screen 2 from image1.jpeg) */}
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm">
-              <span className="text-[11px] font-semibold font-mono text-gray-400 uppercase tracking-wider block">Total Intakes</span>
-              <div className="text-2xl font-extrabold font-display text-gray-900 mt-1">24</div>
-              <span className="text-[10px] font-bold text-emerald-600 flex items-center mt-1">
-                <TrendingUp className="w-3 h-3 mr-0.5" /> +12% from last week
-              </span>
-            </div>
-
-            <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm">
-              <span className="text-[11px] font-semibold font-mono text-gray-400 uppercase tracking-wider block">Infrastructure</span>
-              <div className="text-2xl font-extrabold font-display text-emerald-700 mt-1">14</div>
-              <span className="text-[10px] font-bold text-emerald-600 flex items-center mt-1">
-                <TrendingUp className="w-3 h-3 mr-0.5" /> +18% from last week
-              </span>
-            </div>
-
-            <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm">
-              <span className="text-[11px] font-semibold font-mono text-gray-400 uppercase tracking-wider block">Legal Grievances</span>
-              <div className="text-2xl font-extrabold font-display text-indigo-700 mt-1">8</div>
-              <span className="text-[10px] font-bold text-indigo-600 flex items-center mt-1">
-                <TrendingUp className="w-3 h-3 mr-0.5" /> +5% from last week
-              </span>
-            </div>
-
-            <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm">
-              <span className="text-[11px] font-semibold font-mono text-gray-400 uppercase tracking-wider block">Abstained</span>
-              <div className="text-2xl font-extrabold font-display text-amber-600 mt-1">2</div>
-              <span className="text-[10px] font-bold text-amber-600 flex items-center mt-1">
-                <HelpCircle className="w-3 h-3 mr-0.5" /> +2% from last week
-              </span>
-            </div>
-
-            <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm col-span-2 sm:col-span-1">
-              <span className="text-[11px] font-semibold font-mono text-gray-400 uppercase tracking-wider block">Abstention Rate</span>
-              <div className="text-2xl font-extrabold font-display text-gray-900 mt-1">8.3%</div>
-              <span className="text-[10px] font-bold text-emerald-600 flex items-center mt-1">
-                ↓ 1.4% from last week
-              </span>
-            </div>
-          </div>
-
-          {/* Active View Switcher */}
+          {/* NEW INTAKE — the voice-first canvas */}
           {activeNav === 'new-intake' && (
             <div className="space-y-8">
-              {/* Intake Form (Voice / Text) */}
-              <VoiceIntake 
-                onIntakeSubmit={handleIntakeSubmit} 
-                isLoading={isLoading} 
+              {/* Hero thesis band */}
+              <div className="relative overflow-hidden rounded-xl2 bg-warm grain ring-1 ring-line/70 px-6 lg:px-10 py-10 lg:py-12">
+                <div className="pointer-events-none absolute inset-y-0 right-0 hidden sm:flex w-1/2 items-center justify-end pr-8 text-palm opacity-[0.10]">
+                  <Waveform active bars={40} className="h-28 w-full" gap="gap-[5px]" />
+                </div>
+                <div className="relative z-10 max-w-2xl animate-settle">
+                  <span className="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] text-palm">
+                    <span className="w-1.5 h-1.5 rounded-full bg-mint animate-breathe" /> SautiCivic Bridge
+                  </span>
+                  <h1 className="font-display text-thesis text-ink mt-4 tracking-tight leading-[1.02] text-balance">
+                    Speak. We&rsquo;re listening.
+                  </h1>
+                  <p className="font-display text-hero text-palm mt-2">Infrastructure fixed. Rights protected.</p>
+                  <p className="text-sm text-muted mt-4 max-w-xl text-pretty">
+                    Report in Pidgin, Yoruba, Hausa, Igbo, or English — mix them as you naturally would. We keep
+                    your words intact, route them to the right desk, and when we&rsquo;re not sure, we ask instead
+                    of guessing.
+                  </p>
+                </div>
+              </div>
+
+              <VoiceIntake
+                onIntakeSubmit={handleIntakeSubmit}
+                isLoading={isLoading}
               />
 
-              {/* Classification View & Gate Triage */}
               {currentOutcome && (
-                <ClassificationView 
+                <ClassificationView
                   outcome={currentOutcome}
                   onClarifySubmit={handleClarifySubmit}
                   isLoading={isLoading}
                 />
               )}
 
-              {/* Downstream Artifact: Municipal Ticket */}
               {currentOutcome?.status === 'routed' && currentOutcome.domain === 'infrastructure' && (
-                <TicketCard 
-                  artifact={currentOutcome.artifact} 
-                  onReset={() => setCurrentOutcome(null)} 
+                <TicketCard
+                  artifact={currentOutcome.artifact}
+                  onReset={() => setCurrentOutcome(null)}
                 />
               )}
 
-              {/* Downstream Artifact: Legal Brief */}
               {currentOutcome?.status === 'routed' && currentOutcome.domain === 'legal' && (
-                <LegalBriefCard 
-                  artifact={currentOutcome.artifact} 
-                  onReset={() => setCurrentOutcome(null)} 
+                <LegalBriefCard
+                  artifact={currentOutcome.artifact}
+                  onReset={() => setCurrentOutcome(null)}
                 />
               )}
             </div>
           )}
 
-          {(activeNav === 'dashboard' || activeNav === 'cases' || activeNav === 'history') && (
-            /* Recent Cases Table matching Screen 2 & Screen 5A of image1.jpeg */
-            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 lg:p-8 space-y-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-gray-100">
+          {/* DASHBOARD — the honest metrics live here, not on the intake screen */}
+          {activeNav === 'dashboard' && (
+            <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
+              {METRICS.map((m) => {
+                const Icon = m.Icon;
+                return (
+                  <div
+                    key={m.label}
+                    className={`bg-surface rounded-2xl ring-1 ring-line/70 shadow-card p-5 ${m.wide ? 'col-span-2 lg:col-span-1' : ''}`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-[11px] font-mono uppercase tracking-[0.12em] text-muted">{m.label}</span>
+                      <Icon className={`w-4 h-4 ${m.tone}`} />
+                    </div>
+                    <div className={`font-display text-3xl mt-2 tracking-tight ${m.tone}`}>{m.value}</div>
+                    <p className="text-[11px] text-muted/80 mt-1">{m.note}</p>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          {/* CASES TABLE — dashboard / cases / history */}
+          {showCasesTable && (
+            <div className="bg-surface rounded-xl2 ring-1 ring-line/70 shadow-card p-6 lg:p-8 space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-line/70">
                 <div>
-                  <h3 className="text-lg font-bold font-display text-gray-900">
-                    {activeNav === 'dashboard' ? 'Recent Cases' : 'My Cases'}
+                  <h3 className="text-lg font-display tracking-tight text-ink">
+                    {activeNav === 'dashboard' ? 'Recent cases' : activeNav === 'history' ? 'History' : 'My cases'}
                   </h3>
-                  <p className="text-xs text-gray-500">Track and manage citizen reports across municipal & legal routes.</p>
+                  <p className="text-xs text-muted mt-0.5">Track and manage citizen reports across municipal & legal routes.</p>
                 </div>
 
-                {/* Search Bar */}
-                <div className="flex items-center space-x-3">
-                  <div className="relative">
-                    <Search className="w-4 h-4 text-gray-400 absolute left-3 top-2.5" />
-                    <input
-                      type="text"
-                      placeholder="Search cases..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="pl-9 pr-4 py-2 rounded-xl bg-gray-50 border border-gray-200 text-xs focus:ring-2 focus:ring-brand-accent/50 outline-none w-48 sm:w-64"
-                    />
-                  </div>
+                <div className="relative">
+                  <Search className="w-4 h-4 text-muted absolute left-3 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    placeholder="Search cases…"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-9 pr-4 py-2 rounded-full bg-paper border border-line text-xs focus:border-palm outline-none w-48 sm:w-64 transition-colors"
+                  />
                 </div>
               </div>
 
-              {/* Category Filter Pills */}
-              <div className="flex flex-wrap gap-2 text-xs font-semibold">
+              {/* Category filter */}
+              <div className="flex flex-wrap gap-2 text-xs font-medium">
                 {[
                   { id: 'all', label: 'All' },
                   { id: 'infrastructure', label: 'Infrastructure' },
@@ -485,10 +495,10 @@ export default function Dashboard() {
                   <button
                     key={tab.id}
                     onClick={() => setFilterCategory(tab.id)}
-                    className={`px-3.5 py-1.5 rounded-lg font-display transition-all ${
+                    className={`px-3.5 py-1.5 rounded-full transition-colors ${
                       filterCategory === tab.id
-                        ? 'bg-brand-primary text-white shadow-sm'
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                        ? 'bg-palm text-white shadow-sm'
+                        : 'bg-paper text-muted hover:text-ink ring-1 ring-line'
                     }`}
                   >
                     {tab.label}
@@ -496,51 +506,49 @@ export default function Dashboard() {
                 ))}
               </div>
 
-              {/* Cases Table matching image1.jpeg */}
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs">
-                  <thead className="bg-gray-50 text-gray-500 font-semibold border-y border-gray-200">
+              {/* Table */}
+              <div className="overflow-x-auto -mx-2">
+                <table className="w-full text-left text-xs min-w-[560px]">
+                  <thead className="text-muted border-y border-line">
                     <tr>
-                      <th className="py-3 px-4">Case ID</th>
-                      <th className="py-3 px-4">Type</th>
-                      <th className="py-3 px-4">Title</th>
-                      <th className="py-3 px-4">Status</th>
-                      <th className="py-3 px-4">Date</th>
+                      <th className="py-3 px-4 font-mono uppercase tracking-[0.1em] text-[10px] font-medium">Case ID</th>
+                      <th className="py-3 px-4 font-mono uppercase tracking-[0.1em] text-[10px] font-medium">Type</th>
+                      <th className="py-3 px-4 font-mono uppercase tracking-[0.1em] text-[10px] font-medium">Title</th>
+                      <th className="py-3 px-4 font-mono uppercase tracking-[0.1em] text-[10px] font-medium">Status</th>
+                      <th className="py-3 px-4 font-mono uppercase tracking-[0.1em] text-[10px] font-medium">Date</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-100">
+                  <tbody className="divide-y divide-line/70">
                     {filteredCases.map(item => (
-                      <tr key={item.id} className="hover:bg-gray-50/80 transition-colors">
-                        <td className="py-3.5 px-4 font-mono font-bold text-gray-900">{item.id}</td>
+                      <tr key={item.id} className="hover:bg-paper/70 transition-colors">
+                        <td className="py-3.5 px-4 font-mono font-semibold text-ink">{item.id}</td>
                         <td className="py-3.5 px-4">
-                          <span className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold ${
+                          <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-medium ${
                             item.type === 'infrastructure'
-                              ? 'bg-emerald-100 text-emerald-800'
+                              ? 'bg-palm/10 text-palm'
                               : item.type === 'legal'
-                              ? 'bg-indigo-100 text-indigo-800'
-                              : 'bg-amber-100 text-amber-800'
+                              ? 'bg-iris/10 text-iris'
+                              : 'bg-gold/12 text-gold-deep'
                           }`}>
-                            {item.type === 'infrastructure' && <Building2 className="w-3 h-3 mr-1" />}
-                            {item.type === 'legal' && <Scale className="w-3 h-3 mr-1" />}
-                            {item.type === 'abstained' && <HelpCircle className="w-3 h-3 mr-1" />}
+                            {item.type === 'infrastructure' && <Building2 className="w-3 h-3" />}
+                            {item.type === 'legal' && <Scale className="w-3 h-3" />}
+                            {item.type === 'abstained' && <HelpCircle className="w-3 h-3" />}
                             {item.type}
                           </span>
                         </td>
-                        <td className="py-3.5 px-4 font-medium text-gray-800">{item.title}</td>
+                        <td className="py-3.5 px-4 font-medium text-ink/90">{item.title}</td>
                         <td className="py-3.5 px-4">
-                          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                          <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium ring-1 ${
                             item.status === 'Completed'
-                              ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                              ? 'bg-palm/8 text-palm ring-palm/20'
                               : item.status === 'In Review'
-                              ? 'bg-blue-50 text-blue-700 border border-blue-200'
-                              : item.status === 'Clarification Sent'
-                              ? 'bg-amber-50 text-amber-700 border border-amber-200'
-                              : 'bg-amber-50 text-amber-700 border border-amber-200'
+                              ? 'bg-iris/8 text-iris ring-iris/20'
+                              : 'bg-gold/10 text-gold-deep ring-gold/25'
                           }`}>
                             ● {item.status}
                           </span>
                         </td>
-                        <td className="py-3.5 px-4 text-gray-400">{item.date}</td>
+                        <td className="py-3.5 px-4 text-muted">{item.date}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -549,64 +557,69 @@ export default function Dashboard() {
             </div>
           )}
 
+          {/* ANALYTICS */}
           {activeNav === 'analytics' && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-4">
-                <h4 className="text-base font-bold font-display text-gray-900">Gate & Benchmark Reliability</h4>
-                <p className="text-xs text-gray-600">
-                  Real-time confidence gating performance against 30 Tier A Nigerian Code-Switched clips.
+              <div className="bg-surface rounded-xl2 ring-1 ring-line/70 shadow-card p-6 space-y-4">
+                <h4 className="text-base font-display tracking-tight text-ink">Gate & benchmark reliability</h4>
+                <p className="text-xs text-muted">
+                  Real-time confidence gating performance against 30 Tier A Nigerian code-switched clips.
                 </p>
                 <div className="space-y-3 pt-2">
-                  <div className="flex justify-between text-xs font-semibold">
-                    <span>Artifact-Corrupted Rate (Goal ~0%)</span>
-                    <span className="text-emerald-700 font-bold font-mono">0.0%</span>
+                  <div className="flex justify-between text-xs font-medium">
+                    <span className="text-ink/80">Artifact-corrupted rate (goal ~0%)</span>
+                    <span className="text-palm font-mono font-semibold">0.0%</span>
                   </div>
-                  <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-                    <div className="h-full bg-emerald-600 rounded-full" style={{ width: '100%' }} />
+                  <div className="w-full h-2 bg-line rounded-full overflow-hidden">
+                    <div className="h-full bg-palm rounded-full" style={{ width: '100%' }} />
                   </div>
-                  <div className="flex justify-between text-xs font-semibold pt-2">
-                    <span>Confidence Gate Abstention Rate</span>
-                    <span className="text-amber-700 font-bold font-mono">8.3%</span>
+                  <div className="flex justify-between text-xs font-medium pt-2">
+                    <span className="text-ink/80">Confidence-gate abstention rate</span>
+                    <span className="text-gold-deep font-mono font-semibold">8.3%</span>
                   </div>
-                  <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-                    <div className="h-full bg-amber-500 rounded-full" style={{ width: '8.3%' }} />
+                  <div className="w-full h-2 bg-line rounded-full overflow-hidden">
+                    <div className="h-full bg-gold rounded-full" style={{ width: '8.3%' }} />
                   </div>
+                  <p className="text-[11px] text-muted/80 pt-1 leading-snug">
+                    Abstention isn&rsquo;t failure — it&rsquo;s the gate refusing to misfile what it can&rsquo;t yet route with confidence.
+                  </p>
                 </div>
               </div>
 
-              <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-4">
-                <h4 className="text-base font-bold font-display text-gray-900">ASR & Model Integrations</h4>
-                <p className="text-xs text-gray-600">Active transcription providers & fallback routes.</p>
+              <div className="bg-surface rounded-xl2 ring-1 ring-line/70 shadow-card p-6 space-y-4">
+                <h4 className="text-base font-display tracking-tight text-ink">ASR & model integrations</h4>
+                <p className="text-xs text-muted">Active transcription providers & fallback routes.</p>
                 <div className="space-y-2.5 text-xs">
-                  <div className="p-3 bg-emerald-50 rounded-xl border border-emerald-200 flex items-center justify-between">
+                  <div className="p-3 bg-palm/[0.06] rounded-xl ring-1 ring-palm/15 flex items-center justify-between">
                     <div>
-                      <p className="font-bold font-display text-emerald-950">Sahara v2.5 ASR (Primary)</p>
-                      <p className="text-[11px] text-emerald-700">Code-switch bilingual (Pidgin + Yoruba + English)</p>
+                      <p className="font-semibold text-ink">Sahara v2.5 ASR (Primary)</p>
+                      <p className="text-[11px] text-muted">Code-switch bilingual (Pidgin + Yoruba + English)</p>
                     </div>
-                    <span className="px-2 py-0.5 rounded bg-emerald-200 text-emerald-900 font-bold font-mono text-[10px]">Active</span>
+                    <span className="px-2 py-0.5 rounded-md bg-palm/15 text-palm font-mono font-semibold text-[10px]">Active</span>
                   </div>
-                  <div className="p-3 bg-gray-50 rounded-xl border border-gray-200 flex items-center justify-between">
+                  <div className="p-3 bg-paper rounded-xl ring-1 ring-line flex items-center justify-between">
                     <div>
-                      <p className="font-bold font-display text-gray-900">Whisper large-v3 (Colab / Fallback)</p>
-                      <p className="text-[11px] text-gray-500">Zero-downtime text/voice contingency</p>
+                      <p className="font-semibold text-ink">Whisper large-v3 (Colab / Fallback)</p>
+                      <p className="text-[11px] text-muted">Zero-downtime text/voice contingency</p>
                     </div>
-                    <span className="px-2 py-0.5 rounded bg-gray-200 text-gray-700 font-bold font-mono text-[10px]">Standby</span>
+                    <span className="px-2 py-0.5 rounded-md bg-line text-muted font-mono font-semibold text-[10px]">Standby</span>
                   </div>
                 </div>
               </div>
             </div>
           )}
 
+          {/* SETTINGS */}
           {activeNav === 'settings' && (
-            <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-4 max-w-xl">
-              <h4 className="text-base font-bold font-display text-gray-900">Settings</h4>
+            <div className="bg-surface rounded-xl2 ring-1 ring-line/70 shadow-card p-6 space-y-4 max-w-xl">
+              <h4 className="text-base font-display tracking-tight text-ink">Settings</h4>
               <div className="space-y-3 text-xs">
-                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                <div className="flex items-center justify-between p-4 bg-paper rounded-2xl ring-1 ring-line">
                   <div>
-                    <p className="font-bold font-display text-gray-900">Language Preference</p>
-                    <p className="text-gray-500">Bilingual code-switch detection</p>
+                    <p className="font-semibold text-ink">Language preference</p>
+                    <p className="text-muted mt-0.5">Bilingual code-switch detection</p>
                   </div>
-                  <span className="font-semibold text-brand-primary">English + Yoruba</span>
+                  <span className="font-semibold text-palm font-mono">English + Yoruba</span>
                 </div>
               </div>
             </div>

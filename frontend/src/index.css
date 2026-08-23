@@ -1,3 +1,56 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root { color-scheme: light; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* The spoken word gets real optical sizing */
+  .font-serif { font-optical-sizing: auto; }
+
+  /* One visible, on-brand keyboard focus for the whole app */
+  :focus-visible {
+    outline: 2px solid #2FD8A6;
+    outline-offset: 2px;
+    border-radius: 5px;
+  }
+  /* Don't double up when a control already draws its own ring */
+  :focus:not(:focus-visible) { outline: none; }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty  { text-wrap: pretty; }
+
+  /* Faint paper grain for the warm, human zones */
+  .grain {
+    background-image: radial-gradient(rgba(11,31,23,0.028) 1px, transparent 1.4px);
+    background-size: 5px 5px;
+  }
+
+  /* A soft civic-green field used behind the hero waveform */
+  .field-warm {
+    background:
+      radial-gradient(120% 90% at 15% 0%, rgba(47,216,166,0.10), transparent 60%),
+      radial-gradient(90% 80% at 100% 100%, rgba(185,136,41,0.08), transparent 55%),
+      #FBF8F1;
+  }
+}
+
+/* Honour a reader's motion preference everywhere */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -4,15 +4,21 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SautiCivic Bridge — Multilingual Civic Intelligence & Legal Triage</title>
-    <!-- High-End Typography: Clash Display (Display) & General Sans / Clash Grotesk (Body/UI) -->
+    <meta name="theme-color" content="#0B1F17" />
+    <title>SautiCivic Bridge — Speak. We're listening.</title>
+
+    <!-- Type system, four voices:
+         Clash Display  → the thesis (headlines only)
+         General Sans   → the interface (body, labels, controls)
+         Fraunces       → the spoken word (a citizen's testimony, set as human speech)
+         JetBrains Mono → the machine (IDs, confidence, coordinates — what is auditable) -->
     <link rel="preconnect" href="https://api.fontshare.com">
-    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=general-sans@400,500,600,700&f[]=clash-grotesk@400,500,600&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   </head>
-  <body class="bg-[#F8FAFB] text-[#0D151C] font-sans antialiased selection:bg-[#20C397]/20 selection:text-[#0B6E4F]">
+  <body class="bg-paper text-ink font-sans antialiased selection:bg-mint/30 selection:text-palm-dark">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

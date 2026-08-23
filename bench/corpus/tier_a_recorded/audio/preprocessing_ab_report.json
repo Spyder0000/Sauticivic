@@ -1,0 +1,1125 @@
+{
+  "generated_at": "2026-08-23T18:14:51.454099+00:00",
+  "target_spec": {
+    "sample_rate": 16000,
+    "channels": 1,
+    "sample_width_bytes": 2,
+    "format": "wav_pcm_s16le"
+  },
+  "method": "convert(ffmpeg) + independent readback(wave + soundfile) A/B check",
+  "total": 30,
+  "ok_count": 30,
+  "divergent_count": 0,
+  "results": [
+    {
+      "clip_id": "synth_001",
+      "source_file": "synth_001.m4a",
+      "output_file": "synth_001.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 6.72,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 6.72,
+        "rms": 0.03578792792765038,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 6.72
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_002",
+      "source_file": "synth_002.m4a",
+      "output_file": "synth_002.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 6.14,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 6.144,
+        "rms": 0.04066656729239989,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 6.144
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_003",
+      "source_file": "synth_003.m4a",
+      "output_file": "synth_003.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 5.21,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 5.2053125,
+        "rms": 0.05190641535966914,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 5.2053125
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_004",
+      "source_file": "synth_004.m4a",
+      "output_file": "synth_004.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 6.27,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 6.272,
+        "rms": 0.053190409135153924,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 6.272
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_005",
+      "source_file": "synth_005.m4a",
+      "output_file": "synth_005.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 5.63,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 5.632,
+        "rms": 0.05151692523934075,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 5.632
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_006",
+      "source_file": "synth_006.m4a",
+      "output_file": "synth_006.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 5.14,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 5.1413125,
+        "rms": 0.06207051310867667,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 5.1413125
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_007",
+      "source_file": "synth_007.m4a",
+      "output_file": "synth_007.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 6.25,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 6.2506875,
+        "rms": 0.06244079888439168,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 6.2506875
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_008",
+      "source_file": "synth_008.m4a",
+      "output_file": "synth_008.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 4.16,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 4.16,
+        "rms": 0.07275732590333206,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 4.16
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_009",
+      "source_file": "synth_009.m4a",
+      "output_file": "synth_009.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 3.48,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 3.4773125,
+        "rms": 0.07100113693357962,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 3.4773125
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_010",
+      "source_file": "synth_010.m4a",
+      "output_file": "synth_010.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 3.75,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 3.7546875,
+        "rms": 0.07044812976301232,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 3.7546875
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_011",
+      "source_file": "synth_011.m4a",
+      "output_file": "synth_011.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 5.1,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 5.0986875,
+        "rms": 0.09194702907110228,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 5.0986875
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_012",
+      "source_file": "synth_012.m4a",
+      "output_file": "synth_012.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 6.02,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 6.016,
+        "rms": 0.07605914604873716,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 6.016
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_013",
+      "source_file": "synth_013.m4a",
+      "output_file": "synth_013.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 5.82,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 5.824,
+        "rms": 0.0660588607308872,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 5.824
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_014",
+      "source_file": "synth_014.m4a",
+      "output_file": "synth_014.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 5.46,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 5.4613125,
+        "rms": 0.07729644305208258,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 5.4613125
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_015",
+      "source_file": "synth_015.m4a",
+      "output_file": "synth_015.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 7.0,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 6.9973125,
+        "rms": 0.06230739404990067,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 6.9973125
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_016",
+      "source_file": "synth_016.mp3",
+      "output_file": "synth_016.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 4.75,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 4.752,
+        "rms": 0.16196468265511155,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 4.752
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_017",
+      "source_file": "synth_017.mp3",
+      "output_file": "synth_017.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 5.24,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 5.232,
+        "rms": 0.15228047204285408,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 5.232
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_018",
+      "source_file": "synth_018.mp3",
+      "output_file": "synth_018.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 4.76,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 4.752,
+        "rms": 0.14096531463321244,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 4.752
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_019",
+      "source_file": "synth_019.mp3",
+      "output_file": "synth_019.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 5.15,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 5.136,
+        "rms": 0.13262799293519115,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 5.136
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_020",
+      "source_file": "synth_020.mp3",
+      "output_file": "synth_020.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 4.88,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 4.872,
+        "rms": 0.12952929587512038,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 4.872
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_021",
+      "source_file": "synth_021.mp3",
+      "output_file": "synth_021.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 5.36,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 5.352,
+        "rms": 0.13120385127597706,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 5.352
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_022",
+      "source_file": "synth_022.mp3",
+      "output_file": "synth_022.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 5.15,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 5.136,
+        "rms": 0.12714453989863006,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 5.136
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_023",
+      "source_file": "synth_023.mp3",
+      "output_file": "synth_023.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 6.08,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 6.072,
+        "rms": 0.1343088503645018,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 6.072
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_024",
+      "source_file": "synth_024.mp3",
+      "output_file": "synth_024.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 5.12,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 5.112,
+        "rms": 0.119442309957074,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 5.112
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_025",
+      "source_file": "synth_025.mp3",
+      "output_file": "synth_025.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 3.59,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 3.576,
+        "rms": 0.1470015204553037,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 3.576
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_026",
+      "source_file": "synth_026.mp3",
+      "output_file": "synth_026.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 3.8,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 3.792,
+        "rms": 0.1598414257042279,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 3.792
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_027",
+      "source_file": "synth_027.mp3",
+      "output_file": "synth_027.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 5.75,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 5.736,
+        "rms": 0.13313561546766442,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 5.736
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_028",
+      "source_file": "synth_028.mp3",
+      "output_file": "synth_028.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 5.79,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 5.784,
+        "rms": 0.1356256087683942,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 5.784
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_029",
+      "source_file": "synth_029.mp3",
+      "output_file": "synth_029.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 4.43,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 4.416,
+        "rms": 0.13917576178085633,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 4.416
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    },
+    {
+      "clip_id": "synth_030",
+      "source_file": "synth_030.mp3",
+      "output_file": "synth_030.wav",
+      "target_spec": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "format": "wav_pcm_s16le"
+      },
+      "source_duration_s": 4.95,
+      "measured": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "duration_s": 4.944,
+        "rms": 0.119440447229605,
+        "clip_fraction": 0.0
+      },
+      "soundfile_readback": {
+        "sample_rate": 16000,
+        "channels": 1,
+        "duration_s": 4.944
+      },
+      "checks": {
+        "sample_rate_ok": true,
+        "channels_ok": true,
+        "sample_width_ok": true,
+        "duration_ok": true,
+        "not_silent": true,
+        "not_clipped": true,
+        "decoders_agree": true
+      },
+      "warnings": [],
+      "ok": true,
+      "error": null
+    }
+  ]
+}
