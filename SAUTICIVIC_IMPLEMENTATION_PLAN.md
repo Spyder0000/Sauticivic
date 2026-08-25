@@ -56,8 +56,10 @@ sauticivic-bridge/
 │   │   │   ├── ground_truth_labeler1.json     # first native-speaker labeling
 │   │   │   ├── ground_truth_labeler2.json     # second, INDEPENDENT native-speaker labeling
 │   │   │   ├── ground_truth_final.json        # reconciled; disagreements kept as "ambiguous" subset
+│   │   │   ├── ground_truth.json              # active evaluation corpus with speaker_id
 │   │   │   ├── ambiguous_subset.json           # the disagreement cases — doubles as the abstain-gate test set
 │   │   │   └── MANIFEST_SHA256.txt
+│   │   ├── adversarial_cases.json             # NEW — trap cases stress-testing abstain gate safety
 │   │   └── tier_b_public/
 │   ├── models/
 │   │   ├── run_sahara.py
@@ -65,9 +67,12 @@ sauticivic-bridge/
 │   │   └── run_deepgram.py
 │   ├── metrics/
 │   │   ├── wer.py
-│   │   ├── downstream_accuracy.py     # classification-exact / artifact-safe / artifact-corrupted
-│   │   ├── run_oracle_comparison.py   # NEW — ASR-transcript run vs. ground-truth run, per clip, attributes every failure
-│   │   ├── inter_annotator_agreement.py  # NEW — agreement % / Cohen's kappa between labeler1 and labeler2
+│   │   ├── downstream_accuracy.py             # classification-exact / artifact-safe / artifact-corrupted
+│   │   ├── run_oracle_comparison.py           # ASR-transcript run vs. ground-truth run, per clip
+│   │   ├── inter_annotator_agreement.py      # agreement % / Cohen's kappa between labeler1 and labeler2
+│   │   ├── calibration_analysis.py           # NEW — confidence calibration (ECE + reliability diagram)
+│   │   ├── adversarial_stress_test.py        # NEW — adversarial trap evaluation & harm-avoidance rate
+│   │   ├── speaker_equity_analysis.py        # NEW — per-speaker WER and downstream accuracy breakdown
 │   │   └── run_full_benchmark.py
 │   ├── results/
 │   │   ├── v1_results.json
@@ -179,7 +184,23 @@ Model scripts write transcript JSONs to `bench/results/transcripts/<model>/` whi
 ### 4.6 Models benchmarked
 Sahara v2.5, Whisper large-v3, Deepgram Nova-3.
 
-### 4.7 Version transparency
+### 4.7 Beyond-Baseline Benchmark Analyses (novel contributions)
+
+These three analyses go beyond what other teams' benchmark reports have typically included, and were chosen because they specifically probe **THIS architecture's safety mechanism (the abstain gate)** and its real-world demographic equity, not generic ASR transcription quality alone:
+
+1. **Confidence Calibration Analysis (`bench/metrics/calibration_analysis.py`):**
+   - **Why chosen:** Probes whether the abstain gate's confidence estimates are statistically meaningful or merely arbitrary scores. In a safety-critical routing architecture where confidence thresholds govern whether a citizen's complaint is auto-dispatched or held for human clarification, a score of 0.70 must reflect a true empirical accuracy rate of ~70%. This directly audits whether the abstain mechanism's confidence scores can be trusted, not just whether they exist.
+   - **Methodology:** Decision log/results bucketing into 10 confidence bins (0.0–1.0), Expected Calibration Error (ECE) computation ($\text{ECE} = \sum_{b} \frac{|B_b|}{N} |\text{acc}(B_b) - \text{conf}(B_b)|$), and reliability diagram generation (predicted confidence vs. actual accuracy).
+
+2. **Adversarial Gate Stress-Test Suite (`bench/metrics/adversarial_stress_test.py`, test cases: `bench/corpus/adversarial_cases.json`):**
+   - **Why chosen:** Directly probes failure modes where single-domain keyword or superficial semantic cues mask high-stakes, dual-domain, or retaliatory risks (e.g. domestic violence disguised as a lock/property issue; utility cutoff concealing landlord retaliation). Standard benchmarks reward naive high recall; this suite stress-tests the **harm-avoidance rate** by ensuring high-consequence traps trigger abstention rather than confident auto-misrouting.
+   - **Methodology:** A dedicated suite of 8–12 curated adversarial trap cases run through `pipeline.run_intake()`, reporting harm-avoidance rate and prominently flagging any high-severity silent auto-routing as a critical safety failure.
+
+3. **Speaker/Voice Equity Breakdown (`bench/metrics/speaker_equity_analysis.py`):**
+   - **Why chosen:** Directly addresses the **Ethics & Inclusion criterion**. For a voice-first civic bridge mediating access to public services and legal remedies across diverse Nigerian demographics, uniform aggregate metrics can hide severe acoustic, dialectal, or speaker-specific failure modes. Uneven performance across voices/accents is an urgent civic equity failure, not a technical curiosity.
+   - **Methodology:** Evaluates WER (when transcripts are available), classification-exact, and artifact-corrupted rates disaggregated by `speaker_id` (recorded in `ground_truth.json` mapped from `DATA_CONSENT_LOG.md`), flagging any demographic disparities exceeding tolerance thresholds (e.g. >10 percentage points delta from corpus average).
+
+### 4.8 Version transparency
 Every methodology correction gets a new results file (`v1_results.json`, `v2_results.json`...), preserved, with a documented before/after delta in `REPORT.md`. Never silently overwrite a prior run.
 
 ---
@@ -218,6 +239,9 @@ Every methodology correction gets a new results file (`v1_results.json`, `v2_res
 - [ ] Every methodology correction versioned and disclosed
 - [ ] Text-input fallback built from day one
 - [ ] Consent log for every real recorded speaker
+- [ ] Confidence calibration analysis (ECE + reliability diagram)
+- [ ] Adversarial gate stress-test suite (harm-avoidance rate)
+- [ ] Speaker/voice equity breakdown (per-speaker WER and downstream accuracy)
 - [ ] Frontend explicitly deprioritized under time pressure, per Section 7
 - [ ] `requirements.txt` / dependency management committed
 - [ ] `.gitignore` prevents `__pycache__`, `.env`, audio files from polluting repo

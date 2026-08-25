@@ -6,15 +6,12 @@ Orchestrates:
   3. run_oracle_comparison.py — ASR-fault vs. reasoning-fault attribution
        - a baseline run (ground-truth as both ASR and oracle input), plus
        - per-model runs fed the model's real ASR transcripts, when available
+  4. calibration_analysis.py — confidence calibration (ECE + reliability diagram)
+  5. adversarial_stress_test.py — adversarial trap evaluation & harm-avoidance rate
+  6. speaker_equity_analysis.py — per-speaker WER and downstream accuracy breakdown
 
-Writes the combined results to bench/results/vN_results.json (never overwrites
-a prior version — picks the next available version number).
-
-WER and per-model oracle attribution degrade gracefully: when no model
-transcripts exist yet (e.g. the synthetic text-only corpus), they report
-"not_available" instead of failing. The moment the Colab model runners drop
-transcripts into bench/results/transcripts/<model>/, both light up with no
-code change.
+Writes combined results to bench/results/vN_results.json (never overwriting prior runs).
+Every analysis degrades gracefully if insufficient data exists.
 
 Usage:
     PYTHONPATH=backend python3 -m bench.metrics.run_full_benchmark
@@ -32,12 +29,13 @@ _BACKEND = _REPO_ROOT / "backend"
 if str(_BACKEND) not in sys.path:
     sys.path.insert(0, str(_BACKEND))
 
+from bench.metrics.adversarial_stress_test import run_adversarial_stress_test  # noqa: E402
+from bench.metrics.calibration_analysis import run_calibration_analysis  # noqa: E402
 from bench.metrics.downstream_accuracy import run_downstream_accuracy  # noqa: E402
 from bench.metrics.run_oracle_comparison import run_oracle_comparison  # noqa: E402
+from bench.metrics.speaker_equity_analysis import run_speaker_equity_analysis  # noqa: E402
 from bench.metrics.wer import corpus_wer  # noqa: E402
 
-# Models we look for under bench/results/transcripts/<model>/. Order defines
-# report order. Kept in sync with bench/models/run_<model>.py.
 _MODELS = ["sahara", "whisper", "deepgram"]
 
 
@@ -46,7 +44,6 @@ def _next_version(results_dir: Path) -> int:
     existing = sorted(results_dir.glob("v*_results.json"))
     if not existing:
         return 1
-    # Extract version numbers from filenames like v1_results.json
     versions = []
     for p in existing:
         try:
@@ -63,19 +60,14 @@ def _load_corpus(corpus_path: Path) -> list[dict]:
 
 
 def _describe_corpus(corpus: list[dict]) -> str:
-    """Build the corpus description from the actual data — never hardcoded.
-
-    Hardcoding these counts is exactly how the description drifts out of sync
-    with the corpus (which it previously had). Deriving them keeps the results
-    file honest about what was actually scored.
-    """
     total = len(corpus)
     routed = [c for c in corpus if c.get("expected_outcome") == "routed"]
     abstain = [c for c in corpus if c.get("expected_outcome") == "needs_clarification"]
     by_domain = Counter(c.get("expected_domain") for c in routed)
     domain_str = ", ".join(f"{n} {dom}" for dom, n in sorted(by_domain.items()))
+    speakers = len(set(c.get("speaker_id", "unspecified") for c in corpus))
     return (
-        f"{total} text-only clips (no real audio). "
+        f"{total} clips across {speakers} speakers. "
         f"{len(routed)} expected-routed ({domain_str}) + "
         f"{len(abstain)} expected-abstain/ambiguous (needs_clarification). "
         "Mock keyword classifier + regex extractor."
@@ -83,11 +75,6 @@ def _describe_corpus(corpus: list[dict]) -> str:
 
 
 def _load_model_transcripts(transcripts_root: Path, model: str) -> dict[str, str]:
-    """Return {clip_id: transcript} for one model, or {} if none are on disk.
-
-    Reads the JSON files written by bench/models/run_<model>.py. Absent dir or
-    unreadable files degrade to {} (never raises) so the benchmark keeps running.
-    """
     model_dir = transcripts_root / model
     if not model_dir.is_dir():
         return {}
@@ -103,11 +90,6 @@ def _load_model_transcripts(transcripts_root: Path, model: str) -> dict[str, str
 
 
 def _run_wer(corpus: list[dict], transcripts_root: Path) -> dict:
-    """Compute corpus WER per model against the ground-truth transcripts.
-
-    Degrades gracefully: a model with no transcripts on disk is marked
-    not_available rather than failing the whole benchmark.
-    """
     ref_by_id = {c["clip_id"]: c["transcript"] for c in corpus}
     per_model: dict[str, dict] = {}
     any_found = False
@@ -165,11 +147,6 @@ def _run_wer(corpus: list[dict], transcripts_root: Path) -> dict:
 
 
 def _run_oracle_by_model(corpus_path: Path, transcripts_root: Path) -> dict:
-    """Per-model oracle comparison fed the model's real ASR transcripts.
-
-    This is what turns asr_fault from "0 by construction" into a real
-    ASR-vs-reasoning attribution. Degrades gracefully when no transcripts exist.
-    """
     per_model: dict[str, dict] = {}
     any_found = False
 
@@ -204,33 +181,38 @@ def _run_oracle_by_model(corpus_path: Path, transcripts_root: Path) -> dict:
 def run_full_benchmark(
     corpus_path: Path | str | None = None,
     results_dir: Path | str | None = None,
+    adversarial_path: Path | str | None = None,
 ) -> dict:
-    """Run the complete benchmark suite and write results.
-
-    Returns the full results dict.
-    """
+    """Run complete benchmark suite and write results."""
     corpus_path = Path(corpus_path) if corpus_path else (
         _REPO_ROOT / "bench" / "corpus" / "tier_a_recorded" / "ground_truth.json"
     )
     results_dir = Path(results_dir) if results_dir else (
         _REPO_ROOT / "bench" / "results"
     )
+    adversarial_path = Path(adversarial_path) if adversarial_path else (
+        _REPO_ROOT / "bench" / "corpus" / "adversarial_cases.json"
+    )
     results_dir.mkdir(parents=True, exist_ok=True)
     transcripts_root = results_dir / "transcripts"
 
     corpus = _load_corpus(corpus_path)
+    version = _next_version(results_dir)
+    timestamp = datetime.now(timezone.utc).isoformat()
 
-    print(f"Corpus: {corpus_path}")
-    print(f"Results dir: {results_dir}")
-    print(f"Transcripts: {transcripts_root}")
+    print(f"Corpus:         {corpus_path}")
+    print(f"Results dir:    {results_dir}")
+    print(f"Transcripts:    {transcripts_root}")
+    print(f"Adversarial:    {adversarial_path}")
+    print(f"Target Version: v{version}")
     print()
 
-    # --- Run downstream accuracy ---
+    # --- 1. Downstream accuracy ---
     print("Running downstream accuracy...")
     downstream = run_downstream_accuracy(corpus_path)
     print(f"  Done: {downstream['metrics']['total_clips']} clips evaluated")
 
-    # --- Run corpus WER (per model) ---
+    # --- 2. Corpus WER (per model) ---
     print("Running corpus WER (per model)...")
     wer_results = _run_wer(corpus, transcripts_root)
     if wer_results["status"] == "ok":
@@ -238,14 +220,14 @@ def run_full_benchmark(
             if r["status"] == "ok":
                 print(f"  {model}: WER {r['corpus_wer']:.1%} ({r['clips_scored']} clips)")
     else:
-        print("  Skipped: no model transcripts on disk yet (synthetic corpus).")
+        print("  Skipped: no model transcripts on disk yet (synthetic/un-transcribed corpus).")
 
-    # --- Run oracle comparison (baseline: ground-truth as both ASR & oracle) ---
+    # --- 3. Oracle comparison (baseline) ---
     print("Running oracle-vs-ASR comparison (baseline)...")
     oracle = run_oracle_comparison(corpus_path)
     print(f"  Done: {oracle['summary']['total_clips']} clips compared")
 
-    # --- Run oracle comparison (per model, real ASR transcripts) ---
+    # --- 4. Oracle comparison (per model) ---
     print("Running oracle-vs-ASR comparison (per model)...")
     oracle_by_model = _run_oracle_by_model(corpus_path, transcripts_root)
     if oracle_by_model["status"] == "ok":
@@ -253,12 +235,44 @@ def run_full_benchmark(
             if r.get("status") == "ok":
                 print(f"  {model}: asr_fault={r['buckets']['asr_fault']}")
     else:
-        print("  Skipped: no model transcripts on disk yet (synthetic corpus).")
+        print("  Skipped: no model transcripts on disk yet.")
+
+    # --- 5. Confidence Calibration Analysis ---
+    print("Running confidence calibration analysis...")
+    plot_path = results_dir / f"calibration_reliability_diagram.png"
+    calibration = run_calibration_analysis(
+        corpus_path=corpus_path,
+        plot_path=plot_path,
+    )
+    if calibration["status"] == "ok":
+        print(f"  Done: ECE = {calibration['ece']:.1%} (across {calibration['total_decisions']} decisions)")
+    else:
+        print(f"  Degraded: {calibration.get('reason', 'not enough data')}")
+
+    # --- 6. Adversarial Gate Stress-Test ---
+    print("Running adversarial gate stress-test suite...")
+    adversarial = run_adversarial_stress_test(adversarial_path)
+    if adversarial["status"] == "ok":
+        print(
+            f"  Done: Harm-Avoidance Rate = {adversarial['harm_avoidance_rate']:.1%} "
+            f"({adversarial['abstained_safely_count']}/{adversarial['total_cases']} safe, "
+            f"{adversarial['high_severity_breaches_count']} breaches)"
+        )
+    else:
+        print(f"  Degraded: {adversarial.get('reason', 'not enough data')}")
+
+    # --- 7. Speaker / Voice Equity Breakdown ---
+    print("Running speaker/voice equity analysis...")
+    speaker_equity = run_speaker_equity_analysis(
+        corpus_path=corpus_path,
+        transcripts_root=transcripts_root,
+    )
+    if speaker_equity["status"] == "ok":
+        print(f"  Done: {speaker_equity['total_speakers']} speakers analyzed. Verdict: {speaker_equity['equity_verdict']}")
+    else:
+        print(f"  Degraded: {speaker_equity.get('reason', 'not enough data')}")
 
     # --- Assemble results ---
-    version = _next_version(results_dir)
-    timestamp = datetime.now(timezone.utc).isoformat()
-
     results = {
         "version": f"v{version}",
         "timestamp": timestamp,
@@ -272,6 +286,9 @@ def run_full_benchmark(
         "wer": wer_results,
         "oracle_comparison": oracle["summary"],
         "oracle_comparison_by_model": oracle_by_model,
+        "calibration_analysis": calibration,
+        "adversarial_stress_test": adversarial,
+        "speaker_equity_analysis": speaker_equity,
         "per_clip_downstream": downstream["per_clip"],
         "per_clip_oracle": oracle["per_clip"],
         "pipeline_config": {
@@ -282,8 +299,8 @@ def run_full_benchmark(
             "asr_model": "none (text-only input)",
         },
         "known_limitations": [
-            "Synthetic corpus — no real recorded audio or real ASR transcription.",
-            "Mock keyword classifier — confidence derived from keyword hit ratio, not a calibrated model.",
+            "Synthetic corpus / un-transcribed audio — no real ASR model transcripts yet on disk.",
+            "Mock keyword classifier — confidence derived from keyword hit ratio, not a calibrated LLM.",
             "Mock regex extractor — entity extraction via pattern matching, not NLP.",
             "Baseline oracle comparison uses ground-truth as both ASR and oracle input — "
             "asr_fault is 0 by construction. Per-model attribution (oracle_comparison_by_model) "
@@ -294,19 +311,19 @@ def run_full_benchmark(
         ],
     }
 
-    # --- Write results (never overwrite) ---
+    # --- Write results ---
     output_file = results_dir / f"v{version}_results.json"
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump(results, f, indent=2, ensure_ascii=False)
 
     print(f"\nResults written to: {output_file}")
 
-    # --- Print summary ---
+    # --- Print comprehensive summary ---
     m = downstream["metrics"]
     s = oracle["summary"]
-    print(f"\n{'='*60}")
+    print(f"\n{'='*70}")
     print(f"  BENCHMARK RESULTS — {results['version']}")
-    print(f"{'='*60}")
+    print(f"{'='*70}")
     print(f"  Corpus:                {m['total_clips']} clips ({results['corpus']['type']})")
     print(f"  Classification-exact:  {m['classification_exact']:.1%}")
     print(f"  Artifact-safe rate:    {m['artifact_safe_rate']:.1%}")
@@ -314,6 +331,35 @@ def run_full_benchmark(
     print(f"  Abstention rate:       {m['abstention_rate']:.1%}")
     print(f"    Correct abstentions: {m['correct_abstention']}")
     print(f"    False abstentions:   {m['false_abstention']}")
+
+    print(f"\n  Confidence Calibration:")
+    if calibration["status"] == "ok":
+        print(f"    ECE Score:           {calibration['ece']:.1%}")
+        print(f"    Interpretation:      {calibration['interpretation']}")
+        print(f"    Caveat:              {calibration['note']}")
+    else:
+        print(f"    not available — {calibration.get('reason')}")
+
+    print(f"\n  Adversarial Stress Test (Harm Avoidance):")
+    if adversarial["status"] == "ok":
+        print(f"    Harm-Avoidance Rate: {adversarial['harm_avoidance_rate']:.1%} ({adversarial['abstained_safely_count']}/{adversarial['total_cases']} traps abstained)")
+        print(f"    High-Severity Alerts: {adversarial['high_severity_breaches_count']}")
+        for b in adversarial["high_severity_findings"]:
+            print(f"      [BREACH {b['case_id']}] Routed to {b['wrongly_routed_to']}: {b['danger_description']}")
+    else:
+        print(f"    not available — {adversarial.get('reason')}")
+
+    print(f"\n  Speaker / Voice Equity Breakdown:")
+    if speaker_equity["status"] == "ok":
+        print(f"    Equity Verdict:      {speaker_equity['equity_verdict']}")
+        if speaker_equity.get("is_confounded_with_clip_difficulty"):
+            print(f"    ⚠️  Confounding Notice: {speaker_equity['confounding_analysis']}")
+        for spk, spk_data in speaker_equity["per_speaker"].items():
+            print(f"      Speaker {spk} ({spk_data['total_clips']} clips, {spk_data['ambiguous_percentage']:.1%} ambiguous): Acc={spk_data['classification_exact']:.1%} | Safe={spk_data['artifact_safe_rate']:.1%} | Corrupted={spk_data['artifact_corrupted_rate']:.1%}")
+        for flag in speaker_equity["disparity_flags"]:
+            print(f"      [{flag['severity']}] {flag['message']}")
+    else:
+        print(f"    not available — {speaker_equity.get('reason')}")
 
     print(f"\n  Word Error Rate (per model):")
     if wer_results["status"] == "ok":
@@ -325,27 +371,12 @@ def run_full_benchmark(
     else:
         print("    not available — no model transcripts yet (synthetic corpus)")
 
-    print(f"\n  Oracle comparison (baseline — ground-truth as both ASR & oracle):")
+    print(f"\n  Oracle comparison (baseline):")
     for bucket, count in s["buckets"].items():
         print(f"    {bucket}: {count}")
 
-    print(f"\n  Oracle comparison (per model — real ASR):")
-    if oracle_by_model["status"] == "ok":
-        for model, r in oracle_by_model["per_model"].items():
-            if r.get("status") == "ok":
-                b = r["buckets"]
-                print(
-                    f"    {model}: asr_fault={b['asr_fault']} "
-                    f"reasoning_fault={b['reasoning_fault']} "
-                    f"concordant_correct={b['concordant_correct']}"
-                )
-            else:
-                print(f"    {model}: not available")
-    else:
-        print("    not available — no model transcripts yet (synthetic corpus)")
-
     print(f"\n  LIMITATION: {s['limitation']}")
-    print(f"{'='*60}")
+    print(f"{'='*70}")
 
     return results
 

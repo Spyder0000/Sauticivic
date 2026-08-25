@@ -72,7 +72,7 @@ def write_manifest(corpus_dir: Path, manifest_path: Path) -> int:
     ]
 
     for f in files:
-        rel = f.relative_to(corpus_dir)
+        rel = f.relative_to(corpus_dir).as_posix()
         digest = sha256_file(f)
         lines.append(f"{digest}  {rel}")
         print(f"  {digest[:12]}...  {rel}")
@@ -95,7 +95,7 @@ def verify_manifest(corpus_dir: Path, manifest_path: Path) -> bool:
         if not line or line.startswith("#"):
             continue
         digest, rel_path = line.split(None, 1)
-        expected[rel_path.strip()] = digest
+        expected[rel_path.strip().replace("\\", "/")] = digest
 
     if not expected:
         print("⚠ Manifest exists but contains no file entries (corpus may be empty).")

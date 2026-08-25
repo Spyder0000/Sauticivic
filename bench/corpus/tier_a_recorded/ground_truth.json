@@ -3,57 +3,84 @@
     "clip_id": "synth_001",
     "transcript": "There is a big pothole for Allen Avenue junction, e don spoil plenty tyre.",
     "expected_domain": "infrastructure",
-    "expected_entities": {"location": "Allen Avenue", "complaint_type": "pothole"},
+    "expected_entities": {
+      "location": "Allen Avenue",
+      "complaint_type": "pothole"
+    },
     "expected_outcome": "routed",
-    "notes": "Clear infrastructure — explicit location + complaint type"
+    "notes": "Clear infrastructure — explicit location + complaint type",
+    "speaker_id": "SPK-01"
   },
   {
     "clip_id": "synth_002",
     "transcript": "Water don burst for our street since morning, everywhere don flood.",
     "expected_domain": "infrastructure",
-    "expected_entities": {"location": "street", "complaint_type": "burst, water, flood"},
+    "expected_entities": {
+      "location": "street",
+      "complaint_type": "burst, water, flood"
+    },
     "expected_outcome": "routed",
-    "notes": "Clear infrastructure — water/burst/flood signals + place word"
+    "notes": "Clear infrastructure — water/burst/flood signals + place word",
+    "speaker_id": "SPK-01"
   },
   {
     "clip_id": "synth_003",
     "transcript": "The streetlight for Ojota junction no dey work, e don dark well well.",
     "expected_domain": "infrastructure",
-    "expected_entities": {"location": "Ojota", "complaint_type": "streetlight"},
+    "expected_entities": {
+      "location": "Ojota",
+      "complaint_type": "streetlight"
+    },
     "expected_outcome": "routed",
-    "notes": "Clear infrastructure — streetlight + explicit location"
+    "notes": "Clear infrastructure — streetlight + explicit location",
+    "speaker_id": "SPK-01"
   },
   {
     "clip_id": "synth_004",
     "transcript": "Gutter don block for our area, waste water dey everywhere, mosquito full ground.",
     "expected_domain": "infrastructure",
-    "expected_entities": {"complaint_type": "gutter, blocked, waste"},
+    "expected_entities": {
+      "complaint_type": "gutter, blocked, waste"
+    },
     "expected_outcome": "routed",
-    "notes": "Clear infrastructure — drainage/waste signals + area place word"
+    "notes": "Clear infrastructure — drainage/waste signals + area place word",
+    "speaker_id": "SPK-01"
   },
   {
     "clip_id": "synth_005",
     "transcript": "My landlord wan evict me and refuse to return my rent deposit.",
     "expected_domain": "legal",
-    "expected_entities": {"party": "landlord", "grievance_type": "evict, eviction, rent, deposit"},
+    "expected_entities": {
+      "party": "landlord",
+      "grievance_type": "evict, eviction, rent, deposit"
+    },
     "expected_outcome": "routed",
-    "notes": "Clear legal — landlord + eviction + rent deposit"
+    "notes": "Clear legal — landlord + eviction + rent deposit",
+    "speaker_id": "SPK-01"
   },
   {
     "clip_id": "synth_006",
     "transcript": "My boss don sack me without paying my three months salary and overtime.",
     "expected_domain": "legal",
-    "expected_entities": {"party": "boss", "grievance_type": "sacked, salary, overtime"},
+    "expected_entities": {
+      "party": "boss",
+      "grievance_type": "sacked, salary, overtime"
+    },
     "expected_outcome": "routed",
-    "notes": "Clear legal — employer/boss + salary/overtime/sacked"
+    "notes": "Clear legal — employer/boss + salary/overtime/sacked",
+    "speaker_id": "SPK-01"
   },
   {
     "clip_id": "synth_007",
     "transcript": "Police officer arrested my brother for nothing, dem detain am for three days without charge.",
     "expected_domain": "legal",
-    "expected_entities": {"party": "officer, police", "grievance_type": "arrested, detain"},
+    "expected_entities": {
+      "party": "officer, police",
+      "grievance_type": "arrested, detain"
+    },
     "expected_outcome": "routed",
-    "notes": "Clear legal — police + arrest + detention"
+    "notes": "Clear legal — police + arrest + detention",
+    "speaker_id": "SPK-01"
   },
   {
     "clip_id": "synth_008",
@@ -61,7 +88,8 @@
     "expected_domain": "ambiguous",
     "expected_entities": {},
     "expected_outcome": "needs_clarification",
-    "notes": "Ambiguous — landlord (legal) + burst pipe (infra). Gate should abstain."
+    "notes": "Ambiguous — landlord (legal) + burst pipe (infra). Gate should abstain.",
+    "speaker_id": "SPK-01"
   },
   {
     "clip_id": "synth_009",
@@ -69,7 +97,8 @@
     "expected_domain": "ambiguous",
     "expected_entities": {},
     "expected_outcome": "needs_clarification",
-    "notes": "No signal — no domain keywords, no entities. Gate should abstain."
+    "notes": "No signal — no domain keywords, no entities. Gate should abstain.",
+    "speaker_id": "SPK-01"
   },
   {
     "clip_id": "synth_010",
@@ -77,7 +106,8 @@
     "expected_domain": "ambiguous",
     "expected_entities": {},
     "expected_outcome": "needs_clarification",
-    "notes": "Vague — area place word but no complaint type or legal signal. Gate should abstain."
+    "notes": "Vague — area place word but no complaint type or legal signal. Gate should abstain.",
+    "speaker_id": "SPK-01"
   },
   {
     "clip_id": "synth_011",
@@ -85,111 +115,163 @@
     "expected_domain": "ambiguous",
     "expected_entities": {},
     "expected_outcome": "needs_clarification",
-    "notes": "Genuinely dual — government action (infra?) + property destruction (legal?). Designed to test gate."
+    "notes": "Genuinely dual — government action (infra?) + property destruction (legal?). Designed to test gate.",
+    "speaker_id": "SPK-01"
   },
   {
     "clip_id": "synth_012",
     "transcript": "Road for Lekki expressway don spoil, car dey enter inside the hole every day.",
     "expected_domain": "infrastructure",
-    "expected_entities": {"location": "Lekki", "complaint_type": "road"},
+    "expected_entities": {
+      "location": "Lekki",
+      "complaint_type": "road"
+    },
     "expected_outcome": "routed",
-    "notes": "Clear infrastructure — road + explicit location"
+    "notes": "Clear infrastructure — road + explicit location",
+    "speaker_id": "SPK-01"
   },
   {
     "clip_id": "synth_013",
     "transcript": "My neighbour contractor refuse to pay the labourers dem for the work wey dem do.",
     "expected_domain": "legal",
-    "expected_entities": {"party": "contractor", "grievance_type": "labour"},
+    "expected_entities": {
+      "party": "contractor",
+      "grievance_type": "labour"
+    },
     "expected_outcome": "routed",
-    "notes": "Clear legal — contractor + labour dispute"
+    "notes": "Clear legal — contractor + labour dispute",
+    "speaker_id": "SPK-01"
   },
   {
     "clip_id": "synth_014",
     "transcript": "Power don cut for our estate since last week, NEPA no come fix am.",
     "expected_domain": "infrastructure",
-    "expected_entities": {"complaint_type": "power, nepa, electricity"},
+    "expected_entities": {
+      "complaint_type": "power, nepa, electricity"
+    },
     "expected_outcome": "routed",
-    "notes": "Clear infrastructure — power/NEPA signals + estate place word"
+    "notes": "Clear infrastructure — power/NEPA signals + estate place word",
+    "speaker_id": "SPK-01"
   },
   {
     "clip_id": "synth_015",
     "transcript": "My employer dey harass me for office, threaten to sack me if I report am.",
     "expected_domain": "legal",
-    "expected_entities": {"party": "employer", "grievance_type": "harass, harassment, sack, sacked"},
+    "expected_entities": {
+      "party": "employer",
+      "grievance_type": "harass, harassment, sack, sacked"
+    },
     "expected_outcome": "routed",
-    "notes": "Clear legal — employer + harassment + sack threat"
+    "notes": "Clear legal — employer + harassment + sack threat",
+    "speaker_id": "SPK-01"
   },
   {
     "clip_id": "synth_016",
     "transcript": "The bridge for Third Mainland don crack, everybody dey fear to drive pass am.",
     "expected_domain": "infrastructure",
-    "expected_entities": {"location": "Third Mainland", "complaint_type": "bridge, crack"},
+    "expected_entities": {
+      "location": "Third Mainland",
+      "complaint_type": "bridge, crack"
+    },
     "expected_outcome": "routed",
-    "notes": "Clear infrastructure — bridge damage + explicit location"
+    "notes": "Clear infrastructure — bridge damage + explicit location",
+    "speaker_id": "SPK-02"
   },
   {
     "clip_id": "synth_017",
     "transcript": "Borehole wey dem dig for Agege community don spoil since last month, we no get water.",
     "expected_domain": "infrastructure",
-    "expected_entities": {"location": "Agege", "complaint_type": "borehole, water"},
+    "expected_entities": {
+      "location": "Agege",
+      "complaint_type": "borehole, water"
+    },
     "expected_outcome": "routed",
-    "notes": "Clear infrastructure — water source + explicit location"
+    "notes": "Clear infrastructure — water source + explicit location",
+    "speaker_id": "SPK-02"
   },
   {
     "clip_id": "synth_018",
     "transcript": "Refuse dey pile up for Mushin market, nobody don come carry am for two weeks.",
     "expected_domain": "infrastructure",
-    "expected_entities": {"location": "Mushin", "complaint_type": "refuse, waste"},
+    "expected_entities": {
+      "location": "Mushin",
+      "complaint_type": "refuse, waste"
+    },
     "expected_outcome": "routed",
-    "notes": "Clear infrastructure — waste collection + explicit location"
+    "notes": "Clear infrastructure — waste collection + explicit location",
+    "speaker_id": "SPK-02"
   },
   {
     "clip_id": "synth_019",
     "transcript": "Traffic light for Berger junction no dey work again, e don cause accident twice.",
     "expected_domain": "infrastructure",
-    "expected_entities": {"location": "Berger", "complaint_type": "traffic light"},
+    "expected_entities": {
+      "location": "Berger",
+      "complaint_type": "traffic light"
+    },
     "expected_outcome": "routed",
-    "notes": "Clear infrastructure — traffic signal + explicit location"
+    "notes": "Clear infrastructure — traffic signal + explicit location",
+    "speaker_id": "SPK-02"
   },
   {
     "clip_id": "synth_020",
     "transcript": "My oga refuse to give me my final entitlement after I don work for the company ten years.",
     "expected_domain": "legal",
-    "expected_entities": {"party": "oga, employer", "grievance_type": "entitlement, unpaid"},
+    "expected_entities": {
+      "party": "oga, employer",
+      "grievance_type": "entitlement, unpaid"
+    },
     "expected_outcome": "routed",
-    "notes": "Clear legal — employer + unpaid entitlement dispute"
+    "notes": "Clear legal — employer + unpaid entitlement dispute",
+    "speaker_id": "SPK-02"
   },
   {
     "clip_id": "synth_021",
     "transcript": "The estate security beat my son and lock am for gatehouse without informing anybody.",
     "expected_domain": "legal",
-    "expected_entities": {"party": "security", "grievance_type": "assault, detain"},
+    "expected_entities": {
+      "party": "security",
+      "grievance_type": "assault, detain"
+    },
     "expected_outcome": "routed",
-    "notes": "Clear legal — assault + unlawful detention by private security"
+    "notes": "Clear legal — assault + unlawful detention by private security",
+    "speaker_id": "SPK-02"
   },
   {
     "clip_id": "synth_022",
     "transcript": "My business partner don run away with our joint account money, refuse to answer my call.",
     "expected_domain": "legal",
-    "expected_entities": {"party": "business partner", "grievance_type": "fraud, theft"},
+    "expected_entities": {
+      "party": "business partner",
+      "grievance_type": "fraud, theft"
+    },
     "expected_outcome": "routed",
-    "notes": "Clear legal — financial fraud between named party"
+    "notes": "Clear legal — financial fraud between named party",
+    "speaker_id": "SPK-02"
   },
   {
     "clip_id": "synth_023",
     "transcript": "Agent wey collect my house rent for one whole year don disappear, landlord say na my problem.",
     "expected_domain": "legal",
-    "expected_entities": {"party": "agent, landlord", "grievance_type": "fraud, rent"},
+    "expected_entities": {
+      "party": "agent, landlord",
+      "grievance_type": "fraud, rent"
+    },
     "expected_outcome": "routed",
-    "notes": "Clear legal — rental fraud + named parties"
+    "notes": "Clear legal — rental fraud + named parties",
+    "speaker_id": "SPK-02"
   },
   {
     "clip_id": "synth_024",
     "transcript": "My husband don chase me and the children comot for house, refuse to give us money for feeding.",
     "expected_domain": "legal",
-    "expected_entities": {"party": "husband", "grievance_type": "domestic dispute, neglect"},
+    "expected_entities": {
+      "party": "husband",
+      "grievance_type": "domestic dispute, neglect"
+    },
     "expected_outcome": "routed",
-    "notes": "Clear legal — domestic/family grievance, high-stakes, must never be misrouted"
+    "notes": "Clear legal — domestic/family grievance, high-stakes, must never be misrouted",
+    "speaker_id": "SPK-02"
   },
   {
     "clip_id": "synth_025",
@@ -197,7 +279,8 @@
     "expected_domain": "ambiguous",
     "expected_entities": {},
     "expected_outcome": "needs_clarification",
-    "notes": "Ambiguous — environmental complaint, unclear if infra ticket or a grievance against whoever ordered it. Gate should abstain."
+    "notes": "Ambiguous — environmental complaint, unclear if infra ticket or a grievance against whoever ordered it. Gate should abstain.",
+    "speaker_id": "SPK-02"
   },
   {
     "clip_id": "synth_026",
@@ -205,7 +288,8 @@
     "expected_domain": "ambiguous",
     "expected_entities": {},
     "expected_outcome": "needs_clarification",
-    "notes": "No signal — vague complaint, no domain keywords. Gate should abstain."
+    "notes": "No signal — vague complaint, no domain keywords. Gate should abstain.",
+    "speaker_id": "SPK-02"
   },
   {
     "clip_id": "synth_027",
@@ -213,7 +297,8 @@
     "expected_domain": "ambiguous",
     "expected_entities": {},
     "expected_outcome": "needs_clarification",
-    "notes": "Genuinely dual — infrastructure failure (borehole) + possible fraud by a named party (community leader). Gate should abstain."
+    "notes": "Genuinely dual — infrastructure failure (borehole) + possible fraud by a named party (community leader). Gate should abstain.",
+    "speaker_id": "SPK-02"
   },
   {
     "clip_id": "synth_028",
@@ -221,7 +306,8 @@
     "expected_domain": "ambiguous",
     "expected_entities": {},
     "expected_outcome": "needs_clarification",
-    "notes": "Genuinely dual — road access (infra) + property/land rights dispute (legal). Gate should abstain."
+    "notes": "Genuinely dual — road access (infra) + property/land rights dispute (legal). Gate should abstain.",
+    "speaker_id": "SPK-02"
   },
   {
     "clip_id": "synth_029",
@@ -229,7 +315,8 @@
     "expected_domain": "ambiguous",
     "expected_entities": {},
     "expected_outcome": "needs_clarification",
-    "notes": "No signal — citizen explicitly unsure of category themselves. Gate should abstain."
+    "notes": "No signal — citizen explicitly unsure of category themselves. Gate should abstain.",
+    "speaker_id": "SPK-02"
   },
   {
     "clip_id": "synth_030",
@@ -237,6 +324,7 @@
     "expected_domain": "ambiguous",
     "expected_entities": {},
     "expected_outcome": "needs_clarification",
-    "notes": "Genuinely dual — informal governance dispute (legal-adjacent) vs. commercial/market administration (unclear jurisdiction). Gate should abstain."
+    "notes": "Genuinely dual — informal governance dispute (legal-adjacent) vs. commercial/market administration (unclear jurisdiction). Gate should abstain.",
+    "speaker_id": "SPK-02"
   }
 ]
