@@ -1,0 +1,10 @@
+{
+  "clip_id": "synth_009",
+  "audio_file": "synth_009.wav",
+  "transcript": "I beg, I get one small problem, may Kuna help me?",
+  "language": "en",
+  "confidence": 0.8605957,
+  "backend": "deepgram",
+  "model": "nova-3",
+  "error": null
+}

@@ -28,7 +28,23 @@ In addition to standard ASR transcription (WER) and downstream classification me
 | **Adversarial Stress Test** | **Harm-Avoidance Rate** | **70.0%** (7/10) | 7 of 10 high-stakes deceptive traps safely triggered gate abstention. |
 | | High-Severity Breaches | **3 cases** | Flagged below in Known Safety Gaps (`adv_003`, `adv_004`, `adv_005`). |
 | **Speaker Voice Equity** | Per-Speaker Accuracy | SPK-01: 90.9% / SPK-02: 44.4% | **Confounded with clip difficulty** (SPK-02 clips had 40% ambiguous vs 26.7% for SPK-01). |
-| **Word Error Rate (WER)** | Sahara / Whisper / Deepgram | `not_available` | Awaiting upload of transcribed cloud model JSON outputs from Colab runners. |
+| **Word Error Rate (WER)** | Sahara / Whisper / Deepgram / Gemini | `not_available` | Awaiting upload of transcribed cloud model JSON outputs from runners. |
+
+### Evaluated ASR Benchmark Models
+
+| Model | Type | Provider / Architecture | Why Chosen | Evaluation Status |
+|---|---|---|---|---|
+| **Sahara v2.5** | African-Specialized Flagship | Intron Health | Purpose-built for African accents, local dialects, and code-switched Nigerian Pidgin | Pending (Smoke Test Passed) |
+| **Whisper large-v3** | Global Open-Weights Baseline | OpenAI | Industry standard open foundation model baseline | Pending |
+| **Deepgram Nova-3** | Global Commercial STT | Deepgram | Leading commercial high-throughput transcription engine | Pending |
+| **Gemini 3.5 Transcribe** | Global Flagship Commercial | Google | Represents the strongest globally-available ASR model with 85+ language support — the most demanding possible "global baseline" comparison for Sahara's African-specialized advantage | Pending (Smoke Test Passed) |
+
+#### Qualitative Smoke Test Observation (`synth_001.wav` Comparison):
+- **Audio Ground Truth:** *"There's a big poto for aleena venue junction e don spoil plenty tire."*
+- **Sahara v2.5 Output:** `"Theres a big poto for aleena venue junction e don spoil plenty tire."`
+  - *Fidelity:* 100% preserves native Nigerian Pidgin lexicon (`poto`) and completive grammatical particle (`e don spoil`).
+- **Gemini 3.5 Transcribe Output:** `"There is a big pothole for Allen Avenue junction. It don't spoil plenty tyre."`
+  - *Fidelity & Normalization:* Exhibits strong geographic entity normalization (`aleena venue` → `Allen Avenue`, `poto` → `pothole`), but exhibits **grammatical polarity inversion** by misinterpreting the Pidgin affirmative completive aspect marker (`don` = "has spoiled") as English negative contraction (`don't` = "does not spoil"). This qualitative finding underscores why African-specialized ASR tuning is necessary to prevent semantic corruption in civic complaints.
 
 ---
 
@@ -87,6 +103,12 @@ During the v3 adversarial stress test, the intake pipeline successfully achieved
 ```bash
 # Run all unit tests (28 passed)
 PYTHONPATH=backend python3 -m pytest
+
+# Run ASR Model Transcribers (Colab / Cloud / Local):
+python3 bench/models/run_sahara.py
+python3 bench/models/run_whisper.py
+python3 bench/models/run_deepgram.py
+python3 bench/models/run_gemini.py
 
 # Run individual beyond-baseline analyses:
 PYTHONPATH=backend python3 -m bench.metrics.calibration_analysis

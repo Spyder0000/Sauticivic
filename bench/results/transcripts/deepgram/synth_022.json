@@ -1,0 +1,10 @@
+{
+  "clip_id": "synth_022",
+  "audio_file": "synth_022.wav",
+  "transcript": "My business partner don't run away with our joint account money refused to answer my call",
+  "language": "en",
+  "confidence": 0.99316406,
+  "backend": "deepgram",
+  "model": "nova-3",
+  "error": null
+}

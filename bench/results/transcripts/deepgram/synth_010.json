@@ -1,0 +1,10 @@
+{
+  "clip_id": "synth_010",
+  "audio_file": "synth_010.wav",
+  "transcript": "Something happened for my area and no no waiting to do",
+  "language": "en",
+  "confidence": 0.94628906,
+  "backend": "deepgram",
+  "model": "nova-3",
+  "error": null
+}

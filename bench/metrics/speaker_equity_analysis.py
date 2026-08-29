@@ -33,7 +33,7 @@ from bench.metrics.wer import corpus_wer  # noqa: E402
 
 _DEFAULT_CORPUS = _REPO_ROOT / "bench" / "corpus" / "tier_a_recorded" / "ground_truth.json"
 _DEFAULT_TRANSCRIPTS = _REPO_ROOT / "bench" / "results" / "transcripts"
-_MODELS = ["sahara", "whisper", "deepgram"]
+_MODELS = ["sahara", "whisper", "deepgram", "gemini"]
 
 
 def _load_model_transcripts(transcripts_root: Path, model: str) -> dict[str, str]:

@@ -1,0 +1,10 @@
+{
+  "clip_id": "synth_019",
+  "audio_file": "synth_019.wav",
+  "transcript": "Traffic light for bega jong sonu they walk again. He don't cause accident twice",
+  "language": "en",
+  "confidence": 0.90625,
+  "backend": "deepgram",
+  "model": "nova-3",
+  "error": null
+}

@@ -1,0 +1,10 @@
+{
+  "clip_id": "synth_017",
+  "audio_file": "synth_017.wav",
+  "transcript": "Bor hour edem digue for agui ge commin incidences poissin las mont win ne va ge wa ta",
+  "language": "fr",
+  "confidence": 0.4008789,
+  "backend": "deepgram",
+  "model": "nova-3",
+  "error": null
+}

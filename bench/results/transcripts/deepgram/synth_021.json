@@ -1,0 +1,10 @@
+{
+  "clip_id": "synth_021",
+  "audio_file": "synth_021.wav",
+  "transcript": "The estate security beat my son and local for gatehouse without informing anybody",
+  "language": "en",
+  "confidence": 0.96435547,
+  "backend": "deepgram",
+  "model": "nova-3",
+  "error": null
+}

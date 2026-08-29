@@ -24,8 +24,9 @@ class Settings(BaseSettings):
 
     # --- ASR API keys (required for real ASR, not for mock pipeline) ---
     sahara_api_key: str = ""
-    sahara_api_url: str = "https://api.sahara.ai/v2.5/transcribe"
+    sahara_api_url: str = "https://infer.voice.intron.io/file/v1/upload/sync"
     deepgram_api_key: str = ""
+    gemini_api_key: str = ""
     whisper_model_size: str = "large-v3"
 
     # --- Benchmark runner ---

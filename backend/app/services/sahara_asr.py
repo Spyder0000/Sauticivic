@@ -1,4 +1,4 @@
-"""Sahara v2.5 ASR client with automatic Whisper large-v3 fallback.
+"""Sahara v2.5 (Intron Voice) ASR client with automatic Whisper large-v3 fallback.
 
 **How it's used:**
 - In the backend (voice intake endpoint): `transcribe_audio(audio_bytes, filename)`
@@ -15,16 +15,20 @@ fallback here exists so the *backend server* can handle a one-off voice
 request without Colab. For full corpus benchmark runs, use
 `bench/models/run_whisper.py` on Colab/cloud instead.
 
-**Sahara v2.5 API surface:**
-- Endpoint: `settings.sahara_api_url` (default: https://api.sahara.ai/v2.5/transcribe)
+**Intron Sahara v2.5 API surface (per docs.voice.intron.io):**
+- Endpoint (Sync Batch): `settings.sahara_api_url` (default: https://infer.voice.intron.io/file/v1/upload/sync)
+- Endpoint (Streaming): `wss://infer.voice.intron.io/stt/v1/stream`
 - Auth: `Authorization: Bearer <SAHARA_API_KEY>`
-- Request: multipart/form-data — field `audio` (file) + field `language_hint` (optional)
-- Response: `{"transcript": "...", "language": "...", "confidence": 0.0–1.0}`
-- Streaming: v2.5 supports streaming, but we use batch for the benchmark runner.
-  Streaming can be added per endpoint requirements without changing the caller.
-
-TODO: Confirm v2.5 endpoint/auth with Sahara once API access is granted.
-      The field names above are inferred from the v2 spec — may differ.
+- Request (Sync Batch): multipart/form-data:
+    - `audio_file_blob`: audio bytes / file stream
+    - `audio_file_name`: filename string
+    - `use_language_asr_input`: language code (default "pcm" for Pidgin-English; also supports "yo", "ha", "ig", "en", etc.)
+    - `use_category`: "file_category_general" (optional)
+- Response (Sync Batch): `{"data": {"audio_transcript": "...", "file_id": "...", "processing_status": "..."}, "status": "Ok"}`
+- Streaming Protocol:
+    - WebSocket query params: `sample_rate`, `bit_rate`, `num_channels`, `use_language_asr_input`
+    - Input messages: `{"message_type": "INPUT_AUDIO_CHUNK", "audio_base_64": "...", "ack_id": 1}`, `{"message_type": "COMMIT"}`
+    - Output messages: `SESSION_CREATED`, `AUDIO_CHUCK_ACK`, `PARTIAL_TRANSCRIPT`, `FINAL_TRANSCRIPT`
 """
 from __future__ import annotations
 
@@ -47,7 +51,7 @@ log = logging.getLogger(__name__)
 
 class ASRResult(NamedTuple):
     transcript: str
-    language: str | None        # e.g. "en-pidgin", "yo", "en"
+    language: str | None        # e.g. "pcm", "yo", "en"
     confidence: float | None    # 0–1 if the backend reports it, else None
     backend: str                # "sahara" | "whisper" — for the audit log
 
@@ -59,29 +63,67 @@ class ASRResult(NamedTuple):
 _RETRY_DELAYS = (1.0, 2.0, 4.0)  # exponential back-off, 3 attempts
 
 
-def _call_sahara(audio_bytes: bytes, filename: str) -> ASRResult:
-    """POST audio to Sahara v2.5 and return the transcript.
+def _resolve_sahara_url(url: str) -> str:
+    """Normalize Sahara / Intron API endpoint URL."""
+    url = url.strip().rstrip("/")
+    if url == "https://infer.voice.intron.io":
+        return f"{url}/file/v1/upload/sync"
+    return url
+
+
+def _get_mime_type(filename: str) -> str:
+    """Determine audio MIME type by extension."""
+    ext = Path(filename).suffix.lower()
+    mimes = {
+        ".wav": "audio/wav",
+        ".mp3": "audio/mpeg",
+        ".ogg": "audio/ogg",
+        ".flac": "audio/flac",
+        ".m4a": "audio/mp4",
+        ".webm": "audio/webm",
+    }
+    return mimes.get(ext, "audio/wav")
+
+
+def _call_sahara(audio_bytes: bytes, filename: str, language: str = "pcm") -> ASRResult:
+    """POST audio to Intron Sahara v2.5 and return the transcript.
 
     Raises on all failures (caller decides whether to fall back to Whisper).
     """
+    endpoint_url = _resolve_sahara_url(settings.sahara_api_url)
+    mime_type = _get_mime_type(filename)
+
     with httpx.Client(timeout=60.0) as client:
         for attempt, delay in enumerate(_RETRY_DELAYS, start=1):
             try:
                 resp = client.post(
-                    settings.sahara_api_url,
+                    endpoint_url,
                     headers={"Authorization": f"Bearer {settings.sahara_api_key}"},
-                    files={"audio": (filename, io.BytesIO(audio_bytes), "audio/wav")},
-                    data={"language_hint": "en-pidgin"},  # bilingual code-switch hint
+                    files={"audio_file_blob": (filename, io.BytesIO(audio_bytes), mime_type)},
+                    data={
+                        "audio_file_name": filename,
+                        "use_language_asr_input": language,
+                    },
                 )
                 resp.raise_for_status()
                 data = resp.json()
+
+                # Extract transcript from Intron response structure:
+                # {"data": {"audio_transcript": "...", ...}, "status": "Ok"}
+                data_obj = data.get("data") if isinstance(data.get("data"), dict) else data
+                transcript = data_obj.get("audio_transcript") or data.get("transcript") or ""
+                transcript = transcript.strip()
+
+                if not transcript and resp.status_code == 200:
+                    log.warning("Sahara returned empty transcript (response: %s)", data)
+
                 return ASRResult(
-                    transcript=data["transcript"],
-                    language=data.get("language"),
-                    confidence=data.get("confidence"),
+                    transcript=transcript,
+                    language=language,
+                    confidence=None,  # Intron sync response does not provide single confidence score
                     backend="sahara",
                 )
-            except (httpx.HTTPError, KeyError) as exc:
+            except (httpx.HTTPError, KeyError, Exception) as exc:
                 if attempt == len(_RETRY_DELAYS):
                     raise
                 log.warning(
@@ -149,7 +191,11 @@ def _call_whisper(audio_bytes: bytes, filename: str) -> ASRResult:
 # Public interface
 # ---------------------------------------------------------------------------
 
-def transcribe_audio(audio_bytes: bytes, filename: str = "audio.wav") -> ASRResult:
+def transcribe_audio(
+    audio_bytes: bytes,
+    filename: str = "audio.wav",
+    language: str = "pcm",
+) -> ASRResult:
     """Transcribe audio bytes to text.
 
     Strategy:
@@ -162,7 +208,7 @@ def transcribe_audio(audio_bytes: bytes, filename: str = "audio.wav") -> ASRResu
     """
     if settings.sahara_api_key:
         try:
-            result = _call_sahara(audio_bytes, filename)
+            result = _call_sahara(audio_bytes, filename, language=language)
             log.info("ASR: Sahara succeeded (lang=%s, conf=%s)", result.language, result.confidence)
             return result
         except Exception as exc:

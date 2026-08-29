@@ -1,0 +1,10 @@
+{
+  "clip_id": "synth_026",
+  "audio_file": "synth_026.wav",
+  "transcript": "Sommes-tu rencontrés fond à comprendre à nous fit exprès dans ouais ouais",
+  "language": "fr",
+  "confidence": 0.7519531,
+  "backend": "deepgram",
+  "model": "nova-3",
+  "error": null
+}

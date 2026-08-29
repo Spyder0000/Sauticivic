@@ -1,0 +1,10 @@
+{
+  "clip_id": "synth_005",
+  "audio_file": "synth_005.wav",
+  "transcript": "My landlord won't evict me and refused to return my rent deposit.",
+  "language": "en",
+  "confidence": 0.99609375,
+  "backend": "deepgram",
+  "model": "nova-3",
+  "error": null
+}

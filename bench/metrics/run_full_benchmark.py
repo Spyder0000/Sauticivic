@@ -36,7 +36,7 @@ from bench.metrics.run_oracle_comparison import run_oracle_comparison  # noqa: E
 from bench.metrics.speaker_equity_analysis import run_speaker_equity_analysis  # noqa: E402
 from bench.metrics.wer import corpus_wer  # noqa: E402
 
-_MODELS = ["sahara", "whisper", "deepgram"]
+_MODELS = ["sahara", "whisper", "deepgram", "gemini"]
 
 
 def _next_version(results_dir: Path) -> int:
