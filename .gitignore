@@ -37,6 +37,10 @@ frontend/build/
 *.flac
 *.m4a
 
+# Allow Tier A benchmark corpus audio files (total ~4.9MB)
+!bench/corpus/tier_a_recorded/audio/*.wav
+!bench/corpus/tier_a_recorded/raw/*
+
 # Database
 *.db
 *.sqlite3
