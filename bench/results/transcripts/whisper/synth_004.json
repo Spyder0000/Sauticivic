@@ -1,0 +1,19 @@
+{
+  "clip_id": "synth_004",
+  "audio_file": "synth_004.wav",
+  "transcript": "Gota Don block for our area. We swat a day everywhere, on our mosquito-full ground.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 5.5,
+      "text": "Gota Don block for our area. We swat a day everywhere, on our mosquito-full ground.",
+      "avg_logprob": -0.8049048614501954,
+      "no_speech_prob": 0.005715097300708294
+    }
+  ],
+  "error": null
+}

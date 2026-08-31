@@ -1,0 +1,10 @@
+{
+  "clip_id": "synth_015",
+  "audio_file": "synth_015.wav",
+  "transcript": "My employer they harass me for office, threatening to sack me if I report her.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

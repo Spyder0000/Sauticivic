@@ -1,0 +1,10 @@
+{
+  "clip_id": "synth_028",
+  "audio_file": "synth_028.wav",
+  "transcript": "Dem block the only road wey we dey use enter our area, say na private property now.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

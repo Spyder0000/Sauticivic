@@ -1,0 +1,10 @@
+{
+  "clip_id": "synth_009",
+  "audio_file": "synth_009.wav",
+  "transcript": "Abeg, I get one small problem. Make una help me.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

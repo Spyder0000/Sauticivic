@@ -99,76 +99,94 @@ def discover_audio_files(
 # Single-clip transcription
 # ---------------------------------------------------------------------------
 
+import re
+
 def transcribe_clip(
     audio_path: Path,
     client,
     model_name: str = "gemini-3.5-transcribe",
+    max_retries: int = 10,
 ) -> dict:
-    """Transcribe one audio file via Gemini 3.5 Transcribe. Returns a result dict.
+    """Transcribe one audio file via Gemini 3.5 Transcribe with retry/rate-limit handling.
 
     Uses verbatim mode to preserve Pidgin pragmatic particles and content words
     (e.g., 'abeg', 'abi', 'wetin', 'sef', 'sha') which smart mode would discard as fillers.
     """
-    try:
-        audio_file = client.files.upload(file=str(audio_path))
-        mime_type = getattr(audio_file, "mime_type", None) or "audio/wav"
-
-        # Call interactions.create on Gemini 3.5 Transcribe
-        interaction = client.interactions.create(
-            model=model_name,
-            input=[{
-                "type": "audio",
-                "uri": audio_file.uri,
-                "mime_type": mime_type,
-            }],
-            generation_config={
-                "transcription_config": {
-                    # Do NOT lock to "en-US" only — our corpus is code-switched
-                    # Pidgin/Yoruba/English. Omit language_codes to allow auto-detection.
-                    "mode": {
-                        "type": "verbatim",
-                    }
-                }
-            },
-        )
-
-        # Unpack transcript from interaction response
-        transcript = ""
-        if hasattr(interaction, "output_text") and interaction.output_text:
-            transcript = interaction.output_text.strip()
-        elif hasattr(interaction, "text") and interaction.text:
-            transcript = interaction.text.strip()
-        elif hasattr(interaction, "output") and interaction.output:
-            transcript = str(interaction.output).strip()
-
-        # Clean up temporary uploaded file if delete method exists
+    for attempt in range(1, max_retries + 1):
         try:
-            if hasattr(client.files, "delete") and hasattr(audio_file, "name"):
-                client.files.delete(name=audio_file.name)
-        except Exception:  # noqa: BLE001
-            pass
+            audio_file = client.files.upload(file=str(audio_path))
+            mime_type = getattr(audio_file, "mime_type", None) or "audio/wav"
 
-        return {
-            "clip_id": audio_path.stem,
-            "audio_file": str(audio_path.name),
-            "transcript": transcript,
-            "language": getattr(interaction, "language", None),
-            "confidence": None,
-            "backend": "gemini",
-            "model": model_name,
-            "error": None,
-        }
-    except Exception as exc:  # noqa: BLE001
-        return {
-            "clip_id": audio_path.stem,
-            "audio_file": str(audio_path.name),
-            "transcript": "",
-            "language": None,
-            "confidence": None,
-            "backend": "gemini",
-            "model": model_name,
-            "error": str(exc),
-        }
+            # Call interactions.create on Gemini 3.5 Transcribe
+            interaction = client.interactions.create(
+                model=model_name,
+                input=[{
+                    "type": "audio",
+                    "uri": audio_file.uri,
+                    "mime_type": mime_type,
+                }],
+                generation_config={
+                    "transcription_config": {
+                        # Do NOT lock to "en-US" only — our corpus is code-switched
+                        # Pidgin/Yoruba/English. Omit language_codes to allow auto-detection.
+                        "mode": {
+                            "type": "verbatim",
+                        }
+                    }
+                },
+            )
+
+            # Unpack transcript from interaction response
+            transcript = ""
+            if hasattr(interaction, "output_text") and interaction.output_text:
+                transcript = interaction.output_text.strip()
+            elif hasattr(interaction, "text") and interaction.text:
+                transcript = interaction.text.strip()
+            elif hasattr(interaction, "output") and interaction.output:
+                transcript = str(interaction.output).strip()
+
+            # Clean up temporary uploaded file if delete method exists
+            try:
+                if hasattr(client.files, "delete") and hasattr(audio_file, "name"):
+                    client.files.delete(name=audio_file.name)
+            except Exception:  # noqa: BLE001
+                pass
+
+            return {
+                "clip_id": audio_path.stem,
+                "audio_file": str(audio_path.name),
+                "transcript": transcript,
+                "language": getattr(interaction, "language", None),
+                "confidence": None,
+                "backend": "gemini",
+                "model": model_name,
+                "error": None,
+            }
+        except Exception as exc:  # noqa: BLE001
+            err_str = str(exc)
+            if ("429" in err_str or "quota" in err_str.lower() or "too_many_requests" in err_str.lower()) and attempt < max_retries:
+                # Extract wait time from error message or use fallback delay
+                match = re.search(r"retry in (\d+(?:\.\d+)?)s", err_str, re.IGNORECASE)
+                if match:
+                    wait_sec = float(match.group(1)) + 15.0
+                else:
+                    wait_sec = 30.0 * attempt
+                print(f" [Rate limit (429): waiting {wait_sec:.1f}s before retry {attempt+1}/{max_retries}] ...", end=" ", flush=True)
+                time.sleep(wait_sec)
+                continue
+
+            if attempt == max_retries:
+                return {
+                    "clip_id": audio_path.stem,
+                    "audio_file": str(audio_path.name),
+                    "transcript": "",
+                    "language": None,
+                    "confidence": None,
+                    "backend": "gemini",
+                    "model": model_name,
+                    "error": str(exc),
+                }
+            time.sleep(5.0)
 
 
 # ---------------------------------------------------------------------------
@@ -227,7 +245,16 @@ def run_gemini(
             print("ℹ GEMINI_API_KEY not yet set (required for live execution).")
 
         for f in audio_files:
-            print(f"  would transcribe: {f.name}  →  {gemini_out / f.stem}.json")
+            out_p = gemini_out / f"{f.stem}.json"
+            is_valid = False
+            if out_p.is_file():
+                try:
+                    c = json.loads(out_p.read_text(encoding="utf-8"))
+                    is_valid = bool(not c.get("error") and c.get("transcript"))
+                except Exception:
+                    pass
+            status = "SKIP (already exists)" if is_valid else "TRANSCRIBE"
+            print(f"  [{status}] {f.name}  →  {out_p.name}")
         return []
 
     # Live run requires API key
@@ -257,6 +284,19 @@ def run_gemini(
 
     for i, audio_file in enumerate(audio_files, start=1):
         out_path = gemini_out / f"{audio_file.stem}.json"
+
+        # Skip clip if valid transcript already exists on disk
+        if out_path.is_file():
+            try:
+                cached = json.loads(out_path.read_text(encoding="utf-8"))
+                if not cached.get("error") and cached.get("transcript") is not None:
+                    snippet = (cached.get("transcript") or "")[:60].replace("\n", " ")
+                    print(f'[{i}/{len(audio_files)}] {audio_file.name} ... SKIPPED (already exists: "{snippet}...")')
+                    results.append(cached)
+                    continue
+            except Exception:
+                pass
+
         print(f"[{i}/{len(audio_files)}] {audio_file.name} ...", end=" ", flush=True)
 
         result = transcribe_clip(audio_file, client, model_name=model)

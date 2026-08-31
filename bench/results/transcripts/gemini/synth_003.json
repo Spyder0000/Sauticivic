@@ -1,0 +1,10 @@
+{
+  "clip_id": "synth_003",
+  "audio_file": "synth_003.wav",
+  "transcript": "The streetlights for Jota Junction no dey work. You don't dark well well.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

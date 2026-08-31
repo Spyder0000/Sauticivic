@@ -1,0 +1,19 @@
+{
+  "clip_id": "synth_008",
+  "audio_file": "synth_008.wav",
+  "transcript": "My landlord refused to fix my bus pipe in the flat.",
+  "language": "en",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 5.76,
+      "text": "My landlord refused to fix my bus pipe in the flat.",
+      "avg_logprob": -0.3236753781636556,
+      "no_speech_prob": 0.02344699390232563
+    }
+  ],
+  "error": null
+}

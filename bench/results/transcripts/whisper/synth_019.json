@@ -1,0 +1,19 @@
+{
+  "clip_id": "synth_019",
+  "audio_file": "synth_019.wav",
+  "transcript": "তাফিক লাই কর বেগার বার্ধ ঵ো রাক করের, করে করে বো রাক বো.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 4.78,
+      "text": "তাফিক লাই কর বেগার বার্ধ ঵ো রাক করের, করে করে বো রাক বো.",
+      "avg_logprob": -0.7103039134632457,
+      "no_speech_prob": 0.0003544162609614432
+    }
+  ],
+  "error": null
+}

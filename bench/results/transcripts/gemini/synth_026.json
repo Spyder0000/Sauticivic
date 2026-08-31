@@ -1,0 +1,10 @@
+{
+  "clip_id": "synth_026",
+  "audio_file": "synth_026.wav",
+  "transcript": "Something wrong for our compound but I no fit explain am well well.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

@@ -1,0 +1,19 @@
+{
+  "clip_id": "synth_015",
+  "audio_file": "synth_015.wav",
+  "transcript": "My employer, they harassed me for office, threatening to sack me if I report on.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 6.36,
+      "text": "My employer, they harassed me for office, threatening to sack me if I report on.",
+      "avg_logprob": -0.2677120728926225,
+      "no_speech_prob": 0.054194655269384384
+    }
+  ],
+  "error": null
+}

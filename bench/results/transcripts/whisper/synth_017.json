@@ -1,0 +1,26 @@
+{
+  "clip_id": "synth_017",
+  "audio_file": "synth_017.wav",
+  "transcript": "Bo hu wey dem dig fo a gigi community don spoy sinz last month. We never get water.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 3.72,
+      "text": "Bo hu wey dem dig fo a gigi community don spoy sinz last month.",
+      "avg_logprob": -0.4844249199176657,
+      "no_speech_prob": 0.0008398423669859767
+    },
+    {
+      "start": 3.86,
+      "end": 4.62,
+      "text": "We never get water.",
+      "avg_logprob": -0.4844249199176657,
+      "no_speech_prob": 0.0008398423669859767
+    }
+  ],
+  "error": null
+}

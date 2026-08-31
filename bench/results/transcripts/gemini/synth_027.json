@@ -1,0 +1,10 @@
+{
+  "clip_id": "synth_027",
+  "audio_file": "synth_027.wav",
+  "transcript": "The community wey dem dey collect money from everybody for borehole wey never complete since two years.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

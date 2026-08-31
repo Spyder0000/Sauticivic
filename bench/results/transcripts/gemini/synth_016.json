@@ -1,0 +1,10 @@
+{
+  "clip_id": "synth_016",
+  "audio_file": "synth_016.wav",
+  "transcript": "The bridge for Third Mainland don crack, everybody dey fear to drive pass am.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

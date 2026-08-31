@@ -138,7 +138,16 @@ def run_sahara(
 
     if dry_run:
         for f in audio_files:
-            print(f"  would transcribe: {f.name}  →  {sahara_out / f.stem}.json")
+            out_p = sahara_out / f"{f.stem}.json"
+            is_valid = False
+            if out_p.is_file():
+                try:
+                    c = json.loads(out_p.read_text(encoding="utf-8"))
+                    is_valid = bool(not c.get("error") and c.get("transcript"))
+                except Exception:
+                    pass
+            status = "SKIP (already exists)" if is_valid else "TRANSCRIBE"
+            print(f"  [{status}] {f.name}  →  {out_p.name}")
         return []
 
     if not os.environ.get("SAHARA_API_KEY") and not _has_sahara_key():
@@ -153,6 +162,19 @@ def run_sahara(
 
     for i, audio_path in enumerate(audio_files, start=1):
         out_path = sahara_out / f"{audio_path.stem}.json"
+
+        # Skip clip if valid transcript already exists on disk
+        if out_path.is_file():
+            try:
+                cached = json.loads(out_path.read_text(encoding="utf-8"))
+                if not cached.get("error") and cached.get("transcript") is not None:
+                    snippet = (cached.get("transcript") or "")[:60].replace("\n", " ")
+                    print(f'[{i}/{len(audio_files)}] {audio_path.name} ... SKIPPED (already exists: "{snippet}...")')
+                    results.append(cached)
+                    continue
+            except Exception:
+                pass
+
         print(f"[{i}/{len(audio_files)}] {audio_path.name} ...", end=" ", flush=True)
 
         result = transcribe_clip(audio_path)

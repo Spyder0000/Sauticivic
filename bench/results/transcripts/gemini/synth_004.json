@@ -1,0 +1,10 @@
+{
+  "clip_id": "synth_004",
+  "audio_file": "synth_004.wav",
+  "transcript": "Water don't block for our area. We see water dey everywhere, almost mosquito full ground.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

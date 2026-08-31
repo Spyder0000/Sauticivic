@@ -1,0 +1,10 @@
+{
+  "clip_id": "synth_023",
+  "audio_file": "synth_023.wav",
+  "transcript": "Agent wey collect my house rent for one whole year don disappear, landlord say na my problem.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

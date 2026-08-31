@@ -1,0 +1,19 @@
+{
+  "clip_id": "synth_006",
+  "audio_file": "synth_006.wav",
+  "transcript": "My boss don't sack me without paying my three-month salary and overtime.",
+  "language": "en",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 4.58,
+      "text": "My boss don't sack me without paying my three-month salary and overtime.",
+      "avg_logprob": -0.15453190552560905,
+      "no_speech_prob": 0.014208187349140644
+    }
+  ],
+  "error": null
+}

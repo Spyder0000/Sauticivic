@@ -1,0 +1,26 @@
+{
+  "clip_id": "synth_012",
+  "audio_file": "synth_012.wav",
+  "transcript": "Road for Leckie Expressway don't spoil. Cars they enter inside the hole everyday.",
+  "language": "en",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 3.0,
+      "text": "Road for Leckie Expressway don't spoil.",
+      "avg_logprob": -0.5510472059249878,
+      "no_speech_prob": 0.05383427068591118
+    },
+    {
+      "start": 3.0,
+      "end": 6.0,
+      "text": "Cars they enter inside the hole everyday.",
+      "avg_logprob": -0.5510472059249878,
+      "no_speech_prob": 0.05383427068591118
+    }
+  ],
+  "error": null
+}

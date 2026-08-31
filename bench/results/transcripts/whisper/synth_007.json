@@ -1,0 +1,19 @@
+{
+  "clip_id": "synth_007",
+  "audio_file": "synth_007.wav",
+  "transcript": "Police officer arrested my brother for nothing then detained him for three days without charge.",
+  "language": "en",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 6.24,
+      "text": "Police officer arrested my brother for nothing then detained him for three days without charge.",
+      "avg_logprob": -0.33951684048301295,
+      "no_speech_prob": 0.07984448969364166
+    }
+  ],
+  "error": null
+}

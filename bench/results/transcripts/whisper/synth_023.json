@@ -1,0 +1,19 @@
+{
+  "clip_id": "synth_023",
+  "audio_file": "synth_023.wav",
+  "transcript": "ǐjènt wǒ cǒlèc ǐ mǎ hǎu shuàn fǒ wǒn hù yìyè dǒn dǐ sǎpìyè, lánlò tǐn à mǎ ǐ pǒblèm.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 5.16,
+      "text": "ǐjènt wǒ cǒlèc ǐ mǎ hǎu shuàn fǒ wǒn hù yìyè dǒn dǐ sǎpìyè, lánlò tǐn à mǎ ǐ pǒblèm.",
+      "avg_logprob": -0.9181344303084008,
+      "no_speech_prob": 0.0008961146813817322
+    }
+  ],
+  "error": null
+}

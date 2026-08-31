@@ -1,0 +1,19 @@
+{
+  "clip_id": "synth_013",
+  "audio_file": "synth_013.wav",
+  "transcript": "My neighbor contractor refused to pay the laborers them for the work we them do.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 4.94,
+      "text": "My neighbor contractor refused to pay the laborers them for the work we them do.",
+      "avg_logprob": -0.2433180332183838,
+      "no_speech_prob": 0.06239975616335869
+    }
+  ],
+  "error": null
+}

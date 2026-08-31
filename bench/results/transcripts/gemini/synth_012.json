@@ -1,0 +1,10 @@
+{
+  "clip_id": "synth_012",
+  "audio_file": "synth_012.wav",
+  "transcript": "Road for lucky expressway don't spoil. Cut the entire inside the hole every day.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

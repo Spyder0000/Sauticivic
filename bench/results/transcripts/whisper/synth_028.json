@@ -1,0 +1,19 @@
+{
+  "clip_id": "synth_028",
+  "audio_file": "synth_028.wav",
+  "transcript": "Then, block the only road where we will use entire area, safe and private property now.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 6.04,
+      "text": "Then, block the only road where we will use entire area, safe and private property now.",
+      "avg_logprob": -0.7769628004594282,
+      "no_speech_prob": 0.0009349142201244831
+    }
+  ],
+  "error": null
+}

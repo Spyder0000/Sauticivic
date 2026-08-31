@@ -1,0 +1,19 @@
+{
+  "clip_id": "synth_027",
+  "audio_file": "synth_027.wav",
+  "transcript": "The community that don't collect money from everybody for born will never complete since two years.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 5.74,
+      "text": "The community that don't collect money from everybody for born will never complete since two years.",
+      "avg_logprob": -0.7668532416934059,
+      "no_speech_prob": 0.0009615849703550339
+    }
+  ],
+  "error": null
+}

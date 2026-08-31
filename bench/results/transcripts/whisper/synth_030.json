@@ -1,0 +1,19 @@
+{
+  "clip_id": "synth_030",
+  "audio_file": "synth_030.wav",
+  "transcript": "The Market Association chairman don't ban my shop for no reason. See I don't follow their rule.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 4.48,
+      "text": "The Market Association chairman don't ban my shop for no reason. See I don't follow their rule.",
+      "avg_logprob": -0.17967377106348673,
+      "no_speech_prob": 0.0007829114911146462
+    }
+  ],
+  "error": null
+}

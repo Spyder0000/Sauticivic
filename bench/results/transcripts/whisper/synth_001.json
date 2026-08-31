@@ -1,0 +1,19 @@
+{
+  "clip_id": "synth_001",
+  "audio_file": "synth_001.wav",
+  "transcript": "There is a big portal for Allen Avenue and U Junction. You don't spoil plenty tire.",
+  "language": "en",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 7.0,
+      "text": "There is a big portal for Allen Avenue and U Junction. You don't spoil plenty tire.",
+      "avg_logprob": -0.37994525743567426,
+      "no_speech_prob": 0.01889573223888874
+    }
+  ],
+  "error": null
+}

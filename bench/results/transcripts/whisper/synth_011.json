@@ -1,0 +1,19 @@
+{
+  "clip_id": "synth_011",
+  "audio_file": "synth_011.wav",
+  "transcript": "The council come demolish my shop without any notice or paper.",
+  "language": "en",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 4.96,
+      "text": "The council come demolish my shop without any notice or paper.",
+      "avg_logprob": -0.25437599420547485,
+      "no_speech_prob": 0.06408411264419556
+    }
+  ],
+  "error": null
+}

@@ -1,0 +1,26 @@
+{
+  "clip_id": "synth_009",
+  "audio_file": "synth_009.wav",
+  "transcript": "I beg, I get one small problem. May kunai help me?",
+  "language": "en",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 2.32,
+      "text": "I beg, I get one small problem.",
+      "avg_logprob": -0.45459713935852053,
+      "no_speech_prob": 0.03293585032224655
+    },
+    {
+      "start": 2.58,
+      "end": 3.34,
+      "text": "May kunai help me?",
+      "avg_logprob": -0.45459713935852053,
+      "no_speech_prob": 0.03293585032224655
+    }
+  ],
+  "error": null
+}

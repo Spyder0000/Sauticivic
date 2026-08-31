@@ -1,0 +1,10 @@
+{
+  "clip_id": "synth_014",
+  "audio_file": "synth_014.wav",
+  "transcript": "Pas de code sur notre estate depuis la semaine dernière, n'est-ce pas ?",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

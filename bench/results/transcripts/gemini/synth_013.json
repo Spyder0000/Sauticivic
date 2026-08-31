@@ -1,0 +1,10 @@
+{
+  "clip_id": "synth_013",
+  "audio_file": "synth_013.wav",
+  "transcript": "Many big contractor refuse to pay the laborers them for the work we them do.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

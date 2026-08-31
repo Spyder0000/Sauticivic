@@ -1,0 +1,10 @@
+{
+  "clip_id": "synth_010",
+  "audio_file": "synth_010.wav",
+  "transcript": "Something happen for my area, I no know wetin to do.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

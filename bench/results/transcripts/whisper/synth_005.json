@@ -1,0 +1,19 @@
+{
+  "clip_id": "synth_005",
+  "audio_file": "synth_005.wav",
+  "transcript": "My landlord won't evict me and refused to return my rent deposit.",
+  "language": "en",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 4.96,
+      "text": "My landlord won't evict me and refused to return my rent deposit.",
+      "avg_logprob": -0.28570575184292263,
+      "no_speech_prob": 0.020588373765349388
+    }
+  ],
+  "error": null
+}

@@ -1,0 +1,10 @@
+{
+  "clip_id": "synth_025",
+  "audio_file": "synth_025.wav",
+  "transcript": "Now all the tree for our street now everywhere hot and dusty.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

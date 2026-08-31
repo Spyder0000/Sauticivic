@@ -1,0 +1,10 @@
+{
+  "clip_id": "synth_020",
+  "audio_file": "synth_020.wav",
+  "transcript": "My oga refused to give me my final entitlement after I had worked for the company 10 years.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

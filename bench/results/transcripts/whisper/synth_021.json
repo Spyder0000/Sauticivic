@@ -1,0 +1,19 @@
+{
+  "clip_id": "synth_021",
+  "audio_file": "synth_021.wav",
+  "transcript": "The estate security beat my son and locked him for gay's house without informing anybody.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 4.5,
+      "text": "The estate security beat my son and locked him for gay's house without informing anybody.",
+      "avg_logprob": -0.6830221652984619,
+      "no_speech_prob": 0.0008403945830650628
+    }
+  ],
+  "error": null
+}

@@ -1,0 +1,19 @@
+{
+  "clip_id": "synth_029",
+  "audio_file": "synth_029.wav",
+  "transcript": "I won't report what happened yesterday but I know who go and do lam.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 4.0,
+      "text": "I won't report what happened yesterday but I know who go and do lam.",
+      "avg_logprob": -0.6044836044311523,
+      "no_speech_prob": 0.0006197614711709321
+    }
+  ],
+  "error": null
+}

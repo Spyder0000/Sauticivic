@@ -1,0 +1,19 @@
+{
+  "clip_id": "synth_020",
+  "audio_file": "synth_020.wav",
+  "transcript": "my older refused to give me my final entertainment after i'd worked for the company 10 years",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 10.88,
+      "text": "my older refused to give me my final entertainment after i'd worked for the company 10 years",
+      "avg_logprob": -0.6986531303042457,
+      "no_speech_prob": 0.0008994863601401448
+    }
+  ],
+  "error": null
+}

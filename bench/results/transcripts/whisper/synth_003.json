@@ -1,0 +1,26 @@
+{
+  "clip_id": "synth_003",
+  "audio_file": "synth_003.wav",
+  "transcript": "The street lights for Ojorta Junction know they work. You don't dark where we're.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 3.1,
+      "text": "The street lights for Ojorta Junction know they work.",
+      "avg_logprob": -0.5267037244943472,
+      "no_speech_prob": 0.006906311027705669
+    },
+    {
+      "start": 3.58,
+      "end": 4.54,
+      "text": "You don't dark where we're.",
+      "avg_logprob": -0.5267037244943472,
+      "no_speech_prob": 0.006906311027705669
+    }
+  ],
+  "error": null
+}

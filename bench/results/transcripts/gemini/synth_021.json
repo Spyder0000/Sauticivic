@@ -1,0 +1,10 @@
+{
+  "clip_id": "synth_021",
+  "audio_file": "synth_021.wav",
+  "transcript": "The SD security beat my son and lock him for gate house without informing anybody.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

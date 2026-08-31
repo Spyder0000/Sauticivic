@@ -1,0 +1,10 @@
+{
+  "clip_id": "synth_018",
+  "audio_file": "synth_018.wav",
+  "transcript": "Refuse dey pile up for Mushin market, nobody don come carry am for two weeks.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

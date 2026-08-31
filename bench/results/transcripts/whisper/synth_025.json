@@ -1,0 +1,19 @@
+{
+  "clip_id": "synth_025",
+  "audio_file": "synth_025.wav",
+  "transcript": "��i me ti driver xong pi i wo zi tè grijannée Ǝpq boîi əkẹni aw əmpo qui kuwa.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 4.14,
+      "text": "��i me ti driver xong pi i wo zi tè grijannée Ǝpq boîi əkẹni aw əmpo qui kuwa.",
+      "avg_logprob": -4.950304303850446,
+      "no_speech_prob": 0.008221675641834736
+    }
+  ],
+  "error": null
+}

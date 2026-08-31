@@ -1,0 +1,10 @@
+{
+  "clip_id": "synth_024",
+  "audio_file": "synth_024.wav",
+  "transcript": "My husband don't chase me and the children come out for house, refuse to give us money for feeding.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

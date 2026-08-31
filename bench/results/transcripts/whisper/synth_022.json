@@ -1,0 +1,19 @@
+{
+  "clip_id": "synth_022",
+  "audio_file": "synth_022.wav",
+  "transcript": "My business partner don't run away with our joint account money, refused to answer my call.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 4.62,
+      "text": "My business partner don't run away with our joint account money, refused to answer my call.",
+      "avg_logprob": -0.09418106079101562,
+      "no_speech_prob": 0.0030288370326161385
+    }
+  ],
+  "error": null
+}

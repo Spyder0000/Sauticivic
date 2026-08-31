@@ -1,0 +1,19 @@
+{
+  "clip_id": "synth_014",
+  "audio_file": "synth_014.wav",
+  "transcript": "Pa a don kod fwa wa ST Edison last week, ne pa no kom fik son.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 5.34,
+      "text": "Pa a don kod fwa wa ST Edison last week, ne pa no kom fik son.",
+      "avg_logprob": -0.5720498043557872,
+      "no_speech_prob": 0.013500077649950981
+    }
+  ],
+  "error": null
+}

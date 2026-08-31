@@ -1,0 +1,19 @@
+{
+  "clip_id": "synth_002",
+  "audio_file": "synth_002.wav",
+  "transcript": "Water done burst for our street since morning. Everywhere done flowed oil.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 6.0,
+      "text": "Water done burst for our street since morning. Everywhere done flowed oil.",
+      "avg_logprob": -0.8233070373535156,
+      "no_speech_prob": 0.02254912629723549
+    }
+  ],
+  "error": null
+}
