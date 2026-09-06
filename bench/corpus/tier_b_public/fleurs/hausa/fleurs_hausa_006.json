@@ -1,0 +1,11 @@
+{
+  "audio_file": "fleurs_hausa_006.wav",
+  "transcript": "tabbas da akwai bayanai daga koyarwar addinin kirista kan wannan al'adar amma dai yana iya kasancewa shekaru ne gabanin bayyanar kiristanci",
+  "language": "Hausa (ha_ng)",
+  "dataset_source": "fleurs",
+  "duration_sec": 25.2,
+  "cmi": null,
+  "clip_type": "accent",
+  "was_trimmed": false,
+  "tier": "B"
+}

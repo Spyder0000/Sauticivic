@@ -1,0 +1,11 @@
+{
+  "audio_file": "fleurs_hausa_003.wav",
+  "transcript": "a kan iyakar tsibirin da ke kusa da alama ba za a karɓa ba kodayake ana iya karɓar kuɗin birtaniya da amurka bincika tare da masu shi don sanin menene hanyar biyan kuɗi da za a karɓa",
+  "language": "Hausa (ha_ng)",
+  "dataset_source": "fleurs",
+  "duration_sec": 28.32,
+  "cmi": null,
+  "clip_type": "accent",
+  "was_trimmed": false,
+  "tier": "B"
+}

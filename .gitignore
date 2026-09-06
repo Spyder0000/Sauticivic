@@ -36,6 +36,11 @@ frontend/build/
 *.webm
 *.flac
 *.m4a
+*.aac
+*.opus
+*.wma
+*.aiff
+*.pcm
 
 # Database
 *.db

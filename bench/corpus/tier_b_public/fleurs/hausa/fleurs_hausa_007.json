@@ -1,0 +1,11 @@
+{
+  "audio_file": "fleurs_hausa_007.wav",
+  "transcript": "amfani da rikodin bidiyo ya haifar da bincike mai mahimmanci a cikin fassara bayanan fuska motsin fuska waɗanda ba sa wuce lokaci ƙalilan",
+  "language": "Hausa (ha_ng)",
+  "dataset_source": "fleurs",
+  "duration_sec": 13.92,
+  "cmi": null,
+  "clip_type": "accent",
+  "was_trimmed": false,
+  "tier": "B"
+}

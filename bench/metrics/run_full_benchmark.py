@@ -25,6 +25,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 _REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(_REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(_REPO_ROOT))
 _BACKEND = _REPO_ROOT / "backend"
 if str(_BACKEND) not in sys.path:
     sys.path.insert(0, str(_BACKEND))
@@ -178,10 +180,154 @@ def _run_oracle_by_model(corpus_path: Path, transcripts_root: Path) -> dict:
     }
 
 
+def _extract_candidate_entities(text: str) -> list[str]:
+    """Extract candidate named entities/proper nouns from text as evaluation targets."""
+    words = [w.strip(".,;:?!\"'()") for w in text.split()]
+    entities = []
+    for i, w in enumerate(words):
+        if len(w) > 1 and w[0].isupper() and (i > 0 or not w.islower()):
+            entities.append(w.lower())
+    return list(set(entities))
+
+
+def _evaluate_entity_recall(hypothesis: str, entities: list[str]) -> float:
+    """Calculate recall fraction of target entities surviving in hypothesis."""
+    if not entities:
+        return 1.0
+    hyp_lower = hypothesis.lower()
+    found = sum(1 for e in entities if e in hyp_lower)
+    return found / len(entities)
+
+
+def _run_tier_b_eval(tier_b_corpus_path: Path, transcripts_root: Path) -> dict:
+    """Evaluate Tier B public dataset clips for WER and entity accuracy only.
+
+    Explicitly skips downstream routing accuracy as Tier B public clips do not
+    have municipal infrastructure / legal aid domain annotations.
+    """
+    if not tier_b_corpus_path.exists():
+        return {
+            "status": "pending_ingestion",
+            "scope": "WER and entity accuracy only (downstream routing intentionally skipped)",
+            "clips_count": 0,
+            "note": f"Tier B ground truth file not found at {tier_b_corpus_path}. Ingestion pending.",
+            "per_model": {m: {"status": "pending_ingestion"} for m in _MODELS},
+        }
+
+    try:
+        tier_b_clips = _load_corpus(tier_b_corpus_path)
+    except Exception as exc:
+        return {
+            "status": "error",
+            "reason": f"Failed to load Tier B corpus: {exc}",
+            "clips_count": 0,
+            "per_model": {m: {"status": "error"} for m in _MODELS},
+        }
+
+    if not tier_b_clips:
+        return {
+            "status": "pending_ingestion",
+            "scope": "WER and entity accuracy only (downstream routing intentionally skipped)",
+            "clips_count": 0,
+            "note": "Tier B corpus is empty. Run bench/corpus/tier_b_public/ingest_tier_b.py to populate clips.",
+            "per_model": {m: {"status": "pending_ingestion"} for m in _MODELS},
+        }
+
+    ref_by_id = {c["clip_id"]: c["transcript"] for c in tier_b_clips}
+    entities_by_id: dict[str, list[str]] = {}
+    for c in tier_b_clips:
+        cid = c["clip_id"]
+        exp_ent = c.get("expected_entities")
+        if isinstance(exp_ent, dict):
+            entities_by_id[cid] = [str(v).lower() for v in exp_ent.values()]
+        elif isinstance(exp_ent, list):
+            entities_by_id[cid] = [str(v).lower() for v in exp_ent]
+        else:
+            entities_by_id[cid] = _extract_candidate_entities(c.get("transcript", ""))
+
+    per_model: dict[str, dict] = {}
+    any_found = False
+
+    for model in _MODELS:
+        transcripts = _load_model_transcripts(transcripts_root, model)
+        if not transcripts:
+            tier_b_model_dir = transcripts_root / "tier_b"
+            if tier_b_model_dir.is_dir():
+                transcripts = _load_model_transcripts(tier_b_model_dir, model)
+
+        matching_ids = [cid for cid in ref_by_id if cid in transcripts]
+        if not matching_ids:
+            per_model[model] = {
+                "status": "not_available",
+                "reason": f"No Tier B transcripts found for {model}",
+                "downstream_routing_accuracy": "skipped (Tier B clips lack municipal/legal domain labels)",
+            }
+            continue
+
+        any_found = True
+        clips = [
+            {"clip_id": cid, "hypothesis": transcripts[cid], "reference": ref_by_id[cid]}
+            for cid in matching_ids
+        ]
+        wer_res = corpus_wer(clips)
+
+        entity_scores = [
+            _evaluate_entity_recall(transcripts[cid], entities_by_id.get(cid, []))
+            for cid in matching_ids
+        ]
+        mean_entity_acc = sum(entity_scores) / len(entity_scores) if entity_scores else 1.0
+
+        by_source: dict[str, list[dict]] = {}
+        for c in tier_b_clips:
+            cid = c["clip_id"]
+            if cid in transcripts:
+                src = c.get("dataset_source", "unknown")
+                by_source.setdefault(src, []).append({
+                    "clip_id": cid,
+                    "hypothesis": transcripts[cid],
+                    "reference": c["transcript"],
+                })
+
+        source_breakdown = {}
+        for src, s_clips in by_source.items():
+            s_wer = corpus_wer(s_clips)
+            s_ent_scores = [
+                _evaluate_entity_recall(c["hypothesis"], entities_by_id.get(c["clip_id"], []))
+                for c in s_clips
+            ]
+            source_breakdown[src] = {
+                "clips_scored": len(s_clips),
+                "corpus_wer": s_wer["corpus_wer"],
+                "entity_accuracy": sum(s_ent_scores) / len(s_ent_scores) if s_ent_scores else 1.0,
+            }
+
+        per_model[model] = {
+            "status": "ok",
+            "corpus_wer": wer_res["corpus_wer"],
+            "entity_accuracy": mean_entity_acc,
+            "clips_scored": len(matching_ids),
+            "by_dataset_source": source_breakdown,
+            "downstream_routing_accuracy": "skipped (Tier B clips lack municipal/legal domain labels)",
+        }
+
+    return {
+        "status": "ok" if any_found else "not_available",
+        "scope": "WER and entity accuracy only (downstream routing intentionally skipped)",
+        "total_clips": len(tier_b_clips),
+        "note": (
+            "Tier B evaluates acoustic ASR generalization across independently collected data "
+            "(AfriSwitch, FLEURS, AfriSpeech). Downstream classification accuracy is intentionally "
+            "skipped because public clips lack civic infrastructure and legal aid domain annotations."
+        ),
+        "per_model": per_model,
+    }
+
+
 def run_full_benchmark(
     corpus_path: Path | str | None = None,
     results_dir: Path | str | None = None,
     adversarial_path: Path | str | None = None,
+    tier_b_corpus_path: Path | str | None = None,
 ) -> dict:
     """Run complete benchmark suite and write results."""
     corpus_path = Path(corpus_path) if corpus_path else (
@@ -192,6 +338,9 @@ def run_full_benchmark(
     )
     adversarial_path = Path(adversarial_path) if adversarial_path else (
         _REPO_ROOT / "bench" / "corpus" / "adversarial_cases.json"
+    )
+    tier_b_corpus_path = Path(tier_b_corpus_path) if tier_b_corpus_path else (
+        _REPO_ROOT / "bench" / "corpus" / "tier_b_public" / "ground_truth_tier_b.json"
     )
     results_dir.mkdir(parents=True, exist_ok=True)
     transcripts_root = results_dir / "transcripts"
@@ -272,6 +421,17 @@ def run_full_benchmark(
     else:
         print(f"  Degraded: {speaker_equity.get('reason', 'not enough data')}")
 
+    # --- 8. Tier B Public Dataset Evaluation (WER + Entity Accuracy only) ---
+    print("Running Tier B public dataset evaluation (WER + entity accuracy only)...")
+    tier_b_results = _run_tier_b_eval(tier_b_corpus_path, transcripts_root)
+    if tier_b_results["status"] == "ok":
+        print(f"  Done: {tier_b_results['total_clips']} Tier B clips evaluated across {len(tier_b_results['per_model'])} models")
+        for model, r in tier_b_results["per_model"].items():
+            if r.get("status") == "ok":
+                print(f"    {model}: WER {r['corpus_wer']:.1%}, Entity Recall {r['entity_accuracy']:.1%} ({r['clips_scored']} clips)")
+    else:
+        print(f"  Tier B status: {tier_b_results['status']} ({tier_b_results.get('note', '')[:70]}...)")
+
     # --- Assemble results ---
     results = {
         "version": f"v{version}",
@@ -282,6 +442,18 @@ def run_full_benchmark(
             "type": "synthetic_text_only",
             "notes": _describe_corpus(corpus),
         },
+        "tier_a": {
+            "corpus_type": "tier_a_recorded",
+            "total_clips": downstream["metrics"]["total_clips"],
+            "downstream_accuracy": downstream["metrics"],
+            "wer": wer_results,
+            "oracle_comparison": oracle["summary"],
+            "oracle_comparison_by_model": oracle_by_model,
+            "calibration_analysis": calibration,
+            "adversarial_stress_test": adversarial,
+            "speaker_equity_analysis": speaker_equity,
+        },
+        "tier_b": tier_b_results,
         "downstream_accuracy": downstream["metrics"],
         "wer": wer_results,
         "oracle_comparison": oracle["summary"],
@@ -308,6 +480,8 @@ def run_full_benchmark(
             "WER normalization expands Naija contractions approximately (no->not, na->is, "
             "e->it, dey->is) — a documented scoring choice, not a defect.",
             "Threshold τ=0.70 is tuned against the mock classifier; must be re-derived for real backends.",
+            "Tier B evaluates WER and entity accuracy only — downstream routing accuracy is intentionally "
+            "skipped as public datasets lack civic infrastructure/legal domain labels.",
         ],
     }
 
@@ -374,6 +548,18 @@ def run_full_benchmark(
     print(f"\n  Oracle comparison (baseline):")
     for bucket, count in s["buckets"].items():
         print(f"    {bucket}: {count}")
+
+    print(f"\n  Tier B Public Dataset Results (WER & Entity Accuracy Only):")
+    print(f"    Scope: {tier_b_results.get('scope', 'WER and entity accuracy only')}")
+    if tier_b_results["status"] == "ok":
+        for model, r in tier_b_results["per_model"].items():
+            if r.get("status") == "ok":
+                print(f"    {model}: WER={r['corpus_wer']:.1%} | Entity Acc={r['entity_accuracy']:.1%} ({r['clips_scored']} clips)")
+            else:
+                print(f"    {model}: {r.get('reason', 'not available')}")
+    else:
+        print(f"    Status: {tier_b_results['status']} — {tier_b_results.get('note', '')}")
+    print(f"    Methodology Note: Downstream routing accuracy skipped — public clips lack municipal/legal domain labels.")
 
     print(f"\n  LIMITATION: {s['limitation']}")
     print(f"{'='*70}")

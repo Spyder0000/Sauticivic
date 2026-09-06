@@ -1,0 +1,11 @@
+{
+  "audio_file": "afriswitch_hau_008.wav",
+  "transcript": "",
+  "language": "Hausa-English",
+  "dataset_source": "afriswitch",
+  "duration_sec": 11.07,
+  "cmi": 14.630000114440918,
+  "clip_type": "code_switched",
+  "was_trimmed": false,
+  "tier": "B"
+}

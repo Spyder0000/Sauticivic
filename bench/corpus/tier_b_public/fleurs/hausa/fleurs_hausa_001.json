@@ -1,0 +1,11 @@
+{
+  "audio_file": "fleurs_hausa_001.wav",
+  "transcript": "mintuna biyar da fara nunin wata iska ya fara shigowa ciki kusan minti daya daga baya iskar ta doshi 70km/h... daga baya ruwan sama yazo amma da yawa da karfinsa ya sauko yadda zai bugi fatarka kamar allura saannan wani kankara ya fado daga sama mutane suna firgita suna kururuwa suna tattake juna",
+  "language": "Hausa (ha_ng)",
+  "dataset_source": "fleurs",
+  "duration_sec": 43.74,
+  "cmi": null,
+  "clip_type": "accent",
+  "was_trimmed": false,
+  "tier": "B"
+}

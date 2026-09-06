@@ -1,0 +1,11 @@
+{
+  "audio_file": "afriswitch_yor_006.wav",
+  "transcript": "",
+  "language": "Yoruba-English",
+  "dataset_source": "afriswitch",
+  "duration_sec": 6.69,
+  "cmi": 36.36000061035156,
+  "clip_type": "code_switched",
+  "was_trimmed": false,
+  "tier": "B"
+}

@@ -200,7 +200,46 @@ These three analyses go beyond what other teams' benchmark reports have typicall
    - **Why chosen:** Directly addresses the **Ethics & Inclusion criterion**. For a voice-first civic bridge mediating access to public services and legal remedies across diverse Nigerian demographics, uniform aggregate metrics can hide severe acoustic, dialectal, or speaker-specific failure modes. Uneven performance across voices/accents is an urgent civic equity failure, not a technical curiosity.
    - **Methodology:** Evaluates WER (when transcripts are available), classification-exact, and artifact-corrupted rates disaggregated by `speaker_id` (recorded in `ground_truth.json` mapped from `DATA_CONSENT_LOG.md`), flagging any demographic disparities exceeding tolerance thresholds (e.g. >10 percentage points delta from corpus average).
 
-### 4.8 Version transparency
+### 4.8 Tier B Public Dataset Ingestion Plan
+
+#### Tier B Dataset Strategy
+- **Target:** 60 clips total across 3 datasets and 4 language pairs.
+- **Max clip duration:** 60 seconds (1 minute). Clips exceeding this are trimmed to the first 60 seconds, not discarded — a 90-second clip trimmed to 60 seconds is still useful. Clips under 3 seconds are discarded — too short for meaningful WER.
+- **Why 60 clips:**
+  - Our Tier A has 30 clips from 2 speakers. Tier B at 60 clips gives us a 2:1 public-to-private ratio, showing generalization beyond our own voices without overwhelming the evaluation with data we didn't label ourselves.
+  - At ~15-60s per clip, 60 clips = approximately 30-45 minutes of real code-switched audio across 4 language pairs — enough to compute per-language WER with statistical meaning but small enough to run through 4 API models without significant cost or time.
+  - This matches the scale of the Phase 1 winning team's benchmark (40 clips) while covering more language pairs.
+- **Selection strategy (CMI-prioritized):**
+  - Always sort by Code-Mixing Index (CMI) descending before sampling.
+  - CMI measures how much language mixing occurs per utterance — higher CMI = more code-switching = more relevant to our research question. Taking the top N clips by CMI ensures our Tier B specifically tests code-switching performance, not just accented-English ASR.
+
+#### Dataset 1: AfriSwitch (Primary — 30 clips)
+- **Source:** `intronhealth/AfriSwitch` (HuggingFace, CC BY-NC-SA 4.0)
+- **Language pairs:** Pidgin-English (10), Yoruba-English (10), Hausa-English (10)
+- **Why chosen:** Same organization as Sahara (Intron Health) — directly validates Sahara's claimed advantage on its own training-adjacent data. Natural, spontaneous code-switching with CMI metadata already provided.
+- **License note:** Used for evaluation only, never redistributed, fetched at runtime, not bundled in repo.
+
+#### Dataset 2: FLEURS Nigerian Languages (15 clips)
+- **Source:** `google/fleurs` (HuggingFace, CC BY 4.0)
+- **Language pairs:** Hausa (`hau_NG`, 8 clips), Yoruba (`yor_NG`, 7 clips)
+- **Why chosen:** Google's own multilingual benchmark dataset — recognized by any judge familiar with speech research as an independent, credible evaluation source. Shows our system performs on audio that neither Intron nor our team collected.
+- **Note:** FLEURS clips are single-language, not code-switched — label them honestly as "accented Nigerian language" clips, not code-switching clips. They test accent robustness, not code-switching specifically.
+
+#### Dataset 3: AfriSpeech-200 Nigerian Subset (15 clips)
+- **Source:** `tobiolatunji/afrispeech-200` (HuggingFace, CC BY 4.0)
+- **Language:** Nigerian-accented English (`accent_area: "Nigeria"`)
+- **Why chosen:** Specifically tests named-entity recognition in Nigerian speech — directly relevant to our biggest observed Sahara weakness (geographic entity degradation: "aleena venue" vs "Allen Avenue"). Contains proper nouns, clinic names, location references in Nigerian speech context.
+- **Selection:** Filter to Nigerian accents only, sort by transcript length descending (longer = more named entities = more useful for entity accuracy measurement).
+
+#### Ground Truth for Tier B
+All three datasets include human transcriptions — use the dataset's own transcript field as ground truth directly. Do NOT re-transcribe. Do NOT use your own labelers for Tier B — the published labels are the ground truth. Cite the dataset's labeling methodology in `BENCHMARK_REPORT.md`.
+
+#### What Tier B Proves vs What It Cannot Prove
+- **Tier B proves:** ASR generalization beyond our own voices and scripts, across independently-collected data in 4 language pairs.
+- **Tier B cannot prove:** End-to-end pipeline classification accuracy (Tier B clips have no infrastructure/legal/ambiguous labels — they are used for WER and entity accuracy only, not downstream routing accuracy).
+- State this distinction explicitly in the report. The full end-to-end pipeline evaluation remains Tier A only.
+
+### 4.9 Version transparency
 Every methodology correction gets a new results file (`v1_results.json`, `v2_results.json`...), preserved, with a documented before/after delta in `REPORT.md`. Never silently overwrite a prior run.
 
 ---

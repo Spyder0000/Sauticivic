@@ -104,6 +104,22 @@ State of the art tiering derived directly from empirical findings:
 
 *(Tier B expanded field audio results are pending).*
 
+### Tier B Dataset Plan (Expanded Public Evaluation)
+
+To demonstrate acoustic and entity generalization beyond our own voices and scripts without conflating public data with our end-to-end routing labels, Tier B introduces a **60-clip public evaluation suite** across three datasets and four language pairs.
+
+| Public Dataset | Source / HuggingFace ID | License | Language Pairs / Subset | Clips | Selection Strategy | Evaluation Status |
+|---|---|---|---|---|---|---|
+| **AfriSwitch** | [`intronhealth/AfriSwitch`](https://huggingface.co/datasets/intronhealth/AfriSwitch) | CC BY-NC-SA 4.0 | Pidgin-English (10)<br>Yoruba-English (10)<br>Hausa-English (10) | 30 | CMI (Code-Mixing Index) descending | **Planned — ingestion pending** |
+| **FLEURS** | [`google/fleurs`](https://huggingface.co/datasets/google/fleurs) | CC BY 4.0 | Hausa `hau_NG` (8)<br>Yoruba `yor_NG` (7) | 15 | Transcript length descending | **Planned — ingestion pending** |
+| **AfriSpeech-200** | [`tobiolatunji/afrispeech-200`](https://huggingface.co/datasets/tobiolatunji/afrispeech-200) | CC BY 4.0 | Nigerian-accented English (`accent_area: "Nigeria"`) | 15 | Transcript length descending (named entities) | **Planned — ingestion pending** |
+
+> [!NOTE]
+> **Methodological Note: What Tier B Proves vs. What It Cannot Prove**
+> - **Tier B Proves:** ASR acoustic and named-entity transcription generalization beyond our own voices and scripts, across independently-collected data in 4 language pairs (Pidgin, Yoruba, Hausa, Nigerian English).
+> - **Tier B Cannot Prove:** End-to-end pipeline classification accuracy (Tier B clips have no municipal infrastructure, legal aid, or ambiguity labels — they are evaluated strictly for Word Error Rate and entity recall, never downstream routing accuracy).
+> - The full end-to-end pipeline evaluation remains Tier A only. Tier B results are reported separately in results logs and never averaged with Tier A.
+
 ---
 
 ## 4. Known Safety Gaps (Adversarially Discovered)
