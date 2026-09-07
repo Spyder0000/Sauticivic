@@ -1,0 +1,10 @@
+{
+  "clip_id": "fleurs_hausa_002",
+  "audio_file": "fleurs_hausa_002.wav",
+  "transcript": "Ciddi bir helikopterde adet, şiddet, demokrasiye, taat, asaroit, tarla, taat, 8, 80, Tekinapanci, Zakoviç ve Rahip'i savaşan sayın.",
+  "language": "tr",
+  "confidence": 0.55389404,
+  "backend": "deepgram",
+  "model": "nova-3",
+  "error": null
+}

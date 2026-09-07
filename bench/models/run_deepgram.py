@@ -79,43 +79,52 @@ def discover_audio_files(corpus_dir: Path, clip_id: str | None = None) -> list[P
 # Single-clip transcription
 # ---------------------------------------------------------------------------
 
-def transcribe_clip(audio_path: Path, transcriber, options, model_name: str) -> dict:
-    """Transcribe one audio file via Deepgram. Returns a result dict.
+import httpx
 
-    Args:
-        audio_path:  Path to the audio file.
-        transcriber: A Deepgram REST transcription handle (``.transcribe_file``).
-        options:     A PrerecordedOptions instance (model, smart_format, ...).
-        model_name:  Model name, stored in the output for audit.
-    """
-    try:
-        payload = {"buffer": audio_path.read_bytes()}
-        response = transcriber.transcribe_file(payload, options)
+_DEEPGRAM_TIMEOUT = httpx.Timeout(180.0, connect=30.0, write=120.0, read=120.0)
 
-        # Deepgram v3 response: results.channels[0].alternatives[0]
-        channel = response.results.channels[0]
-        alt = channel.alternatives[0]
-        return {
-            "clip_id": audio_path.stem,
-            "audio_file": str(audio_path.name),
-            "transcript": (alt.transcript or "").strip(),
-            "language": getattr(channel, "detected_language", None),
-            "confidence": getattr(alt, "confidence", None),
-            "backend": "deepgram",
-            "model": model_name,
-            "error": None,
-        }
-    except Exception as exc:  # noqa: BLE001
-        return {
-            "clip_id": audio_path.stem,
-            "audio_file": str(audio_path.name),
-            "transcript": "",
-            "language": None,
-            "confidence": None,
-            "backend": "deepgram",
-            "model": model_name,
-            "error": str(exc),
-        }
+def transcribe_clip(audio_path: Path, transcriber, options, model_name: str, max_retries: int = 3) -> dict:
+    """Transcribe one audio file via Deepgram with generous timeouts and retries."""
+    payload = {"buffer": audio_path.read_bytes()}
+    last_exc = None
+
+    for attempt in range(1, max_retries + 1):
+        try:
+            response = transcriber.transcribe_file(payload, options, timeout=_DEEPGRAM_TIMEOUT)
+
+            # Deepgram v3 response: results.channels[0].alternatives[0]
+            channel = response.results.channels[0]
+            alt = channel.alternatives[0]
+            return {
+                "clip_id": audio_path.stem,
+                "audio_file": str(audio_path.name),
+                "transcript": (alt.transcript or "").strip(),
+                "language": getattr(channel, "detected_language", None),
+                "confidence": getattr(alt, "confidence", None),
+                "backend": "deepgram",
+                "model": model_name,
+                "error": None,
+            }
+        except Exception as exc:  # noqa: BLE001
+            last_exc = exc
+            err_str = str(exc).lower()
+            if attempt < max_retries and any(k in err_str for k in ("timeout", "timed out", "408", "getaddrinfo", "connection", "reset")):
+                wait_sec = attempt * 3.0
+                print(f" [Network retry in {wait_sec:.0f}s ({attempt}/{max_retries})] ...", end=" ", flush=True)
+                time.sleep(wait_sec)
+                continue
+            break
+
+    return {
+        "clip_id": audio_path.stem,
+        "audio_file": str(audio_path.name),
+        "transcript": "",
+        "language": None,
+        "confidence": None,
+        "backend": "deepgram",
+        "model": model_name,
+        "error": str(last_exc),
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -173,14 +182,13 @@ def run_deepgram(
         raise SystemExit(1)
 
     # Lazy import — keeps the module importable locally (dry-run, tests) without
-    # the SDK installed. On Colab: !pip install deepgram-sdk==3.8.1
+    # the SDK installed. On Colab: !pip install deepgram-sdk==3.8.0
     try:
         from deepgram import DeepgramClient, PrerecordedOptions  # type: ignore[import]
     except ImportError as exc:
         print(
             "ERROR: deepgram-sdk is not installed.\n"
-            "On Colab: !pip install deepgram-sdk==3.8.1\n"
-            "This script is designed to run on Colab/cloud, not locally."
+            "Run: pip install deepgram-sdk==3.8.0\n"
         )
         raise SystemExit(1) from exc
 

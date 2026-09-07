@@ -1,0 +1,10 @@
+{
+  "clip_id": "afrispeech_ng_001",
+  "audio_file": "afrispeech_ng_001.wav",
+  "transcript": "In particular, comma, they looked for signs of abrupt, comma, systemizing white transitions, comma, such as when a grassland becomes a forest, comma, or when an oak forest sprouts up where a spruce forest once was forced up.",
+  "language": "en",
+  "confidence": 0.9951172,
+  "backend": "deepgram",
+  "model": "nova-3",
+  "error": null
+}

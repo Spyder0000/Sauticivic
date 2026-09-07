@@ -1,0 +1,10 @@
+{
+  "clip_id": "fleurs_hausa_008",
+  "audio_file": "fleurs_hausa_008.wav",
+  "transcript": "Aristotel mesenim falsafah ini. Yay cnanci oaku meyak unchic chakut dhateya, ovia dhate abu buah hụn, sengkasan ce ce ce ce ce ce ce ce ce ce ce",
+  "language": "id",
+  "confidence": 0.48250327,
+  "backend": "deepgram",
+  "model": "nova-3",
+  "error": null
+}

@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_yor_002",
+  "audio_file": "afriswitch_yor_002.wav",
+  "transcript": "Make impression as a big girl. Many occasion to value. One of the things. Watch me. Show me.",
+  "language": "en",
+  "confidence": 0.9614258,
+  "backend": "deepgram",
+  "model": "nova-3",
+  "error": null
+}

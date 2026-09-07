@@ -1,0 +1,10 @@
+{
+  "clip_id": "afrispeech_ng_015",
+  "audio_file": "afrispeech_ng_015.wav",
+  "transcript": "The victim and his stepfather were forced into a vehicle where the child was detained assaulted, first of",
+  "language": "en",
+  "confidence": 0.9835612,
+  "backend": "deepgram",
+  "model": "nova-3",
+  "error": null
+}

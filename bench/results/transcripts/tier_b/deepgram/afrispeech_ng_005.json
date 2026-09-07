@@ -1,0 +1,10 @@
+{
+  "clip_id": "afrispeech_ng_005",
+  "audio_file": "afrispeech_ng_005.wav",
+  "transcript": "In its brother strokes, comma, 40 acres of new Moor was their idea, first of",
+  "language": "en",
+  "confidence": 0.8322754,
+  "backend": "deepgram",
+  "model": "nova-3",
+  "error": null
+}

@@ -1,0 +1,10 @@
+{
+  "clip_id": "afrispeech_ng_013",
+  "audio_file": "afrispeech_ng_013.wav",
+  "transcript": "The movie tells the story of a group of teenagers who are murdered one by one by an unknown killer while attempting to re fend up on an abandoned summer camp. Full stop.",
+  "language": "en",
+  "confidence": 0.99609375,
+  "backend": "deepgram",
+  "model": "nova-3",
+  "error": null
+}

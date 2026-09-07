@@ -1,0 +1,10 @@
+{
+  "clip_id": "fleurs_hausa_005",
+  "audio_file": "fleurs_hausa_005.wav",
+  "transcript": "Mẹ đầu chết đã mất dầu nà Navilas",
+  "language": "vi",
+  "confidence": 0.5527344,
+  "backend": "deepgram",
+  "model": "nova-3",
+  "error": null
+}

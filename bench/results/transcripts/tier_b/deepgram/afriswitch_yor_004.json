@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_yor_004",
+  "audio_file": "afriswitch_yor_004.wav",
+  "transcript": "Enjoy your movie on Apata TV plus. Grandma, grandma. Business.",
+  "language": "en",
+  "confidence": 0.9543457,
+  "backend": "deepgram",
+  "model": "nova-3",
+  "error": null
+}

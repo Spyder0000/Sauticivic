@@ -1,0 +1,10 @@
+{
+  "clip_id": "afrispeech_ng_006",
+  "audio_file": "afrispeech_ng_006.wav",
+  "transcript": "For privacy reasons, colon, to sign in or register for most social media platforms, comma, you need to input your phone number, comma, email, comma, or any other personal detail, full stop.",
+  "language": "en",
+  "confidence": 0.99609375,
+  "backend": "deepgram",
+  "model": "nova-3",
+  "error": null
+}

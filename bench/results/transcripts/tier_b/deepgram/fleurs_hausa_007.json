@@ -1,0 +1,10 @@
+{
+  "clip_id": "fleurs_hausa_007",
+  "audio_file": "fleurs_hausa_007.wav",
+  "transcript": "I'm fine. The recording.",
+  "language": "en",
+  "confidence": 0.67285156,
+  "backend": "deepgram",
+  "model": "nova-3",
+  "error": null
+}

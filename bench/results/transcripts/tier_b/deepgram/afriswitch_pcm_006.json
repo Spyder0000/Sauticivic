@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_pcm_006",
+  "audio_file": "afriswitch_pcm_006.wav",
+  "transcript": "Must perform must get command performance. Okay. So now that will become an issue.",
+  "language": "en",
+  "confidence": 0.95336914,
+  "backend": "deepgram",
+  "model": "nova-3",
+  "error": null
+}

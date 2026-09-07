@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_yor_007",
+  "audio_file": "afriswitch_yor_007.wav",
+  "transcript": "I got pregnant. I'll be more one year.",
+  "language": "en",
+  "confidence": 0.9560547,
+  "backend": "deepgram",
+  "model": "nova-3",
+  "error": null
+}
