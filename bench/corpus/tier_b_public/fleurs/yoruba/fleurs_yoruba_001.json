@@ -1,0 +1,11 @@
+{
+  "audio_file": "fleurs_yoruba_001.wav",
+  "transcript": "àwọn èyàn ti mọ̀ nípa àwọn kemika pepe bí wúrà fàdákà àti kọ́pa àtijọ́ torípé a lè rí wọn ní ìṣẹ̀dá ní ipò àdáyéba wọn kò dẹ̀ le jù láti wú wọn jáda láti inú ilẹ̀ pẹ̀lú irinṣẹ́ àtilẹ̀bá",
+  "language": "Yoruba (yo_ng)",
+  "dataset_source": "fleurs",
+  "duration_sec": 26.28,
+  "cmi": null,
+  "clip_type": "accent",
+  "was_trimmed": false,
+  "tier": "B"
+}

@@ -1,0 +1,11 @@
+{
+  "audio_file": "afrispeech_ng_008.wav",
+  "transcript": "Both schools linked to the northern suburbs outbreak will open again soon, Mr Weimar said.",
+  "language": "Nigerian-accented English",
+  "dataset_source": "afrispeech",
+  "duration_sec": 7.39,
+  "cmi": null,
+  "clip_type": "accent",
+  "was_trimmed": false,
+  "tier": "B"
+}

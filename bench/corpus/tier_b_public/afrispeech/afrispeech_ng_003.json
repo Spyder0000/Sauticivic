@@ -1,0 +1,11 @@
+{
+  "audio_file": "afrispeech_ng_003.wav",
+  "transcript": "Her 22 year old sister Uzoechie lives w/ her in Kano and takes care of her.",
+  "language": "Nigerian-accented English",
+  "dataset_source": "afrispeech",
+  "duration_sec": 7.66,
+  "cmi": null,
+  "clip_type": "accent",
+  "was_trimmed": false,
+  "tier": "B"
+}

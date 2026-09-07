@@ -1,0 +1,11 @@
+{
+  "audio_file": "afrispeech_ng_009.wav",
+  "transcript": "This allowed people to find funny clips and discover new streamers.",
+  "language": "Nigerian-accented English",
+  "dataset_source": "afrispeech",
+  "duration_sec": 6.33,
+  "cmi": null,
+  "clip_type": "accent",
+  "was_trimmed": false,
+  "tier": "B"
+}

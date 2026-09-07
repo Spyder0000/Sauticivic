@@ -1,0 +1,11 @@
+{
+  "audio_file": "afrispeech_ng_007.wav",
+  "transcript": "Her immediate family lives in Bossier City, LA.",
+  "language": "Nigerian-accented English",
+  "dataset_source": "afrispeech",
+  "duration_sec": 4.85,
+  "cmi": null,
+  "clip_type": "accent",
+  "was_trimmed": false,
+  "tier": "B"
+}

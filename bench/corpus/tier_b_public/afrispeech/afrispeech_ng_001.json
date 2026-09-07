@@ -1,0 +1,11 @@
+{
+  "audio_file": "afrispeech_ng_001.wav",
+  "transcript": "In particular, they looked for signs of abrupt, system-wide transitions, such as when a grassland becomes a forest, or when an oak forest sprouts up where a spruce forest once was.",
+  "language": "Nigerian-accented English",
+  "dataset_source": "afrispeech",
+  "duration_sec": 19.91,
+  "cmi": null,
+  "clip_type": "accent",
+  "was_trimmed": false,
+  "tier": "B"
+}

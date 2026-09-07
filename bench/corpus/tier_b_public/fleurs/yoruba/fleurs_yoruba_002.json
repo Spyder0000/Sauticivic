@@ -1,0 +1,11 @@
+{
+  "audio_file": "fleurs_yoruba_002.wav",
+  "transcript": "ìtàkùn blog náà lè se ìrànwọ́ fún ìkọ̀wé àwọn akẹ́ẹ̀kọ́. nígbàtí àwọn akẹ́ẹ̀kọ́ bẹ̀rẹ̀ ìrírí ìtàkùn blog ti wọn pẹ̀lú ìlo èdè àti àkọtọ́ tó wọ́ wíwà nílẹ̀ àwọn èrò ma ń yí èyí padà",
+  "language": "Yoruba (yo_ng)",
+  "dataset_source": "fleurs",
+  "duration_sec": 17.64,
+  "cmi": null,
+  "clip_type": "accent",
+  "was_trimmed": false,
+  "tier": "B"
+}

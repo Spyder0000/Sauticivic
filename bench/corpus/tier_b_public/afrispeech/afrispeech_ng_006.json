@@ -1,0 +1,11 @@
+{
+  "audio_file": "afrispeech_ng_006.wav",
+  "transcript": "For privacy reasons:to sign in or register to most social media platforms, you need to input your phone number, email, or any other personal detail.",
+  "language": "Nigerian-accented English",
+  "dataset_source": "afrispeech",
+  "duration_sec": 15.72,
+  "cmi": null,
+  "clip_type": "accent",
+  "was_trimmed": false,
+  "tier": "B"
+}

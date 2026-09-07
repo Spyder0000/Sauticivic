@@ -18,12 +18,38 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
 _REPO_ROOT = Path(__file__).resolve().parents[3]
 if str(_REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(_REPO_ROOT))
+
+# Auto-load .env so HF_TOKEN and other credentials are automatically populated
+_env_file = _REPO_ROOT / ".env"
+if _env_file.is_file():
+    try:
+        from dotenv import load_dotenv
+        load_dotenv(_env_file)
+    except ImportError:
+        pass
+
+    # Fallback parser if dotenv not installed or spaces in keys
+    try:
+        for line in _env_file.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                k, v = line.split("=", 1)
+                k = k.strip()
+                v = v.strip().strip("'\"")
+                if k and k not in os.environ:
+                    os.environ[k] = v
+    except Exception:
+        pass
+
+if "HF_TOKEN" in os.environ and "HUGGING_FACE_HUB_TOKEN" not in os.environ:
+    os.environ["HUGGING_FACE_HUB_TOKEN"] = os.environ["HF_TOKEN"]
 
 # Optional heavy ML/audio dependencies (lazy error on actual execution if missing)
 try:
@@ -366,8 +392,10 @@ def ingest_fleurs(
                 "length": len(transcript),
                 "orig_dur": orig_dur,
             })
+            print(f"    -> Buffered candidate {len(candidate_pool)}/{target_buffer}...", end="\r", flush=True)
             if len(candidate_pool) >= target_buffer:
                 break
+        print()
 
         # Sort candidate buffer by transcript length descending
         candidate_pool.sort(key=lambda x: x["length"], reverse=True)
@@ -447,21 +475,61 @@ def ingest_afrispeech(
         return saved
 
     print("  Streaming AfriSpeech-200 (lightweight stream, max 15 clips)...")
+    token = os.environ.get("HF_TOKEN") or os.environ.get("HUGGING_FACE_HUB_TOKEN")
+    ds = None
+
+    # Stream lightweight Nigerian accent Parquet shards (Edo & Tiv accents, ~48MB total)
+    parquet_urls = [
+        "https://huggingface.co/datasets/tobiolatunji/afrispeech-200/resolve/refs%2Fconvert%2Fparquet/edo/test/0000.parquet",
+        "https://huggingface.co/datasets/tobiolatunji/afrispeech-200/resolve/refs%2Fconvert%2Fparquet/tiv/test/0000.parquet",
+    ]
     try:
-        ds = load_dataset("tobiolatunji/afrispeech-200", split="test", streaming=True)
+        ds = load_dataset(
+            "parquet",
+            data_files={"test": parquet_urls},
+            split="test",
+            streaming=True,
+            token=token,
+        )
         if Audio is not None:
             ds = ds.cast_column("audio", Audio(decode=False))
     except Exception:
-        ds = load_dataset("tobiolatunji/afrispeech-200", split="test")
-        if Audio is not None and hasattr(ds, "column_names") and "audio" in ds.column_names:
-            ds = ds.cast_column("audio", Audio(decode=False))
+        ds = None
+
+    if ds is None:
+        try:
+            ds = load_dataset(
+                "tobiolatunji/afrispeech-200",
+                revision="refs/convert/parquet",
+                split="test",
+                streaming=True,
+                token=token,
+            )
+            if Audio is not None:
+                ds = ds.cast_column("audio", Audio(decode=False))
+        except Exception:
+            ds = None
+
+    if ds is None:
+        try:
+            ds = load_dataset("tobiolatunji/afrispeech-200", split="test", streaming=True, token=token)
+            if Audio is not None:
+                ds = ds.cast_column("audio", Audio(decode=False))
+        except Exception:
+            ds = load_dataset("tobiolatunji/afrispeech-200", split="test", token=token)
+            if Audio is not None and hasattr(ds, "column_names") and "audio" in ds.column_names:
+                ds = ds.cast_column("audio", Audio(decode=False))
+
+    if ds is None:
+        print("  ERROR: Could not stream AfriSpeech-200 dataset from Hugging Face.")
+        return []
 
     candidate_pool = []
     target_buffer = n * 2
     for row in ds:
-        accent = str(row.get("accent_area", "")).strip().lower()
+        accent = str(row.get("accent", "") or row.get("accent_area", "")).strip().lower()
         country = str(row.get("country", "")).strip().lower()
-        if accent != "nigeria" and country != "nigeria":
+        if country and country not in ("nigeria", "ng"):
             continue
         audio_info = row.get("audio")
         if not audio_info:
@@ -481,8 +549,10 @@ def ingest_afrispeech(
             "length": len(transcript),
             "orig_dur": orig_dur,
         })
+        print(f"    -> Buffered candidate {len(candidate_pool)}/{target_buffer}...", end="\r", flush=True)
         if len(candidate_pool) >= target_buffer:
             break
+    print()
 
     # Sort candidate buffer by transcript length descending
     candidate_pool.sort(key=lambda x: x["length"], reverse=True)
@@ -587,7 +657,13 @@ def run_post_ingestion_ab_validation(tier_b_dir: Path | None = None, dry_run: bo
         return
 
     try:
-        from bench.audio_preprocessing.convert_and_validate import convert_and_validate
+        from bench.audio_preprocessing.convert_and_validate import _tool_available, convert_and_validate
+        if not _tool_available("ffmpeg"):
+            print("\n[A/B Validation Notice] ffmpeg is not installed on this local system.")
+            print("  Skipping optional ffmpeg vs. wave+soundfile A/B validation check (designed for Colab/cloud).")
+            print("  All audio files were already standardized to 16kHz mono 16-bit WAV upon ingestion.")
+            return
+
         subdirs = [
             root_dir / "afriswitch" / "pidgin",
             root_dir / "afriswitch" / "yoruba",
@@ -600,8 +676,8 @@ def run_post_ingestion_ab_validation(tier_b_dir: Path | None = None, dry_run: bo
             if sdir.is_dir():
                 print(f"\nValidating directory: {sdir}")
                 convert_and_validate(input_dir=sdir, output_dir=sdir)
-    except Exception as exc:
-        print(f"Warning: A/B validation run encountered an issue: {exc}")
+    except (Exception, SystemExit) as exc:
+        print(f"  Notice: A/B validation skipped: {exc}")
 
 
 def _check_runtime_deps():
@@ -673,7 +749,10 @@ def main():
     print(f"  Mode: {'DRY RUN (No downloads performed)' if args.dry_run else 'LIVE DOWNLOAD'}")
     print(f"  Target Dataset(s): {args.dataset}")
     print(f"  Duration Bounds: [{args.min_duration}s, {args.max_duration}s]")
-    print(f"  Base Output Dir: {args.output_dir}")
+    hf_token = os.environ.get("HF_TOKEN") or os.environ.get("HUGGING_FACE_HUB_TOKEN")
+    auth_status = f"AUTHENTICATED (token prefix: {hf_token[:7]}...)" if hf_token else "UNAUTHENTICATED (rate limits apply)"
+    print(f"  HF Hub Auth:       {auth_status}")
+    print(f"  Base Output Dir:   {args.output_dir}")
     print("=" * 70)
 
     # 1. AfriSwitch

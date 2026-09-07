@@ -1,0 +1,11 @@
+{
+  "audio_file": "afrispeech_ng_002.wav",
+  "transcript": "Neilson is a keen supporter of Arsenal football club .",
+  "language": "Nigerian-accented English",
+  "dataset_source": "afrispeech",
+  "duration_sec": 5.46,
+  "cmi": null,
+  "clip_type": "accent",
+  "was_trimmed": false,
+  "tier": "B"
+}

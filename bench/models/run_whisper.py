@@ -52,12 +52,15 @@ _AUDIO_EXTENSIONS = {".wav", ".mp3", ".ogg", ".flac", ".m4a"}
 # ---------------------------------------------------------------------------
 
 def discover_audio_files(corpus_dir: Path, clip_id: str | None = None) -> list[Path]:
+    """Return all audio files in corpus_dir (searching recursively), optionally filtered to one clip."""
+    if not corpus_dir.is_dir():
+        return []
     files = sorted(
-        p for p in corpus_dir.iterdir()
+        p for p in corpus_dir.rglob("*")
         if p.is_file() and p.suffix.lower() in _AUDIO_EXTENSIONS
     )
     if clip_id:
-        files = [f for f in files if f.stem == clip_id]
+        files = [f for f in files if f.stem == clip_id or f.name == clip_id]
     return files
 
 

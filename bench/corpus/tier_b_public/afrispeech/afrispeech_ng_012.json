@@ -1,0 +1,11 @@
+{
+  "audio_file": "afrispeech_ng_012.wav",
+  "transcript": "On January 22, Huang Mouhong , the deputy director of the Hubei Provincial Department of Commerce, was diagnosed with the coronavirus.",
+  "language": "Nigerian-accented English",
+  "dataset_source": "afrispeech",
+  "duration_sec": 13.38,
+  "cmi": null,
+  "clip_type": "accent",
+  "was_trimmed": false,
+  "tier": "B"
+}

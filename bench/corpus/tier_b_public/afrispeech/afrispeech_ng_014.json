@@ -1,0 +1,11 @@
+{
+  "audio_file": "afrispeech_ng_014.wav",
+  "transcript": "Top gynecologists, Drs Nureni Yagazie and Ahumonye at Omu-Aran leading specialist hospital were quizzed on the management of several patients.",
+  "language": "Nigerian-accented English",
+  "dataset_source": "afrispeech",
+  "duration_sec": 14.2,
+  "cmi": null,
+  "clip_type": "accent",
+  "was_trimmed": false,
+  "tier": "B"
+}

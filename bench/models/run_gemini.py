@@ -86,7 +86,7 @@ def discover_audio_files(
         return []
 
     files = sorted(
-        p for p in corpus_dir.iterdir()
+        p for p in corpus_dir.rglob("*")
         if p.is_file() and p.suffix.lower() in _AUDIO_EXTENSIONS
     )
     if clip_id:

@@ -1,0 +1,11 @@
+{
+  "audio_file": "afrispeech_ng_013.wav",
+  "transcript": "The movie tells the story of a group of teenagers who are murdered one by one by an unknown killer while attempting to re-open an abandoned summer camp.",
+  "language": "Nigerian-accented English",
+  "dataset_source": "afrispeech",
+  "duration_sec": 13.67,
+  "cmi": null,
+  "clip_type": "accent",
+  "was_trimmed": false,
+  "tier": "B"
+}

@@ -1,0 +1,11 @@
+{
+  "audio_file": "afrispeech_ng_010.wav",
+  "transcript": "ESPNs Adam Schefter reports Trubisky visited Dr. Neal ElAttrache in Los Angeles on Thursday for evaluation of his right shoulder, and it was determined surgery isnt necessary.",
+  "language": "Nigerian-accented English",
+  "dataset_source": "afrispeech",
+  "duration_sec": 17.8,
+  "cmi": null,
+  "clip_type": "accent",
+  "was_trimmed": false,
+  "tier": "B"
+}

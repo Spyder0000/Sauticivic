@@ -1,0 +1,11 @@
+{
+  "audio_file": "afrispeech_ng_005.wav",
+  "transcript": "In its broadest strokes, 40 acres and a mule was their idea.",
+  "language": "Nigerian-accented English",
+  "dataset_source": "afrispeech",
+  "duration_sec": 6.84,
+  "cmi": null,
+  "clip_type": "accent",
+  "was_trimmed": false,
+  "tier": "B"
+}

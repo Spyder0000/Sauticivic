@@ -1,0 +1,11 @@
+{
+  "audio_file": "afrispeech_ng_004.wav",
+  "transcript": "When Alison Murphy sold her Tacoma condo this summer, she quickly broadened her search for a new home beyond the city to areas like Spanaway and Parkland.",
+  "language": "Nigerian-accented English",
+  "dataset_source": "afrispeech",
+  "duration_sec": 12.82,
+  "cmi": null,
+  "clip_type": "accent",
+  "was_trimmed": false,
+  "tier": "B"
+}
