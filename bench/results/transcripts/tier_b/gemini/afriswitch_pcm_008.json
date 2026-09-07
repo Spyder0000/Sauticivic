@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_pcm_008",
+  "audio_file": "afriswitch_pcm_008.wav",
+  "transcript": "Imagine the statement, Igbos are being victimized. So they come out and say, oh, is it because it's an Igbo, an Igbo man, that now why they want actually, they victimize them like that, which is not actually true. But for as long as we continue to use tribe to the",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

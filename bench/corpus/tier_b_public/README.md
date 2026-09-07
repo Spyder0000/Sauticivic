@@ -60,6 +60,14 @@ python3 bench/corpus/tier_b_public/ingest_tier_b.py --dataset all
 python3 bench/corpus/tier_b_public/ingest_tier_b.py --dataset afriswitch --n-clips 10
 ```
 
+### Whisper large-v3 Evaluation (Colab GPU)
+
+To transcribe Tier B with Whisper `large-v3`, use the ready-to-run Colab notebook:
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Spyder0000/Sauticivic/blob/main/bench/whisper_tier_b_colab.ipynb)
+
+Located at: [`bench/whisper_tier_b_colab.ipynb`](../whisper_tier_b_colab.ipynb)
+
+
 ---
 
 ## 7. Compliance & Terms of Use Disclaimer

@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_pcm_004",
+  "audio_file": "afriswitch_pcm_004.wav",
+  "transcript": "the world na just the level with which e dey happen na im dey differ. For some places, it is ranked so high and for some places, it ranked so low.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

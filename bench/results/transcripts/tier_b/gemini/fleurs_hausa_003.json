@@ -1,0 +1,10 @@
+{
+  "clip_id": "fleurs_hausa_003",
+  "audio_file": "fleurs_hausa_003.wav",
+  "transcript": "A kan iyakar tsibirin da ke kusa da Alama, ba za a karba ba, ko da yake ana iya karbar kudin Birtaniya da Amurka, bincike tare da masu shi don sanin menene hanyar biyan kudi da za a karba.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_hau_009",
+  "audio_file": "afriswitch_hau_009.wav",
+  "transcript": "ta fara koya mun yadda zan kalli kyamara inyi magana yadda a'a in ina cikin magana ya kamata inyi ko in dan tsaya a nan yadda gesture fuska haka ne ta fara koya mun tana wannan rehearsal din da ni har nazo na samu yunkuri da himma da courage da zan yi wannan video shine sai nayi wannan video da nayi wannan video. Me kika fadi a bidiyon? Magana nayi akan yadda wani sa'in idan namiji ya daki mace ko ya ci mata zarafi",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

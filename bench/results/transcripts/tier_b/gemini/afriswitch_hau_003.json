@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_hau_003",
+  "audio_file": "afriswitch_hau_003.wav",
+  "transcript": "da zaka zaka cimma burin da kake so ka cimma a dan kankanin lokaci. sai kayi kokari ya zamana ace kowace shekara kayi mata nata plan din",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

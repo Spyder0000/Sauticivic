@@ -1,0 +1,10 @@
+{
+  "clip_id": "afrispeech_ng_008",
+  "audio_file": "afrispeech_ng_008.wav",
+  "transcript": "Both schools linked to the northern suburbs outbreak will open again, Commuter Mr. Merl said.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

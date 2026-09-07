@@ -1,0 +1,10 @@
+{
+  "clip_id": "afrispeech_ng_001",
+  "audio_file": "afrispeech_ng_001.wav",
+  "transcript": "In particular, they looked for signs of abrupt ecosystem-wide transitions, such as when a grassland becomes a forest or when an oak forest sprouts up where a spruce forest once was.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

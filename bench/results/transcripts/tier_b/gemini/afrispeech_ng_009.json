@@ -1,0 +1,10 @@
+{
+  "clip_id": "afrispeech_ng_009",
+  "audio_file": "afrispeech_ng_009.wav",
+  "transcript": "There's a lot of people to find funny clips and discover new streamers first of",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

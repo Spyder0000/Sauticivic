@@ -1,0 +1,10 @@
+{
+  "clip_id": "afrispeech_ng_004",
+  "audio_file": "afrispeech_ng_004.wav",
+  "transcript": "When Alison moved {comma} she quickly broadened her search for a new home beyond the city to areas like Spanaway and Parkland {period}",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

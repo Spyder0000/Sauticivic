@@ -1,0 +1,10 @@
+{
+  "clip_id": "fleurs_hausa_007",
+  "audio_file": "fleurs_hausa_007.wav",
+  "transcript": "An fara yin rikodin bidiyo yayin da bincike mai mahimmanci a cikin fassarar bayanin fuska, motsin fuska waɗanda ba sa wuce lokaci ƙanƙani.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

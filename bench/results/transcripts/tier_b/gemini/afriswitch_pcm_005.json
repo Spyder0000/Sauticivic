@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_pcm_005",
+  "audio_file": "afriswitch_pcm_005.wav",
+  "transcript": "information goes goes goes to. It's like a warehouse. They say do you have a warehouse in Shomolu? We say yes we have a warehouse for Shomolu na electrical materials we dey keep there.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

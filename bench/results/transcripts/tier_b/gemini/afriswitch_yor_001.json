@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_yor_001",
+  "audio_file": "afriswitch_yor_001.wav",
+  "transcript": "Sharing cota afi pa mo lojo yen. If not that, there is a little delay because you know Nigeria happens to everyone. A baba yin gbe wa leni. B, ra moto kekere kan fun e.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

@@ -1,0 +1,10 @@
+{
+  "clip_id": "fleurs_yoruba_001",
+  "audio_file": "fleurs_yoruba_001.wav",
+  "transcript": "Awon eniyan ti mo nipa awon chemical pepe bi wura, fadaka ati copper tijo tori pe a le ri won ni iseda ni ipo adayeba won, ko de le ju lati wu won ja ja da lati inu ile pelu imise atileba.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

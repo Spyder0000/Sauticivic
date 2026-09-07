@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_hau_006",
+  "audio_file": "afriswitch_hau_006.wav",
+  "transcript": "abun da ya shafi na kasa, yana da damar da zai shiga wannan wurin ya kwato ma person with disability hakkokin su da yake under wannan office din.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

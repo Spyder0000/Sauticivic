@@ -1,0 +1,10 @@
+{
+  "clip_id": "fleurs_hausa_008",
+  "audio_file": "fleurs_hausa_008.wav",
+  "transcript": "Aristotle, masanin falsafa ne, ya yi tunanin cewa komai ya kunshi cakuda daya ko fiye daga abubuwa hudu: sun kasance kasa, ruwa, iska, da wuta.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

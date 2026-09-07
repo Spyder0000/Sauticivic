@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_hau_005",
+  "audio_file": "afriswitch_hau_005.wav",
+  "transcript": "har zuwa yanzu gaba daya rayuwarki saboda yadda kika faro kinyi talla kin saida abubuwa kin fuskanci tsangwama? ah gaskiya a'a saboda wanda suka san story dina ko kin san na taba like two other interviews dai kin gane so wanda suka san story dina suna suna suna encouraging dina su nuna min rahina",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

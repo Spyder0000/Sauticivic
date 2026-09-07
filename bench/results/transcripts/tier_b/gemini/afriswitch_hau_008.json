@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_hau_008",
+  "audio_file": "afriswitch_hau_008.wav",
+  "transcript": "To ba beli fi, masu kallon mu na tare da Hajiya wadda ita ce ta kasance SA abun da ya shafi National Lottery, Trust Fund zamu je hutun gajeren lokaci da zarar mun dawo zamu daura idan Allah ya kaimu.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

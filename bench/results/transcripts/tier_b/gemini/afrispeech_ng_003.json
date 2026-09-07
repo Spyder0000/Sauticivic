@@ -1,0 +1,10 @@
+{
+  "clip_id": "afrispeech_ng_003",
+  "audio_file": "afrispeech_ng_003.wav",
+  "transcript": "22 year old sister who lives with her in Kano and takes care of her.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

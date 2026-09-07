@@ -1,0 +1,9 @@
+{
+  "clip_id": "afrispeech_ng_006",
+  "audio_file": "afrispeech_ng_006.wav",
+  "transcript": "For privacy reasons: To sign in or register for most social media platforms, you need to input your phone numb email, or any other personal detail",
+  "language": "pcm",
+  "confidence": null,
+  "backend": "sahara",
+  "error": null
+}

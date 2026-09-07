@@ -204,6 +204,23 @@ def run_sahara(
 
 
 def _has_sahara_key() -> bool:
+    if os.environ.get("SAHARA_API_KEY"):
+        return True
+    try:
+        from dotenv import load_dotenv  # noqa: PLC0415
+        load_dotenv(_REPO_ROOT / ".env")
+        if os.environ.get("SAHARA_API_KEY"):
+            return True
+    except Exception:
+        pass
+    env_file = _REPO_ROOT / ".env"
+    if env_file.is_file():
+        for line in env_file.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line.startswith("SAHARA_API_KEY="):
+                val = line.split("=", 1)[1].strip().strip('"').strip("'")
+                if val:
+                    return True
     try:
         from app.config import settings  # noqa: PLC0415
         return bool(settings.sahara_api_key)

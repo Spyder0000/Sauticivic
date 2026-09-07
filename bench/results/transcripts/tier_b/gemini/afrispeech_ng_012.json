@@ -1,0 +1,10 @@
+{
+  "clip_id": "afrispeech_ng_012",
+  "audio_file": "afrispeech_ng_012.wav",
+  "transcript": "She spoke of how she would never get to see her walk down the aisle and that Shana will never get to have a father-daughter dance with her daddy.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

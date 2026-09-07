@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_yor_003",
+  "audio_file": "afriswitch_yor_003.wav",
+  "transcript": "Kini date ti o fi allow won lati operate POS? Awon na ni mo fe operate, awon na ni kin wa operate e fun won. It's your duty, mo ti ma n so fun yin.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_pcm_002",
+  "audio_file": "afriswitch_pcm_002.wav",
+  "transcript": "Good evening and welcome to Acid Hearts. Hello.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

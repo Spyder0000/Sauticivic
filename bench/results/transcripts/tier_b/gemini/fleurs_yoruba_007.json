@@ -1,0 +1,10 @@
+{
+  "clip_id": "fleurs_yoruba_007",
+  "audio_file": "fleurs_yoruba_007.wav",
+  "transcript": "Tí èeyàn bá pín ìrìn àjò ní orí amóhùnmáwòrán, ó jẹ́ ọ̀nà tó dára láti lo ofin pín àwọn ìrírí èeyàn pẹ̀lú wa kékèé ọjọ́ iwájú.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

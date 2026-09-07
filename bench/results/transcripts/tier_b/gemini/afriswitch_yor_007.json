@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_yor_007",
+  "audio_file": "afriswitch_yor_007.wav",
+  "transcript": "Osu meji omuje I got pregnant. Abi mo one year",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

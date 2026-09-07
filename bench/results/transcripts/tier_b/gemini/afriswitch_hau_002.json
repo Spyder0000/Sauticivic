@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_hau_002",
+  "audio_file": "afriswitch_hau_002.wav",
+  "transcript": "A zahiri, a duk lokacin da wannan gwamnati na daukar muhimman matakan sauye-sauye, wanda ake matukar bukata, masu alaka da cire tallafin man fetur, kuma yin hakan abu ne mai matukar wahala.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

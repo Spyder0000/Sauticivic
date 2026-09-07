@@ -1,0 +1,10 @@
+{
+  "clip_id": "fleurs_hausa_002",
+  "audio_file": "fleurs_hausa_002.wav",
+  "transcript": "Chibiyar ta bayyana adawar ta ga demokradiyya ta kasar Italiya ta na kanto wasu wayukan nazari masu zaman kan su wadanda ke tsammanin bata liyar kiyaye zaman lafiya ta majalisar dinkin duniya da ke na fance ta kawo cutar haiti bisa rashin sani.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_yor_002",
+  "audio_file": "afriswitch_yor_002.wav",
+  "transcript": "Ti o ba fe make impression as a big girl, ni occasion to ba lo, one of the things ti o ma lo ni cigar. Now, watch me o, se o n wo mi?",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

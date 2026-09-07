@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_hau_007",
+  "audio_file": "afriswitch_hau_007.wav",
+  "transcript": "Ba sa amfani da fetur, gas ko wani abu makamancin haka. Wato kenan, inventions ɗin nan da ake ta fama da shi na fitar da hayaki da kuma ko na fossil fuel, gabaɗaya inventions ɗin su baya amfani da shi.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

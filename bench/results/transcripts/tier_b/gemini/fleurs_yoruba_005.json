@@ -1,0 +1,10 @@
+{
+  "clip_id": "fleurs_yoruba_005",
+  "audio_file": "fleurs_yoruba_005.wav",
+  "transcript": "Ìbùdó àṣàro Tibetan ní òòsà yoga. Látàrí lílo àfihàn àwọn onírúurú òòsà, wọ́n sàtúnfọ àgbára, wọ́n ń pe àwọn dakras síta, ìtajisí wàyé.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

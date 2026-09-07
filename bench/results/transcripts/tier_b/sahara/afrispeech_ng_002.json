@@ -1,0 +1,9 @@
+{
+  "clip_id": "afrispeech_ng_002",
+  "audio_file": "afrispeech_ng_002.wav",
+  "transcript": "Nilson is a keen supporter of Arsenal football club",
+  "language": "pcm",
+  "confidence": null,
+  "backend": "sahara",
+  "error": null
+}

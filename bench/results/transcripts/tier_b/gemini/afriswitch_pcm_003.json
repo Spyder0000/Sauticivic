@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_pcm_003",
+  "audio_file": "afriswitch_pcm_003.wav",
+  "transcript": "Nothing inside. The idea is to fill the empty one with the other basket where balls they but now",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

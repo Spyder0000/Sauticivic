@@ -1,0 +1,9 @@
+{
+  "clip_id": "afrispeech_ng_001",
+  "audio_file": "afrispeech_ng_001.wav",
+  "transcript": "In particular, they looked for signs of abrupt, system-wide transitions, such as when a grassland becomes a forest, or when an oak forest prouds up where a spur forest once was",
+  "language": "pcm",
+  "confidence": null,
+  "backend": "sahara",
+  "error": null
+}

@@ -1,0 +1,10 @@
+{
+  "clip_id": "afrispeech_ng_007",
+  "audio_file": "afrispeech_ng_007.wav",
+  "transcript": "Immediate family lives in Bossier City, LA.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

@@ -1,0 +1,10 @@
+{
+  "clip_id": "afrispeech_ng_011",
+  "audio_file": "afrispeech_ng_011.wav",
+  "transcript": "On January 22, Huang Mong, the deputy director of the Hubei Provincial Department of Commerce, was diagnosed with the coronavirus.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

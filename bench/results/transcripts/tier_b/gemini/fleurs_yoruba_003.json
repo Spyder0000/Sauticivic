@@ -1,0 +1,10 @@
+{
+  "clip_id": "fleurs_yoruba_003",
+  "audio_file": "fleurs_yoruba_003.wav",
+  "transcript": "Lóòótọ́, a lè ní ìtumọ̀ ìtàn sáyẹ́nsì, a lè se ìdásílẹ̀ èka kọ̀mpyútà sáyẹ́nsì kan tí ó sì pàtàkì púpọ̀, tí ó ní se pẹ̀lú ìwá, ẹ̀kọ́ àti ìlò ọgbọ́n inú ẹni pẹ̀lú èrò.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

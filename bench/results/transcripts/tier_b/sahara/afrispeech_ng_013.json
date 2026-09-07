@@ -1,0 +1,9 @@
+{
+  "clip_id": "afrispeech_ng_013",
+  "audio_file": "afrispeech_ng_013.wav",
+  "transcript": "The movie tells The story of a group of teenagers who are murdered one by one by an unknown killer while attempting to reopen an abandoned former camp.",
+  "language": "pcm",
+  "confidence": null,
+  "backend": "sahara",
+  "error": null
+}

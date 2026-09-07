@@ -1,0 +1,10 @@
+{
+  "clip_id": "fleurs_yoruba_006",
+  "audio_file": "fleurs_yoruba_006.wav",
+  "transcript": "Ní oṣù méjì péré, ìkọ̀ ológun ilẹ̀ Amẹ́ríkà àti Free France ti dólà ẹkúngúsù ilẹ̀ France, wọ́n sì ń padà sí ilẹ̀ Germany.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

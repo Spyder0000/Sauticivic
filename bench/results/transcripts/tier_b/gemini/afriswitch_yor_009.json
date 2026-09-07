@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_yor_009",
+  "audio_file": "afriswitch_yor_009.wav",
+  "transcript": "ko include the amount wey dem go come allow for scholarship abi?",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

@@ -1,0 +1,10 @@
+{
+  "clip_id": "afrispeech_ng_014",
+  "audio_file": "afrispeech_ng_014.wav",
+  "transcript": "Top gynecologists, doctors Nnenna Ihebuzor and Ahumaraeze at Omu-Aran leading specialist hospital were quizzed on the management of several patients first off.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

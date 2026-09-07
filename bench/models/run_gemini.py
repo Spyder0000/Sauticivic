@@ -326,10 +326,26 @@ def run_gemini(
 
 
 def _resolve_api_key() -> str:
-    """Resolve Gemini API key from environment variable or app config."""
-    key = os.environ.get("GEMINI_API_KEY")
+    """Resolve Gemini API key from environment variable, .env file, or app config."""
+    key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
     if key:
         return key
+    try:
+        from dotenv import load_dotenv  # noqa: PLC0415
+        load_dotenv(_REPO_ROOT / ".env")
+        key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
+        if key:
+            return key
+    except Exception:
+        pass
+    env_file = _REPO_ROOT / ".env"
+    if env_file.is_file():
+        for line in env_file.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line.startswith("GEMINI_API_KEY=") or line.startswith("GOOGLE_API_KEY="):
+                val = line.split("=", 1)[1].strip().strip('"').strip("'")
+                if val:
+                    return val
     try:
         from app.config import settings  # noqa: PLC0415
         return settings.gemini_api_key or ""

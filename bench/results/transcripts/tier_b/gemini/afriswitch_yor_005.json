@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_yor_005",
+  "audio_file": "afriswitch_yor_005.wav",
+  "transcript": "What? E mi na, e tun ko mi fi mi sile o lo.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

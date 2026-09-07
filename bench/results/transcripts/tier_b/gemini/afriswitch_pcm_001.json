@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_pcm_001",
+  "audio_file": "afriswitch_pcm_001.wav",
+  "transcript": "So this is going to Nigerians. Make una draw una ear. Make una draw una ear.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

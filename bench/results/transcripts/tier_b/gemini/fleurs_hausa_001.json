@@ -1,0 +1,10 @@
+{
+  "clip_id": "fleurs_hausa_001",
+  "audio_file": "fleurs_hausa_001.wav",
+  "transcript": "Mintuna biyar da fara nunin wata iska ya fara shigowa ciki. Kusan minti daya daga baya iskar ta doshi kilomita 70 daga baya ruwan sama ya zo amma da yawa da karfinsa ya sauko yadda zai bugi fatarka kamar allura sannan wani kankara ya fado daga sama. Mutane suna firgita, suna kururuwa, suna tattaki juna.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

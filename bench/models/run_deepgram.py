@@ -200,6 +200,19 @@ def run_deepgram(
 
     for i, audio_path in enumerate(audio_files, start=1):
         out_path = deepgram_out / f"{audio_path.stem}.json"
+
+        # Skip clip if valid transcript already exists on disk
+        if out_path.is_file():
+            try:
+                cached = json.loads(out_path.read_text(encoding="utf-8"))
+                if not cached.get("error") and cached.get("transcript") is not None:
+                    snippet = (cached.get("transcript") or "")[:60].replace("\n", " ")
+                    print(f'[{i}/{len(audio_files)}] {audio_path.name} ... SKIPPED (already exists: "{snippet}...")')
+                    results.append(cached)
+                    continue
+            except Exception:
+                pass
+
         print(f"[{i}/{len(audio_files)}] {audio_path.name} ...", end=" ", flush=True)
 
         result = transcribe_clip(audio_path, transcriber, options, model)
@@ -229,10 +242,26 @@ def run_deepgram(
 
 
 def _resolve_api_key() -> str:
-    """Resolve the Deepgram API key from env, falling back to app config."""
+    """Resolve the Deepgram API key from env, falling back to .env file or app config."""
     key = os.environ.get("DEEPGRAM_API_KEY")
     if key:
         return key
+    try:
+        from dotenv import load_dotenv  # noqa: PLC0415
+        load_dotenv(_REPO_ROOT / ".env")
+        key = os.environ.get("DEEPGRAM_API_KEY")
+        if key:
+            return key
+    except Exception:
+        pass
+    env_file = _REPO_ROOT / ".env"
+    if env_file.is_file():
+        for line in env_file.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line.startswith("DEEPGRAM_API_KEY="):
+                val = line.split("=", 1)[1].strip().strip('"').strip("'")
+                if val:
+                    return val
     try:
         from app.config import settings  # noqa: PLC0415
         return settings.deepgram_api_key or ""

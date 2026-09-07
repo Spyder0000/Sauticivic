@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_yor_010",
+  "audio_file": "afriswitch_yor_010.wav",
+  "transcript": "Emi na nkan kan o. Tori awon oga mi tan pe tan, won ma send owo si wa yi. A le so wipe won ma send e kia kia. Ko de ma tete send e. Emi o ro wipe",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

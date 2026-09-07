@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_yor_008",
+  "audio_file": "afriswitch_yor_008.wav",
+  "transcript": "How is it possible? The love of my life. Ah, mi o le gbagbe o. Ko n se pe aye mo fe je ke mo. E wo yin, beautiful lady ni yin. E de tun kin sole. For two months now.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

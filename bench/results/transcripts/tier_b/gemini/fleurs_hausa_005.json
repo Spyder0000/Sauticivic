@@ -1,0 +1,10 @@
+{
+  "clip_id": "fleurs_hausa_005",
+  "audio_file": "fleurs_hausa_005.wav",
+  "transcript": "Siberian na kwanciye mai kilomita 120 arewa da sashin ƙasa mai shiga teku mafi girma shine King George Island, mai ɗauke da mazauna na Villa Las Estrellas.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

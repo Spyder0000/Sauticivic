@@ -1,0 +1,10 @@
+{
+  "clip_id": "afrispeech_ng_013",
+  "audio_file": "afrispeech_ng_013.wav",
+  "transcript": "The movie tells the story of a group of teenagers who are murdered one by one by an unknown killer while attempting to reopen an abandoned summer camp for stop.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

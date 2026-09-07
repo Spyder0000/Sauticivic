@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_yor_004",
+  "audio_file": "afriswitch_yor_004.wav",
+  "transcript": "Baby, aiye yin o ni baje. Grammar grammar. Ki lo kan e? Face your business. E ma je ki arabinrin yi ko gbogbo wa lo orun.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

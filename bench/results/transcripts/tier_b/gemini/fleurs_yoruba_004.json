@@ -1,0 +1,10 @@
+{
+  "clip_id": "fleurs_yoruba_004",
+  "audio_file": "fleurs_yoruba_004.wav",
+  "transcript": "Wọ́n ti gba àwọn arìnrìn-àjò ní mọ́ràn láti sọra fún ewu ọjà tó le ní ipa ní agbegbe wọn nítorí o le ní ipa fún ẹnikẹ́ni tó bá ní ètò láti rìnrin àjò.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

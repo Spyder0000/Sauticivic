@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_pcm_009",
+  "audio_file": "afriswitch_pcm_009.wav",
+  "transcript": "before redemption cancel PRC this one this one this one all na soldier go soldier come all na name and name no change anything you know so and and and that that's the thing so",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

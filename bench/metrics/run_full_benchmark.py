@@ -249,11 +249,12 @@ def _run_tier_b_eval(tier_b_corpus_path: Path, transcripts_root: Path) -> dict:
     any_found = False
 
     for model in _MODELS:
-        transcripts = _load_model_transcripts(transcripts_root, model)
-        if not transcripts:
-            tier_b_model_dir = transcripts_root / "tier_b"
-            if tier_b_model_dir.is_dir():
-                transcripts = _load_model_transcripts(tier_b_model_dir, model)
+        transcripts: dict[str, str] = {}
+        tier_b_model_dir = transcripts_root / "tier_b"
+        if tier_b_model_dir.is_dir():
+            transcripts.update(_load_model_transcripts(tier_b_model_dir, model))
+        for k, v in _load_model_transcripts(transcripts_root, model).items():
+            transcripts.setdefault(k, v)
 
         matching_ids = [cid for cid in ref_by_id if cid in transcripts]
         if not matching_ids:

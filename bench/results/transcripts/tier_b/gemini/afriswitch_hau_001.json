@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_hau_001",
+  "audio_file": "afriswitch_hau_001.wav",
+  "transcript": "dayan nan ne a cewa ba zan je coci wannan Lahadin ba, zan je coci wannan Lahadin. Me kuma? Me kuma? What is your advice? Your Excellency, ai kamar yadda marigayi dan kunkuru ya fada",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

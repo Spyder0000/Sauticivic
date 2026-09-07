@@ -1,0 +1,10 @@
+{
+  "clip_id": "afrispeech_ng_015",
+  "audio_file": "afrispeech_ng_015.wav",
+  "transcript": "The victim and his step-father were forced into a vehicle where the child was tied up and assaulted first.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

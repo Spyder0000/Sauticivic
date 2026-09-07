@@ -1,0 +1,10 @@
+{
+  "clip_id": "afriswitch_pcm_010",
+  "audio_file": "afriswitch_pcm_010.wav",
+  "transcript": "Yuki, of course we don't talk about the beauty, the goodness of African fashion, African design even in the international scene. But of course, there's no goodness without challenges. What do you feel are the challenges that African fashion don't encounter in like maybe the past 10 years maybe?",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}
