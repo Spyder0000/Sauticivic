@@ -57,19 +57,31 @@ class GateDecision:
 
 
 # ---------------------------------------------------------------------------
-# Danger signal detection
+# Danger signal detection — two tiers
 # ---------------------------------------------------------------------------
+#
+# Tier 1 — EMERGENCY signals: block ALL routing (infrastructure AND legal).
+#   These indicate an active life-safety emergency (fire, toxic exposure, active
+#   physical confinement) where even a legal brief is the wrong first response.
+#   The citizen needs emergency services triage, not a ticket or a brief.
+#
+# Tier 2 — CRIMINAL / EXTORTION signals: block INFRASTRUCTURE routing only.
+#   Violence, extortion, unlawful confinement etc. should route to LEGAL (legal
+#   aid is exactly who handles these). Blocking infrastructure is correct because
+#   a municipal ticket would silently drop the criminal element; legal routing is safe.
 
-# Keyword groups that individually signal physical danger, criminal conduct,
-# or an immediate safety emergency. Any match forces abstention regardless of
-# how confident the classifier and entity extractor are — a routine municipal
-# ticket must never be issued when the underlying situation involves violence,
-# unlawful confinement, extortion, or fire.
-_DANGER_PATTERNS: list[tuple[str, str]] = [
+_EMERGENCY_PATTERNS: list[tuple[str, str]] = [
+    # Active fire / explosion
+    ("fire start", "active fire emergency detected"),
+    ("fire.*generator", "fire near fuel source detected"),
+    ("toxic smoke", "hazardous chemical / fire emergency detected"),
+    ("acid", "hazardous chemical assault detected"),
+]
+
+_CRIMINAL_PATTERNS: list[tuple[str, str]] = [
     # Physical violence / assault
     ("beat", "physical assault detected"),
     ("break her", "physical assault detected"),
-    ("acid", "hazardous chemical assault detected"),
     ("armed thugs", "armed criminal conduct detected"),
     ("armed", "armed threat detected"),
     # Unlawful confinement / imprisonment
@@ -82,9 +94,6 @@ _DANGER_PATTERNS: list[tuple[str, str]] = [
     ("seize my.*id", "unlawful document confiscation detected"),
     ("seize my.*certificate", "unlawful document confiscation detected"),
     ("seize my.*national", "unlawful document confiscation detected"),
-    # Fire / life-safety emergency
-    ("fire", "active fire hazard detected"),
-    ("toxic smoke", "hazardous chemical / fire emergency detected"),
     # Extortion / illegal levies
     ("illegal levy", "state-linked extortion detected"),
     ("bribe", "officer extortion detected"),
@@ -106,16 +115,29 @@ _DANGER_QUESTION = (
     "right support, which may include emergency services or legal protection?"
 )
 
+_EMERGENCY_QUESTION = (
+    "This sounds like it may involve an immediate safety emergency. "
+    "Please contact emergency services (112 or your local emergency number) right away "
+    "if anyone is in immediate danger. Once you're safe, we can help you file a formal "
+    "complaint — can you tell us more about what happened?"
+)
 
-def _detect_danger(transcript: str) -> tuple[bool, str]:
-    """Return (is_dangerous, reason) by scanning the transcript for danger signals.
 
-    Uses simple case-insensitive regex matching — fast, auditable, and
-    zero-dependency. Returns the first matching signal found.
-    """
+def _detect_emergency(transcript: str) -> tuple[bool, str]:
+    """Check for Tier 1 life-safety emergencies that block ALL routing."""
     import re
     lower = transcript.lower()
-    for pattern, reason in _DANGER_PATTERNS:
+    for pattern, reason in _EMERGENCY_PATTERNS:
+        if re.search(pattern, lower):
+            return True, reason
+    return False, ""
+
+
+def _detect_criminal(transcript: str) -> tuple[bool, str]:
+    """Check for Tier 2 criminal signals that block INFRASTRUCTURE routing only."""
+    import re
+    lower = transcript.lower()
+    for pattern, reason in _CRIMINAL_PATTERNS:
         if re.search(pattern, lower):
             return True, reason
     return False, ""
@@ -164,23 +186,41 @@ def decide(
     config = config or GateConfig()
     reasons: list[str] = []
 
-    # --- Reason 0: physical danger / criminal signal override (highest priority) ---
-    # This check runs BEFORE confidence or entity checks. A transcript that signals
-    # violence, unlawful confinement, extortion, or fire must never be silently
-    # routed as a routine municipal ticket or legal intake — it needs human triage.
+    # --- Reason 0: danger signal overrides (highest priority, two tiers) ---
     if transcript:
-        is_dangerous, danger_reason = _detect_danger(transcript)
-        if is_dangerous:
+        # Tier 1: active life-safety emergency — blocks ALL routing (infra AND legal).
+        # A fire or chemical emergency needs emergency services, not any kind of brief.
+        is_emergency, emergency_reason = _detect_emergency(transcript)
+        if is_emergency:
             reasons.append(
-                f"danger signal override: {danger_reason} — forced abstention "
-                f"regardless of classification confidence"
+                f"emergency override: {emergency_reason} — forced abstention "
+                f"(active life-safety emergency requires emergency services triage, "
+                f"not a routed ticket or brief)"
             )
             return GateDecision(
                 proceed=False,
                 domain=None,
-                clarifying_question=_DANGER_QUESTION,
+                clarifying_question=_EMERGENCY_QUESTION,
                 reasons=reasons,
             )
+
+        # Tier 2: criminal / extortion signal — blocks INFRASTRUCTURE routing only.
+        # Violence, extortion, and unlawful confinement should route to LEGAL (correct).
+        # They must NOT generate an infrastructure ticket (silently drops the crime).
+        if classification.domain == Domain.INFRASTRUCTURE:
+            is_criminal, criminal_reason = _detect_criminal(transcript)
+            if is_criminal:
+                reasons.append(
+                    f"criminal signal override: {criminal_reason} — forced abstention "
+                    f"(infrastructure ticket must not be issued for a complaint involving "
+                    f"violence, extortion, or unlawful confinement)"
+                )
+                return GateDecision(
+                    proceed=False,
+                    domain=None,
+                    clarifying_question=_DANGER_QUESTION,
+                    reasons=reasons,
+                )
 
     # --- Reason 1: are we sure enough about infrastructure vs. legal? ---
     if classification.confidence < config.min_classification_confidence:
