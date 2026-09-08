@@ -284,7 +284,7 @@ def ingest_afriswitch(
             trimmed_arr = trim_clip(arr, sr, max_dur)
             cid = f"afriswitch_{cfg['code']}_{count:03d}"
             wav_path = dest_dir / f"{cid}.wav"
-            transcript = row.get("transcript", "") or row.get("sentence", "")
+            transcript = row.get("transcription", "") or row.get("transcript", "") or row.get("sentence", "")
             meta = {
                 "source": "afriswitch",
                 "language": cfg["label"],
