@@ -1,0 +1,138 @@
+{
+  "clip_id": "afriswitch_hau_010",
+  "audio_file": "afriswitch_hau_010.wav",
+  "transcript": "Kwa hivyo, kutoka kama mbili kwa mbili, kama mbili, kwa mbili, na kwa mbili, na kwa mbili, na mbili. Kwa hivyo, kwa hivyo, watuweke self-built, Kwa hivyo, kwa hivyo, Kwa hivyo, kwa hivyo, tuwana lulache wakina duweni confidence deesa keka fiti, deesa keka fiti dabaangachikinsaura. Inaa keka samuwa na confidence inaiki? Ia, ya mbili, mbili, ya mbili,",
+  "language": "sw",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 3.0,
+      "text": "Kwa hivyo, kutoka kama mbili kwa mbili,",
+      "avg_logprob": -0.7637950579325358,
+      "no_speech_prob": 0.32054588198661804
+    },
+    {
+      "start": 3.0,
+      "end": 5.0,
+      "text": "kama mbili, kwa mbili,",
+      "avg_logprob": -0.7637950579325358,
+      "no_speech_prob": 0.32054588198661804
+    },
+    {
+      "start": 5.0,
+      "end": 7.0,
+      "text": "na kwa mbili,",
+      "avg_logprob": -0.7637950579325358,
+      "no_speech_prob": 0.32054588198661804
+    },
+    {
+      "start": 7.0,
+      "end": 9.0,
+      "text": "na kwa mbili,",
+      "avg_logprob": -0.7637950579325358,
+      "no_speech_prob": 0.32054588198661804
+    },
+    {
+      "start": 9.0,
+      "end": 10.0,
+      "text": "na mbili.",
+      "avg_logprob": -0.7637950579325358,
+      "no_speech_prob": 0.32054588198661804
+    },
+    {
+      "start": 10.0,
+      "end": 11.0,
+      "text": "Kwa hivyo, kwa hivyo,",
+      "avg_logprob": -0.7637950579325358,
+      "no_speech_prob": 0.32054588198661804
+    },
+    {
+      "start": 11.0,
+      "end": 12.0,
+      "text": "watuweke self-built,",
+      "avg_logprob": -0.7637950579325358,
+      "no_speech_prob": 0.32054588198661804
+    },
+    {
+      "start": 12.0,
+      "end": 13.0,
+      "text": "Kwa hivyo, kwa hivyo,",
+      "avg_logprob": -0.7637950579325358,
+      "no_speech_prob": 0.32054588198661804
+    },
+    {
+      "start": 13.0,
+      "end": 14.0,
+      "text": "Kwa hivyo, kwa hivyo,",
+      "avg_logprob": -0.7637950579325358,
+      "no_speech_prob": 0.32054588198661804
+    },
+    {
+      "start": 14.0,
+      "end": 16.0,
+      "text": "tuwana lulache wakina",
+      "avg_logprob": -0.7637950579325358,
+      "no_speech_prob": 0.32054588198661804
+    },
+    {
+      "start": 16.0,
+      "end": 18.0,
+      "text": "duweni confidence",
+      "avg_logprob": -0.7637950579325358,
+      "no_speech_prob": 0.32054588198661804
+    },
+    {
+      "start": 18.0,
+      "end": 20.0,
+      "text": "deesa keka fiti,",
+      "avg_logprob": -0.7637950579325358,
+      "no_speech_prob": 0.32054588198661804
+    },
+    {
+      "start": 20.0,
+      "end": 22.0,
+      "text": "deesa keka fiti dabaangachikinsaura.",
+      "avg_logprob": -0.7637950579325358,
+      "no_speech_prob": 0.32054588198661804
+    },
+    {
+      "start": 22.0,
+      "end": 24.0,
+      "text": "Inaa keka samuwa na",
+      "avg_logprob": -0.7637950579325358,
+      "no_speech_prob": 0.32054588198661804
+    },
+    {
+      "start": 24.0,
+      "end": 25.0,
+      "text": "confidence inaiki?",
+      "avg_logprob": -0.7637950579325358,
+      "no_speech_prob": 0.32054588198661804
+    },
+    {
+      "start": 25.0,
+      "end": 27.0,
+      "text": "Ia, ya mbili,",
+      "avg_logprob": -0.7637950579325358,
+      "no_speech_prob": 0.32054588198661804
+    },
+    {
+      "start": 27.0,
+      "end": 28.0,
+      "text": "mbili,",
+      "avg_logprob": -0.7637950579325358,
+      "no_speech_prob": 0.32054588198661804
+    },
+    {
+      "start": 28.0,
+      "end": 30.0,
+      "text": "ya mbili,",
+      "avg_logprob": -0.9671899080276489,
+      "no_speech_prob": 0.004299899097532034
+    }
+  ],
+  "error": null
+}

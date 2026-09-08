@@ -1,0 +1,82 @@
+{
+  "clip_id": "afriswitch_pcm_010",
+  "audio_file": "afriswitch_pcm_010.wav",
+  "transcript": "Imagine this statement, Igbo's are being victimized. So they'll come outside and say, oh, is it because he's an Igbo, na Igbo man, that na why they want actually, they victimize him like that, which is not actually true. But for as long as we continue to use tribe, they,",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 1.06,
+      "text": "Imagine this statement,",
+      "avg_logprob": -0.35531656477186413,
+      "no_speech_prob": 0.05144497752189636
+    },
+    {
+      "start": 1.32,
+      "end": 3.36,
+      "text": "Igbo's are being victimized.",
+      "avg_logprob": -0.35531656477186413,
+      "no_speech_prob": 0.05144497752189636
+    },
+    {
+      "start": 3.64,
+      "end": 4.46,
+      "text": "So they'll come outside and say,",
+      "avg_logprob": -0.35531656477186413,
+      "no_speech_prob": 0.05144497752189636
+    },
+    {
+      "start": 4.5,
+      "end": 5.9,
+      "text": "oh, is it because he's an Igbo,",
+      "avg_logprob": -0.35531656477186413,
+      "no_speech_prob": 0.05144497752189636
+    },
+    {
+      "start": 6.34,
+      "end": 7.04,
+      "text": "na Igbo man,",
+      "avg_logprob": -0.35531656477186413,
+      "no_speech_prob": 0.05144497752189636
+    },
+    {
+      "start": 7.12,
+      "end": 8.14,
+      "text": "that na why they want actually,",
+      "avg_logprob": -0.35531656477186413,
+      "no_speech_prob": 0.05144497752189636
+    },
+    {
+      "start": 8.26,
+      "end": 10.42,
+      "text": "they victimize him like that,",
+      "avg_logprob": -0.35531656477186413,
+      "no_speech_prob": 0.05144497752189636
+    },
+    {
+      "start": 10.48,
+      "end": 11.66,
+      "text": "which is not actually true.",
+      "avg_logprob": -0.35531656477186413,
+      "no_speech_prob": 0.05144497752189636
+    },
+    {
+      "start": 11.76,
+      "end": 13.52,
+      "text": "But for as long as we continue to use tribe,",
+      "avg_logprob": -0.35531656477186413,
+      "no_speech_prob": 0.05144497752189636
+    },
+    {
+      "start": 13.620000000000001,
+      "end": 13.72,
+      "text": "they,",
+      "avg_logprob": -0.35531656477186413,
+      "no_speech_prob": 0.05144497752189636
+    }
+  ],
+  "error": null
+}

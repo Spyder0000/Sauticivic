@@ -1,0 +1,40 @@
+{
+  "clip_id": "afriswitch_pcm_002",
+  "audio_file": "afriswitch_pcm_002.wav",
+  "transcript": "ing bor coma make sure say in fullo this case in fullamwella is a plus plus sure so other governors supposed to join body you understand to make sure say ਸে ਸে ਸে",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 6.88,
+      "text": "ing bor coma make sure say in fullo this case in fullamwella is a plus plus",
+      "avg_logprob": -1.0449846267700196,
+      "no_speech_prob": 0.13172301650047302
+    },
+    {
+      "start": 6.88,
+      "end": 13.6,
+      "text": "sure so other governors supposed to join body you understand to make sure say",
+      "avg_logprob": -1.0449846267700196,
+      "no_speech_prob": 0.13172301650047302
+    },
+    {
+      "start": 13.6,
+      "end": 15.6,
+      "text": "ਸে ਸে",
+      "avg_logprob": -0.6266058216924253,
+      "no_speech_prob": 0.67974853515625
+    },
+    {
+      "start": 15.6,
+      "end": 16.6,
+      "text": "ਸে",
+      "avg_logprob": -0.6266058216924253,
+      "no_speech_prob": 0.67974853515625
+    }
+  ],
+  "error": null
+}

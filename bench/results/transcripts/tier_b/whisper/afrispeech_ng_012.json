@@ -1,0 +1,26 @@
+{
+  "clip_id": "afrispeech_ng_012",
+  "audio_file": "afrispeech_ng_012.wav",
+  "transcript": "She spoke of how she would never get to see her walk down the aisle, and that German will never get to her before diving daughter dance with her daddy for stop.",
+  "language": "en",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 5.2,
+      "text": "She spoke of how she would never get to see her walk down the aisle,",
+      "avg_logprob": -0.4188367403470553,
+      "no_speech_prob": 0.021935787051916122
+    },
+    {
+      "start": 6.08,
+      "end": 13.36,
+      "text": "and that German will never get to her before diving daughter dance with her daddy for stop.",
+      "avg_logprob": -0.4188367403470553,
+      "no_speech_prob": 0.021935787051916122
+    }
+  ],
+  "error": null
+}

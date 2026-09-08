@@ -1,0 +1,26 @@
+{
+  "clip_id": "afrispeech_ng_008",
+  "audio_file": "afrispeech_ng_008.wav",
+  "transcript": "Both schools linked to the northern suburbs outbreak were opened again. Command Mr. Wehmer said for stop.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 5.1000000000000005,
+      "text": "Both schools linked to the northern suburbs outbreak were opened again.",
+      "avg_logprob": -0.3895666687576859,
+      "no_speech_prob": 0.007563379593193531
+    },
+    {
+      "start": 5.24,
+      "end": 7.38,
+      "text": "Command Mr. Wehmer said for stop.",
+      "avg_logprob": -0.3895666687576859,
+      "no_speech_prob": 0.007563379593193531
+    }
+  ],
+  "error": null
+}

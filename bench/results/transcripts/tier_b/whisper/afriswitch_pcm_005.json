@@ -1,0 +1,26 @@
+{
+  "clip_id": "afriswitch_pcm_005",
+  "audio_file": "afriswitch_pcm_005.wav",
+  "transcript": "Good evening and welcome to I See The Heart. Hello.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 2.08,
+      "text": "Good evening and welcome to I See The Heart.",
+      "avg_logprob": -0.3913601146024816,
+      "no_speech_prob": 0.019736824557185173
+    },
+    {
+      "start": 4.98,
+      "end": 5.46,
+      "text": "Hello.",
+      "avg_logprob": -0.3913601146024816,
+      "no_speech_prob": 0.019736824557185173
+    }
+  ],
+  "error": null
+}

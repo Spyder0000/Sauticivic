@@ -1,0 +1,40 @@
+{
+  "clip_id": "afriswitch_yor_002",
+  "audio_file": "afriswitch_yor_002.wav",
+  "transcript": "Tia mafe make impression as a big girl Ngeni occasion tubaloo One of the things tamanguri sila Watch me, shuangumi",
+  "language": "sw",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 2.66,
+      "text": "Tia mafe make impression as a big girl",
+      "avg_logprob": -0.5708257584344774,
+      "no_speech_prob": 0.053374260663986206
+    },
+    {
+      "start": 2.66,
+      "end": 4.58,
+      "text": "Ngeni occasion tubaloo",
+      "avg_logprob": -0.5708257584344774,
+      "no_speech_prob": 0.053374260663986206
+    },
+    {
+      "start": 4.58,
+      "end": 8.36,
+      "text": "One of the things tamanguri sila",
+      "avg_logprob": -0.5708257584344774,
+      "no_speech_prob": 0.053374260663986206
+    },
+    {
+      "start": 8.36,
+      "end": 12.06,
+      "text": "Watch me, shuangumi",
+      "avg_logprob": -0.5708257584344774,
+      "no_speech_prob": 0.053374260663986206
+    }
+  ],
+  "error": null
+}

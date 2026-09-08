@@ -1,0 +1,19 @@
+{
+  "clip_id": "afrispeech_ng_005",
+  "audio_file": "afrispeech_ng_005.wav",
+  "transcript": "in its brother strokes comma 40 acres and the more was the idea first up",
+  "language": "en",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 8.76,
+      "text": "in its brother strokes comma 40 acres and the more was the idea first up",
+      "avg_logprob": -0.5621373918321397,
+      "no_speech_prob": 0.04874042049050331
+    }
+  ],
+  "error": null
+}

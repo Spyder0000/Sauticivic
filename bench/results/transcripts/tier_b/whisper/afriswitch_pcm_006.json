@@ -1,0 +1,26 @@
+{
+  "clip_id": "afriswitch_pcm_006",
+  "audio_file": "afriswitch_pcm_006.wav",
+  "transcript": "information goes to. It's like a warehouse. They say, do you have a warehouse in Shomolu? We say yes, we have a warehouse for Shomolu. Now, electrical materials we keep there.",
+  "language": "en",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 7.0,
+      "text": "information goes to. It's like a warehouse. They say, do you have a warehouse in Shomolu?",
+      "avg_logprob": -0.3742690183678452,
+      "no_speech_prob": 0.47627711296081543
+    },
+    {
+      "start": 7.0,
+      "end": 14.0,
+      "text": "We say yes, we have a warehouse for Shomolu. Now, electrical materials we keep there.",
+      "avg_logprob": -0.3742690183678452,
+      "no_speech_prob": 0.47627711296081543
+    }
+  ],
+  "error": null
+}

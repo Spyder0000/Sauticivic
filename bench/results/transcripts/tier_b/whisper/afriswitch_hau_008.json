@@ -1,0 +1,19 @@
+{
+  "clip_id": "afriswitch_hau_008",
+  "audio_file": "afriswitch_hau_008.wav",
+  "transcript": "ህልም እልኛዣህእረገላግ ብለሢ እኛዳረገላደ ገለሮጠጒደሴቕ እደን �enza ጉግንኡ �OOቱደደቈዋ ብርልኛልው ደናር ዊ� pirate",
+  "language": "am",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 10.44,
+      "text": "ህልም እልኛዣህእረገላግ ብለሢ እኛዳረገላደ ገለሮጠጒደሴቕ እደን �enza ጉግንኡ �OOቱደደቈዋ ብርልኛልው ደናር ዊ� pirate",
+      "avg_logprob": -1.7443248155381945,
+      "no_speech_prob": 0.0010776723502203822
+    }
+  ],
+  "error": null
+}

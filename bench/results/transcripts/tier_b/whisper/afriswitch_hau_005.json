@@ -1,0 +1,96 @@
+{
+  "clip_id": "afriswitch_hau_005",
+  "audio_file": "afriswitch_hau_005.wav",
+  "transcript": "kwa kujia harizu wa yanzu. Kabate ra yuwe kisabu daya ndake kafaru, kinye tala, kinseida abubua. Kinfosika nchuzo ngoma? Gaskia, aaa. Sabari da, wanida sikasa nstori ina. Kwa, kinza nata ba like two other interviews di. Kwa ngani, so wanida sikasa nstori ina. Sina, sina, sina encouraging ina. Sununa, morahina. Pasuturi ina is very inspiring. Especially akaduna ya nzinu.",
+  "language": "sw",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 2.5,
+      "text": "kwa kujia harizu wa yanzu.",
+      "avg_logprob": -0.6851032347906203,
+      "no_speech_prob": 0.14031460881233215
+    },
+    {
+      "start": 2.5,
+      "end": 5.3,
+      "text": "Kabate ra yuwe kisabu daya ndake kafaru,",
+      "avg_logprob": -0.6851032347906203,
+      "no_speech_prob": 0.14031460881233215
+    },
+    {
+      "start": 5.3,
+      "end": 7.5,
+      "text": "kinye tala, kinseida abubua.",
+      "avg_logprob": -0.6851032347906203,
+      "no_speech_prob": 0.14031460881233215
+    },
+    {
+      "start": 7.5,
+      "end": 9.0,
+      "text": "Kinfosika nchuzo ngoma?",
+      "avg_logprob": -0.6851032347906203,
+      "no_speech_prob": 0.14031460881233215
+    },
+    {
+      "start": 9.0,
+      "end": 12.0,
+      "text": "Gaskia, aaa.",
+      "avg_logprob": -0.6851032347906203,
+      "no_speech_prob": 0.14031460881233215
+    },
+    {
+      "start": 12.0,
+      "end": 14.5,
+      "text": "Sabari da, wanida sikasa nstori ina.",
+      "avg_logprob": -0.6851032347906203,
+      "no_speech_prob": 0.14031460881233215
+    },
+    {
+      "start": 14.5,
+      "end": 17.5,
+      "text": "Kwa, kinza nata ba like two other interviews di.",
+      "avg_logprob": -0.6851032347906203,
+      "no_speech_prob": 0.14031460881233215
+    },
+    {
+      "start": 17.5,
+      "end": 20.0,
+      "text": "Kwa ngani, so wanida sikasa nstori ina.",
+      "avg_logprob": -0.6851032347906203,
+      "no_speech_prob": 0.14031460881233215
+    },
+    {
+      "start": 20.0,
+      "end": 24.0,
+      "text": "Sina, sina, sina encouraging ina.",
+      "avg_logprob": -0.6851032347906203,
+      "no_speech_prob": 0.14031460881233215
+    },
+    {
+      "start": 24.0,
+      "end": 25.0,
+      "text": "Sununa, morahina.",
+      "avg_logprob": -0.6851032347906203,
+      "no_speech_prob": 0.14031460881233215
+    },
+    {
+      "start": 25.0,
+      "end": 27.5,
+      "text": "Pasuturi ina is very inspiring.",
+      "avg_logprob": -0.6851032347906203,
+      "no_speech_prob": 0.14031460881233215
+    },
+    {
+      "start": 27.5,
+      "end": 29.0,
+      "text": "Especially akaduna ya nzinu.",
+      "avg_logprob": -0.6851032347906203,
+      "no_speech_prob": 0.14031460881233215
+    }
+  ],
+  "error": null
+}

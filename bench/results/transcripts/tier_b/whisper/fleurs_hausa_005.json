@@ -1,0 +1,19 @@
+{
+  "clip_id": "fleurs_hausa_005",
+  "audio_file": "fleurs_hausa_005.wav",
+  "transcript": "Sibirin na kuanchie me kilomita darida ashirun ariwa dasashin kasa maishigati yuku mafi girumashi ne King George Island me dawkeda maza una na vila Estrilas.",
+  "language": "sn",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 16.62,
+      "text": "Sibirin na kuanchie me kilomita darida ashirun ariwa dasashin kasa maishigati yuku mafi girumashi ne King George Island me dawkeda maza una na vila Estrilas.",
+      "avg_logprob": -0.5285788418953878,
+      "no_speech_prob": 0.2968446612358093
+    }
+  ],
+  "error": null
+}

@@ -1,0 +1,33 @@
+{
+  "clip_id": "afriswitch_pcm_009",
+  "audio_file": "afriswitch_pcm_009.wav",
+  "transcript": "So this is going to Nigerians. Me na just draw na here. Make na draw na here.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 1.56,
+      "text": "So this is going to Nigerians.",
+      "avg_logprob": -0.3049304485321045,
+      "no_speech_prob": 0.0013199537061154842
+    },
+    {
+      "start": 1.68,
+      "end": 2.74,
+      "text": "Me na just draw na here.",
+      "avg_logprob": -0.3049304485321045,
+      "no_speech_prob": 0.0013199537061154842
+    },
+    {
+      "start": 3.24,
+      "end": 4.08,
+      "text": "Make na draw na here.",
+      "avg_logprob": -0.3049304485321045,
+      "no_speech_prob": 0.0013199537061154842
+    }
+  ],
+  "error": null
+}

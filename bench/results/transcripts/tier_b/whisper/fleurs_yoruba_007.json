@@ -1,0 +1,19 @@
+{
+  "clip_id": "fleurs_yoruba_007",
+  "audio_file": "fleurs_yoruba_007.wav",
+  "transcript": "Tiye nyoba kwen i nja ju ni u ri amon u mawono u je o noto dara la ti lu fi kwen a wan i riri nyo kwe lu wa keko ojo i waju.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 13.700000000000001,
+      "text": "Tiye nyoba kwen i nja ju ni u ri amon u mawono u je o noto dara la ti lu fi kwen a wan i riri nyo kwe lu wa keko ojo i waju.",
+      "avg_logprob": -0.5954743844491465,
+      "no_speech_prob": 0.015957839787006378
+    }
+  ],
+  "error": null
+}

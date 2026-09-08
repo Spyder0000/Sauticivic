@@ -1,0 +1,19 @@
+{
+  "clip_id": "afrispeech_ng_003",
+  "audio_file": "afrispeech_ng_003.wav",
+  "transcript": "Her 22-year-old sister also shared lives with her in Kano and takes care of her foster.",
+  "language": "en",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 7.54,
+      "text": "Her 22-year-old sister also shared lives with her in Kano and takes care of her foster.",
+      "avg_logprob": -0.3307310104370117,
+      "no_speech_prob": 0.0008904719725251198
+    }
+  ],
+  "error": null
+}

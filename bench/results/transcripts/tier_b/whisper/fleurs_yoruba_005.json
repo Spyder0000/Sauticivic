@@ -1,0 +1,33 @@
+{
+  "clip_id": "fleurs_yoruba_005",
+  "audio_file": "fleurs_yoruba_005.wav",
+  "transcript": "Ibu do asaro tibetan ni osa yoga. Latari li lo afian awan oniruru osa. Wan satun fo agbara, wan pe awan kakras sita, itajisi waye.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 4.88,
+      "text": "Ibu do asaro tibetan ni osa yoga.",
+      "avg_logprob": -0.2865276336669922,
+      "no_speech_prob": 0.010645829141139984
+    },
+    {
+      "start": 5.76,
+      "end": 10.8,
+      "text": "Latari li lo afian awan oniruru osa.",
+      "avg_logprob": -0.2865276336669922,
+      "no_speech_prob": 0.010645829141139984
+    },
+    {
+      "start": 11.46,
+      "end": 18.14,
+      "text": "Wan satun fo agbara, wan pe awan kakras sita, itajisi waye.",
+      "avg_logprob": -0.2865276336669922,
+      "no_speech_prob": 0.010645829141139984
+    }
+  ],
+  "error": null
+}

@@ -1,0 +1,19 @@
+{
+  "clip_id": "fleurs_yoruba_002",
+  "audio_file": "fleurs_yoruba_002.wav",
+  "transcript": "I takun blog no enle se i unewo fun i kowe anwa akeko, imba ti anwa akeko bere i riri takun blog ti wan kwe lwi lwidi ati akoto to wo, wi wan nile anwa i romanji e jipada.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 16.22,
+      "text": "I takun blog no enle se i unewo fun i kowe anwa akeko, imba ti anwa akeko bere i riri takun blog ti wan kwe lwi lwidi ati akoto to wo, wi wan nile anwa i romanji e jipada.",
+      "avg_logprob": -0.46763332911900113,
+      "no_speech_prob": 0.0028690772596746683
+    }
+  ],
+  "error": null
+}

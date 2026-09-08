@@ -1,0 +1,33 @@
+{
+  "clip_id": "fleurs_hausa_008",
+  "audio_file": "fleurs_hausa_008.wav",
+  "transcript": "Aristotle Masanini mfalisafaini. Ya itinanji wa kume ya kunshichaku dhaya kufiadaka abubu wa hulu. Sinkasanji kasa huwa iska thawata.",
+  "language": "sw",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 3.0,
+      "text": "Aristotle Masanini mfalisafaini.",
+      "avg_logprob": -0.7524871190388998,
+      "no_speech_prob": 0.04290202260017395
+    },
+    {
+      "start": 3.0,
+      "end": 9.0,
+      "text": "Ya itinanji wa kume ya kunshichaku dhaya kufiadaka abubu wa hulu.",
+      "avg_logprob": -0.7524871190388998,
+      "no_speech_prob": 0.04290202260017395
+    },
+    {
+      "start": 9.0,
+      "end": 14.0,
+      "text": "Sinkasanji kasa huwa iska thawata.",
+      "avg_logprob": -0.7524871190388998,
+      "no_speech_prob": 0.04290202260017395
+    }
+  ],
+  "error": null
+}

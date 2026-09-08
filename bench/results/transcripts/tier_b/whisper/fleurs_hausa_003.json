@@ -1,0 +1,89 @@
+{
+  "clip_id": "fleurs_hausa_003",
+  "audio_file": "fleurs_hausa_003.wav",
+  "transcript": "ʻAkan i quanto i akaruk 삺biruna da ki kusa ʻde alama ba za a karbaba We well know it is the mostoptimal strategy bāza a karbaba 就是說 to the people who are living under Following the enemy kod Sara'iki nana i ki improved Ogata ketereng ʻ污rihə ir необходимо in America ʻa karbaba we are for the people who are willing to kutling Kristina k信 the crew ʻamrik abintiʻ STRADAN ke and they play tare də mwadi��li Igulati Darim in America do-n sani ʻu mineni ii dry ʻancun il aí kutletable the language from our ancestors for the Labor.",
+  "language": "en",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 3.2,
+      "text": "ʻAkan",
+      "avg_logprob": -3.9939502317513993,
+      "no_speech_prob": 0.5567476153373718
+    },
+    {
+      "start": 3.2,
+      "end": 7.4,
+      "text": "i quanto i akaruk 삺biruna da ki kusa ʻde alama ba za a karbaba We well know it is the mostoptimal strategy",
+      "avg_logprob": -3.9939502317513993,
+      "no_speech_prob": 0.5567476153373718
+    },
+    {
+      "start": 7.4,
+      "end": 11.08,
+      "text": "bāza a karbaba 就是說 to the people who are living under Following the enemy",
+      "avg_logprob": -3.9939502317513993,
+      "no_speech_prob": 0.5567476153373718
+    },
+    {
+      "start": 11.28,
+      "end": 13.42,
+      "text": "kod Sara'iki nana i ki improved Ogata ketereng ʻ污rihə ir необходимо in America",
+      "avg_logprob": -3.9939502317513993,
+      "no_speech_prob": 0.5567476153373718
+    },
+    {
+      "start": 13.42,
+      "end": 13.82,
+      "text": "ʻa karbaba we are for the people who are willing to",
+      "avg_logprob": -3.9939502317513993,
+      "no_speech_prob": 0.5567476153373718
+    },
+    {
+      "start": 13.82,
+      "end": 15.64,
+      "text": "kutling Kristina k信 the crew ʻamrik abintiʻ STRADAN",
+      "avg_logprob": -3.9939502317513993,
+      "no_speech_prob": 0.5567476153373718
+    },
+    {
+      "start": 15.64,
+      "end": 16.06,
+      "text": "ke and they play",
+      "avg_logprob": -3.9939502317513993,
+      "no_speech_prob": 0.5567476153373718
+    },
+    {
+      "start": 17.48,
+      "end": 19.86,
+      "text": "tare də mwadi��li Igulati Darim in America",
+      "avg_logprob": -3.9939502317513993,
+      "no_speech_prob": 0.5567476153373718
+    },
+    {
+      "start": 19.86,
+      "end": 21.76,
+      "text": "do-n sani ʻu mineni ii dry ʻancun il aí",
+      "avg_logprob": -3.9939502317513993,
+      "no_speech_prob": 0.5567476153373718
+    },
+    {
+      "start": 21.76,
+      "end": 23.36,
+      "text": "kutletable the language from our ancestors",
+      "avg_logprob": -3.9939502317513993,
+      "no_speech_prob": 0.5567476153373718
+    },
+    {
+      "start": 23.98,
+      "end": 28.34,
+      "text": "for the Labor.",
+      "avg_logprob": -3.9939502317513993,
+      "no_speech_prob": 0.5567476153373718
+    }
+  ],
+  "error": null
+}

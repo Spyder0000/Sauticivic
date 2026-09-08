@@ -1,0 +1,19 @@
+{
+  "clip_id": "fleurs_yoruba_006",
+  "audio_file": "fleurs_yoruba_006.wav",
+  "transcript": "Ni o se meji kiri i kou logon ile Amerikan ati Free France ti dola e Kongusu ile France o se yon padasi ile Jamne.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 15.9,
+      "text": "Ni o se meji kiri i kou logon ile Amerikan ati Free France ti dola e Kongusu ile France o se yon padasi ile Jamne.",
+      "avg_logprob": -0.4405693531036377,
+      "no_speech_prob": 0.0017007333226501942
+    }
+  ],
+  "error": null
+}

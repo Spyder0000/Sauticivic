@@ -1,0 +1,19 @@
+{
+  "clip_id": "afriswitch_yor_004",
+  "audio_file": "afriswitch_yor_004.wav",
+  "transcript": "Enjoy your movie on Apatow TV Plus.",
+  "language": "en",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 2.12,
+      "text": "Enjoy your movie on Apatow TV Plus.",
+      "avg_logprob": -0.47667301618135893,
+      "no_speech_prob": 0.09171686321496964
+    }
+  ],
+  "error": null
+}

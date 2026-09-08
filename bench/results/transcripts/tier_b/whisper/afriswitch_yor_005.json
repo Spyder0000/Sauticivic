@@ -1,0 +1,26 @@
+{
+  "clip_id": "afriswitch_yor_005",
+  "audio_file": "afriswitch_yor_005.wav",
+  "transcript": "What? He mine suko mi finisi le olo.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 0.88,
+      "text": "What?",
+      "avg_logprob": -0.6584394772847494,
+      "no_speech_prob": 0.11369117349386215
+    },
+    {
+      "start": 2.88,
+      "end": 4.5200000000000005,
+      "text": "He mine suko mi finisi le olo.",
+      "avg_logprob": -0.6584394772847494,
+      "no_speech_prob": 0.11369117349386215
+    }
+  ],
+  "error": null
+}

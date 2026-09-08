@@ -1,0 +1,26 @@
+{
+  "clip_id": "afriswitch_yor_007",
+  "audio_file": "afriswitch_yor_007.wav",
+  "transcript": "Oshumia ni o Mwel, I got pregnant. Hăbi more One year .",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.36,
+      "end": 4.5600000000000005,
+      "text": "Oshumia ni o Mwel, I got pregnant.",
+      "avg_logprob": -2.794520263671875,
+      "no_speech_prob": 0.10459568351507187
+    },
+    {
+      "start": 4.76,
+      "end": 6.4,
+      "text": "Hăbi more One year .",
+      "avg_logprob": -2.794520263671875,
+      "no_speech_prob": 0.10459568351507187
+    }
+  ],
+  "error": null
+}

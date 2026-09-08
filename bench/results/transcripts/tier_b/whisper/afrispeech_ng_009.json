@@ -1,0 +1,19 @@
+{
+  "clip_id": "afrispeech_ng_009",
+  "audio_file": "afrispeech_ng_009.wav",
+  "transcript": "This allowed people to find funny clips and discover new streamers for stuff.",
+  "language": "en",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 6.3,
+      "text": "This allowed people to find funny clips and discover new streamers for stuff.",
+      "avg_logprob": -0.28147228558858234,
+      "no_speech_prob": 0.014422627165913582
+    }
+  ],
+  "error": null
+}

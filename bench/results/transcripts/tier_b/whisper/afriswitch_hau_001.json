@@ -1,0 +1,33 @@
+{
+  "clip_id": "afriswitch_hau_001",
+  "audio_file": "afriswitch_hau_001.wav",
+  "transcript": "ਦੇ ਓੱ ਨੇ ਨੀ, I will be in church this Sunday. I will go to church this Sunday. What is your advice? Your excellency, I can read the…",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 3.72,
+      "text": "ਦੇ ਓੱ ਨੇ ਨੀ, I will be in church this Sunday. I will go to church this Sunday.",
+      "avg_logprob": -0.5025939018495621,
+      "no_speech_prob": 0.056688092648983
+    },
+    {
+      "start": 5.3,
+      "end": 6.24,
+      "text": "What is your advice?",
+      "avg_logprob": -0.5025939018495621,
+      "no_speech_prob": 0.056688092648983
+    },
+    {
+      "start": 6.34,
+      "end": 9.24,
+      "text": "Your excellency, I can read the…",
+      "avg_logprob": -0.5025939018495621,
+      "no_speech_prob": 0.056688092648983
+    }
+  ],
+  "error": null
+}

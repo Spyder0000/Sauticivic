@@ -1,0 +1,19 @@
+{
+  "clip_id": "fleurs_hausa_002",
+  "audio_file": "fleurs_hausa_002.wav",
+  "transcript": "Chibir tapaterda adachi da demokradia atakasariti tana kentuwa dani suayu kanazari masu uzaman kansu watanakia zaman bataliyariki haya zaman laifia tamajali sarikindunya takinapanchi takawuchu tarahiti bisara shinsani.",
+  "language": "sw",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 19.88,
+      "text": "Chibir tapaterda adachi da demokradia atakasariti tana kentuwa dani suayu kanazari masu uzaman kansu watanakia zaman bataliyariki haya zaman laifia tamajali sarikindunya takinapanchi takawuchu tarahiti bisara shinsani.",
+      "avg_logprob": -0.5774347752700617,
+      "no_speech_prob": 0.026618963107466698
+    }
+  ],
+  "error": null
+}

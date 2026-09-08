@@ -1,0 +1,61 @@
+{
+  "clip_id": "afriswitch_hau_002",
+  "audio_file": "afriswitch_hau_002.wav",
+  "transcript": "Val 부� feeds au fosilisdi atas Noah, hiyo ni washemba ya mari manda. Heavenly Enough is van statements of Эxos. I duck the grade of this report and ask you to send it on to pictures after you då the test. Thank you.",
+  "language": "sw",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 2.24,
+      "text": "Val 부� feeds au fosilisdi atas Noah,",
+      "avg_logprob": -4.677784423828125,
+      "no_speech_prob": 0.06338363140821457
+    },
+    {
+      "start": 3.2,
+      "end": 4.5,
+      "text": "hiyo ni washemba ya mari manda.",
+      "avg_logprob": -4.677784423828125,
+      "no_speech_prob": 0.06338363140821457
+    },
+    {
+      "start": 4.64,
+      "end": 6.7,
+      "text": "Heavenly Enough is van statements of Эxos.",
+      "avg_logprob": -4.677784423828125,
+      "no_speech_prob": 0.06338363140821457
+    },
+    {
+      "start": 6.7,
+      "end": 8.82,
+      "text": "I duck the grade of this report",
+      "avg_logprob": -4.677784423828125,
+      "no_speech_prob": 0.06338363140821457
+    },
+    {
+      "start": 8.82,
+      "end": 11.06,
+      "text": "and ask you to send it on to pictures",
+      "avg_logprob": -4.677784423828125,
+      "no_speech_prob": 0.06338363140821457
+    },
+    {
+      "start": 11.06,
+      "end": 13.0,
+      "text": "after you då the test.",
+      "avg_logprob": -4.677784423828125,
+      "no_speech_prob": 0.06338363140821457
+    },
+    {
+      "start": 13.34,
+      "end": 13.540000000000001,
+      "text": "Thank you.",
+      "avg_logprob": -4.677784423828125,
+      "no_speech_prob": 0.06338363140821457
+    }
+  ],
+  "error": null
+}

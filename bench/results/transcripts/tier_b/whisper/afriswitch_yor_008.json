@@ -1,0 +1,61 @@
+{
+  "clip_id": "afriswitch_yor_008",
+  "audio_file": "afriswitch_yor_008.wav",
+  "transcript": "The love of my life. Billy baby. Kon show piya ye mufeje kemo. E wo ni. Beautiful lady ni. E de tukin shole. For two months now.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 3.36,
+      "text": "The love of my life.",
+      "avg_logprob": -0.7684826169695173,
+      "no_speech_prob": 0.06939107179641724
+    },
+    {
+      "start": 4.24,
+      "end": 5.38,
+      "text": "Billy baby.",
+      "avg_logprob": -0.7684826169695173,
+      "no_speech_prob": 0.06939107179641724
+    },
+    {
+      "start": 6.22,
+      "end": 7.94,
+      "text": "Kon show piya ye mufeje kemo.",
+      "avg_logprob": -0.7684826169695173,
+      "no_speech_prob": 0.06939107179641724
+    },
+    {
+      "start": 8.58,
+      "end": 9.14,
+      "text": "E wo ni.",
+      "avg_logprob": -0.7684826169695173,
+      "no_speech_prob": 0.06939107179641724
+    },
+    {
+      "start": 9.46,
+      "end": 10.700000000000001,
+      "text": "Beautiful lady ni.",
+      "avg_logprob": -0.7684826169695173,
+      "no_speech_prob": 0.06939107179641724
+    },
+    {
+      "start": 10.86,
+      "end": 11.9,
+      "text": "E de tukin shole.",
+      "avg_logprob": -0.7684826169695173,
+      "no_speech_prob": 0.06939107179641724
+    },
+    {
+      "start": 12.3,
+      "end": 13.74,
+      "text": "For two months now.",
+      "avg_logprob": -0.7684826169695173,
+      "no_speech_prob": 0.06939107179641724
+    }
+  ],
+  "error": null
+}

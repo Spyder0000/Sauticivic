@@ -1,0 +1,26 @@
+{
+  "clip_id": "afriswitch_hau_006",
+  "audio_file": "afriswitch_hau_006.wav",
+  "transcript": "Abundi isha hine kasa. Yena dadama dizi ishe gawa na ure. Kwa atu mpapasema with disability haku ukansu deyiki ondawa na office in.",
+  "language": "sw",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 3.58,
+      "text": "Abundi isha hine kasa. Yena dadama dizi ishe gawa na ure.",
+      "avg_logprob": -0.6833260276100852,
+      "no_speech_prob": 0.102088563144207
+    },
+    {
+      "start": 3.92,
+      "end": 7.5,
+      "text": "Kwa atu mpapasema with disability haku ukansu deyiki ondawa na office in.",
+      "avg_logprob": -0.6833260276100852,
+      "no_speech_prob": 0.102088563144207
+    }
+  ],
+  "error": null
+}

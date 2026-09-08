@@ -1,0 +1,19 @@
+{
+  "clip_id": "afrispeech_ng_001",
+  "audio_file": "afrispeech_ng_001.wav",
+  "transcript": "In particular, they looked for signs of abrupt systemizing wide transitions, such as when a grassland becomes a forest, or when an oak forest sprouts up where a spruce forest once was full of.",
+  "language": "en",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 19.86,
+      "text": "In particular, they looked for signs of abrupt systemizing wide transitions, such as when a grassland becomes a forest, or when an oak forest sprouts up where a spruce forest once was full of.",
+      "avg_logprob": -0.15311212973161178,
+      "no_speech_prob": 0.011460614390671253
+    }
+  ],
+  "error": null
+}

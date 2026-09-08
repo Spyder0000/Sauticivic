@@ -1,0 +1,19 @@
+{
+  "clip_id": "fleurs_hausa_004",
+  "audio_file": "fleurs_hausa_004.wav",
+  "transcript": "Aunguwa tanta ferietin ginajina daki yungu sarurin samania Hong Kong dagingifiki mei walikia wanda akabai yanata gabanguruwa Victoria Harbour.",
+  "language": "sw",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 16.36,
+      "text": "Aunguwa tanta ferietin ginajina daki yungu sarurin samania Hong Kong dagingifiki mei walikia wanda akabai yanata gabanguruwa Victoria Harbour.",
+      "avg_logprob": -0.6287063451913687,
+      "no_speech_prob": 0.09201553463935852
+    }
+  ],
+  "error": null
+}

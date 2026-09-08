@@ -1,0 +1,19 @@
+{
+  "clip_id": "afriswitch_hau_007",
+  "audio_file": "afriswitch_hau_007.wav",
+  "transcript": "Kupaali k MLB.",
+  "language": "sw",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 21.2,
+      "text": "Kupaali k MLB.",
+      "avg_logprob": -4.646631240844727,
+      "no_speech_prob": 0.11390259116888046
+    }
+  ],
+  "error": null
+}

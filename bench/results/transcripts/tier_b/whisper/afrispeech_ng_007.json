@@ -1,0 +1,19 @@
+{
+  "clip_id": "afrispeech_ng_007",
+  "audio_file": "afrispeech_ng_007.wav",
+  "transcript": "I immediate family names in形 veu stop",
+  "language": "en",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 6.48,
+      "text": "I immediate family names in形 veu stop",
+      "avg_logprob": -3.872342109680176,
+      "no_speech_prob": 0.08190847188234329
+    }
+  ],
+  "error": null
+}

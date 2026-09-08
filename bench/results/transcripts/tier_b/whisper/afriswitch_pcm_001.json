@@ -1,0 +1,40 @@
+{
+  "clip_id": "afriswitch_pcm_001",
+  "audio_file": "afriswitch_pcm_001.wav",
+  "transcript": "Yuki, although we don't talk about the beauty, the goodness of African fashion, African design, even in the international scene, but of course there's no goodness without challenges. What do you feel will be the challenges that African fashion don't encounter in the past ten years?",
+  "language": "en",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 6.1000000000000005,
+      "text": "Yuki, although we don't talk about the beauty, the goodness of African fashion, African design,",
+      "avg_logprob": -0.4007449005589341,
+      "no_speech_prob": 0.36845308542251587
+    },
+    {
+      "start": 6.1000000000000005,
+      "end": 9.98,
+      "text": "even in the international scene, but of course there's no goodness without challenges.",
+      "avg_logprob": -0.4007449005589341,
+      "no_speech_prob": 0.36845308542251587
+    },
+    {
+      "start": 9.98,
+      "end": 15.4,
+      "text": "What do you feel will be the challenges that African fashion don't encounter in the past",
+      "avg_logprob": -0.4007449005589341,
+      "no_speech_prob": 0.36845308542251587
+    },
+    {
+      "start": 15.4,
+      "end": 16.4,
+      "text": "ten years?",
+      "avg_logprob": -0.4007449005589341,
+      "no_speech_prob": 0.36845308542251587
+    }
+  ],
+  "error": null
+}

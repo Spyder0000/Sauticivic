@@ -1,0 +1,19 @@
+{
+  "clip_id": "afrispeech_ng_004",
+  "audio_file": "afrispeech_ng_004.wav",
+  "transcript": "When Harrison Murphy sold her Tacoma condo this summer, she quickly broadened her search for a new home beyond the city to areas like Spanway and Parkland for stock.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 12.8,
+      "text": "When Harrison Murphy sold her Tacoma condo this summer, she quickly broadened her search for a new home beyond the city to areas like Spanway and Parkland for stock.",
+      "avg_logprob": -0.17890485525131225,
+      "no_speech_prob": 0.0002278359024785459
+    }
+  ],
+  "error": null
+}

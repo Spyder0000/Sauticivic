@@ -1,0 +1,33 @@
+{
+  "clip_id": "afriswitch_yor_003",
+  "audio_file": "afriswitch_yor_003.wav",
+  "transcript": "But I was also at the office ina.mpimolemeL mehr? Ni muang robohiifu w'i tu siwa lubi.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 2.5,
+      "text": "But I was also at the office ina.",
+      "avg_logprob": -5.419153353063072,
+      "no_speech_prob": 0.026323024183511734
+    },
+    {
+      "start": 2.5,
+      "end": 5.5,
+      "text": "mpimolemeL mehr?",
+      "avg_logprob": -5.419153353063072,
+      "no_speech_prob": 0.026323024183511734
+    },
+    {
+      "start": 5.6000000000000005,
+      "end": 8.42,
+      "text": "Ni muang robohiifu w'i tu siwa lubi.",
+      "avg_logprob": -5.419153353063072,
+      "no_speech_prob": 0.026323024183511734
+    }
+  ],
+  "error": null
+}

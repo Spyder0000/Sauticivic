@@ -1,0 +1,26 @@
+{
+  "clip_id": "fleurs_hausa_007",
+  "audio_file": "fleurs_hausa_007.wav",
+  "transcript": "Ampainda recording video yaa i fardat banchike mei mahimanchi atkin fasa rambaya lan faska. Boots lan faska wak lan nabaasa wache lukachi gali lan.",
+  "language": "sn",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 8.0,
+      "text": "Ampainda recording video yaa i fardat banchike mei mahimanchi atkin fasa rambaya lan faska.",
+      "avg_logprob": -0.9067711148943219,
+      "no_speech_prob": 0.2523888349533081
+    },
+    {
+      "start": 8.0,
+      "end": 13.0,
+      "text": "Boots lan faska wak lan nabaasa wache lukachi gali lan.",
+      "avg_logprob": -0.9067711148943219,
+      "no_speech_prob": 0.2523888349533081
+    }
+  ],
+  "error": null
+}

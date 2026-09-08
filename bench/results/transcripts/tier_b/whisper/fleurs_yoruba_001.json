@@ -1,0 +1,19 @@
+{
+  "clip_id": "fleurs_yoruba_001",
+  "audio_file": "fleurs_yoruba_001.wav",
+  "transcript": "Awo inyoti mwane pa awo kemika, pepe bi i wura fadaka ati kopa ati jo, toripe aleri wani, ishedani ipo adayiba, ayi adayiba wakodele, ju lati wu, wajad, jata, lati nu i lepe lu, ini she ati lepa.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 24.96,
+      "text": "Awo inyoti mwane pa awo kemika, pepe bi i wura fadaka ati kopa ati jo, toripe aleri wani, ishedani ipo adayiba, ayi adayiba wakodele, ju lati wu, wajad, jata, lati nu i lepe lu, ini she ati lepa.",
+      "avg_logprob": -0.5178182813856337,
+      "no_speech_prob": 0.00824961718171835
+    }
+  ],
+  "error": null
+}

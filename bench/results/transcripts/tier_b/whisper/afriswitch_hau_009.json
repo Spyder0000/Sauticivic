@@ -1,0 +1,54 @@
+{
+  "clip_id": "afriswitch_hau_009",
+  "audio_file": "afriswitch_hau_009.wav",
+  "transcript": "Tafaro kuwe amu yanda zang kalike mara ingi magana, yanda a ina chiki magana ya kama ati ingi pausing ku ina nsa ya anang, yanda gesture fisika hakadi. Tafaro kuwe amu tana wanan rehazal ndani. Harno zunasamu yunguli the hima, the courage, the zang, yuwanam video. Nshini si inay wanam video, dane wanam video. Nekika fati ya video. Magana anay a kanyenda wanasa ingi den namiji ya dekima chiku ya chima tazara fi.",
+  "language": "sn",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 9.52,
+      "text": "Tafaro kuwe amu yanda zang kalike mara ingi magana, yanda a ina chiki magana ya kama ati ingi pausing ku ina nsa ya anang, yanda gesture fisika hakadi.",
+      "avg_logprob": -0.5711543831282747,
+      "no_speech_prob": 0.5932945609092712
+    },
+    {
+      "start": 10.06,
+      "end": 12.3,
+      "text": "Tafaro kuwe amu tana wanan rehazal ndani.",
+      "avg_logprob": -0.5711543831282747,
+      "no_speech_prob": 0.5932945609092712
+    },
+    {
+      "start": 12.42,
+      "end": 17.42,
+      "text": "Harno zunasamu yunguli the hima, the courage, the zang, yuwanam video.",
+      "avg_logprob": -0.5711543831282747,
+      "no_speech_prob": 0.5932945609092712
+    },
+    {
+      "start": 17.54,
+      "end": 20.5,
+      "text": "Nshini si inay wanam video, dane wanam video.",
+      "avg_logprob": -0.5711543831282747,
+      "no_speech_prob": 0.5932945609092712
+    },
+    {
+      "start": 20.72,
+      "end": 21.62,
+      "text": "Nekika fati ya video.",
+      "avg_logprob": -0.5711543831282747,
+      "no_speech_prob": 0.5932945609092712
+    },
+    {
+      "start": 22.68,
+      "end": 28.6,
+      "text": "Magana anay a kanyenda wanasa ingi den namiji ya dekima chiku ya chima tazara fi.",
+      "avg_logprob": -0.5711543831282747,
+      "no_speech_prob": 0.5932945609092712
+    }
+  ],
+  "error": null
+}

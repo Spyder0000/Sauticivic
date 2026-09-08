@@ -1,0 +1,19 @@
+{
+  "clip_id": "fleurs_yoruba_004",
+  "audio_file": "fleurs_yoruba_004.wav",
+  "transcript": "Nwantiba amwa rin i ajo, ni monon lati sora fun e u oja, to li ni ikba ni akbi bewa, ni to li u li ni ikba fun e nike ni toba ni ito, lati rin i ajo.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 15.68,
+      "text": "Nwantiba amwa rin i ajo, ni monon lati sora fun e u oja, to li ni ikba ni akbi bewa, ni to li u li ni ikba fun e nike ni toba ni ito, lati rin i ajo.",
+      "avg_logprob": -0.4586935910311612,
+      "no_speech_prob": 0.0025264716241508722
+    }
+  ],
+  "error": null
+}

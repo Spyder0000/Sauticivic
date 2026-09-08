@@ -1,0 +1,19 @@
+{
+  "clip_id": "afrispeech_ng_014",
+  "audio_file": "afrispeech_ng_014.wav",
+  "transcript": "Top gynecologists, Drs. Noren Yagaze and Ahu Moye at Omo-Aifinaran Leading Specialist Hospital were quizzed on the management of several patients for stop.",
+  "language": "en",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 14.18,
+      "text": "Top gynecologists, Drs. Noren Yagaze and Ahu Moye at Omo-Aifinaran Leading Specialist Hospital were quizzed on the management of several patients for stop.",
+      "avg_logprob": -0.24893494869800323,
+      "no_speech_prob": 0.025793353095650673
+    }
+  ],
+  "error": null
+}

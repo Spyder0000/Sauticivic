@@ -1,0 +1,26 @@
+{
+  "clip_id": "afriswitch_pcm_008",
+  "audio_file": "afriswitch_pcm_008.wav",
+  "transcript": "must perform, must get command performance. So now that will become an issue.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 3.16,
+      "text": "must perform, must get command performance.",
+      "avg_logprob": -0.3349944069271996,
+      "no_speech_prob": 0.02790708839893341
+    },
+    {
+      "start": 3.7,
+      "end": 5.2,
+      "text": "So now that will become an issue.",
+      "avg_logprob": -0.3349944069271996,
+      "no_speech_prob": 0.02790708839893341
+    }
+  ],
+  "error": null
+}

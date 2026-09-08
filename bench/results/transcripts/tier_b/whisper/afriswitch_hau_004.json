@@ -1,0 +1,19 @@
+{
+  "clip_id": "afriswitch_hau_004",
+  "audio_file": "afriswitch_hau_004.wav",
+  "transcript": "Bayangaya rdachi wayakari ya kaidu jenda hukumar World Antidoping Agency tashumpa taa.",
+  "language": "sw",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 5.32,
+      "text": "Bayangaya rdachi wayakari ya kaidu jenda hukumar World Antidoping Agency tashumpa taa.",
+      "avg_logprob": -0.5243632372687844,
+      "no_speech_prob": 0.07601623237133026
+    }
+  ],
+  "error": null
+}

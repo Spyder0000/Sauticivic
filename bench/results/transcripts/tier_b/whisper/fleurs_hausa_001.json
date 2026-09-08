@@ -1,0 +1,47 @@
+{
+  "clip_id": "fleurs_hausa_001",
+  "audio_file": "fleurs_hausa_001.wav",
+  "transcript": "Minto na biyar dafara nuni mwata iska yafara shigoo wachiki. Kusammenti lea dagabaya iskaratadushi kilomita sabayin. Dagabaya ruwansa maezu amaa dayewa da karifinsa ya sawuko ya daze buji. Fatarka kamar alura sanamu waniyaka ngara yafaro daga sama. Mwata ni suna bergita, suna kuhuruwa, suna tatatijuna.",
+  "language": "sw",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 9.0,
+      "text": "Minto na biyar dafara nuni mwata iska yafara shigoo wachiki.",
+      "avg_logprob": -0.5800257183256603,
+      "no_speech_prob": 0.22498208284378052
+    },
+    {
+      "start": 9.0,
+      "end": 18.0,
+      "text": "Kusammenti lea dagabaya iskaratadushi kilomita sabayin.",
+      "avg_logprob": -0.5800257183256603,
+      "no_speech_prob": 0.22498208284378052
+    },
+    {
+      "start": 18.0,
+      "end": 28.0,
+      "text": "Dagabaya ruwansa maezu amaa dayewa da karifinsa ya sawuko ya daze buji.",
+      "avg_logprob": -0.5800257183256603,
+      "no_speech_prob": 0.22498208284378052
+    },
+    {
+      "start": 28.0,
+      "end": 35.0,
+      "text": "Fatarka kamar alura sanamu waniyaka ngara yafaro daga sama.",
+      "avg_logprob": -0.5069155693054199,
+      "no_speech_prob": 0.0034307786263525486
+    },
+    {
+      "start": 35.0,
+      "end": 41.0,
+      "text": "Mwata ni suna bergita, suna kuhuruwa, suna tatatijuna.",
+      "avg_logprob": -0.5069155693054199,
+      "no_speech_prob": 0.0034307786263525486
+    }
+  ],
+  "error": null
+}

@@ -1,0 +1,19 @@
+{
+  "clip_id": "fleurs_yoruba_003",
+  "audio_file": "fleurs_yoruba_003.wav",
+  "transcript": "Lo uto, a li ni utu man itan science-i. A li si idashi le e ka computer science-i kan tiu si kwa taki pupo. Tiu ni si kwe lu iwa. E ko ati ilo gben inwe ni kwe lu iro.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 16.0,
+      "text": "Lo uto, a li ni utu man itan science-i. A li si idashi le e ka computer science-i kan tiu si kwa taki pupo. Tiu ni si kwe lu iwa. E ko ati ilo gben inwe ni kwe lu iro.",
+      "avg_logprob": -0.4664605365079992,
+      "no_speech_prob": 0.005275636445730925
+    }
+  ],
+  "error": null
+}

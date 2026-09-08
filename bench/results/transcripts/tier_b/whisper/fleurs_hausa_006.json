@@ -1,0 +1,26 @@
+{
+  "clip_id": "fleurs_hausa_006",
+  "audio_file": "fleurs_hausa_006.wav",
+  "transcript": "We pray for the is that you get the silver another a body and water and my day wanna E Sp flush you to me goddamn piano kerestan 시",
+  "language": "en",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 10.700000000000001,
+      "text": "We pray for the is that you get the silver another a body",
+      "avg_logprob": -4.574794345431858,
+      "no_speech_prob": 0.5537955164909363
+    },
+    {
+      "start": 10.700000000000001,
+      "end": 25.36,
+      "text": "and water and my day wanna E Sp flush you to me goddamn piano kerestan 시",
+      "avg_logprob": -4.574794345431858,
+      "no_speech_prob": 0.5537955164909363
+    }
+  ],
+  "error": null
+}

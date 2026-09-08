@@ -1,0 +1,26 @@
+{
+  "clip_id": "afrispeech_ng_010",
+  "audio_file": "afrispeech_ng_010.wav",
+  "transcript": "ESPN's Adam Schefter reports Trubisky visited Dr. Neil Atrach in Los Angeles on Thursday for evaluation of his right shoulder coma and it was determined surgery isn't necessary for stop.",
+  "language": "en",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 11.200000000000001,
+      "text": "ESPN's Adam Schefter reports Trubisky visited Dr. Neil Atrach in Los Angeles on Thursday",
+      "avg_logprob": -0.3048871081808339,
+      "no_speech_prob": 0.003062174189835787
+    },
+    {
+      "start": 11.200000000000001,
+      "end": 17.76,
+      "text": "for evaluation of his right shoulder coma and it was determined surgery isn't necessary for stop.",
+      "avg_logprob": -0.3048871081808339,
+      "no_speech_prob": 0.003062174189835787
+    }
+  ],
+  "error": null
+}

@@ -1,0 +1,47 @@
+{
+  "clip_id": "afriswitch_yor_001",
+  "audio_file": "afriswitch_yor_001.wav",
+  "transcript": "Sherry ko tafi kwa nur idea nge?... Iaoanehum, if not that, ttehi o Henangu nge... Ɵa ke���ik mon ta restoring to Всё ka do mo... Muni Sanay определia na speak. Pi, i gestellt to kikiri konfon.",
+  "language": "yo",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.9400000000000001,
+      "end": 2.7600000000000002,
+      "text": "Sherry ko tafi kwa nur idea nge?...",
+      "avg_logprob": -5.029661129682492,
+      "no_speech_prob": 0.1768551915884018
+    },
+    {
+      "start": 2.7600000000000002,
+      "end": 4.6000000000000005,
+      "text": "Iaoanehum, if not that, ttehi o Henangu nge...",
+      "avg_logprob": -5.029661129682492,
+      "no_speech_prob": 0.1768551915884018
+    },
+    {
+      "start": 4.74,
+      "end": 7.22,
+      "text": "Ɵa ke���ik mon ta restoring to Всё ka do mo...",
+      "avg_logprob": -5.029661129682492,
+      "no_speech_prob": 0.1768551915884018
+    },
+    {
+      "start": 8.040000000000001,
+      "end": 9.66,
+      "text": "Muni Sanay определia na speak.",
+      "avg_logprob": -5.029661129682492,
+      "no_speech_prob": 0.1768551915884018
+    },
+    {
+      "start": 10.040000000000001,
+      "end": 11.620000000000001,
+      "text": "Pi, i gestellt to kikiri konfon.",
+      "avg_logprob": -5.029661129682492,
+      "no_speech_prob": 0.1768551915884018
+    }
+  ],
+  "error": null
+}

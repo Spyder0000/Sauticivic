@@ -1,0 +1,40 @@
+{
+  "clip_id": "afriswitch_pcm_007",
+  "audio_file": "afriswitch_pcm_007.wav",
+  "transcript": "they will not show face. Now people come outside and talk Twitter, they talk, say, does that state have a government at all?",
+  "language": "en",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 0.98,
+      "text": "they will not show face.",
+      "avg_logprob": -0.317266000283731,
+      "no_speech_prob": 0.0389690101146698
+    },
+    {
+      "start": 1.4000000000000001,
+      "end": 2.94,
+      "text": "Now people come outside and talk Twitter,",
+      "avg_logprob": -0.317266000283731,
+      "no_speech_prob": 0.0389690101146698
+    },
+    {
+      "start": 3.06,
+      "end": 3.58,
+      "text": "they talk, say,",
+      "avg_logprob": -0.317266000283731,
+      "no_speech_prob": 0.0389690101146698
+    },
+    {
+      "start": 3.9,
+      "end": 5.68,
+      "text": "does that state have a government at all?",
+      "avg_logprob": -0.317266000283731,
+      "no_speech_prob": 0.0389690101146698
+    }
+  ],
+  "error": null
+}

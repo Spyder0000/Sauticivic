@@ -1,0 +1,26 @@
+{
+  "clip_id": "afrispeech_ng_011",
+  "audio_file": "afrispeech_ng_011.wav",
+  "transcript": "On January 22, Huang Meng, the deputy director of the Hubei Provincial Department of Commerce, was diagnosed with the coronavirus for stools.",
+  "language": "en",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 10.68,
+      "text": "On January 22, Huang Meng, the deputy director of the Hubei Provincial Department of Commerce,",
+      "avg_logprob": -0.4197368621826172,
+      "no_speech_prob": 0.0039017717353999615
+    },
+    {
+      "start": 10.68,
+      "end": 13.4,
+      "text": "was diagnosed with the coronavirus for stools.",
+      "avg_logprob": -0.4197368621826172,
+      "no_speech_prob": 0.0039017717353999615
+    }
+  ],
+  "error": null
+}

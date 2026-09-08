@@ -1,0 +1,26 @@
+{
+  "clip_id": "afrispeech_ng_006",
+  "audio_file": "afrispeech_ng_006.wav",
+  "transcript": "For privacy reasons, call on to sign in or register for most social media platforms, you need to impute your phone number, email, or any other personal detail. Full stop.",
+  "language": "en",
+  "confidence": null,
+  "backend": "whisper",
+  "model_size": "large-v3",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 13.96,
+      "text": "For privacy reasons, call on to sign in or register for most social media platforms, you need to impute your phone number, email, or any other personal detail.",
+      "avg_logprob": -0.20907467887515113,
+      "no_speech_prob": 0.009937351569533348
+    },
+    {
+      "start": 14.66,
+      "end": 15.38,
+      "text": "Full stop.",
+      "avg_logprob": -0.20907467887515113,
+      "no_speech_prob": 0.009937351569533348
+    }
+  ],
+  "error": null
+}
