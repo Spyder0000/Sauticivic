@@ -236,12 +236,13 @@ def ingest_afriswitch(
             continue
 
         print(f"  Streaming AfriSwitch [{cfg['config']}] (lightweight stream, max 10 clips)...")
+        _hf_token = os.environ.get("HF_TOKEN") or os.environ.get("HUGGING_FACE_HUB_TOKEN") or None
         try:
-            ds = load_dataset("intronhealth/AfriSwitch", cfg["config"], split="test", streaming=True)
+            ds = load_dataset("intronhealth/AfriSwitch", cfg["config"], split="test", streaming=True, token=_hf_token)
             if Audio is not None:
                 ds = ds.cast_column("audio", Audio(decode=False))
         except Exception:
-            ds = load_dataset("intronhealth/AfriSwitch", cfg["config"], split="test")
+            ds = load_dataset("intronhealth/AfriSwitch", cfg["config"], split="test", token=_hf_token)
             if Audio is not None and hasattr(ds, "column_names") and "audio" in ds.column_names:
                 ds = ds.cast_column("audio", Audio(decode=False))
 
