@@ -40,7 +40,7 @@ def run_intake(
 
     extraction = extractor.run(transcript)
     classification = classifier.run(transcript)
-    decision = decide(classification, extraction, config)
+    decision = decide(classification, extraction, config, transcript=transcript)
 
     # Chain the classifier's reasoning and the gate's reasoning for the audit log.
     reasons = list(classification.reasons) + list(decision.reasons)
