@@ -21,12 +21,14 @@ _INFRA_KEYWORDS = {
     "pothole", "road", "pipe", "water", "burst", "leak", "power", "electricity",
     "light", "streetlight", "outage", "nepa", "waste", "garbage", "refuse",
     "drainage", "gutter", "sewage", "flood", "blocked", "blockage", "pavement",
+    "bridge", "crack", "borehole",
 }
 _LEGAL_KEYWORDS = {
     "landlord", "tenant", "tenancy", "rent", "evict", "eviction", "deposit",
-    "employer", "boss", "salary", "wage", "wages", "sack", "sacked", "fired",
-    "labour", "labor", "overtime", "police", "officer", "arrest", "arrested",
-    "detain", "detained", "harass", "harassment", "assault", "contract", "sue",
+    "employer", "boss", "oga", "company", "salary", "wage", "wages", "sack", "sacked", "fired",
+    "labour", "labor", "overtime", "entitlement", "police", "officer", "arrest", "arrested",
+    "detain", "detained", "harass", "harassment", "assault", "beat", "contract", "sue",
+    "security", "partner", "fraud", "husband", "property",
 }
 
 

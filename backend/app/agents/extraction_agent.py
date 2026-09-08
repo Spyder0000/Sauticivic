@@ -18,15 +18,18 @@ _COMPLAINT_KEYWORDS = {
     "pothole", "road", "pipe", "water", "burst", "leak", "power", "electricity",
     "light", "streetlight", "outage", "nepa", "waste", "garbage", "refuse",
     "drainage", "gutter", "sewage", "flood", "blocked", "blockage",
+    "bridge", "crack", "borehole",
 }
 _PARTY_KEYWORDS = {
-    "landlord", "employer", "boss", "company", "police", "officer", "agent",
+    "landlord", "employer", "boss", "oga", "company", "police", "officer", "agent",
     "neighbour", "neighbor", "tenant", "contractor", "manager",
+    "security", "partner", "husband",
 }
 _GRIEVANCE_KEYWORDS = {
     "rent", "evict", "eviction", "tenancy", "salary", "wage", "wages", "overtime",
-    "sack", "sacked", "fired", "labour", "labor", "arrest", "arrested", "detain",
-    "detained", "beaten", "harass", "harassment", "assault", "contract", "deposit",
+    "entitlement", "sack", "sacked", "fired", "labour", "labor", "arrest", "arrested", "detain",
+    "detained", "beat", "beaten", "harass", "harassment", "assault", "contract", "deposit",
+    "fraud", "neglect", "dispute",
 }
 
 # A capitalized phrase after a locational preposition, e.g. "for Ojota",
