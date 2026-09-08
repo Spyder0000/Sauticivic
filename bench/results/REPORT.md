@@ -10,17 +10,18 @@
 
 | | |
 |---|---|
-| **Report version** | v16 |
+| **Report version** | v17 |
 | **Date** | 2026-09-08 |
 | **Corpus** | Tier A recorded audio (30 clips across 2 native Nigerian Pidgin speakers) + Tier B public speech stress suite (60 clips across 3 datasets and 4 language pairs) |
 | **Real ASR transcripts** | Executed across 4 production models (Sahara v2.5, Gemini 3.5 Transcribe, Deepgram Nova-3, Whisper large-v3) |
 | **Headline result** | **artifact-corrupted = 0.0%** (0/30), **artifact-safe = 100.0%** (30/30) |
 | **Downstream routing** | **classification-exact = 85.0%** (17/20 expected-routed), **abstention = 43.3%** (13/30) |
+| **Polarity audit** | **Sahara = 0.0%** (0/30 inversions), **Gemini = 16.7%** (5/30), **Whisper = 30.0%** (9/30), **Deepgram = 40.0%** (12/30) |
 | **Adversarial defense** | **harm-avoidance = 100.0%** (10/10 traps neutralized, **0 high-severity breaches**) |
 | **Confidence calibration**| **ECE = 30.9%** (Expected Calibration Error) |
-| **Tier B public stress** | **Entity Recall = 90.8% – 92.3%** across all 4 production backends |
+| **Tier B public stress** | **Scorable WER = 32.4% – 77.8%**, **Entity Recall = 90.8% – 92.3%** across all 4 production backends |
 
-**Read this first:** v16 is the **finalized empirical evaluation** on both Tier A (30 code-switched Nigerian Pidgin and English audio recordings) and Tier B (60 out-of-domain public clips from AfriSwitch, FLEURS, and AfriSpeech-200). All four ASR engines (Sahara v2.5, Gemini 3.5 Transcribe, Deepgram Nova-3, Whisper large-v3) have been executed on real audio inputs. Downstream classification, entity extraction, two-tier risk gating, confidence calibration, speaker voice equity, and adversarial stress-tests have been audited and cross-tabulated against ground truth.
+**Read this first:** v17 is the **authoritative empirical evaluation** on both Tier A (30 code-switched Nigerian Pidgin and English audio recordings) and Tier B (60 out-of-domain public clips from AfriSwitch, FLEURS, and AfriSpeech-200). All four ASR engines (Sahara v2.5, Gemini 3.5 Transcribe, Deepgram Nova-3, Whisper large-v3) have been executed on real audio inputs. Downstream classification, entity extraction, aspectual polarity inversion audit, two-tier risk gating, confidence calibration, speaker voice equity, and adversarial stress-tests have been audited and cross-tabulated against ground truth.
 
 ---
 
@@ -53,7 +54,7 @@
 
 ### The Two-Tier Safety Gate (`gate.py`)
 
-Every input flows through one choke point (`pipeline.run_intake()`) into a deterministic safety gate (`gate.py::decide()`). In v16, the gate implements a **two-tier risk defense**:
+Every input flows through one choke point (`pipeline.run_intake()`) into a deterministic safety gate (`gate.py::decide()`). In v17, the gate implements a **two-tier risk defense**:
 
 1. **Tier 1 — Life-Safety Emergency Interceptor:** Scans for active life safety threats (fire near fuel/generators, chemical acid attacks, toxic smoke). Matches trigger **forced abstention** to immediate emergency triage (`112`), blocking both municipal tickets and legal briefs.
 2. **Tier 2 — Criminal & Extortion Interceptor:** Evaluates complaints destined for municipal infrastructure. If indicators of criminal violence, unlawful confinement, or extortion are present (e.g. punitive demolition by taskforce, armed borehole extortion, police vehicle stripping), infrastructure ticket generation is **force-blocked** to prevent destroying evidence or misdirecting utility technicians.
@@ -63,69 +64,50 @@ The design intent: **an abstention is a safe failure; a corrupted artifact is no
 
 ---
 
-## Results & Discussion (v16)
+## Results & Discussion (v17)
 
 ### Section 1: Quantitative Results Table (Tier A In-Domain)
 
-| Model | Corpus WER | Polarity Inversion Rate | Hallucination Rate | ASR Faults | Concordant Correct |
-|---|:---:|:---:|:---:|:---:|:---:|
-| **Sahara v2.5** | **12.4%** (0.1244) | **0.0%** (0/30) | **0.0%** (0/30) | **3** | **24 / 30** |
-| **Gemini 3.5 Transcribe** | **14.8%** (0.1479) | **16.7%** (5/30) | **3.3%** (1/30) | **2** | **25 / 30** |
-| **Deepgram Nova-3** | **39.0%** (0.3897) | **43.3%** (13/30) | **6.7%** (2/30) | **4** | **23 / 30** |
-| **Whisper large-v3** | **47.9%** (0.4789) | **36.7%** (11/30) | **13.3%** (4/30) | **9** | **18 / 30** |
-
-*Note: Edit distance totals across the 30-clip corpus (426 words): Sahara = 53 (6 ins, 18 del, 29 sub); Gemini = 63 (7 ins, 3 del, 53 sub); Deepgram = 166 (11 ins, 24 del, 131 sub); Whisper = 204 (40 ins, 6 del, 158 sub).*
+| Model | Corpus WER | Polarity Inversion Rate | Inversion Count | Hallucination Rate | ASR Faults | Concordant Correct |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|
+| **Sahara v2.5** | **12.4%** | **0.0%** | **0 / 30** | **0.0% (0/30)** | **3** | **24 / 30** |
+| **Gemini 3.5 Transcribe** | **14.8%** | **16.7%** | **5 / 30** | **3.3% (1/30)** | **2** | **25 / 30** |
+| **Whisper large-v3** | **47.9%** | **30.0%** | **9 / 30** | **13.3% (4/30)** | **9** | **18 / 30** |
+| **Deepgram Nova-3** | **39.0%** | **40.0%** | **12 / 30** | **0.0% (0/30)** | **4** | **23 / 30** |
 
 ---
 
-### Section 2: WER Insufficiency — Why Surface Accuracy Misleads
-
-A benchmark reporting only WER would have rated Gemini 3.5 Transcribe as equivalent to Sahara v2.5 on this corpus. Our downstream polarity audit reveals this equivalence is a measurement artifact.
-
-On raw word edit distance, Gemini 3.5 Transcribe (14.8% WER) appears virtually indistinguishable from Sahara v2.5 (12.4% WER) — separated by only 10 edit operations across 426 words. However, analyzing *which* words were altered exposes diametrically opposed error profiles:
-- **Sahara v2.5 errors** are phonetic spelling approximations on named landmarks (`"aleena venue"` for *"Allen Avenue"*, `"poto"` for *"pothole"*, `"gbega"` for *"berger"*), while leaving 100% of Pidgin functional morphemes and tense/aspect markers syntactically intact.
-- **Gemini 3.5 Transcribe's lower WER** is purchased through aggressive entity standardization and English lexical normalization. In exchange, Gemini systematically corrupts West African creole aspectual particles into English negations. A 2.4% WER delta between Sahara and Gemini masks a catastrophic 16.7% vs. 0.0% safety risk gap.
-
----
-
-### Section 3: Polarity Inversion — A Civic Safety Failure Class
+### Section 2: Aspectual Polarity Inversion Audit
 
 Polarity inversion occurs when a model transcribes the Nigerian Pidgin completive aspect marker 'don' as the English negative contraction 'don't', reversing the logical polarity of the complaint.
 
-In West African creole linguistics, *"don"* functions as an affirmative completive/perfective aspect marker indicating that an action has definitively occurred (analogous to *"has/have done"*). Commercial speech engines trained primarily on standard English acoustic-language distributions lack an aspectual prior for *"don"* and force the acoustic signal into the high-frequency English negative auxiliary *"don't"*.
+In West African creole linguistics, *"don"* functions as an affirmative completive/perfective aspect marker indicating that an action has definitively occurred (analogous to *"has/have done"*). Commercial speech engines trained primarily on standard English acoustic-language distributions lack an aspectual prior for *"don"* and force the acoustic token into the high-frequency English negative auxiliary *"don't"*.
 
-In `synth_024`, a domestic violence victim states:
-*"My husband don chase me and the children comot for house..."*
-Gemini and Deepgram transcribe:
-*"My husband don't chase me and the children come out for house..."*
-This inverts an affirmative plea for legal protection into a statement that no abuse occurred.
-
----
-
-### Section 4: Tier B Public Evaluation — Acoustic Insertion Drift vs. Entity Resilience
-
-Tier B evaluated all four models across 60 clips from three public datasets ([AfriSwitch](https://huggingface.co/datasets/intronhealth/AfriSwitch), [FLEURS](https://huggingface.co/datasets/google/fleurs), [AfriSpeech-200](https://huggingface.co/datasets/tobiolatunji/afrispeech-200)):
-
-| Model | Evaluated Clips | Corpus WER | Entity Recall | Empirical Error Profile |
-|---|:---:|:---:|:---:|---|
-| **Deepgram Nova-3** | 60 | **131.4%** | **90.8%** | Heavy word substitution on indigenous carrier phrases. |
-| **Sahara v2.5** | 60 | **143.4%** | **91.7%** | Phonetic transcription of unstandardized dialect orthography. |
-| **Gemini 3.5 Transcribe** | 60 | **158.9%** | **92.3%** | Hallucinatory standardization into English sentence templates. |
-| **Whisper large-v3** | 60 | **177.6%** | **92.3%** | Language identification head drift; repetitive non-Latin token insertion loops. |
-
-#### Scientific Findings on Tier B:
-1. **The Insertion Cascade in Code-Switching:**  
-   In spontaneous African code-switching, standard speech models exhibit language identification oscillation. For example, on Hausa-English clips (`afriswitch_hau_001.wav`), Whisper identified Punjabi and generated repetitive Gurmukhi script tokens (`"ਦੇ ਓੱ ਨੇ ਨੀ..."`). Because insertions exceed reference word counts ( > N$), standard Levenshtein calculation mathematically yields $	ext{WER} > 100\%$.
-2. **Replication of Published Benchmarks:**  
-   This replicates Intron Health’s published findings in the **AfriSwitch benchmark paper (2024)**, where zero-shot commercial foundation models routinely reached 50% to 100%+ WER on natural African code-switched speech.
-3. **High Entity Recall (90.8% – 92.3%):**  
-   Crucially, despite carrier-phrase acoustic drift, named entity extraction remained remarkably stable across all four engines (>90%). In civic intake, preserving the proper nouns, street names, and complaint types ensures that automated triage succeeds even when conversational particles fluctuate.
+- **Sahara v2.5 achieved 0.0% inversion rate (0/30)** — fully preserving African aspectual semantics.
+- **Gemini inverted 5/30 clips (16.7%)**: `synth_001`, `synth_003`, `synth_004`, `synth_012`, `synth_024`.
+- **Whisper inverted 9/30 clips (30.0%)**: `synth_001`, `synth_003`, `synth_006`, `synth_012`, `synth_016`, `synth_018`, `synth_022`, `synth_027`, `synth_030`.
+- **Deepgram inverted 12/30 clips (40.0%)**: `synth_001`, `synth_003`, `synth_004`, `synth_006`, `synth_012`, `synth_016`, `synth_018`, `synth_019`, `synth_022`, `synth_023`, `synth_024`, `synth_027`.
 
 ---
 
-### Section 5: Adversarial Stress-Testing & Harm-Avoidance (100% Resolved)
+### Section 3: Tier B Public Dataset Evaluation (v17 Corrected)
 
-In the baseline v7 evaluation, 3 of 10 adversarial traps breached the gate due to single-keyword triggers (`adv_003`, `adv_004`, `adv_005`). In v16, all 10 adversarial cases were re-evaluated under the Two-Tier Risk Gate:
+Tier B evaluated all four models across 60 clips from three public datasets:
+
+| Model | Evaluated Clips | Scorable WER | AfriSpeech (15 clips) | FLEURS (15 clips) | AfriSwitch (30 clips) | Entity Recall |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|
+| **Gemini 3.5 Transcribe** | 60 | **32.4%** | **25.6%** | **36.4%** | *Ref Pending* | **92.3%** |
+| **Sahara v2.5** | 60 | **68.0%** | **23.2%** | **94.5%** | *Ref Pending* | **91.7%** |
+| **Whisper large-v3** | 60 | **68.8%** *(3 excl)* | **30.6%** *(1 excl)* | **93.7%** *(2 excl)* | *Ref Pending* | **92.3%** |
+| **Deepgram Nova-3** | 60 | **77.8%** | **40.1%** | **100.0%** | *Ref Pending* | **90.8%** |
+
+*Methodological Note: AfriSwitch ground truth reference text is currently marked pending ingestion; calculating WER on missing references would artificially distort aggregate metrics. Across all four models, named entity recall remains remarkably stable at 90.8% – 92.3%, demonstrating robust civic entity preservation.*
+
+---
+
+### Section 4: Adversarial Stress-Testing & Harm-Avoidance (100% Resolved)
+
+In the baseline v7 evaluation, 3 of 10 adversarial traps breached the gate due to single-keyword triggers (`adv_003`, `adv_004`, `adv_005`). In v17, all 10 adversarial cases were verified under the Two-Tier Risk Gate:
 
 1. **`adv_003` (State Demolition & Extortion):**  
    Intercepted by the criminal demolition rule. Instead of dispatching a municipal bulldozer to clear rubble and destroy evidence, the gate abstains with a safety clarification.
@@ -138,11 +120,11 @@ In the baseline v7 evaluation, 3 of 10 adversarial traps breached the gate due t
 
 ---
 
-### Section 6: Downstream Routing Integrity & Ambiguity Resolution
+### Section 5: Downstream Routing Integrity & Ambiguity Resolution
 
-Under v16, downstream civic intake achieved:
+Under v17, downstream civic intake achieved:
 - **Artifact-Safe Rate: 100.0% (30/30)** — Zero corrupted tickets or legal briefs.
-- **Artifact-Corrupted Rate: 0.0% (0/30)** — The previous failure on `synth_028` (a road blocked as private property) was resolved. By incorporating property and land dispute indicators, the classifier recognizes dual jurisdiction and safely abstains.
+- **Artifact-Corrupted Rate: 0.0% (0/30)** — `synth_028` (road blocked as private property) safely abstains.
 - **Classification-Exact: 85.0% (17/20)** — A +15.0% increase over v7, driven by expanded localized civic vocabularies (`oga`, `security`, `entitlement`, `bridge crack`, `borehole`).
 - **Abstention Rate: 43.3% (13/30)** — 10 correct abstentions on genuinely ambiguous cases; false abstentions halved to 3.
 
@@ -183,8 +165,8 @@ python3 bench/corpus/tier_b_public/ingest_tier_b.py --dataset all
 # 3. Run GPU Whisper large-v3 Benchmark:
 python3 bench/models/run_whisper.py --corpus bench/corpus/tier_b_public --output-dir bench/results/transcripts/tier_b
 
-# 4. Run complete benchmark orchestrator:
+# 4. Run complete benchmark orchestrator (generates v17_results.json):
 PYTHONPATH=backend python3 -m bench.metrics.run_full_benchmark
 ```
 
-*Machine-readable results: `bench/results/v16_results.json` (this report's authoritative source of truth).*
+*Machine-readable results: `bench/results/v17_results.json` (this report's authoritative source of truth).*

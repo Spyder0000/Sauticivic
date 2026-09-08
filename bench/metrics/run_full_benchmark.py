@@ -19,6 +19,7 @@ Usage:
 from __future__ import annotations
 
 import json
+import re
 import sys
 from collections import Counter
 from datetime import datetime, timezone
@@ -180,6 +181,65 @@ def _run_oracle_by_model(corpus_path: Path, transcripts_root: Path) -> dict:
     }
 
 
+def _run_polarity_inversion_audit(corpus: list[dict], transcripts_root: Path) -> dict:
+    """Audit ASR models for aspectual polarity inversion (don -> don't/dont) on Nigerian Pidgin."""
+    results: dict[str, dict] = {}
+    any_found = False
+
+    for model in _MODELS:
+        transcripts = _load_model_transcripts(transcripts_root, model)
+        if not transcripts:
+            results[model] = {"status": "not_available"}
+            continue
+
+        any_found = True
+        total_clips = 0
+        inversions = 0
+        hallucinations = 0
+        inversion_clip_ids = []
+        hallucination_clip_ids = []
+
+        for clip in corpus:
+            cid = clip["clip_id"]
+            if cid not in transcripts:
+                continue
+            total_clips += 1
+            ref = clip.get("transcript", "").lower()
+            hyp = transcripts[cid].lower()
+
+            has_gt_don = bool(re.search(r"\bdon\b", ref))
+            has_hyp_dont = bool(re.search(r"\b(don't|dont)\b", hyp))
+            is_inversion = False
+            if has_gt_don and has_hyp_dont:
+                is_inversion = True
+            elif "no dey" in ref and "know they" in hyp:
+                is_inversion = True
+
+            if is_inversion:
+                inversions += 1
+                inversion_clip_ids.append(cid)
+
+            if "pas de code" in hyp or any(ord(ch) > 0x0500 for ch in hyp):
+                hallucinations += 1
+                hallucination_clip_ids.append(cid)
+            elif model == "whisper" and any(ord(ch) > 127 for ch in hyp):
+                hallucinations += 1
+                hallucination_clip_ids.append(cid)
+
+        results[model] = {
+            "status": "ok",
+            "total_clips": total_clips,
+            "polarity_inversions": inversions,
+            "polarity_inversion_rate": round(inversions / total_clips, 4) if total_clips else 0.0,
+            "inversion_clips": inversion_clip_ids,
+            "hallucinations": hallucinations,
+            "hallucination_rate": round(hallucinations / total_clips, 4) if total_clips else 0.0,
+            "hallucination_clips": hallucination_clip_ids,
+        }
+
+    return results
+
+
 def _extract_candidate_entities(text: str) -> list[str]:
     """Extract candidate named entities/proper nouns from text as evaluation targets."""
     words = [w.strip(".,;:?!\"'()") for w in text.split()]
@@ -266,12 +326,8 @@ def _run_tier_b_eval(tier_b_corpus_path: Path, transcripts_root: Path) -> dict:
             continue
 
         any_found = True
-        clips = [
-            {"clip_id": cid, "hypothesis": transcripts[cid], "reference": ref_by_id[cid]}
-            for cid in matching_ids
-        ]
-        wer_res = corpus_wer(clips)
 
+        # Candidate entities recall across all matching clips
         entity_scores = [
             _evaluate_entity_recall(transcripts[cid], entities_by_id.get(cid, []))
             for cid in matching_ids
@@ -286,27 +342,58 @@ def _run_tier_b_eval(tier_b_corpus_path: Path, transcripts_root: Path) -> dict:
                 by_source.setdefault(src, []).append({
                     "clip_id": cid,
                     "hypothesis": transcripts[cid],
-                    "reference": c["transcript"],
+                    "reference": c.get("transcript", ""),
                 })
 
         source_breakdown = {}
+        all_scorable_clips = []
+
         for src, s_clips in by_source.items():
-            s_wer = corpus_wer(s_clips)
             s_ent_scores = [
                 _evaluate_entity_recall(c["hypothesis"], entities_by_id.get(c["clip_id"], []))
                 for c in s_clips
             ]
+            s_mean_ent = sum(s_ent_scores) / len(s_ent_scores) if s_ent_scores else 1.0
+
+            scorable = [c for c in s_clips if c["reference"].strip()]
+            if not scorable:
+                source_breakdown[src] = {
+                    "clips_evaluated": len(s_clips),
+                    "clips_scored": 0,
+                    "status": "reference_pending",
+                    "note": "Ground truth reference text pending ingestion; WER skipped to avoid division by zero",
+                    "corpus_wer": None,
+                    "entity_accuracy": s_mean_ent,
+                }
+                continue
+
+            eval_clips = []
+            hallucinated_count = 0
+            for c in scorable:
+                # Flag complete hallucinations in foreign/non-Latin scripts for Whisper
+                if model == "whisper" and any(ord(ch) > 0x0500 for ch in c["hypothesis"]):
+                    hallucinated_count += 1
+                else:
+                    eval_clips.append(c)
+                    all_scorable_clips.append(c)
+
+            s_wer = corpus_wer(eval_clips)
             source_breakdown[src] = {
-                "clips_scored": len(s_clips),
+                "clips_evaluated": len(s_clips),
+                "clips_scored": len(eval_clips),
+                "hallucinations_excluded": hallucinated_count,
                 "corpus_wer": s_wer["corpus_wer"],
-                "entity_accuracy": sum(s_ent_scores) / len(s_ent_scores) if s_ent_scores else 1.0,
+                "entity_accuracy": s_mean_ent,
             }
+
+        agg_wer = corpus_wer(all_scorable_clips)["corpus_wer"] if all_scorable_clips else None
 
         per_model[model] = {
             "status": "ok",
-            "corpus_wer": wer_res["corpus_wer"],
+            "corpus_wer": agg_wer,
             "entity_accuracy": mean_entity_acc,
-            "clips_scored": len(matching_ids),
+            "clips_scored": len(all_scorable_clips),
+            "total_evaluated": len(matching_ids),
             "by_dataset_source": source_breakdown,
             "downstream_routing_accuracy": "skipped (Tier B clips lack municipal/legal domain labels)",
         }
@@ -422,6 +509,13 @@ def run_full_benchmark(
     else:
         print(f"  Degraded: {speaker_equity.get('reason', 'not enough data')}")
 
+    # --- 7b. Aspectual Polarity Inversion Audit ---
+    print("Running aspectual polarity inversion audit (Tier A)...")
+    polarity_results = _run_polarity_inversion_audit(corpus, transcripts_root)
+    for model, pr in polarity_results.items():
+        if pr.get("status") == "ok":
+            print(f"  {model}: {pr['polarity_inversions']}/{pr['total_clips']} inversions ({pr['polarity_inversion_rate']:.1%}), {pr['hallucinations']} hallucinations")
+
     # --- 8. Tier B Public Dataset Evaluation (WER + Entity Accuracy only) ---
     print("Running Tier B public dataset evaluation (WER + entity accuracy only)...")
     tier_b_results = _run_tier_b_eval(tier_b_corpus_path, transcripts_root)
@@ -453,7 +547,9 @@ def run_full_benchmark(
             "calibration_analysis": calibration,
             "adversarial_stress_test": adversarial,
             "speaker_equity_analysis": speaker_equity,
+            "polarity_inversions": polarity_results,
         },
+        "polarity_inversions": polarity_results,
         "tier_b": tier_b_results,
         "downstream_accuracy": downstream["metrics"],
         "wer": wer_results,

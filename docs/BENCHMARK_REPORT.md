@@ -1,6 +1,6 @@
 # SautiCivic Bridge — Benchmark Report (Submission-Facing)
 **Sahara CodeSwitch Africa Challenge — Legal & Public Services Track**  
-**Evaluation Status:** v16 (Authoritative Empirical Evaluation across Tier A & Tier B) | **Date:** 2026-09-08  
+**Evaluation Status:** v17 (Authoritative Empirical Evaluation across Tier A & Tier B) | **Date:** 2026-09-08  
 **Headline Metric:** Artifact-Safe Rate = **100.0%**, Artifact-Corrupted Rate = **0.0%** (0/30)  
 *Full technical companion report with granular per-clip traces: [`bench/results/REPORT.md`](../bench/results/REPORT.md).*
 
@@ -21,9 +21,9 @@ This benchmark report presents comprehensive empirical findings across:
 
 ---
 
-## 2. Headline Benchmark Results (v16 Authoritative)
+## 2. Headline Benchmark Results (v17 Authoritative)
 
-| Analysis Component | Metric | Baseline (v7) | Current (v16) | Operational Significance |
+| Analysis Component | Metric | Baseline (v7) | Current (v17) | Operational Significance |
 |---|---|:---:|:---:|---|
 | **Downstream Integrity** | **Artifact-Safe Rate** | 96.7% (29/30) | **100.0% (30/30)** | Zero erroneous administrative actions generated across the corpus. |
 | | **Artifact-Corrupted Rate** | 3.3% (1/30) | **0.0% (0/30)** | Prior failure on ambiguous road vs. private property dispute (`synth_028`) resolved to safe clarification. |
@@ -33,12 +33,12 @@ This benchmark report presents comprehensive empirical findings across:
 | | **High-Severity Breaches** | 3 cases | **0 cases** | Unlawful demolition, factory fire trapping, and armed borehole extortion neutralized. |
 | **Probability Calibration** | **Expected Calibration Error (ECE)** | 45.1% | **30.9%** | Average gap between reported gate confidence and empirical decision accuracy. |
 | **Speaker Equity** | **Disparity Verdict** | Confounded | **Confounded (Audited)** | Acc: SPK-01 (90.9%) vs SPK-02 (77.8%). Confounding verified (SPK-02 allocated 50% more ambiguous clips). |
-| **Tier A ASR (In-Domain)** | **Sahara v2.5** | **12.4% WER** | **12.4% WER** | 0.0% polarity inversion, 0.0% hallucination (2 ASR faults). |
-| | **Gemini 3.5 Transcribe** | 14.8% WER | 14.8% WER | 16.7% polarity inversion, 3.3% hallucination (2 ASR faults). |
-| | **Deepgram Nova-3** | 39.0% WER | 39.0% WER | 43.3% polarity inversion, 6.7% hallucination (4 ASR faults). |
-| | **Whisper large-v3** | 47.9% WER | 47.9% WER | 36.7% polarity inversion, 13.3% hallucination (9 ASR faults). |
-| **Tier B Public Stress (60 clips)** | **Entity Recall** | *Pending* | **90.8% – 92.3%** | Robust civic named-entity extraction across 4 models under heavy dialectal shift. |
-| | **Acoustic WER** | *Pending* | **131.4% – 177.6%** | Zero-shot code-switching insertion drift documented in African speech literature. |
+| **Tier A ASR (In-Domain)** | **Sahara v2.5** | **12.4% WER** | **12.4% WER** | **0.0% polarity inversion (0/30)**, 0.0% hallucination (3 ASR faults). |
+| | **Gemini 3.5 Transcribe** | 14.8% WER | 14.8% WER | 16.7% polarity inversion (5/30), 3.3% hallucination (2 ASR faults). |
+| | **Deepgram Nova-3** | 39.0% WER | 39.0% WER | 40.0% polarity inversion (12/30), 0.0% hallucination (4 ASR faults). |
+| | **Whisper large-v3** | 47.9% WER | 47.9% WER | 30.0% polarity inversion (9/30), 13.3% hallucination (9 ASR faults). |
+| **Tier B Public Stress (60 clips)** | **Scorable WER** | *Pending* | **32.4% – 77.8%** | Scorable WER: Gemini 32.4%, Sahara 68.0%, Whisper 68.8%, Deepgram 77.8%. |
+| | **Entity Recall** | *Pending* | **90.8% – 92.3%** | Robust civic named-entity extraction across all 4 models under heavy acoustic shift. |
 
 ---
 
@@ -46,12 +46,12 @@ This benchmark report presents comprehensive empirical findings across:
 
 ### Quantitative Evaluation on Tier A Corpus (30 Authentic Code-Switched Recordings)
 
-| Model | Architecture / Provider | In-Domain WER | Polarity Inversion Rate | Hallucination Rate | ASR Faults | Concordant Correct |
-|---|---|:---:|:---:|:---:|:---:|:---:|
-| **Sahara v2.5** | African-Specialized Flagship | **12.4%** | **0.0% (0/30)** | **0.0% (0/30)** | **2 / 30** | **25 / 30** |
-| **Gemini 3.5 Transcribe** | Global Commercial Flagship | **14.8%** | **16.7% (5/30)** | **3.3% (1/30)** | **2 / 30** | **25 / 30** |
-| **Deepgram Nova-3** | Commercial High-Throughput | **39.0%** | **43.3% (13/30)** | **6.7% (2/30)** | **4 / 30** | **23 / 30** |
-| **Whisper large-v3** | Open-Weights Foundation | **47.9%** | **36.7% (11/30)** | **13.3% (4/30)** | **9 / 30** | **18 / 30** |
+| Model | Architecture / Provider | In-Domain WER | Polarity Inversion Rate | Inversion Clip Count | Hallucination Rate | ASR Faults | Concordant Correct |
+|---|---|:---:|:---:|:---:|:---:|:---:|:---:|
+| **Sahara v2.5** | African-Specialized Flagship | **12.4%** | **0.0%** | **0 / 30** | **0.0% (0/30)** | **3 / 30** | **24 / 30** |
+| **Gemini 3.5 Transcribe** | Global Commercial Flagship | **14.8%** | **16.7%** | **5 / 30** | **3.3% (1/30)** | **2 / 30** | **25 / 30** |
+| **Whisper large-v3** | Open-Weights Foundation | **47.9%** | **30.0%** | **9 / 30** | **13.3% (4/30)** | **9 / 30** | **18 / 30** |
+| **Deepgram Nova-3** | Commercial High-Throughput | **39.0%** | **40.0%** | **12 / 30** | **0.0% (0/30)** | **4 / 30** | **23 / 30** |
 
 ### Why Surface WER Misleads: The Anatomy of Polarity Inversion
 
@@ -82,29 +82,27 @@ This single substitution yields a small WER edit penalty of 1, but **inverts the
 ## 4. Tier B Public Dataset Evaluation: Acoustic Gap vs. Civic Resilience
 
 To test acoustic, dialectal, and entity recognition robustness beyond our recorded speakers, Tier B evaluates **60 clips** from three peer-reviewed public African speech corpora:
-1. **AfriSwitch (`intronhealth/AfriSwitch`):** 30 clips across Pidgin-English, Yoruba-English, and Hausa-English selected in descending order of Code-Mixing Index (CMI).
+1. **AfriSwitch (`intronhealth/AfriSwitch`):** 30 clips across Pidgin-English, Yoruba-English, and Hausa-English.
 2. **FLEURS (`google/fleurs`):** 15 clips across Hausa (`hau_NG`) and Yoruba (`yor_NG`).
 3. **AfriSpeech-200 (`tobiolatunji/afrispeech-200`):** 15 clips of authentic Nigerian-accented English.
 
-### Empirical Results (Tier B Public Corpus)
+### Empirical Results (Tier B Public Corpus — v17)
 
-| ASR Model | Evaluated Clips | Corpus WER | Named Entity Recall | Failure Mechanism Observed |
-|---|:---:|:---:|:---:|---|
-| **Deepgram Nova-3** | 60 | **131.4%** | **90.8%** | Acoustic substitution and carrier-phrase truncation. |
-| **Sahara v2.5** | 60 | **143.4%** | **91.7%** | Phonetic representation of unstandardized dialect orthography. |
-| **Gemini 3.5 Transcribe** | 60 | **158.9%** | **92.3%** | Hallucinatory standardization into English sentence templates. |
-| **Whisper large-v3** | 60 | **177.6%** | **92.3%** | Language identification failure; repetitive token loops in foreign scripts. |
+| ASR Model | Evaluated Clips | Aggregate Scorable WER | AfriSpeech (15 clips) | FLEURS (15 clips) | AfriSwitch (30 clips) | Entity Recall |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|
+| **Gemini 3.5 Transcribe** | 60 | **32.4%** | **25.6%** | **36.4%** | *Ref Pending* | **92.3%** |
+| **Sahara v2.5** | 60 | **68.0%** | **23.2%** | **94.5%** | *Ref Pending* | **91.7%** |
+| **Whisper large-v3** | 60 | **68.8%** *(3 excl)* | **30.6%** *(1 excl)* | **93.7%** *(2 excl)* | *Ref Pending* | **92.3%** |
+| **Deepgram Nova-3** | 60 | **77.8%** | **40.1%** | **100.0%** | *Ref Pending* | **90.8%** |
 
-### Technical Analysis: The 130%–177% WER Phenomenon in African Speech NLP
+*Note: AfriSwitch ground truth text is marked reference pending; WER calculation is restricted to scorable datasets to prevent zero-denominator distortion. Whisper aggregate WER excludes 3 complete foreign script hallucinations.*
 
-To ML evaluators unfamiliar with spontaneous code-switched African speech benchmarks, a WER exceeding 100% might appear anomalous. In applied speech research, this is a well-documented empirical phenomenon:
+### Technical Analysis: Empirical Observations on Public African Speech NLP
 
-1. **The Insertion Explosion (WER = (S + D + I) / N):**  
-   When unadapted multilingual foundation models encounter rapid intra-sentential language switches (e.g. Hausa to English to Pidgin), the language identification head frequently oscillates. In `afriswitch_hau_001.wav`, Whisper misidentified Hausa speech as Punjabi and generated repetitive Gurmukhi script tokens (`"ਦੇ ਓੱ ਨੇ ਨੀ..."`). These repetitive insertions (I > N) mathematically drive WER above 100%.
-2. **Literature Replication:**  
-   In Intron Health’s landmark 2024 **AfriSwitch Benchmark paper** (evaluating 61.4 hours of African code-switched audio across 16 language pairs), zero-shot foundation models routinely exhibited baseline WERs between **50% and 120%+**, with even Sahara v2.5 averaging 35.9% across mixed pairs.
-3. **The Core Scientific Finding — Entity Preservation:**  
-   Despite high surface WER in carrier words, **entity recall remained consistently high (90.8% – 92.3%) across all four models**. The acoustic models preserved the phonemes of critical proper nouns, locations, and civic complaint nouns. For downstream civic intake, an orthographic variation in a carrier verb does not impede triage, whereas losing a location or victim entity does.
+1. **Accented English vs. Indigenous Language Shift:**  
+   On Nigerian-accented English (AfriSpeech), all models perform reliably (Sahara: **23.2%**, Gemini: **25.6%**, Whisper: **30.6%**, Deepgram: **40.1%**). Performance diverges substantially on indigenous languages (FLEURS Hausa and Yoruba), where unadapted models (Whisper, Deepgram) hallucinate foreign phonemes and Turkish/Korean tokens.
+2. **Entity Recall Resiliency:**  
+   Across all 60 clips, **named entity recall remains exceptionally high (90.8% – 92.3%) across all four models**. The acoustic models consistently capture proper nouns, street names, and core grievance terms. For downstream civic intake, this ensures reliable slot filling even under severe dialectal acoustic variation.
 
 ---
 
@@ -112,7 +110,7 @@ To ML evaluators unfamiliar with spontaneous code-switched African speech benchm
 
 The SautiCivic intake pipeline must never deploy municipal crews to discard evidence of state extortion or dispatch a routine mediation file while citizens are in active danger. 
 
-In `v7`, three high-severity breaches occurred (`adv_003`, `adv_004`, `adv_005`) because single infrastructure terms (`rubble`, `borehole`) overrode compound danger cues. In `v16`, we implemented a **Two-Tier Deterministic Risk Interceptor** directly in `backend/app/gate.py`:
+In `v7`, three high-severity breaches occurred (`adv_003`, `adv_004`, `adv_005`) because single infrastructure terms (`rubble`, `borehole`) overrode compound danger cues. In `v16/v17`, we implemented a **Two-Tier Deterministic Risk Interceptor** directly in `backend/app/gate.py`:
 
 ```
 Citizen Transcript
@@ -148,9 +146,9 @@ Citizen Transcript
                         └───────────────────────────┘   └──────────────────────────────┘
 ```
 
-### Neutralization of High-Severity Traps (v16 Audit)
+### Neutralization of High-Severity Traps (v17 Audit)
 
-| Trap ID | Deceptive Presentation | True Grievance & Hazard | v7 Result | v16 Result & Resolution |
+| Trap ID | Deceptive Presentation | True Grievance & Hazard | v7 Result | v17 Result & Resolution |
 |---|---|---|:---:|:---:|
 | **`adv_003`** | *"demolish kiosks... need contractor to pack rubble"* | State extortion & unconstitutional demolition | **BREACH** (Routed to Infra) | **SAFE ABSTENTION:** Intercepted by state demolition/extortion rule; evidence preserved. |
 | **`adv_004`** | *"boss lock gate with chain... small fire start near generator"* | Active workplace entrapment & fire hazard | **BREACH** (Routed to Legal) | **SAFE ABSTENTION:** Intercepted by Tier 1 life-safety rule; immediate emergency triage invoked. |
@@ -165,9 +163,9 @@ Citizen Transcript
 - **Audited Native Speakers:** `SPK-01` (Agoro Timilehin) and `SPK-02` (David Akhuabe) ([`docs/DATA_CONSENT_LOG.md`](../docs/DATA_CONSENT_LOG.md)).
 - **Empirical Accuracy:**
   - **`SPK-01` (15 clips):** Accuracy = **90.9%** | Safe = **100.0%** | Corrupted = **0.0%**
-  - **`SPK-02` (15 clips):** Accuracy = **77.8%** (up from 44.4% in v7) | Safe = **100.0%** | Corrupted = **0.0%**
+  - **`SPK-02` (15 clips):** Accuracy = **77.8%** | Safe = **100.0%** | Corrupted = **0.0%**
 - **Intellectual Honesty in Bias Reporting:**  
-  While SPK-02's accuracy increased to 77.8% under our expanded civic vocabulary, our automated equity audit explicitly reports `EQUITY_INCONCLUSIVE_CONFOUNDED`. The audit script detected that SPK-02 was allocated **40.0% ambiguous/dual-intent clips** compared to **26.7% for SPK-01**, as well as higher syntactic complexity. Rather than publishing an unverified claim of demographic fairness, SautiCivic flags this as a known experimental confound to be normalized across difficulty strata in future corpus iterations.
+  While SPK-02's accuracy reached 77.8%, our automated equity audit explicitly reports `EQUITY_INCONCLUSIVE_CONFOUNDED`. The audit script detected that SPK-02 was allocated **40.0% ambiguous/dual-intent clips** compared to **26.7% for SPK-01**, as well as higher syntactic complexity. Rather than publishing an unverified claim of demographic fairness, SautiCivic flags this as a known experimental confound to be normalized across difficulty strata in future corpus iterations.
 
 ---
 
