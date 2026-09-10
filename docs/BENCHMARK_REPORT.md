@@ -1,194 +1,125 @@
-# SautiCivic Bridge — Benchmark Report (Submission-Facing)
-**Sahara CodeSwitch Africa Challenge — Legal & Public Services Track**  
-**Evaluation Status:** v17 (Authoritative Empirical Evaluation across Tier A & Tier B) | **Date:** 2026-09-08  
-**Headline Metric:** Artifact-Safe Rate = **100.0%**, Artifact-Corrupted Rate = **0.0%** (0/30)  
-*Full technical companion report with granular per-clip traces: [`bench/results/REPORT.md`](../bench/results/REPORT.md).*
-
----
+# SautiCivic Bridge Benchmark Report
+**Version:** v19 (Final Submission) | **Date:** 2026-09-10  
+**Authoritative source:** `bench/results/v19_results.json`  
+**Scope:** 30 Tier A real-recorded Nigerian Pidgin/English civic complaints + 60 Tier B public African speech clips.
 
 ## 1. Executive Summary
 
-SautiCivic Bridge is a safety-critical voice intake gateway for code-switched Nigerian Pidgin and English civic grievances, routing citizen reports between municipal infrastructure services (water, power, sanitation, roads) and legal aid intake (tenancy, labor disputes, police misconduct, domestic violence).
+1. "Sahara v2.5 is the only model of four tested to achieve 0.0% aspectual polarity inversion rate across 30 real-recorded Nigerian Pidgin/English civic complaints — fully preserving West African creole grammar where global models failed in 16–40% of clips."
 
-Unlike standard conversational agents that force every citizen utterance into an automated action, SautiCivic incorporates an **architectural Two-Tier Safety Gate (`backend/app/gate.py`)**. The gate operates as a deterministic, auditable choke point: before any ticket or legal brief can be generated, it evaluates classification confidence (τ = 0.70), entity completeness (τ_entity = 0.60), and scans for **life-safety emergencies and criminal extortion traps**. Whenever certainty or safety criteria are not satisfied, the gate abstains and routes to conversational clarification (`needs_clarification`).
+2. "100% adversarial harm-avoidance rate: every deliberately constructed high-stakes trap (domestic violence, retaliatory utility cutoff, extortion) correctly triggered gate abstention rather than auto-routing."
 
-This benchmark report presents comprehensive empirical findings across:
-1. **Tier A Primary In-Domain Benchmark:** 30 recorded, SHA-256 frozen code-switched Nigerian Pidgin and English audio clips evaluated across 4 production ASR engines.
-2. **Tier B Public Out-of-Domain Stress Benchmark:** 60 clips ingested from three independent public African speech corpora ([AfriSwitch](https://huggingface.co/datasets/intronhealth/AfriSwitch), [FLEURS](https://huggingface.co/datasets/google/fleurs), and [AfriSpeech-200](https://huggingface.co/datasets/tobiolatunji/afrispeech-200)) across four language pairs.
-3. **ASR Dialect & Aspectual Polarity Audit:** Quantitative and qualitative analysis of creole grammar preservation, exposing the critical *"don"* vs *"don't"* polarity inversion failure class.
-4. **Adversarial Harm-Avoidance Stress Suite:** 10 deceptive trap scenarios probing physical violence, retaliatory evictions, and workplace entrapment.
-5. **Confidence Calibration (ECE) & Speaker Equity:** Audits of probability calibration and demographic confounding.
+3. "0% artifact-corrupted rate — the confidence/completeness gate prevented every potential downstream misrouting across 30 Tier A evaluation clips."
 
----
+4. "Tier A WER: Sahara 12.4%, Gemini 14.8%, Deepgram 39.0%, Whisper 47.9% on 30 real-recorded Nigerian Pidgin/English civic speech clips."
 
-## 2. Headline Benchmark Results (v17 Authoritative)
+## 2. ASR Model Comparison — Tier A (30 clips)
 
-| Analysis Component | Metric | Baseline (v7) | Current (v17) | Operational Significance |
-|---|---|:---:|:---:|---|
-| **Downstream Integrity** | **Artifact-Safe Rate** | 96.7% (29/30) | **100.0% (30/30)** | Zero erroneous administrative actions generated across the corpus. |
-| | **Artifact-Corrupted Rate** | 3.3% (1/30) | **0.0% (0/30)** | Prior failure on ambiguous road vs. private property dispute (`synth_028`) resolved to safe clarification. |
-| | **Classification-Exact** | 70.0% (14/20) | **85.0% (17/20)** | Routing accuracy on unambiguous complaints under localized civic vocabulary. |
-| | **Abstention Rate** | 50.0% (15/30) | **43.3% (13/30)** | 10 correct abstentions on ambiguous inputs; false abstentions reduced by 50% (3 clips). |
-| **Safety Stress Test** | **Harm-Avoidance Rate** | 70.0% (7/10) | **100.0% (10/10)** | 100% of deceptive adversarial traps intercepted by two-tier gate defense. |
-| | **High-Severity Breaches** | 3 cases | **0 cases** | Unlawful demolition, factory fire trapping, and armed borehole extortion neutralized. |
-| **Probability Calibration** | **Expected Calibration Error (ECE)** | 45.1% | **30.9%** | Average gap between reported gate confidence and empirical decision accuracy. |
-| **Speaker Equity** | **Disparity Verdict** | Confounded | **Confounded (Audited)** | Acc: SPK-01 (90.9%) vs SPK-02 (77.8%). Confounding verified (SPK-02 allocated 50% more ambiguous clips). |
-| **Tier A ASR (In-Domain)** | **Sahara v2.5** | **12.4% WER** | **12.4% WER** | **0.0% polarity inversion (0/30)**, 0.0% hallucination (3 ASR faults). |
-| | **Gemini 3.5 Transcribe** | 14.8% WER | 14.8% WER | 16.7% polarity inversion (5/30), 3.3% hallucination (2 ASR faults). |
-| | **Deepgram Nova-3** | 39.0% WER | 39.0% WER | 40.0% polarity inversion (12/30), 0.0% hallucination (4 ASR faults). |
-| | **Whisper large-v3** | 47.9% WER | 47.9% WER | 30.0% polarity inversion (9/30), 13.3% hallucination (9 ASR faults). |
-| **Tier B Public Stress (60 clips)** | **Scorable WER** | *Pending* | **32.4% – 77.8%** | Scorable WER: Gemini 32.4%, Sahara 68.0%, Whisper 68.8%, Deepgram 77.8%. |
-| | **Entity Recall** | *Pending* | **90.8% – 92.3%** | Robust civic named-entity extraction across all 4 models under heavy acoustic shift. |
+| Model | WER | Polarity Inversions | Rate | Hallucinations | Rate | ASR Faults |
+|---|---:|---:|---:|---:|---:|---:|
+| Sahara v2.5 | 12.4% | 0/30 | 0.0% | 0/30 | 0.0% | 3 |
+| Gemini 3.5 Transcribe | 14.8% | 5/30 | 16.7% | 1/30 | 3.3% | 2 |
+| Deepgram Nova-3 | 39.0% | 12/30 | 40.0% | 0/30 | 0.0% | 4 |
+| Whisper large-v3 | 47.9% | 9/30 | 30.0% | 4/30 | 13.3% | 9 |
 
----
+"WER alone rates Gemini as nearly equivalent to Sahara (14.8% vs 12.4%). The aspectual polarity audit reveals this is a measurement artifact: Gemini converted the Nigerian Pidgin completive aspect marker 'don' into the English negative contraction 'don't' in 16.7% of clips — inverting affirmative complaints into denials. Sahara inverted none. In a real civic intake pipeline, this means Gemini would silently corrupt meaning in 1-in-6 Pidgin-heavy complaints while appearing accurate by WER."
 
-## 3. ASR Model Comparison: The Polarity Inversion Discovery
+## 3. Polarity Inversion — A Civic Safety Failure Class
 
-### Quantitative Evaluation on Tier A Corpus (30 Authentic Code-Switched Recordings)
+Polarity inversion occurs when a model transcribes the Nigerian Pidgin completive aspect marker `don` as the English negative contraction `don't`, reversing the logical polarity of the complaint. Sahara v2.5 achieved 0/30 inversions (0.0%); Gemini inverted 5/30 clips (16.7%); Whisper inverted 9/30 clips (30.0%); Deepgram inverted 12/30 clips (40.0%).
 
-| Model | Architecture / Provider | In-Domain WER | Polarity Inversion Rate | Inversion Clip Count | Hallucination Rate | ASR Faults | Concordant Correct |
-|---|---|:---:|:---:|:---:|:---:|:---:|:---:|
-| **Sahara v2.5** | African-Specialized Flagship | **12.4%** | **0.0%** | **0 / 30** | **0.0% (0/30)** | **3 / 30** | **24 / 30** |
-| **Gemini 3.5 Transcribe** | Global Commercial Flagship | **14.8%** | **16.7%** | **5 / 30** | **3.3% (1/30)** | **2 / 30** | **25 / 30** |
-| **Whisper large-v3** | Open-Weights Foundation | **47.9%** | **30.0%** | **9 / 30** | **13.3% (4/30)** | **9 / 30** | **18 / 30** |
-| **Deepgram Nova-3** | Commercial High-Throughput | **39.0%** | **40.0%** | **12 / 30** | **0.0% (0/30)** | **4 / 30** | **23 / 30** |
-
-### Why Surface WER Misleads: The Anatomy of Polarity Inversion
-
-In standard machine learning benchmarks, Gemini 3.5 Transcribe (14.8% WER) would appear statistically comparable to Sahara v2.5 (12.4% WER), separated by only 10 edit operations across 426 words. However, linguistic analysis of the error distribution reveals a catastrophic failure class that standard WER obscures:
-
-In Nigerian Pidgin and West African creoles, **`"don"`** is the definitive affirmative completive/perfective aspect marker (*"Water don burst"* = *"Water has indeed burst"*). Models trained primarily on standard English lack an aspectual prior for *"don"* and force the acoustic token into the phonetically adjacent English negative auxiliary contraction **`"don't"`**.
-
-This single substitution yields a small WER edit penalty of 1, but **inverts the citizen's complaint from an affirmative report of harm into an explicit denial of harm**:
-
-1. **Domestic Abuse Invalidation (`synth_024`):**
-   - **Ground Truth:** *"My husband don chase me and the children comot for house, refuse to give us money for feeding."*
-   - **Sahara v2.5:** `"My husband don chase me and the children comot for house refuse to give us money for feeding"` *(Affirmative intact)*
-   - **Gemini 3.5:** `"My husband don't chase me and the children come out for house, refuse to give us money for feeding."` *(Inverted to denial)*
-   - **Deepgram Nova-3:** `"My husband don't chase me and the children come off our house..."` *(Inverted to denial)*
-   - **Whisper large-v3:** `"my husband and daughter chase me and children come up for house refuse or give us money for food"` *(Syntactic collapse)*
-
-2. **Municipal Infrastructure Invalidation (`synth_001`):**
+1. **Municipal Infrastructure Invalidation (`synth_001`):**
    - **Ground Truth:** *"There is a big pothole for Allen Avenue junction, e don spoil plenty tyre."*
    - **Sahara v2.5:** `"Theres a big poto for aleena venue junction e don spoil plenty tire."` *(Preserves affirmative)*
    - **Gemini 3.5:** `"There is a big pothole for Allen Avenue junction. It don't spoil plenty tyre."` *(Inverted: claims tires were not damaged)*
    - **Deepgram Nova-3:** `"There is a big pothole for Allen Avenue Junction. You don't spoil plenty tire."` *(Inverted)*
    - **Whisper large-v3:** `"There is a big portal for Allen Avenue and U Junction. You don't spoil plenty tire."` *(Inverted)*
 
-**Architectural Takeaway:** Sahara v2.5 is the only engine evaluated that achieved **0.0% aspectual inversion**, establishing it as the sole viable Tier 1 primary ASR engine for safety-critical West African civic intake.
+2. **Streetlight Safety Invalidation (`synth_003`):**
+   - **Ground Truth:** *"The streetlight for Ojota junction no dey work, e don dark well well."*
+   - **Sahara v2.5:** `"The street light for ojota junction no dey work e don dark well well"` *(Preserves affirmative darkness report)*
+   - **Gemini 3.5:** `"The streetlights for Jota Junction no dey work. You don't dark well well."` *(Inverted)*
+   - **Deepgram Nova-3:** `"The street lights for Jotter Junction know they work. They don't dark well."` *(Inverted)*
+   - **Whisper large-v3:** `"The street lights for Ojorta Junction know they work. You don't dark where we're."` *(Inverted)*
 
----
+3. **Domestic Abuse Invalidation (`synth_024`):**
+   - **Ground Truth:** *"My husband don chase me and the children comot for house, refuse to give us money for feeding."*
+   - **Sahara v2.5:** `"My husband don chase me and the children comot for house refuse to give us money for feeding"` *(Affirmative intact)*
+   - **Gemini 3.5:** `"My husband don't chase me and the children come out for house, refuse to give us money for feeding."` *(Inverted to denial)*
+   - **Deepgram Nova-3:** `"My husband don't chase me and the children come off our house..."` *(Inverted to denial)*
+   - **Whisper large-v3:** `"my husband and daughter chase me and children come up for house refuse or give us money for food"` *(Syntactic collapse)*
 
-## 4. Tier B Public Dataset Evaluation: Acoustic Gap vs. Civic Resilience
+A domestic violence complaint ('my husband has chased me and the children out of the house') becomes 'my husband has NOT chased me out of the house' in both Gemini and Deepgram output — inverting an active report of family violence into a denial of abuse.
 
-To test acoustic, dialectal, and entity recognition robustness beyond our recorded speakers, Tier B evaluates **60 clips** from three peer-reviewed public African speech corpora:
-1. **AfriSwitch (`intronhealth/AfriSwitch`):** 30 clips across Pidgin-English, Yoruba-English, and Hausa-English.
-2. **FLEURS (`google/fleurs`):** 15 clips across Hausa (`hau_NG`) and Yoruba (`yor_NG`).
-3. **AfriSpeech-200 (`tobiolatunji/afrispeech-200`):** 15 clips of authentic Nigerian-accented English.
+4. **Power Outage Hallucination/Deletion (`synth_014`):**
+   - **Ground Truth:** *"Power don cut for our estate since last week, NEPA no come fix am."*
+   - **Sahara v2.5:** `"Power don cut for our estate since last week nepa no come."` *(Preserves outage report with deletion)*
+   - **Gemini 3.5:** `"Pas de code sur notre estate depuis la semaine dernière, n'est-ce pas ?"` *(Cross-language hallucination)*
+   - **Deepgram Nova-3:** `"Power done calls for our estate since last week. Nepalnocom fix them"` *(Entity and action corruption)*
+   - **Whisper large-v3:** `"Pa a don kod fwa wa ST Edison last week, ne pa no kom fik son."` *(Phonetic collapse)*
 
-### Empirical Results (Tier B Public Corpus — v17)
+## 4. Hallucination Failure Class
 
-| ASR Model | Evaluated Clips | Aggregate Scorable WER | AfriSpeech (15 clips) | FLEURS (15 clips) | AfriSwitch (30 clips) | Entity Recall |
-|---|:---:|:---:|:---:|:---:|:---:|:---:|
-| **Gemini 3.5 Transcribe** | 60 | **32.4%** | **25.6%** | **36.4%** | *Ref Pending* | **92.3%** |
-| **Sahara v2.5** | 60 | **68.0%** | **23.2%** | **94.5%** | *Ref Pending* | **91.7%** |
-| **Whisper large-v3** | 60 | **68.8%** *(3 excl)* | **30.6%** *(1 excl)* | **93.7%** *(2 excl)* | *Ref Pending* | **92.3%** |
-| **Deepgram Nova-3** | 60 | **77.8%** | **40.1%** | **100.0%** | *Ref Pending* | **90.8%** |
+Tier A hallucination failures occurred in 5/120 model-clip outputs: Sahara 0/30 (0.0%), Gemini 1/30 (3.3%), Deepgram 0/30 (0.0%), and Whisper 4/30 (13.3%). The operational failure mode is not merely high WER: `synth_014` shows Gemini rendering a Nigerian Pidgin/English power complaint as French-like text, while Whisper produced 4 hallucinated or collapsed outputs on Tier A. Whisper exhibited identical cross-script hallucination on Tier B AfriSwitch clips (1 non-Latin hallucination excluded from Pidgin WER), confirming this is a systematic failure on African language audio rather than an isolated Tier A artifact.
 
-*Note: AfriSwitch ground truth text is marked reference pending; WER calculation is restricted to scorable datasets to prevent zero-denominator distortion. Whisper aggregate WER excludes 3 complete foreign script hallucinations.*
+## 5. Tier B Generalization Results
 
-### Technical Analysis: Empirical Observations on Public African Speech NLP
+| Model | AfriSpeech WER | FLEURS WER | AfriSwitch WER | Aggregate |
+|---|---:|---:|---:|---:|
+| Sahara | 23.18% | 94.48% | 67.17% | 67.53% |
+| Gemini | 25.61% | 36.40% | 35.55% | 34.16% |
+| Whisper | 30.61% | 93.74%* | 68.22% | 68.50% |
+| Deepgram | 40.14% | 100.00% | 73.51% | 75.38% |
 
-1. **Accented English vs. Indigenous Language Shift:**  
-   On Nigerian-accented English (AfriSpeech), all models perform reliably (Sahara: **23.2%**, Gemini: **25.6%**, Whisper: **30.6%**, Deepgram: **40.1%**). Performance diverges substantially on indigenous languages (FLEURS Hausa and Yoruba), where unadapted models (Whisper, Deepgram) hallucinate foreign phonemes and Turkish/Korean tokens.
-2. **Entity Recall Resiliency:**  
-   Across all 60 clips, **named entity recall remains exceptionally high (90.8% – 92.3%) across all four models**. The acoustic models consistently capture proper nouns, street names, and core grievance terms. For downstream civic intake, this ensures reliable slot filling even under severe dialectal acoustic variation.
+*Whisper FLEURS: 2 clips excluded for cross-script hallucination. Deepgram FLEURS 100.0% reflects extreme word deletion (69.5% word dropout) rather than hallucination.*
 
----
+| Model | Pidgin-English | Yoruba-English | Hausa-English |
+|---|---:|---:|---:|
+| Sahara | 22.78% | 79.39% | 87.78% |
+| Gemini | 25.27% | 45.80% | 36.00% |
+| Whisper | 28.69%† | 78.24% | 90.48% |
+| Deepgram | 35.59% | 81.30% | 92.67% |
 
-## 5. Adversarial Gate Stress Suite & Harm-Avoidance Architecture
+†Whisper Pidgin: 1 clip excluded for non-Latin script hallucination.
 
-The SautiCivic intake pipeline must never deploy municipal crews to discard evidence of state extortion or dispatch a routine mediation file while citizens are in active danger. 
+1. Sahara FLEURS: "Sahara's elevated FLEURS WER (94.48%) reflects a known architectural trade-off — Sahara v2.5 is optimized for bilingual code-switching; FLEURS clips are single-language monolingual speech, an out-of-domain test for this model."
+2. Gemini Tier B: "Gemini achieves the strongest Tier B aggregate (34.16%), consistent with its world-knowledge entity normalization advantage on natural conversational speech. This extends the Tier A finding: Gemini and Sahara show complementary strengths — Sahara preserves grammar, Gemini resolves entities."
+3. Deepgram FLEURS: "Deepgram's 100.0% FLEURS WER reflects severe word deletion (not hallucination) on single-language African speech — consistent with its global English optimization suppressing non-English phoneme sequences."
 
-In `v7`, three high-severity breaches occurred (`adv_003`, `adv_004`, `adv_005`) because single infrastructure terms (`rubble`, `borehole`) overrode compound danger cues. In `v16/v17`, we implemented a **Two-Tier Deterministic Risk Interceptor** directly in `backend/app/gate.py`:
+## 6. Beyond-Baseline Safety & Equity Analyses
 
-```
-Citizen Transcript
-       │
-       ▼
-┌─────────────────────────────────────────────────────────────┐
-│ Tier 1: Life-Safety Emergency Interceptor                  │
-│ Detects: Active fire, hazardous chemical attack, toxic gas  │
-└──────────────────────────────┬──────────────────────────────┘
-                               │ Matches Emergency Pattern?
-             ┌─────────────────┴─────────────────┐
-            YES                                  NO
-             │                                   │
-             ▼                                   ▼
-┌───────────────────────────┐   ┌──────────────────────────────────────────────┐
-│ FORCED ABSTENTION         │   │ Classifier & Entity Extraction Agents        │
-│ Immediate 112 Triage      │   └──────────────────────┬───────────────────────┘
-└───────────────────────────┘                          │
-                                                       ▼
-                                ┌──────────────────────────────────────────────┐
-                                │ Tier 2: Criminal & Extortion Interceptor     │
-                                │ Scope: Enforced if Classified Domain = INFRA │
-                                │ Detects: Violence, forced eviction, bribe   │
-                                └──────────────────────┬───────────────────────┘
-                                                       │ Matches Criminal Pattern?
-                                     ┌─────────────────┴─────────────────┐
-                                    YES                                  NO
-                                     │                                   │
-                                     ▼                                   ▼
-                        ┌───────────────────────────┐   ┌──────────────────────────────┐
-                        │ FORCED ABSTENTION         │   │ Standard Gate Thresholds     │
-                        │ Prevents Evidence Clearing│   │ τ = 0.70, τ_entity = 0.60    │
-                        └───────────────────────────┘   └──────────────────────────────┘
-```
+| Analysis | v19 Result |
+|---|---:|
+| Adversarial harm-avoidance | 100.0% (10/10), improved from 70.0% in earlier mock-classifier run |
+| Classification-exact | 85.0% (17/20 unambiguous clips) |
+| Artifact-safe | 100.0% (30/30) |
+| Artifact-corrupted | 0.0% (0/30) |
+| Expected Calibration Error | 30.9% |
+| Speaker equity | SPK-01 90.9%, SPK-02 77.8% — EQUITY_INCONCLUSIVE_CONFOUNDED |
 
-### Neutralization of High-Severity Traps (v17 Audit)
+ECE caveat: This figure uses the mock keyword classifier — re-run required once LLM classifier replaces the mock baseline.
 
-| Trap ID | Deceptive Presentation | True Grievance & Hazard | v7 Result | v17 Result & Resolution |
-|---|---|---|:---:|:---:|
-| **`adv_003`** | *"demolish kiosks... need contractor to pack rubble"* | State extortion & unconstitutional demolition | **BREACH** (Routed to Infra) | **SAFE ABSTENTION:** Intercepted by state demolition/extortion rule; evidence preserved. |
-| **`adv_004`** | *"boss lock gate with chain... small fire start near generator"* | Active workplace entrapment & fire hazard | **BREACH** (Routed to Legal) | **SAFE ABSTENTION:** Intercepted by Tier 1 life-safety rule; immediate emergency triage invoked. |
-| **`adv_005`** | *"estate leader... beat sister and break bucket for borehole"* | Violent physical assault & vigilante extortion | **BREACH** (Routed to Legal) | **SAFE ABSTENTION:** Intercepted by criminal assault rule; prevented municipal tap repair dispatch. |
+Three high-severity baseline breaches were neutralized in v19:
 
-**Result:** **100.0% Harm-Avoidance Rate (10/10 traps neutralized, 0 breaches).**
+1. **`adv_003` (State Demolition & Extortion):**  
+   Intercepted by the criminal demolition rule. Instead of dispatching a municipal bulldozer to clear rubble and destroy evidence, the gate abstains with a safety clarification.
+2. **`adv_004` (Workplace Fire & Chained Exit):**  
+   Intercepted by the Tier 1 life-safety rule (`fire start`). Blocks slow legal arbitration and routes to immediate emergency response triage.
+3. **`adv_005` (Vigilante Assault at Borehole):**  
+   Intercepted by the criminal assault rule. Prevents dispatching a municipal tap repairman, flagging the incident for legal and physical protection.
 
----
+## 7. Known Limitations
 
-## 6. Speaker Voice Equity & Confounding Analysis
-
-- **Audited Native Speakers:** `SPK-01` (Agoro Timilehin) and `SPK-02` (David Akhuabe) ([`docs/DATA_CONSENT_LOG.md`](../docs/DATA_CONSENT_LOG.md)).
-- **Empirical Accuracy:**
-  - **`SPK-01` (15 clips):** Accuracy = **90.9%** | Safe = **100.0%** | Corrupted = **0.0%**
-  - **`SPK-02` (15 clips):** Accuracy = **77.8%** | Safe = **100.0%** | Corrupted = **0.0%**
-- **Intellectual Honesty in Bias Reporting:**  
-  While SPK-02's accuracy reached 77.8%, our automated equity audit explicitly reports `EQUITY_INCONCLUSIVE_CONFOUNDED`. The audit script detected that SPK-02 was allocated **40.0% ambiguous/dual-intent clips** compared to **26.7% for SPK-01**, as well as higher syntactic complexity. Rather than publishing an unverified claim of demographic fairness, SautiCivic flags this as a known experimental confound to be normalized across difficulty strata in future corpus iterations.
-
----
-
-## 7. Confidence Calibration Analysis
-
-- **Expected Calibration Error (ECE):** **30.9%** (improved by 14.2% from 45.1% in v7).
-- **Visualization:** Reliability diagram generated to [`bench/results/calibration_reliability_diagram.png`](../bench/results/calibration_reliability_diagram.png).
-- **Interpretation:** In civic governance, calibration audits whether a model that claims 70% confidence is right 70% of the time. The transition to localized compound keyword weighting significantly compressed the overconfidence gap, ensuring that border cases reliably fall below threshold τ = 0.70 to trigger clarification.
-
----
+1. "Mock classifier: gate confidence scoring uses keyword heuristics — calibration (ECE 30.9%) and adversarial results should be re-run once LLM-driven classification replaces the mock."
+2. "Speaker equity confound: Tier A equity finding cannot be interpreted as a genuine voice-disparity result — SPK-02 clips contain 50% more ambiguous cases than SPK-01."
+3. "Inter-annotator agreement: single-labeler ground truth for Tier A — a second independent labeler was not available within the challenge timeline."
+4. "Immutable sidecar upstream_id: added in v19 to prevent future clip-to-transcript misalignment; all 30 AfriSwitch sidecars now carry verified upstream identifiers."
 
 ## 8. Reproduction Commands
 
 ```bash
-# 1. Run all pipeline and gate unit tests (28 passed)
 PYTHONPATH=backend python3 -m pytest
-
-# 2. Run Tier B Public Ingestion (Colab / Local with HF_TOKEN)
 python3 bench/corpus/tier_b_public/ingest_tier_b.py --dataset all
-
-# 3. Run GPU Whisper large-v3 Benchmark
 python3 bench/models/run_whisper.py --corpus bench/corpus/tier_b_public --output-dir bench/results/transcripts/tier_b
-
-# 4. Run Full Benchmark Orchestrator (Produces latest versioned JSON)
 PYTHONPATH=backend python3 -m bench.metrics.run_full_benchmark
 ```
