@@ -1,0 +1,16 @@
+{
+  "clip_id": "spk5_m_008",
+  "speaker_id": "SPK-05",
+  "model": "sahara",
+  "model_identifier": "Intron Sahara v2.5",
+  "audio_hash": "188bdf85986c85ec54436c33c72d79725a87e4808c2ff850bd216e8da0feafbd",
+  "raw_response": null,
+  "raw_transcript": "My landlord refuse to fix di bus pipe in di flat",
+  "normalized_transcript": "my landlord refuse to fix di bus pipe in di flat",
+  "request_status": "success",
+  "error": null,
+  "inference_latency_s": null,
+  "timestamp": "2026-09-13T21:58:19.834310+00:00",
+  "cached": false,
+  "fresh": true
+}

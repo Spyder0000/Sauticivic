@@ -1,0 +1,10 @@
+{
+  "clip_id": "spk5_m_004",
+  "audio_file": "spk5_m_004.wav",
+  "transcript": "Wait. What? My boss, don't suck me. Will that be my three months salary? I know what time?",
+  "language": "en",
+  "confidence": 0.78222656,
+  "backend": "deepgram",
+  "model": "nova-3",
+  "error": null
+}

@@ -1,11 +1,12 @@
 {
   "audio_file": "afriswitch_pcm_002.wav",
-  "transcript": "",
+  "transcript": "em go come out make sure say em follow this case. Em follow am wella. It's a plus-plus. True. So other governors suppose to join body you understand, to make sure say the_people_because when you see",
   "language": "Pidgin-English",
   "dataset_source": "afriswitch",
-  "duration_sec": 5.87,
-  "cmi": 20.0,
+  "duration_sec": 17.04,
+  "cmi": 47.220001220703125,
   "clip_type": "code_switched",
   "was_trimmed": false,
-  "tier": "B"
+  "tier": "B",
+  "upstream_id": "ywJo4WJqWks_chunk_1275344-1292384_148.wav"
 }

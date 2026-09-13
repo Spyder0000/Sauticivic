@@ -1,11 +1,12 @@
 {
   "audio_file": "afriswitch_yor_005.wav",
-  "transcript": "",
+  "transcript": "What? E mean e. Sunkanmi fimisile o lo?",
   "language": "Yoruba-English",
   "dataset_source": "afriswitch",
   "duration_sec": 5.36,
   "cmi": 37.5,
   "clip_type": "code_switched",
   "was_trimmed": false,
-  "tier": "B"
+  "tier": "B",
+  "upstream_id": "J9dcfEO4mw0_chunk_1541072-1546428_120.wav"
 }

@@ -1,0 +1,16 @@
+{
+  "clip_id": "spk4_m_003",
+  "speaker_id": "SPK-04",
+  "model": "whisper",
+  "model_identifier": "whisper",
+  "audio_hash": "e40668fd75b042630ca7e5e39bc6cc3e0dcff013e54fca00ff1df528768a01d5",
+  "raw_response": null,
+  "raw_transcript": "",
+  "normalized_transcript": "",
+  "request_status": "not_attempted",
+  "error": "runner not invoked for this clip",
+  "inference_latency_s": null,
+  "timestamp": "2026-09-13T19:58:32.693965+00:00",
+  "cached": false,
+  "fresh": true
+}

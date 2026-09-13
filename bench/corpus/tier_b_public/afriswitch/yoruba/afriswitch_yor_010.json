@@ -1,11 +1,12 @@
 {
   "audio_file": "afriswitch_yor_010.wav",
-  "transcript": "",
+  "transcript": "emi tun ro nkankan oo ah tori awon oga mi to pe to ni awon ma send owo si wa yi hmm hmm a le so wipe o ma send e kiakia ko de ma tete send e emi ro wipe",
   "language": "Yoruba-English",
   "dataset_source": "afriswitch",
   "duration_sec": 14.75,
   "cmi": 19.510000228881836,
   "clip_type": "code_switched",
   "was_trimmed": false,
-  "tier": "B"
+  "tier": "B",
+  "upstream_id": "c9poV3T3kUI_chunk_3126464-3141216_322.wav"
 }

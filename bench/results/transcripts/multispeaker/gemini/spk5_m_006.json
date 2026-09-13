@@ -1,0 +1,10 @@
+{
+  "clip_id": "spk5_m_006",
+  "audio_file": "spk5_m_006.wav",
+  "transcript": "Maintenant, le droit à vie privée, un refus de livrer dans ma liste de contacts.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

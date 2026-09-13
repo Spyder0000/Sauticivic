@@ -1,0 +1,26 @@
+[
+  {
+    "speaker_id": "SPK-03",
+    "gender": "female",
+    "verified_accent_or_language_background": null,
+    "recording_device": null,
+    "recording_environment": null,
+    "consent_status": "confirmed by user; speakers consented to recording and benchmark use"
+  },
+  {
+    "speaker_id": "SPK-04",
+    "gender": "male",
+    "verified_accent_or_language_background": null,
+    "recording_device": null,
+    "recording_environment": null,
+    "consent_status": "confirmed by user; speakers consented to recording and benchmark use"
+  },
+  {
+    "speaker_id": "SPK-05",
+    "gender": "male",
+    "verified_accent_or_language_background": null,
+    "recording_device": null,
+    "recording_environment": null,
+    "consent_status": "confirmed by user; speakers consented to recording and benchmark use"
+  }
+]

@@ -8,6 +8,9 @@ The gate thresholds, API keys, and database URL are all here so that:
 """
 from __future__ import annotations
 
+from dotenv import load_dotenv
+load_dotenv()
+
 from pydantic_settings import BaseSettings
 
 

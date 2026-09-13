@@ -1,11 +1,12 @@
 {
   "audio_file": "afriswitch_yor_003.wav",
-  "transcript": "",
+  "transcript": "Kilode to fi allow wọn lati operate POS? Awọn noni mo fẹ operate rẹ awon noni kin gbe wa kawọn operate rẹ fun ra wọn It’s your duty moti man sọ fun yin",
   "language": "Yoruba-English",
   "dataset_source": "afriswitch",
   "duration_sec": 8.32,
   "cmi": 42.41999816894531,
   "clip_type": "code_switched",
   "was_trimmed": false,
-  "tier": "B"
+  "tier": "B",
+  "upstream_id": "PFqB_n7pAZA_chunk_2249264-2257584_194.wav"
 }

@@ -1,0 +1,16 @@
+{
+  "clip_id": "spk5_m_009",
+  "speaker_id": "SPK-05",
+  "model": "deepgram",
+  "model_identifier": "nova-3",
+  "audio_hash": "3ccf615f388796327d9899605d09d224c4a04cf94279762df344f0c022947fd8",
+  "raw_response": null,
+  "raw_transcript": "우리 까매일 수도 있는 아름 거장머니 방일보리 보고 우리 이 내가 거리스 횟수 일",
+  "normalized_transcript": "",
+  "request_status": "success",
+  "error": null,
+  "inference_latency_s": null,
+  "timestamp": "2026-09-13T21:58:26.748119+00:00",
+  "cached": false,
+  "fresh": true
+}

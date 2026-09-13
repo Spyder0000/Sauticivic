@@ -1,0 +1,16 @@
+{
+  "clip_id": "spk3_f_003",
+  "speaker_id": "SPK-03",
+  "model": "gemini",
+  "model_identifier": "gemini-3.5-transcribe",
+  "audio_hash": "2b121d9e0557c52978e59a3bfd2c47a608c0a3f65c0550d11752fba6aa8626ec",
+  "raw_response": null,
+  "raw_transcript": "The street light wey Jota junction no dey work, e don dark well well.",
+  "normalized_transcript": "the street light wey jota junction no dey work e don dark well well",
+  "request_status": "success",
+  "error": null,
+  "inference_latency_s": null,
+  "timestamp": "2026-09-13T21:58:23.701729+00:00",
+  "cached": false,
+  "fresh": true
+}

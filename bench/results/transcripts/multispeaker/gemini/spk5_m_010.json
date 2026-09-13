@@ -1,0 +1,10 @@
+{
+  "clip_id": "spk5_m_010",
+  "audio_file": "spk5_m_010.wav",
+  "transcript": "I want to report something I witnessed but I'm not sure who to handle it.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

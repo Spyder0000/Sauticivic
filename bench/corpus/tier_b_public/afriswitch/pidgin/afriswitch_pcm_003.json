@@ -1,11 +1,12 @@
 {
   "audio_file": "afriswitch_pcm_003.wav",
-  "transcript": "",
+  "transcript": "The world, na just the level with which e dey happen na e dey differ For some places, it is ranked so high and for some places it's ranked so low",
   "language": "Pidgin-English",
   "dataset_source": "afriswitch",
-  "duration_sec": 7.41,
-  "cmi": 11.760000228881836,
+  "duration_sec": 8.82,
+  "cmi": 41.939998626708984,
   "clip_type": "code_switched",
   "was_trimmed": false,
-  "tier": "B"
+  "tier": "B",
+  "upstream_id": "fayv63sQvDA_chunk_822752-831568_84.wav"
 }

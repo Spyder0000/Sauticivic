@@ -1,11 +1,12 @@
 {
   "audio_file": "afriswitch_hau_001.wav",
-  "transcript": "",
+  "transcript": "Indai wannan ne i will be in church this sunday, i will be in church this sunday, what is your advise. Yauwa your excellency ai kamar yadda honorable din kunkuri ya fada",
   "language": "Hausa-English",
   "dataset_source": "afriswitch",
   "duration_sec": 10.88,
   "cmi": 34.380001068115234,
   "clip_type": "code_switched",
   "was_trimmed": false,
-  "tier": "B"
+  "tier": "B",
+  "upstream_id": "eceYbukw-6M_chunk_663568-674448_60.wav"
 }

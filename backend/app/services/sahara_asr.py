@@ -93,12 +93,15 @@ def _call_sahara(audio_bytes: bytes, filename: str, language: str = "pcm") -> AS
     endpoint_url = _resolve_sahara_url(settings.sahara_api_url)
     mime_type = _get_mime_type(filename)
 
+    import os
+    api_key = settings.sahara_api_key or os.environ.get("SAHARA_API_KEY", "")
+
     with httpx.Client(timeout=60.0) as client:
         for attempt, delay in enumerate(_RETRY_DELAYS, start=1):
             try:
                 resp = client.post(
                     endpoint_url,
-                    headers={"Authorization": f"Bearer {settings.sahara_api_key}"},
+                    headers={"Authorization": f"Bearer {api_key}"},
                     files={"audio_file_blob": (filename, io.BytesIO(audio_bytes), mime_type)},
                     data={
                         "audio_file_name": filename,
@@ -206,7 +209,8 @@ def transcribe_audio(
     The caller (voice endpoint / bench runner) should catch RuntimeError and
     return a SYSTEM_ERROR outcome to the citizen.
     """
-    if settings.sahara_api_key:
+    import os
+    if settings.sahara_api_key or os.environ.get("SAHARA_API_KEY"):
         try:
             result = _call_sahara(audio_bytes, filename, language=language)
             log.info("ASR: Sahara succeeded (lang=%s, conf=%s)", result.language, result.confidence)

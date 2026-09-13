@@ -1,11 +1,12 @@
 {
   "audio_file": "afriswitch_hau_010.wav",
-  "transcript": "",
+  "transcript": "Ban sani ba Amma dai na musu uzuri nayi musu uzuri Ina ta pushing dai da kaina na zama zama MC Rahina kika zo kika wato ke self built ce ke kikai ma kanki komai to na lura cewa kina da wani confidence daya sa kikai fice daya sa kika fita daban a cikin saura Ina kika samu wannan confidence din naki iyayen mu sun bamu sun bamu support da muke nema",
   "language": "Hausa-English",
   "dataset_source": "afriswitch",
   "duration_sec": 29.0,
   "cmi": 9.720000267028809,
   "clip_type": "code_switched",
   "was_trimmed": false,
-  "tier": "B"
+  "tier": "B",
+  "upstream_id": "63c58c41a6464b40af9531937573a183.wav"
 }

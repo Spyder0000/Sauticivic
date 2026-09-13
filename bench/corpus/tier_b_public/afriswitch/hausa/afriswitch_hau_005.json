@@ -1,11 +1,12 @@
 {
   "audio_file": "afriswitch_hau_005.wav",
-  "transcript": "",
+  "transcript": "Da kike lokoja har zuwa yanzu gabadaya rayuwanki saboda yanda kika faro kinyi talla kin saida abubuwa kin fuskanci tsangwama a gaskiya aa saboda Wanda suka San story dina ko kinsan na taba like two other interviews dai kin gane so Wanda suka San story dina suna suna suna encouraging dina su nuna mun Rahina fa story dinki is very inspiring especially a kaduna yanzun",
   "language": "Hausa-English",
   "dataset_source": "afriswitch",
   "duration_sec": 29.0,
   "cmi": 20.0,
   "clip_type": "code_switched",
   "was_trimmed": false,
-  "tier": "B"
+  "tier": "B",
+  "upstream_id": "bb6bc978d9c34215be480b6d3f11a05e.wav"
 }

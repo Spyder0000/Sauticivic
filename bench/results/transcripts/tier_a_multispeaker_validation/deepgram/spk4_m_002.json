@@ -1,0 +1,16 @@
+{
+  "clip_id": "spk4_m_002",
+  "speaker_id": "SPK-04",
+  "model": "deepgram",
+  "model_identifier": "nova-3",
+  "audio_hash": "b998821e0971e9de2490261c92d7911ec864293e7cab5dbe36ce1cad07804128",
+  "raw_response": null,
+  "raw_transcript": "O co dom bo swoja świt nie zwalniaj mi jak wyjedą flot",
+  "normalized_transcript": "o co dom bo swoja wit nie zwalniaj mi jak wyjed flot",
+  "request_status": "success",
+  "error": null,
+  "inference_latency_s": null,
+  "timestamp": "2026-09-13T21:58:26.748119+00:00",
+  "cached": false,
+  "fresh": true
+}

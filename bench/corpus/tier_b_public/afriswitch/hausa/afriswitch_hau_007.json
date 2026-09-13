@@ -1,11 +1,12 @@
 {
   "audio_file": "afriswitch_hau_007.wav",
-  "transcript": "",
+  "transcript": "Ba sa amfani da Fetur gas ko wani abu makamancin haka waton kenan issues dinnan da ake ta fama da shi na fitar da hayaki da kuma kona fossils fuel gaba daya invention dinsu baya amfani da shi.",
   "language": "Hausa-English",
   "dataset_source": "afriswitch",
   "duration_sec": 13.81,
   "cmi": 15.789999961853027,
   "clip_type": "code_switched",
   "was_trimmed": false,
-  "tier": "B"
+  "tier": "B",
+  "upstream_id": "Qv8oW6esbs0_chunk_1113184-1126992_110.wav"
 }

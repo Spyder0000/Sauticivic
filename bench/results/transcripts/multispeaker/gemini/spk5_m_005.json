@@ -1,0 +1,10 @@
+{
+  "clip_id": "spk5_m_005",
+  "audio_file": "spk5_m_005.wav",
+  "transcript": "My husband don't cheat me and my children come for us refuse to give us money for feeding.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

@@ -1,0 +1,10 @@
+{
+  "clip_id": "spk5_m_001",
+  "audio_file": "spk5_m_001.wav",
+  "transcript": "There is a big pothole in Allen Avenue junction. Don't spoil plenty tyre.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

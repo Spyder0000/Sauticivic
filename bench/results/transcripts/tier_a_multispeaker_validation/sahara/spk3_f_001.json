@@ -1,0 +1,16 @@
+{
+  "clip_id": "spk3_f_001",
+  "speaker_id": "SPK-03",
+  "model": "sahara",
+  "model_identifier": "Intron Sahara v2.5",
+  "audio_hash": "8c082930ec7d725e6a24c2e4d4cfa89045c9222082f4c52cd676782dfb0c642d",
+  "raw_response": null,
+  "raw_transcript": "There is a big pot hole for allen Avenue junction e don spoil plenty times.",
+  "normalized_transcript": "there is a big pot hole for allen avenue junction e don spoil plenty times",
+  "request_status": "success",
+  "error": null,
+  "inference_latency_s": null,
+  "timestamp": "2026-09-13T21:58:19.834310+00:00",
+  "cached": false,
+  "fresh": true
+}

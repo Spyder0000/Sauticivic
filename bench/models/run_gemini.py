@@ -66,6 +66,7 @@ def discover_audio_files(
     corpus_dir: Path,
     clip_id: str | None = None,
     clip_path: Path | None = None,
+    clip_ids: set[str] | None = None,
 ) -> list[Path]:
     """Return all audio files in corpus_dir, or a single targeted clip."""
     if clip_path:
@@ -89,10 +90,38 @@ def discover_audio_files(
         p for p in corpus_dir.rglob("*")
         if p.is_file() and p.suffix.lower() in _AUDIO_EXTENSIONS
     )
-    if clip_id:
+    if clip_ids is not None:
+        files = [f for f in files if f.stem in clip_ids or f.name in clip_ids]
+    elif clip_id:
         # Match either exact stem or filename
         files = [f for f in files if f.stem == clip_id or f.name == clip_id]
     return files
+
+
+def _should_reuse_existing(out_path: Path, force_overwrite: bool) -> bool:
+    if force_overwrite or not out_path.is_file():
+        return False
+    try:
+        cached = json.loads(out_path.read_text(encoding="utf-8"))
+        return bool(not cached.get("error") and cached.get("transcript") is not None)
+    except Exception:
+        return False
+
+
+def _resolve_tier_paths(
+    tier: str,
+    corpus_dir: Path | None,
+    output_dir: Path | None,
+) -> tuple[Path, Path]:
+    if corpus_dir is None:
+        corpus_dir = _REPO_ROOT / "bench" / "corpus" / (
+            "tier_b_public" if tier == "b" else "tier_a_recorded/audio"
+        )
+    if output_dir is None:
+        output_dir = _REPO_ROOT / "bench" / "results" / "transcripts"
+        if tier == "b":
+            output_dir /= "tier_b"
+    return corpus_dir, output_dir
 
 
 # ---------------------------------------------------------------------------
@@ -201,6 +230,7 @@ def run_gemini(
     dry_run: bool = False,
     clip_id: str | None = None,
     clip_path: Path | None = None,
+    clip_ids: set[str] | None = None,
 ) -> list[dict]:
     """Run Gemini 3.5 Transcribe over audio clips in corpus_dir.
 
@@ -216,8 +246,14 @@ def run_gemini(
     Returns:
         List of result dicts (one per clip).
     """
-    gemini_out = output_dir / "gemini"
-    audio_files = discover_audio_files(corpus_dir, clip_id=clip_id, clip_path=clip_path)
+    gemini_out = output_dir if output_dir.name == "gemini" else output_dir / "gemini"
+    audio_files = discover_audio_files(
+        corpus_dir,
+        clip_id=clip_id,
+        clip_path=clip_path,
+        clip_ids=clip_ids,
+    )
+    force_overwrite = clip_ids is not None
 
     if not audio_files:
         print(f"No audio files found in {corpus_dir}")
@@ -246,14 +282,8 @@ def run_gemini(
 
         for f in audio_files:
             out_p = gemini_out / f"{f.stem}.json"
-            is_valid = False
-            if out_p.is_file():
-                try:
-                    c = json.loads(out_p.read_text(encoding="utf-8"))
-                    is_valid = bool(not c.get("error") and c.get("transcript"))
-                except Exception:
-                    pass
-            status = "SKIP (already exists)" if is_valid else "TRANSCRIBE"
+            is_valid = _should_reuse_existing(out_p, force_overwrite)
+            status = "SKIP (already exists)" if is_valid else "TRANSCRIBE/OVERWRITE"
             print(f"  [{status}] {f.name}  →  {out_p.name}")
         return []
 
@@ -286,14 +316,13 @@ def run_gemini(
         out_path = gemini_out / f"{audio_file.stem}.json"
 
         # Skip clip if valid transcript already exists on disk
-        if out_path.is_file():
+        if _should_reuse_existing(out_path, force_overwrite):
             try:
                 cached = json.loads(out_path.read_text(encoding="utf-8"))
-                if not cached.get("error") and cached.get("transcript") is not None:
-                    snippet = (cached.get("transcript") or "")[:60].replace("\n", " ")
-                    print(f'[{i}/{len(audio_files)}] {audio_file.name} ... SKIPPED (already exists: "{snippet}...")')
-                    results.append(cached)
-                    continue
+                snippet = (cached.get("transcript") or "")[:60].replace("\n", " ")
+                print(f'[{i}/{len(audio_files)}] {audio_file.name} ... SKIPPED (already exists: "{snippet}...")')
+                results.append(cached)
+                continue
             except Exception:
                 pass
 
@@ -362,31 +391,37 @@ def _parse_args() -> argparse.Namespace:
     p.add_argument(
         "--corpus",
         type=Path,
-        default=_REPO_ROOT / "bench" / "corpus" / "tier_a_recorded" / "audio",
+        default=None,
         help="Directory containing audio files.",
     )
     p.add_argument(
         "--output-dir",
         type=Path,
-        default=_REPO_ROOT / "bench" / "results" / "transcripts",
+        default=None,
         help="Root directory for transcript output (transcripts go to <output-dir>/gemini/).",
     )
     p.add_argument("--model", type=str, default="gemini-3.5-transcribe", help="Gemini model name.")
     p.add_argument("--delay-ms", type=int, default=200, help="ms between clips.")
     p.add_argument("--dry-run", action="store_true", help="Print plan without calling API.")
-    p.add_argument("--clip", type=Path, default=None, help="Run a single audio file path.")
-    p.add_argument("--clip-id", type=str, default=None, help="Run a single clip by ID.")
+    p.add_argument("--tier", choices=("a", "b"), default="a", help="Corpus tier defaults to use.")
+    target = p.add_mutually_exclusive_group()
+    target.add_argument("--clip", type=Path, default=None, help="Run a single audio file path.")
+    target.add_argument("--clip-id", type=str, default=None, help="Run a single clip by ID.")
+    target.add_argument("--clips", type=str, default=None, help="Comma-separated clip IDs; selected outputs are overwritten.")
     return p.parse_args()
 
 
 if __name__ == "__main__":
     args = _parse_args()
+    corpus_dir, output_dir = _resolve_tier_paths(args.tier, args.corpus, args.output_dir)
+    clip_ids = {item.strip() for item in args.clips.split(",") if item.strip()} if args.clips else None
     run_gemini(
-        corpus_dir=args.corpus,
-        output_dir=args.output_dir,
+        corpus_dir=corpus_dir,
+        output_dir=output_dir,
         model=args.model,
         delay_ms=args.delay_ms,
         dry_run=args.dry_run,
         clip_id=args.clip_id,
         clip_path=args.clip,
+        clip_ids=clip_ids,
     )

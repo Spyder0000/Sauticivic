@@ -1,0 +1,10 @@
+{
+  "clip_id": "spk3_f_009",
+  "audio_file": "spk3_f_009.wav",
+  "transcript": "The community leader don collect money from everybody for borehole e never complete since two years.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

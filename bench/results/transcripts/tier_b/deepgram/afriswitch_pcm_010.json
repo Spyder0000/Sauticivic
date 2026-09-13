@@ -1,9 +1,9 @@
 {
   "clip_id": "afriswitch_pcm_010",
   "audio_file": "afriswitch_pcm_010.wav",
-  "transcript": "Yukie, although don't talk about, you know, the beauty, the goodness of African fashion, African design even in the international scene. But, of course, there's no goodness without challenges. What do you feel say be the challenges where African fashion don't don't encounter in, like, maybe in the past ten years, maybe?",
+  "transcript": "Imagine this statement, Igbos are being victimized. So they'll come as I thought, say, oh, is it because he's an Igbo? Igbo man. That's why they want actually... They they victimize them like that, which is not actually true. But for as long as we continue to use tribe, they they",
   "language": "en",
-  "confidence": 0.9914551,
+  "confidence": 0.9070638,
   "backend": "deepgram",
   "model": "nova-3",
   "error": null

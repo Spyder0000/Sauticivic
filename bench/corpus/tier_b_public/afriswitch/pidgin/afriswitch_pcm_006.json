@@ -1,11 +1,12 @@
 {
   "audio_file": "afriswitch_pcm_006.wav",
-  "transcript": "",
+  "transcript": "information goes to. It's like a warehouse. They say do you have a warehouse in Somolu? We say yes we get warehouse for Somolu. Na electoral materials we dey keep there.",
   "language": "Pidgin-English",
   "dataset_source": "afriswitch",
-  "duration_sec": 5.54,
-  "cmi": 7.139999866485596,
+  "duration_sec": 14.37,
+  "cmi": 38.709999084472656,
   "clip_type": "code_switched",
   "was_trimmed": false,
-  "tier": "B"
+  "tier": "B",
+  "upstream_id": "No6f5wUO9Bw_chunk_1262048-1276416_149.wav"
 }

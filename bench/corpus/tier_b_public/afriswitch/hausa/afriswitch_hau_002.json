@@ -1,11 +1,12 @@
 {
   "audio_file": "afriswitch_hau_002.wav",
-  "transcript": "",
+  "transcript": "reforms that were much needed in terms of fuel subsidy reforms a zahiri yake cewa wannan gwamnati na taukar muhimman matakan sauye-sauye wanda ake matakar bukata masu alaca da cire tallapaman petar kuma yin hakan abu ne mai matukar wahala.",
   "language": "Hausa-English",
   "dataset_source": "afriswitch",
   "duration_sec": 13.73,
   "cmi": 27.5,
   "clip_type": "code_switched",
   "was_trimmed": false,
-  "tier": "B"
+  "tier": "B",
+  "upstream_id": "rGmX9GUAH0s_chunk_999504-1013232_102.wav"
 }

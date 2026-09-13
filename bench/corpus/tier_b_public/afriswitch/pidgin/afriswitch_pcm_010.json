@@ -1,11 +1,12 @@
 {
   "audio_file": "afriswitch_pcm_010.wav",
-  "transcript": "",
+  "transcript": "Imagine this statement. Igbos are being victimized. So dem go come outside talk say 'oh is it because he's an Igbo? Na Igbo man dat na why dem wan actually dey victimize am like that?' Which is not actually true. But for as long as we continue to dey use tribe take dey",
   "language": "Pidgin-English",
   "dataset_source": "afriswitch",
-  "duration_sec": 16.4,
-  "cmi": 2.0799999237060547,
+  "duration_sec": 14.11,
+  "cmi": 35.189998626708984,
   "clip_type": "code_switched",
   "was_trimmed": false,
-  "tier": "B"
+  "tier": "B",
+  "upstream_id": "rq979Qdxnf4_chunk_524608-538720_41.wav"
 }

@@ -1,0 +1,16 @@
+{
+  "clip_id": "spk4_m_006",
+  "speaker_id": "SPK-04",
+  "model": "gemini",
+  "model_identifier": "gemini-3.5-transcribe",
+  "audio_hash": "f0e300619b7d43129fe1ac32e689aaf82d52c80ad0d4f9c25b20695383040d75",
+  "raw_response": null,
+  "raw_transcript": "My landlord wanted to evict me and refused to return my rent deposit. Can you imagine?",
+  "normalized_transcript": "my landlord wanted to evict me and refused to return my rent deposit can you imagine",
+  "request_status": "success",
+  "error": null,
+  "inference_latency_s": null,
+  "timestamp": "2026-09-13T21:58:23.701729+00:00",
+  "cached": false,
+  "fresh": true
+}

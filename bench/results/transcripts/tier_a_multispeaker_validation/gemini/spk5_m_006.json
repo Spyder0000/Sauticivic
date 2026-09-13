@@ -1,0 +1,16 @@
+{
+  "clip_id": "spk5_m_006",
+  "speaker_id": "SPK-05",
+  "model": "gemini",
+  "model_identifier": "gemini-3.5-transcribe",
+  "audio_hash": "a11e42ef79f655dae05fe528ac4f5d2d879084444a0931b5d89894e47760ce10",
+  "raw_response": null,
+  "raw_transcript": "Maintenant, le droit à vie privée, un refus de livrer dans ma liste de contacts.",
+  "normalized_transcript": "maintenant le droit  vie priv e un refus de livrer dans ma liste de contacts",
+  "request_status": "success",
+  "error": null,
+  "inference_latency_s": null,
+  "timestamp": "2026-09-13T21:58:23.701729+00:00",
+  "cached": false,
+  "fresh": true
+}

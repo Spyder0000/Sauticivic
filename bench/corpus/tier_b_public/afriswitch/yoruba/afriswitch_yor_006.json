@@ -1,11 +1,12 @@
 {
   "audio_file": "afriswitch_yor_006.wav",
-  "transcript": "",
+  "transcript": "E Ku oju lona alright major old soldier, major old soldier",
   "language": "Yoruba-English",
   "dataset_source": "afriswitch",
   "duration_sec": 6.69,
   "cmi": 36.36000061035156,
   "clip_type": "code_switched",
   "was_trimmed": false,
-  "tier": "B"
+  "tier": "B",
+  "upstream_id": "QEWIeMWEhy4_chunk_1432864-1439420_125.wav"
 }

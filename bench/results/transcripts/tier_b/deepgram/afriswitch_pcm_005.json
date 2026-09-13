@@ -1,9 +1,9 @@
 {
   "clip_id": "afriswitch_pcm_005",
   "audio_file": "afriswitch_pcm_005.wav",
-  "transcript": "Information go go go go goes to it's like a warehouse. They said, do you have a warehouse in someone we say that we do warehouse for for someone now, electrical materials we get here.",
-  "language": "en",
-  "confidence": 0.8574219,
+  "transcript": "Aló.",
+  "language": "es",
+  "confidence": 0.85498047,
   "backend": "deepgram",
   "model": "nova-3",
   "error": null

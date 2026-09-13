@@ -1,0 +1,16 @@
+{
+  "clip_id": "spk3_f_005",
+  "speaker_id": "SPK-03",
+  "model": "deepgram",
+  "model_identifier": "nova-3",
+  "audio_hash": "559350fbb6bdcbf06459ed5e6b44da6a1a9b8b31cdaf7933744b65acada6290d",
+  "raw_response": null,
+  "raw_transcript": "Merhaba, ben de onun için ismim.",
+  "normalized_transcript": "merhaba ben de onun i in ismim",
+  "request_status": "success",
+  "error": null,
+  "inference_latency_s": null,
+  "timestamp": "2026-09-13T21:58:26.748119+00:00",
+  "cached": false,
+  "fresh": true
+}

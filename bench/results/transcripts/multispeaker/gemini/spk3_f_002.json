@@ -1,0 +1,10 @@
+{
+  "clip_id": "spk3_f_002",
+  "audio_file": "spk3_f_002.wav",
+  "transcript": "Water don't pour for our street since morning, everywhere don't flood.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

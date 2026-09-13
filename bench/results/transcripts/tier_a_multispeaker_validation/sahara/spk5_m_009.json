@@ -1,0 +1,16 @@
+{
+  "clip_id": "spk5_m_009",
+  "speaker_id": "SPK-05",
+  "model": "sahara",
+  "model_identifier": "Intron Sahara v2.5",
+  "audio_hash": "3ccf615f388796327d9899605d09d224c4a04cf94279762df344f0c022947fd8",
+  "raw_response": null,
+  "raw_transcript": "The community leader don collect money from everybody for ball wey e never complete since 2 years",
+  "normalized_transcript": "the community leader don collect money from everybody for ball wey e never complete since 2 years",
+  "request_status": "success",
+  "error": null,
+  "inference_latency_s": null,
+  "timestamp": "2026-09-13T21:58:19.834310+00:00",
+  "cached": false,
+  "fresh": true
+}

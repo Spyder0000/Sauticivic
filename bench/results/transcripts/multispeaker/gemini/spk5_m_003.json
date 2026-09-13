@@ -1,0 +1,10 @@
+{
+  "clip_id": "spk5_m_003",
+  "audio_file": "spk5_m_003.wav",
+  "transcript": "The street light for Jota no dey function, no dey work. E don dark well well.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

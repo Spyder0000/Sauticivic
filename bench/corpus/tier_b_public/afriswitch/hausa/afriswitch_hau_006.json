@@ -1,11 +1,12 @@
 {
   "audio_file": "afriswitch_hau_006.wav",
-  "transcript": "",
+  "transcript": "Abunda ya shahi na qasa yana da damar da zai shiga wannan wurin ya kwato ma person with disqbility haqqoqansu da yake wannan ofis din",
   "language": "Hausa-English",
   "dataset_source": "afriswitch",
   "duration_sec": 8.02,
   "cmi": 16.0,
   "clip_type": "code_switched",
   "was_trimmed": false,
-  "tier": "B"
+  "tier": "B",
+  "upstream_id": "Ensz9YEZtWE_chunk_1622720-1630736_163.wav"
 }

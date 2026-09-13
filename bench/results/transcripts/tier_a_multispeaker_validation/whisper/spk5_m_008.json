@@ -1,0 +1,16 @@
+{
+  "clip_id": "spk5_m_008",
+  "speaker_id": "SPK-05",
+  "model": "whisper",
+  "model_identifier": "whisper",
+  "audio_hash": "188bdf85986c85ec54436c33c72d79725a87e4808c2ff850bd216e8da0feafbd",
+  "raw_response": null,
+  "raw_transcript": "",
+  "normalized_transcript": "",
+  "request_status": "not_attempted",
+  "error": "runner not invoked for this clip",
+  "inference_latency_s": null,
+  "timestamp": "2026-09-13T19:58:32.693965+00:00",
+  "cached": false,
+  "fresh": true
+}

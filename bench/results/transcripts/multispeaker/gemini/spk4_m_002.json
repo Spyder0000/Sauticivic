@@ -1,0 +1,10 @@
+{
+  "clip_id": "spk4_m_002",
+  "audio_file": "spk4_m_002.wav",
+  "transcript": "Oga, I don't pass for street since morning, everywhere don flood.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

@@ -1,9 +1,9 @@
 {
   "clip_id": "afriswitch_pcm_001",
   "audio_file": "afriswitch_pcm_001.wav",
-  "transcript": "So this is going to Nigerians. Me now just draw her ear. Make my draw her ear.",
+  "transcript": "Yukie, although don't talk about, you know, the beauty, the goodness of African fashion, African design even in the international scene. But, of course, there's no goodness without challenges. What do you feel say be the challenges where African fashion don't don't encounter in, like, maybe in the past ten years, maybe?",
   "language": "en",
-  "confidence": 0.9223633,
+  "confidence": 0.9914551,
   "backend": "deepgram",
   "model": "nova-3",
   "error": null

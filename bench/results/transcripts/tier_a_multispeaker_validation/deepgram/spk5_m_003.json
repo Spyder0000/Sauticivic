@@ -1,0 +1,16 @@
+{
+  "clip_id": "spk5_m_003",
+  "speaker_id": "SPK-05",
+  "model": "deepgram",
+  "model_identifier": "nova-3",
+  "audio_hash": "3fabde72fb2723fe09b2ea963eb62ee0091813e7bd0b0bdbd8b528ff274ca0c3",
+  "raw_response": null,
+  "raw_transcript": "I The streetlight for total. Knew the phone. You don't duck. Where? Where?",
+  "normalized_transcript": "i the streetlight for total knew the phone you don't duck where where",
+  "request_status": "success",
+  "error": null,
+  "inference_latency_s": null,
+  "timestamp": "2026-09-13T21:58:26.748119+00:00",
+  "cached": false,
+  "fresh": true
+}

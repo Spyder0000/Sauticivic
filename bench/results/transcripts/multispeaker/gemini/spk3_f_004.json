@@ -1,0 +1,10 @@
+{
+  "clip_id": "spk3_f_004",
+  "audio_file": "spk3_f_004.wav",
+  "transcript": "My boss don't sack me without paying my three months salary and overtime.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

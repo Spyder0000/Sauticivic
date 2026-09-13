@@ -1,0 +1,10 @@
+{
+  "clip_id": "spk3_f_005",
+  "audio_file": "spk3_f_005.wav",
+  "transcript": "My husband don't chase me and the children come out for house, refuse to give us money for feeding.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

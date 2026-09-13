@@ -1,11 +1,12 @@
 {
   "audio_file": "afriswitch_pcm_008.wav",
-  "transcript": "",
+  "transcript": "Must perform must get command performance, okay. So na that one be comedy show",
   "language": "Pidgin-English",
   "dataset_source": "afriswitch",
-  "duration_sec": 14.11,
-  "cmi": 3.7699999809265137,
+  "duration_sec": 5.54,
+  "cmi": 35.709999084472656,
   "clip_type": "code_switched",
   "was_trimmed": false,
-  "tier": "B"
+  "tier": "B",
+  "upstream_id": "1T59bGK2OBQ_chunk_228864-234400_22.wav"
 }

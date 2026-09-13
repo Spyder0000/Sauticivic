@@ -1,11 +1,12 @@
 {
   "audio_file": "afriswitch_hau_003.wav",
-  "transcript": "",
+  "transcript": "Da zaka achieving zaka cimma burin da kake so ka cimma a dan kankanin lokaci so it depends on your target sai ka yi kokari ya zama na a ce kowace shekara ka yi mata nata plan din which is shorter",
   "language": "Hausa-English",
   "dataset_source": "afriswitch",
   "duration_sec": 15.01,
   "cmi": 26.829999923706055,
   "clip_type": "code_switched",
   "was_trimmed": false,
-  "tier": "B"
+  "tier": "B",
+  "upstream_id": "mfkozo0Lxbg_chunk_1290528-1305536_126.wav"
 }

@@ -1,0 +1,16 @@
+{
+  "clip_id": "spk3_f_003",
+  "speaker_id": "SPK-03",
+  "model": "deepgram",
+  "model_identifier": "nova-3",
+  "audio_hash": "2b121d9e0557c52978e59a3bfd2c47a608c0a3f65c0550d11752fba6aa8626ec",
+  "raw_response": null,
+  "raw_transcript": "The street lights for Jota Junction no they work it don't dark well well",
+  "normalized_transcript": "the street lights for jota junction no they work it don't dark well well",
+  "request_status": "success",
+  "error": null,
+  "inference_latency_s": null,
+  "timestamp": "2026-09-13T21:58:26.748119+00:00",
+  "cached": false,
+  "fresh": true
+}

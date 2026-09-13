@@ -1,0 +1,16 @@
+{
+  "clip_id": "spk4_m_004",
+  "speaker_id": "SPK-04",
+  "model": "gemini",
+  "model_identifier": "gemini-3.5-transcribe",
+  "audio_hash": "30daf1120f985aa2f6e8b22215453397fd9a8b90192c2c4e7c1f4fc5a49d2524",
+  "raw_response": null,
+  "raw_transcript": "My boss don sack me without paying my three months salary and overtime.",
+  "normalized_transcript": "my boss don sack me without paying my three months salary and overtime",
+  "request_status": "success",
+  "error": null,
+  "inference_latency_s": null,
+  "timestamp": "2026-09-13T21:58:23.701729+00:00",
+  "cached": false,
+  "fresh": true
+}

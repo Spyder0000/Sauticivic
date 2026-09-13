@@ -1,0 +1,23 @@
+{
+  "status": "ok",
+  "checked_at": "2026-09-13T21:58:19.624515+00:00",
+  "checks": {
+    "exactly_30_audio": true,
+    "ten_per_speaker": true,
+    "all_audio_referenced": true,
+    "readable_nonzero_audio": true,
+    "required_audio_format": true,
+    "unique_audio_hashes": true,
+    "one_each_prompt_per_speaker": true,
+    "target_recordings_18": true,
+    "target_tokens_21": true,
+    "controls_12": true,
+    "consent_confirmed": true
+  },
+  "counts": {
+    "audio": 30,
+    "targets": 18,
+    "don_tokens": 21,
+    "controls": 12
+  }
+}

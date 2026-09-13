@@ -1,0 +1,16 @@
+{
+  "clip_id": "spk5_m_004",
+  "speaker_id": "SPK-05",
+  "model": "deepgram",
+  "model_identifier": "nova-3",
+  "audio_hash": "000879a6e5f79babeb3622944826fa46d4f6bfd091b806a582a384b9d8b193c9",
+  "raw_response": null,
+  "raw_transcript": "Wait. What? My boss, don't suck me. Will that be my three months salary? I know what time?",
+  "normalized_transcript": "wait what my boss don't suck me will that be my three months salary i know what time",
+  "request_status": "success",
+  "error": null,
+  "inference_latency_s": null,
+  "timestamp": "2026-09-13T21:58:26.748119+00:00",
+  "cached": false,
+  "fresh": true
+}

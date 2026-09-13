@@ -1,0 +1,16 @@
+{
+  "clip_id": "spk4_m_001",
+  "speaker_id": "SPK-04",
+  "model": "gemini",
+  "model_identifier": "gemini-3.5-transcribe",
+  "audio_hash": "4bb3d7c7c25b9113d7b50092248fd47c9bb6fd94492b9221ce1897f25a37d28e",
+  "raw_response": null,
+  "raw_transcript": "There is a big pothole for Allen Avenue junction. It don't spoil plenty tyre.",
+  "normalized_transcript": "there is a big pothole for allen avenue junction it don't spoil plenty tyre",
+  "request_status": "success",
+  "error": null,
+  "inference_latency_s": null,
+  "timestamp": "2026-09-13T21:58:23.701729+00:00",
+  "cached": false,
+  "fresh": true
+}

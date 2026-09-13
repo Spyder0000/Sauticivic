@@ -1,11 +1,12 @@
 {
   "audio_file": "afriswitch_hau_008.wav",
-  "transcript": "",
+  "transcript": "Toh babu laifi, masu kallo kuna tare da hajiya wadda ita ce ta kasance S. A abin da ya shafi national lottery trust fund za mu je hutun gajeren lokaci da zarar mun dawo za mu dora idan Allah ya kaimu.",
   "language": "Hausa-English",
   "dataset_source": "afriswitch",
   "duration_sec": 11.07,
   "cmi": 14.630000114440918,
   "clip_type": "code_switched",
   "was_trimmed": false,
-  "tier": "B"
+  "tier": "B",
+  "upstream_id": "_5p4bitL8Gs_chunk_2375744-2386812_235.wav"
 }

@@ -1,11 +1,12 @@
 {
   "audio_file": "afriswitch_hau_004.wav",
-  "transcript": "",
+  "transcript": "Bayan ya yarda cewa ya karya 'ka'idojin da hukumar world anti-doping agency ta shimfi'da",
   "language": "Hausa-English",
   "dataset_source": "afriswitch",
   "duration_sec": 5.52,
   "cmi": 21.43000030517578,
   "clip_type": "code_switched",
   "was_trimmed": false,
-  "tier": "B"
+  "tier": "B",
+  "upstream_id": "fMODhO56ec4_chunk_869744-875264_81.wav"
 }

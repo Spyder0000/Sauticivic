@@ -1,9 +1,9 @@
 {
   "clip_id": "afriswitch_pcm_006",
   "audio_file": "afriswitch_pcm_006.wav",
-  "transcript": "Must perform must get command performance. Okay. So now that will become an issue.",
+  "transcript": "Information go go go go goes to it's like a warehouse. They said, do you have a warehouse in someone we say that we do warehouse for for someone now, electrical materials we get here.",
   "language": "en",
-  "confidence": 0.95336914,
+  "confidence": 0.8574219,
   "backend": "deepgram",
   "model": "nova-3",
   "error": null

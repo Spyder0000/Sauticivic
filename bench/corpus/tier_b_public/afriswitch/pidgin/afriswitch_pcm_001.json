@@ -1,11 +1,12 @@
 {
   "audio_file": "afriswitch_pcm_001.wav",
-  "transcript": "",
+  "transcript": "Ovo don talk about you know the beauty the goodness of African fashion, African design even in the international scene. But of course there is no goodness without challenges. wetin you feel say be the challenges wey African fashion don encounter like maybe in the past 10 years maybe",
   "language": "Pidgin-English",
   "dataset_source": "afriswitch",
-  "duration_sec": 4.34,
-  "cmi": 23.530000686645508,
+  "duration_sec": 16.4,
+  "cmi": 47.91999816894531,
   "clip_type": "code_switched",
   "was_trimmed": false,
-  "tier": "B"
+  "tier": "B",
+  "upstream_id": "Xtf7ziBqWXo_chunk_358288-374688_35.wav"
 }

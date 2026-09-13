@@ -1,11 +1,12 @@
 {
   "audio_file": "afriswitch_yor_007.wav",
-  "transcript": "",
+  "transcript": "Osu yen mi o mu je o I got pregnant ma bimo one year",
   "language": "Yoruba-English",
   "dataset_source": "afriswitch",
   "duration_sec": 6.4,
   "cmi": 35.709999084472656,
   "clip_type": "code_switched",
   "was_trimmed": false,
-  "tier": "B"
+  "tier": "B",
+  "upstream_id": "nOBej2o1bnU_chunk_32064-38464_3.wav"
 }

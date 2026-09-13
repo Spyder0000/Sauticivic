@@ -1,0 +1,16 @@
+{
+  "clip_id": "spk5_m_010",
+  "speaker_id": "SPK-05",
+  "model": "gemini",
+  "model_identifier": "gemini-3.5-transcribe",
+  "audio_hash": "75d2cbb34836364150d3f7752077d1c886a5fb0d555b108ec8e48d755e1d3931",
+  "raw_response": null,
+  "raw_transcript": "I want to report something I witnessed but I'm not sure who to handle it.",
+  "normalized_transcript": "i want to report something i witnessed but i'm not sure who to handle it",
+  "request_status": "success",
+  "error": null,
+  "inference_latency_s": null,
+  "timestamp": "2026-09-13T21:58:23.701729+00:00",
+  "cached": false,
+  "fresh": true
+}

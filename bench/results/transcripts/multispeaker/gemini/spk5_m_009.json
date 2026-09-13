@@ -1,0 +1,10 @@
+{
+  "clip_id": "spk5_m_009",
+  "audio_file": "spk5_m_009.wav",
+  "transcript": "The company did not collect money from everybody for borewell, it never completed in 3 years.",
+  "language": null,
+  "confidence": null,
+  "backend": "gemini",
+  "model": "gemini-3.5-transcribe",
+  "error": null
+}

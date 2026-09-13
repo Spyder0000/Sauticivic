@@ -1,0 +1,16 @@
+{
+  "clip_id": "spk3_f_006",
+  "speaker_id": "SPK-03",
+  "model": "sahara",
+  "model_identifier": "Intron Sahara v2.5",
+  "audio_hash": "920646c1abce8772222c5c69f336983fe050d20b4a8f9c91fad526e5b7f924b9",
+  "raw_response": null,
+  "raw_transcript": "My landlord wan evict me and refuse to return my rent debt",
+  "normalized_transcript": "my landlord wan evict me and refuse to return my rent debt",
+  "request_status": "success",
+  "error": null,
+  "inference_latency_s": null,
+  "timestamp": "2026-09-13T21:58:19.834310+00:00",
+  "cached": false,
+  "fresh": true
+}

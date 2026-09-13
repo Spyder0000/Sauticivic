@@ -1,11 +1,12 @@
 {
   "audio_file": "afriswitch_pcm_007.wav",
-  "transcript": "",
+  "transcript": "dem been no show face.Now people come outside on top twitter dey talk say, Does that state have a government at all?",
   "language": "Pidgin-English",
   "dataset_source": "afriswitch",
-  "duration_sec": 15.3,
-  "cmi": 6.670000076293945,
+  "duration_sec": 5.97,
+  "cmi": 36.36000061035156,
   "clip_type": "code_switched",
   "was_trimmed": false,
-  "tier": "B"
+  "tier": "B",
+  "upstream_id": "J9XpbD2cFNQ_chunk_74144-80112_6.wav"
 }

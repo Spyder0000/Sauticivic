@@ -1,9 +1,9 @@
 {
   "clip_id": "afriswitch_pcm_002",
   "audio_file": "afriswitch_pcm_002.wav",
-  "transcript": "Aló.",
-  "language": "es",
-  "confidence": 0.8557129,
+  "transcript": "Ingo Comat, make sure say info this case. Info is a plus plus. True. Exactly. Other governors supposed to Supposed to join You understand? To make sure say the... Because when you when you see",
+  "language": "en",
+  "confidence": 0.96972656,
   "backend": "deepgram",
   "model": "nova-3",
   "error": null

@@ -1,0 +1,16 @@
+{
+  "clip_id": "spk5_m_010",
+  "speaker_id": "SPK-05",
+  "model": "deepgram",
+  "model_identifier": "nova-3",
+  "audio_hash": "75d2cbb34836364150d3f7752077d1c886a5fb0d555b108ec8e48d755e1d3931",
+  "raw_response": null,
+  "raw_transcript": "Aku mau repot switchnya miss di mana show book and 2 book.",
+  "normalized_transcript": "aku mau repot switchnya miss di mana show book and 2 book",
+  "request_status": "success",
+  "error": null,
+  "inference_latency_s": null,
+  "timestamp": "2026-09-13T21:58:26.748119+00:00",
+  "cached": false,
+  "fresh": true
+}

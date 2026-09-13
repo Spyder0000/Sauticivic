@@ -141,6 +141,55 @@ def select_by_cmi(dataset, n: int, cmi_field: str = "cmi"):
             return list(dataset)[:n]
 
 
+def _has_complete_existing_clips(dest_dir: Path, target_count: int) -> bool:
+    """Return whether reusable audio, references, and source IDs already exist."""
+    existing_wavs = sorted(dest_dir.glob("*.wav"))
+    if len(existing_wavs) < target_count:
+        return False
+
+    for wav in existing_wavs[:target_count]:
+        sidecar_path = wav.with_suffix(".json")
+        try:
+            sidecar = json.loads(sidecar_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            return False
+        if (
+            not str(sidecar.get("transcript") or "").strip()
+            or not str(sidecar.get("upstream_id") or "").strip()
+        ):
+            return False
+    return True
+
+
+def _upstream_id(row: dict, index: int) -> str:
+    """Return the most stable source identifier exposed by a dataset row."""
+    return str(
+        row.get("id")
+        or row.get("audio_id")
+        or row.get("filename")
+        or f"index_{index}"
+    )
+
+
+def _can_write_upstream(sidecar_path: Path, upstream_id: str) -> bool:
+    """Refuse to overwrite a clip ID already bound to another upstream row."""
+    if not sidecar_path.is_file():
+        return True
+    try:
+        existing = json.loads(sidecar_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return True
+
+    existing_id = str(existing.get("upstream_id") or "").strip()
+    if existing_id and existing_id != upstream_id:
+        print(
+            f"    WARNING: {sidecar_path.stem} is already bound to upstream_id "
+            f"{existing_id!r}; dataset returned {upstream_id!r}. Not overwriting."
+        )
+        return False
+    return True
+
+
 
 def save_clip(
     audio_array,
@@ -163,6 +212,7 @@ def save_clip(
         "cmi": metadata.get("cmi", None),
         "clip_type": metadata.get("clip_type", "code_switched"),
         "was_trimmed": metadata.get("was_trimmed", False),
+        "upstream_id": metadata.get("upstream_id"),
         "tier": "B",
     }
     sidecar_path = output_path.with_suffix(".json")
@@ -226,7 +276,7 @@ def ingest_afriswitch(
         dest_dir = out_base / cfg["folder"]
         dest_dir.mkdir(parents=True, exist_ok=True)
         existing_wavs = sorted(list(dest_dir.glob("*.wav")))
-        if len(existing_wavs) >= n_per_lang:
+        if _has_complete_existing_clips(dest_dir, n_per_lang):
             print(f"  [AfriSwitch {cfg['label']}] Already has {len(existing_wavs)} clips in {dest_dir}/, skipping download.")
             for wav in existing_wavs[:n_per_lang]:
                 sidecar_path = wav.with_suffix(".json")
@@ -285,12 +335,16 @@ def ingest_afriswitch(
             cid = f"afriswitch_{cfg['code']}_{count:03d}"
             wav_path = dest_dir / f"{cid}.wav"
             transcript = row.get("transcription", "") or row.get("transcript", "") or row.get("sentence", "")
+            upstream_id = _upstream_id(row, count)
+            if not _can_write_upstream(wav_path.with_suffix(".json"), upstream_id):
+                continue
             meta = {
                 "source": "afriswitch",
                 "language": cfg["label"],
                 "cmi": item["cmi"],
                 "clip_type": "code_switched",
                 "was_trimmed": was_trimmed,
+                "upstream_id": upstream_id,
             }
             save_clip(trimmed_arr, sr, wav_path, transcript, meta)
             saved_records.append({"clip_id": cid, "path": wav_path, **meta})
@@ -629,6 +683,7 @@ def generate_ground_truth_tier_b(
                 "cmi": data.get("cmi"),
                 "tier": "B",
                 "duration_sec": data.get("duration_sec"),
+                "upstream_id": data.get("upstream_id"),
                 "expected_domain": None,
                 "expected_outcome": None,
                 "notes": f"Tier B {data.get('dataset_source')} evaluation clip (WER and entity accuracy only)",
