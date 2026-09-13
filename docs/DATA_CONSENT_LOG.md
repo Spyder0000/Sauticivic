@@ -24,10 +24,13 @@ All audio recordings in the Tier A benchmark corpus were generated and contribut
 |------------|-----------------------|--------------|-------------------------------|----------------|--------------|
 | `SPK-01` | **Agoro Timilehin** (`drizzy765`) | Team Lead & Backend/Benchmarking Engineer | Nigerian English / Nigerian Pidgin / Yoruba | **Explicit Written & Digital Consent** | 2026-08-20 |
 | `SPK-02` | **David Akhuabe** | Frontend & Documentation Engineer | Nigerian English / Nigerian Pidgin / Edo | **Explicit Written & Digital Consent** | 2026-08-20 |
+| `SPK-03` | **Chinenye** | MSV Benchmark Contributor (Female Speaker Cohort) | Nigerian English / Nigerian Pidgin / Igbo substrate | **Explicit Informed Consent** | 2026-09-12 |
+| `SPK-04` | **Daniel** | MSV Benchmark Contributor (Male Speaker Cohort) | Nigerian English / Nigerian Pidgin | **Explicit Informed Consent** | 2026-09-12 |
+| `SPK-05` | **Mukhtar** | MSV Benchmark Contributor (Male Speaker Cohort) | Nigerian English / Nigerian Pidgin / Northern substrate | **Explicit Informed Consent** | 2026-09-12 |
 
 ---
 
-## 3. Clip Recording & Consent Allocation Table (30 Clips)
+## 3. Tier A Primary In-Domain Corpus Allocation Table (30 Clips)
 
 | Clip ID | Target Domain / Category | Assigned Speaker | Source Format | Target Spec | Consent Verified |
 |---|---|---|---|---|---|
@@ -64,8 +67,34 @@ All audio recordings in the Tier A benchmark corpus were generated and contribut
 
 ---
 
-## 4. Integrity and Compliance Statement
+## 4. Multi-Speaker Validation (Tier A-MSV) Corpus Allocation Table (30 Clips)
 
-- All 30 converted clips and raw source recordings have been verified against SHA256 integrity hashes in [`bench/corpus/tier_a_recorded/MANIFEST_SHA256.txt`](file:///mnt/c/Users/USER/Documents/Sauticivic/bench/corpus/tier_a_recorded/MANIFEST_SHA256.txt).
-- Preprocessing and dual-decoder validation checks are recorded in [`bench/corpus/tier_a_recorded/audio/preprocessing_ab_report.json`](file:///mnt/c/Users/USER/Documents/Sauticivic/bench/corpus/tier_a_recorded/audio/preprocessing_ab_report.json).
-- No voice data was harvested from non-consenting individuals or unverified third-party platforms.
+The Tier A Multi-Speaker Validation suite evaluates 10 target and control prompts replicated across three previously unseen speakers to stress-test aspectual polarity invariance. All 30 audio recordings were contributed under explicit informed consent:
+
+| Clip ID Range | Speaker ID | Speaker Name | Gender | Format | Number of Clips | Consent Verified |
+|---|---|---|---|---|:---:|:---:|
+| `spk3_f_001` -- `spk3_f_010` | `SPK-03` | **Chinenye** | Female | 16kHz 16-bit Mono WAV (from `.ogg`) | 10 | [x] Yes |
+| `spk4_m_001` -- `spk4_m_010` | `SPK-04` | **Daniel** | Male | 16kHz 16-bit Mono WAV (from `.ogg`) | 10 | [x] Yes |
+| `spk5_m_001` -- `spk5_m_010` | `SPK-05` | **Mukhtar** | Male | 16kHz 16-bit Mono WAV (from `.ogg`) | 10 | [x] Yes |
+
+### Detailed Prompt Mapping for MSV Audio:
+- **Prompt 1 (`synth_001`):** Infrastructure --- Pothole on Allen Avenue (`spk3_f_001`, `spk4_m_001`, `spk5_m_001`) [Target: *don spoil*]
+- **Prompt 2 (`synth_002`):** Infrastructure --- Water pipe burst & flood (`spk3_f_002`, `spk4_m_002`, `spk5_m_002`) [Target: *don burst*, *don flood*]
+- **Prompt 3 (`synth_003`):** Infrastructure --- Ojota streetlight failure (`spk3_f_003`, `spk4_m_003`, `spk5_m_003`) [Target: *don dark*]
+- **Prompt 4 (`synth_006`):** Legal Aid --- Unlawful employer termination & unpaid wages (`spk3_f_004`, `spk4_m_004`, `spk5_m_004`) [Target: *don sack*]
+- **Prompt 5 (`synth_024`):** Legal Aid --- Domestic abuse, abandonment & eviction (`spk3_f_005`, `spk4_m_005`, `spk5_m_005`) [Target: *don chase*]
+- **Prompt 6 (`synth_005`):** Legal Aid --- Landlord eviction & security deposit (`spk3_f_006`, `spk4_m_006`, `spk5_m_006`) [Control clip]
+- **Prompt 7 (`synth_007`):** Legal Aid --- Arbitrary police harassment/detention (`spk3_f_007`, `spk4_m_007`, `spk5_m_007`) [Control clip]
+- **Prompt 8 (`synth_008`):** Edge / Ambiguous --- Landlord vs burst pipe (`spk3_f_008`, `spk4_m_008`, `spk5_m_008`) [Control clip]
+- **Prompt 9 (`synth_027`):** Edge / Ambiguous --- Community borehole funds (`spk3_f_009`, `spk4_m_009`, `spk5_m_009`) [Target: *don lock*]
+- **Prompt 10 (`synth_029`):** Edge / Ambiguous --- Boundary dispute (`spk3_f_010`, `spk4_m_010`, `spk5_m_010`) [Control clip]
+
+---
+
+## 5. Integrity and Compliance Statement
+
+- All 30 primary Tier A clips and 30 additive Tier A-MSV clips have been verified against SHA256 integrity hashes in their respective corpus manifests:
+  - Tier A Primary: [`bench/corpus/tier_a_recorded/MANIFEST_SHA256.txt`](file:///mnt/c/Users/USER/Documents/Sauticivic/bench/corpus/tier_a_recorded/MANIFEST_SHA256.txt)
+  - Tier A-MSV: [`bench/corpus/tier_a_multispeaker_validation/MANIFEST_SHA256.txt`](file:///mnt/c/Users/USER/Documents/Sauticivic/bench/corpus/tier_a_multispeaker_validation/MANIFEST_SHA256.txt)
+- All voice data is generated from simulated civic/legal complaint scenarios with zero PII.
+- No voice data was scraped or harvested from non-consenting individuals or unverified public media.
