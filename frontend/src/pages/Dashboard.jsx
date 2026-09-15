@@ -51,6 +51,7 @@ const METRICS = [
 ];
 
 const CASE_HISTORY_KEY = 'sauticivic.case-history.v1';
+const API_BASE = (import.meta.env.VITE_API_URL || 'https://sauticivic-api.onrender.com').replace(/\/$/, '');
 
 function loadCases() {
   try {
@@ -98,7 +99,7 @@ export default function Dashboard() {
     try {
       let response;
       if (payload.type === 'text') {
-        response = await fetch('/intake', {
+        response = await fetch(`${API_BASE}/intake`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ text: payload.text, consent: payload.consent }),
@@ -107,7 +108,7 @@ export default function Dashboard() {
         const formData = new FormData();
         formData.append('audio', payload.file, payload.file.name || 'recording.webm');
         formData.append('consent', String(payload.consent));
-        response = await fetch('/intake/voice', {
+        response = await fetch(`${API_BASE}/intake/voice`, {
           method: 'POST',
           body: formData,
         });
@@ -143,7 +144,7 @@ export default function Dashboard() {
     setIsLoading(true);
 
     try {
-      const res = await fetch(`/intake/${currentOutcome.session_id}/clarify`, {
+      const res = await fetch(`${API_BASE}/intake/${currentOutcome.session_id}/clarify`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ answer, consent: true }),
