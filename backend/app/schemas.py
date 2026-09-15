@@ -66,6 +66,7 @@ class ClassificationResult:
 class OutcomeStatus(str, Enum):
     ROUTED = "routed"                            # confident enough -> artifact will be generated
     NEEDS_CLARIFICATION = "needs_clarification"  # gate abstained -> ask instead of guessing
+    EMERGENCY_RECOMMENDATION = "emergency_recommendation"  # gate detected immediate danger
 
 
 @dataclass
@@ -85,4 +86,6 @@ class IntakeOutcome:
     artifact: dict | None = None            # the generated ticket or brief; set when status == ROUTED
     clarifying_question: str | None = None  # set when status == NEEDS_CLARIFICATION
     reasons: list[str] = field(default_factory=list)
-
+    normalized_transcript: str | None = None
+    clarification_history: list[str] = field(default_factory=list)
+    safety_gate_result: str | None = None

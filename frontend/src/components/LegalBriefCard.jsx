@@ -33,8 +33,8 @@ export default function LegalBriefCard({ artifact, onReset }) {
             <Scale className="w-6 h-6" />
           </div>
           <div>
-            <h3 className="font-display text-lg tracking-tight">Prepared for legal aid</h3>
-            <p className="text-xs text-iris-light/90 mt-0.5">A structured brief a paralegal can act on — in the citizen's own words.</p>
+            <h3 className="font-display text-lg tracking-tight">Legal-aid brief draft</h3>
+            <p className="text-xs text-iris-light/90 mt-0.5">A reviewable draft in the citizen's own words. No legal organization has been contacted.</p>
           </div>
         </div>
         <span className="hidden sm:inline-flex px-3 py-1 rounded-full bg-white/15 text-[11px] font-mono uppercase tracking-[0.12em]">
@@ -95,7 +95,7 @@ export default function LegalBriefCard({ artifact, onReset }) {
           {/* Actions */}
           <div className="flex flex-col sm:flex-row items-stretch gap-3 pt-5 border-t border-line/70">
             <button
-              onClick={() => alert(`Exporting signed PDF legal brief for ${briefId}…`)}
+              onClick={() => alert(`Exporting local draft legal brief for ${briefId}…`)}
               className="flex-1 px-4 py-2.5 rounded-full bg-paper hover:bg-line/60 text-ink text-sm font-semibold inline-flex items-center justify-center gap-2 transition-colors"
             >
               <Download className="w-4 h-4" /> Export signed brief (PDF)
@@ -104,7 +104,7 @@ export default function LegalBriefCard({ artifact, onReset }) {
               onClick={onReset}
               className="px-5 py-2.5 rounded-full bg-iris hover:bg-iris/90 text-white text-sm font-semibold inline-flex items-center justify-center gap-2 transition-colors"
             >
-              New intake <ArrowRight className="w-4 h-4" />
+              Delete draft & restart <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         </div>
@@ -117,8 +117,7 @@ export default function LegalBriefCard({ artifact, onReset }) {
             </h5>
             <p className="text-sm font-semibold text-ink mb-2">{assignedNetwork}</p>
             <p className="text-xs text-muted leading-relaxed">
-              Indexed with statutory legal-aid providers. A duty counsel will review jurisdiction and the
-              rights-protection remedies available.
+              This draft is for your review or to share with a qualified adviser. It is not legal advice and this prototype does not dispatch it.
             </p>
           </div>
 
@@ -128,7 +127,7 @@ export default function LegalBriefCard({ artifact, onReset }) {
               <span className="text-xs font-semibold text-iris">Confidential</span>
             </div>
             <p className="text-xs text-ink/75 leading-relaxed">
-              Initial merit review within 24 hours. Your account is protected under the Legal Aid charter.
+              Keep a copy of the confirmed transcript. A qualified adviser can assess options and urgency.
             </p>
           </div>
 

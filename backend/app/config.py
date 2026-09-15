@@ -8,8 +8,15 @@ The gate thresholds, API keys, and database URL are all here so that:
 """
 from __future__ import annotations
 
+from pathlib import Path
+
 from dotenv import load_dotenv
-load_dotenv()
+
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+_ENV_FILE = _REPO_ROOT / ".env"
+# Uvicorn can be launched from either the repository root or backend/. Resolve
+# the project environment once rather than relying on the process CWD.
+load_dotenv(_ENV_FILE)
 
 from pydantic_settings import BaseSettings
 
@@ -32,6 +39,14 @@ class Settings(BaseSettings):
     gemini_api_key: str = ""
     whisper_model_size: str = "large-v3"
 
+    # --- Optional DeepSeek drafting / clarification layer ---
+    # Never expose this value to browser code. The deterministic gate remains
+    # authoritative even when this integration is enabled.
+    deepseek_api_key: str = ""
+    deepseek_api_url: str = "https://api.deepseek.com/chat/completions"
+    deepseek_timeout_seconds: float = 10.0
+    deepseek_max_retries: int = 1
+
     # --- Benchmark runner ---
     benchmark_clip_delay_ms: int = 200
 
@@ -40,7 +55,7 @@ class Settings(BaseSettings):
     port: int = 8000
     debug: bool = False
 
-    model_config = {"env_file": ".env", "env_file_encoding": "utf-8", "extra": "ignore"}
+    model_config = {"env_file": _ENV_FILE, "env_file_encoding": "utf-8", "extra": "ignore"}
 
 
 # Singleton — import this from anywhere.

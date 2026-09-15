@@ -25,7 +25,8 @@ export default function ClassificationView({ outcome, onClarifySubmit, isLoading
 
   if (!outcome) return null;
 
-  const isAbstain = outcome.status === 'needs_clarification';
+  const isEmergency = outcome.status === 'emergency_recommendation';
+  const isAbstain = outcome.status === 'needs_clarification' || isEmergency;
   const classification = outcome.classification || {};
   const extraction = outcome.extraction || { entities: [] };
   const confidencePercent = classification.confidence ? Math.round(classification.confidence * 100) : 85;
@@ -71,7 +72,7 @@ export default function ClassificationView({ outcome, onClarifySubmit, isLoading
             </div>
             <div>
               <h3 className="font-display text-xl text-ink tracking-tight">
-                {isAbstain ? 'Held for one question' : 'Routing decision'}
+                {isEmergency ? 'Immediate safety recommendation' : isAbstain ? 'Held for one question' : 'Routing decision'}
               </h3>
               <p className="text-xs text-muted mt-0.5">
                 Session <span className="font-mono text-ink/70">{outcome.session_id || 'sess-local-01'}</span>
@@ -81,7 +82,7 @@ export default function ClassificationView({ outcome, onClarifySubmit, isLoading
 
           <span className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold ring-1 ${accent.chip}`}>
             {isAbstain ? (
-              <><HelpCircle className="w-3.5 h-3.5" /> Abstained — asking first</>
+              <><HelpCircle className="w-3.5 h-3.5" /> {isEmergency ? 'Emergency recommendation' : 'Abstained — asking first'}</>
             ) : isInfra ? (
               <><CheckCircle2 className="w-3.5 h-3.5" /> Routed to municipal services</>
             ) : (
@@ -158,9 +159,9 @@ export default function ClassificationView({ outcome, onClarifySubmit, isLoading
               <HelpCircle className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="font-display text-xl text-ink tracking-tight">We'd rather ask than guess</h4>
+              <h4 className="font-display text-xl text-ink tracking-tight">{isEmergency ? 'Please put safety first' : "We'd rather ask than guess"}</h4>
               <p className="text-sm text-muted mt-1 max-w-xl text-pretty">
-                Sending this to the wrong place would cost you time — or worse. One quick answer and we'll route it right.
+                {isEmergency ? 'This is an escalation recommendation, not an emergency dispatch. Contact 112 or your local emergency number if anyone is in immediate danger.' : "Sending this to the wrong place would cost you time — or worse. One quick answer and we'll route it right."}
               </p>
             </div>
           </div>
@@ -173,7 +174,7 @@ export default function ClassificationView({ outcome, onClarifySubmit, isLoading
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
+          {!isEmergency && <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
             {quickAnswers.map(({ label, Icon }, idx) => (
               <button
                 key={idx}
@@ -187,9 +188,9 @@ export default function ClassificationView({ outcome, onClarifySubmit, isLoading
                 <span className="text-xs font-medium text-ink leading-snug">{label}</span>
               </button>
             ))}
-          </div>
+          </div>}
 
-          <form onSubmit={handleCustomSubmit} className="flex flex-col sm:flex-row gap-3 pt-5 border-t border-gold/20">
+          {!isEmergency && <form onSubmit={handleCustomSubmit} className="flex flex-col sm:flex-row gap-3 pt-5 border-t border-gold/20">
             <input
               type="text"
               value={clarifyAnswer}
@@ -204,7 +205,7 @@ export default function ClassificationView({ outcome, onClarifySubmit, isLoading
             >
               <Send className="w-3.5 h-3.5" /> Send answer
             </button>
-          </form>
+          </form>}
         </section>
       )}
     </div>

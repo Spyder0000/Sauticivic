@@ -17,6 +17,12 @@ from .gate import GateConfig, decide
 from .schemas import Domain, IntakeOutcome, OutcomeStatus
 from .services.legal_brief_generator import generate_brief
 from .services.ticket_dispatch import generate_ticket
+from .services.deepseek_layer import request_artifact_draft, request_clarification
+
+
+def normalize_transcript(transcript: str) -> str:
+    """Conservative display normalization; never rewrites the citizen's words."""
+    return " ".join(transcript.split())
 
 
 def run_intake(
@@ -27,6 +33,7 @@ def run_intake(
     config: GateConfig | None = None,
     audit_log_path: Path | str | None = None,
     session_id: str | None = None,
+    allow_llm: bool = False,
 ) -> IntakeOutcome:
     """Run one complaint transcript through the full decision path.
 
@@ -45,6 +52,8 @@ def run_intake(
     # Chain the classifier's reasoning and the gate's reasoning for the audit log.
     reasons = list(classification.reasons) + list(decision.reasons)
 
+    normalized = normalize_transcript(transcript)
+
     if decision.proceed:
         # --- Generate the domain-specific artifact ---
         artifact: dict | None = None
@@ -52,6 +61,18 @@ def run_intake(
             artifact = generate_ticket(transcript, extraction)
         elif decision.domain == Domain.LEGAL:
             artifact = generate_brief(transcript, extraction)
+
+        if allow_llm and artifact is not None:
+            entity_fields = {entity.type.value: entity.value for entity in extraction.entities}
+            draft = request_artifact_draft(
+                domain=decision.domain.value,
+                transcript=normalized,
+                fields=entity_fields,
+            )
+            artifact["draft_title"] = draft.title
+            artifact["draft_summary"] = draft.summary
+            artifact["routing_explanation"] = draft.routing_explanation
+            artifact["drafting_layer"] = "deepseek_or_deterministic_fallback"
 
         outcome = IntakeOutcome(
             status=OutcomeStatus.ROUTED,
@@ -61,15 +82,27 @@ def run_intake(
             domain=decision.domain,
             artifact=artifact,
             reasons=reasons,
+            normalized_transcript=normalized,
+            safety_gate_result="passed",
         )
     else:
+        is_emergency = any(reason.startswith("emergency override:") for reason in decision.reasons)
+        # DeepSeek is permitted only for genuine domain ambiguity. Missing entity
+        # questions remain deterministic and the gate decision is never changed.
+        if allow_llm and classification.confidence < (config or GateConfig()).min_classification_confidence and not is_emergency:
+            suggestion = request_clarification(transcript=normalized, missing_field="domain")
+            question = suggestion.question
+        else:
+            question = decision.clarifying_question
         outcome = IntakeOutcome(
-            status=OutcomeStatus.NEEDS_CLARIFICATION,
+            status=OutcomeStatus.EMERGENCY_RECOMMENDATION if is_emergency else OutcomeStatus.NEEDS_CLARIFICATION,
             transcript=transcript,
             classification=classification,
             extraction=extraction,
-            clarifying_question=decision.clarifying_question,
+            clarifying_question=question,
             reasons=reasons,
+            normalized_transcript=normalized,
+            safety_gate_result="emergency_recommendation" if is_emergency else "held_for_clarification",
         )
 
     # --- Audit: log every outcome, routed or abstained ---

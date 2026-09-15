@@ -21,6 +21,7 @@ class SessionState:
     session_id: str
     original_transcript: str
     clarification_rounds: list[str] = field(default_factory=list)  # each clarification answer
+    llm_call_count: int = 0
     created_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 
 
@@ -51,6 +52,16 @@ def add_clarification(session_id: str, clarification: str) -> SessionState | Non
         if state is None:
             return None
         state.clarification_rounds.append(clarification)
+        return state
+
+
+def record_llm_call(session_id: str) -> SessionState | None:
+    """Reserve one of the two optional LLM calls permitted for a case."""
+    with _lock:
+        state = _store.get(session_id)
+        if state is None:
+            return None
+        state.llm_call_count += 1
         return state
 
 

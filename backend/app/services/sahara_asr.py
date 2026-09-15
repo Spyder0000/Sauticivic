@@ -1,13 +1,12 @@
-"""Sahara v2.5 (Intron Voice) ASR client with automatic Whisper large-v3 fallback.
+"""Sahara v2.5 ASR client with cloud-provider fallbacks.
 
 **How it's used:**
 - In the backend (voice intake endpoint): `transcribe_audio(audio_bytes, filename)`
 - In the bench runner (bench/models/run_sahara.py): same function, corpus loop
 
 **Fallback logic (non-negotiable — per TASK_SPLIT Week 1 #27):**
-If `settings.sahara_api_key` is blank OR the Sahara call fails after retries,
-this module falls back to Whisper large-v3 silently. The pipeline never sees
-the difference — it just gets a transcript string.
+If Sahara fails, Deepgram Nova-3 and then Gemini are tried when configured.
+No local model is downloaded or loaded by the web application.
 
 **Compute note (per ARCHITECTURE.md):**
 Whisper large-v3 inference is too heavy for the local dev machine. The
@@ -34,6 +33,8 @@ from __future__ import annotations
 
 import io
 import logging
+import base64
+import os
 import time
 from pathlib import Path
 from typing import NamedTuple
@@ -88,7 +89,7 @@ def _get_mime_type(filename: str) -> str:
 def _call_sahara(audio_bytes: bytes, filename: str, language: str = "pcm") -> ASRResult:
     """POST audio to Intron Sahara v2.5 and return the transcript.
 
-    Raises on all failures (caller decides whether to fall back to Whisper).
+    Raises on all failures (caller decides whether to try another provider).
     """
     endpoint_url = _resolve_sahara_url(settings.sahara_api_url)
     mime_type = _get_mime_type(filename)
@@ -108,7 +109,13 @@ def _call_sahara(audio_bytes: bytes, filename: str, language: str = "pcm") -> AS
                         "use_language_asr_input": language,
                     },
                 )
-                resp.raise_for_status()
+                if resp.status_code >= 400:
+                    # 4xx responses are permanent for this request; retrying only
+                    # delays the citizen before the next provider can be tried.
+                    detail = resp.text[:500].replace("\n", " ")
+                    if 400 <= resp.status_code < 500:
+                        raise RuntimeError(f"Sahara rejected the audio ({resp.status_code}): {detail}")
+                    resp.raise_for_status()
                 data = resp.json()
 
                 # Extract transcript from Intron response structure:
@@ -126,7 +133,9 @@ def _call_sahara(audio_bytes: bytes, filename: str, language: str = "pcm") -> AS
                     confidence=None,  # Intron sync response does not provide single confidence score
                     backend="sahara",
                 )
-            except (httpx.HTTPError, KeyError, Exception) as exc:
+            except Exception as exc:
+                if isinstance(exc, RuntimeError) and str(exc).startswith("Sahara rejected the audio"):
+                    raise
                 if attempt == len(_RETRY_DELAYS):
                     raise
                 log.warning(
@@ -140,54 +149,50 @@ def _call_sahara(audio_bytes: bytes, filename: str, language: str = "pcm") -> AS
 
 
 # ---------------------------------------------------------------------------
-# Whisper large-v3 fallback
+# Cloud fallbacks
 # ---------------------------------------------------------------------------
 
-_whisper_model = None  # lazy-loaded on first use
+def _call_deepgram(audio_bytes: bytes, filename: str) -> ASRResult:
+    key = settings.deepgram_api_key or os.environ.get("DEEPGRAM_API_KEY", "")
+    if not key:
+        raise RuntimeError("DEEPGRAM_API_KEY is not configured")
+    response = httpx.post(
+        "https://api.deepgram.com/v1/listen?model=nova-3&smart_format=true&detect_language=true",
+        headers={"Authorization": f"Token {key}", "Content-Type": _get_mime_type(filename)},
+        content=audio_bytes,
+        timeout=30.0,
+    )
+    response.raise_for_status()
+    alternative = response.json()["results"]["channels"][0]["alternatives"][0]
+    transcript = (alternative.get("transcript") or "").strip()
+    if not transcript:
+        raise RuntimeError("Deepgram returned an empty transcript")
+    return ASRResult(transcript, None, alternative.get("confidence"), "deepgram")
 
 
-def _load_whisper():
-    """Lazy-load Whisper so the import doesn't crash when whisper isn't installed."""
-    global _whisper_model  # noqa: PLW0603
-    if _whisper_model is None:
-        try:
-            import whisper  # type: ignore[import]
-            log.info("Loading Whisper %s — this may take a moment on first run.", settings.whisper_model_size)
-            _whisper_model = whisper.load_model(settings.whisper_model_size)
-        except ImportError as exc:
-            raise RuntimeError(
-                "openai-whisper is not installed and Sahara API key is not set. "
-                "Install whisper (`pip install openai-whisper`) or set SAHARA_API_KEY."
-            ) from exc
-    return _whisper_model
-
-
-def _call_whisper(audio_bytes: bytes, filename: str) -> ASRResult:
-    """Transcribe locally with Whisper large-v3.
-
-    NOTE: This runs on the local machine. For full corpus benchmark runs,
-    use bench/models/run_whisper.py on Colab/cloud instead.
-    """
-    import tempfile
-
-    model = _load_whisper()
-
-    # Whisper needs a file path — write to a temp file.
-    suffix = Path(filename).suffix or ".wav"
-    with tempfile.NamedTemporaryFile(suffix=suffix, delete=False) as tmp:
-        tmp.write(audio_bytes)
-        tmp_path = tmp.name
-
-    try:
-        result = model.transcribe(tmp_path, task="transcribe")
-        return ASRResult(
-            transcript=result["text"].strip(),
-            language=result.get("language"),
-            confidence=None,  # Whisper doesn't expose a single clip-level confidence
-            backend="whisper",
-        )
-    finally:
-        Path(tmp_path).unlink(missing_ok=True)
+def _call_gemini(audio_bytes: bytes, filename: str) -> ASRResult:
+    key = settings.gemini_api_key or os.environ.get("GEMINI_API_KEY", "") or os.environ.get("GOOGLE_API_KEY", "")
+    if not key:
+        raise RuntimeError("GEMINI_API_KEY is not configured")
+    payload = {
+        "contents": [{"parts": [
+            {"text": "Transcribe this audio verbatim. Return only the transcript; preserve Nigerian Pidgin and code-switching."},
+            {"inline_data": {"mime_type": _get_mime_type(filename), "data": base64.b64encode(audio_bytes).decode("ascii")}},
+        ]}],
+        "generationConfig": {"temperature": 0, "maxOutputTokens": 250},
+    }
+    response = httpx.post(
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-transcribe:generateContent",
+        params={"key": key}, json=payload, timeout=30.0,
+    )
+    response.raise_for_status()
+    body = response.json()
+    parts = body.get("candidates", [{}])[0].get("content", {}).get("parts", [])
+    transcript = " ".join(part.get("text", "") for part in parts if isinstance(part, dict)).strip()
+    if not transcript:
+        detail = str(body.get("promptFeedback") or body.get("error") or "no text candidate")[:500]
+        raise RuntimeError(f"Gemini returned no transcript ({detail})")
+    return ASRResult(transcript, None, None, "gemini")
 
 
 # ---------------------------------------------------------------------------
@@ -201,22 +206,27 @@ def transcribe_audio(
 ) -> ASRResult:
     """Transcribe audio bytes to text.
 
-    Strategy:
-    1. If SAHARA_API_KEY is set → try Sahara v2.5 with exponential back-off.
-    2. If Sahara key is missing OR all Sahara retries fail → fall back to Whisper.
-    3. If Whisper is not installed and Sahara failed → raise RuntimeError.
+    Strategy: Sahara v2.5 -> Deepgram Nova-3 -> Gemini, only when the
+    respective server-side provider key is configured.
 
     The caller (voice endpoint / bench runner) should catch RuntimeError and
     return a SYSTEM_ERROR outcome to the citizen.
     """
-    import os
     if settings.sahara_api_key or os.environ.get("SAHARA_API_KEY"):
         try:
             result = _call_sahara(audio_bytes, filename, language=language)
             log.info("ASR: Sahara succeeded (lang=%s, conf=%s)", result.language, result.confidence)
             return result
         except Exception as exc:
-            log.warning("Sahara failed after retries (%s) — falling back to Whisper.", exc)
+            log.warning("Sahara failed after retries (%s) — trying cloud fallback.", exc)
 
-    log.info("ASR: using Whisper %s fallback", settings.whisper_model_size)
-    return _call_whisper(audio_bytes, filename)
+    failures: list[str] = []
+    for backend, caller in (("Deepgram", _call_deepgram), ("Gemini", _call_gemini)):
+        try:
+            result = caller(audio_bytes, filename)
+            log.info("ASR: %s fallback succeeded", backend)
+            return result
+        except Exception as exc:  # provider fallback must never mask the next one
+            failures.append(f"{backend}: {exc}")
+            log.warning("ASR: %s fallback failed (%s)", backend, exc)
+    raise RuntimeError("No configured cloud ASR provider succeeded. " + "; ".join(failures))

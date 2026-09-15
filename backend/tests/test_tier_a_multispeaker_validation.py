@@ -98,3 +98,60 @@ def test_raw_output_immutability_during_adjudication():
     assert row["outcome"] == "inverted"
     assert "it don't spoil" in row["evidence_span"]
 
+
+def test_non_latin_hallucinations_are_ambiguous():
+    gurmukhi = "੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧"
+    bengali = "রে রে রে রে রে রে"
+    malayalam = "തതതതതതതത"
+    assert adjudicate_target("e don dark", gurmukhi, "don")["outcome"] == "ambiguous"
+    assert adjudicate_target("e don collect", bengali, "don")["outcome"] == "ambiguous"
+    assert adjudicate_target("e don chase", malayalam, "don")["outcome"] == "ambiguous"
+
+
+def test_synth_002_both_targets_handled_separately():
+    # SPK-03: done buzz / done flood
+    t1_spk3 = adjudicate_target("Water don burst", "Water done buzz for our streets since morning, everywhere done flood.", "don", prompt_number=2, target_index=1)
+    t2_spk3 = adjudicate_target("everywhere don flood", "Water done buzz for our streets since morning, everywhere done flood.", "don", prompt_number=2, target_index=2)
+    assert t1_spk3["outcome"] == "ambiguous"
+    assert t2_spk3["outcome"] == "preserved"
+
+    # SPK-04: don't boast / don't float
+    t1_spk4 = adjudicate_target("Water don burst", "Potsah don't boast for a street since morning. Everywhere don't float.", "don", prompt_number=2, target_index=1)
+    t2_spk4 = adjudicate_target("everywhere don flood", "Potsah don't boast for a street since morning. Everywhere don't float.", "don", prompt_number=2, target_index=2)
+    assert t1_spk4["outcome"] == "inverted"
+    assert t2_spk4["outcome"] == "inverted"
+
+
+def test_msv_four_model_results_json():
+    from pathlib import Path
+    results_path = Path("bench/results/tier_a_multispeaker_validation_results.json")
+    assert results_path.is_file()
+    data = json.loads(results_path.read_text(encoding="utf-8"))
+
+    models = data["models"]
+    for m in ("sahara", "gemini", "deepgram", "whisper"):
+        assert m in models
+        assert models[m]["status"] == "ok"
+        assert models[m]["successful_clips"] == 30
+        assert models[m]["polarity"]["expected_token_denominator"] == 21
+        assert models[m]["polarity"]["utterance_denominator"] == 18
+
+    # Sahara: 0/21 inversions, 0/18 affected utterances
+    assert models["sahara"]["polarity"]["token_counts"]["inverted"] == 0
+    assert models["sahara"]["polarity"]["utterance_inversion_count"] == 0
+
+    # Gemini: 10/21 inversions, 9/18 affected utterances
+    assert models["gemini"]["polarity"]["token_counts"]["inverted"] == 10
+    assert models["gemini"]["polarity"]["utterance_inversion_count"] == 9
+
+    # Deepgram: 10/21 inversions, 9/18 affected utterances (with deletions reported)
+    assert models["deepgram"]["polarity"]["token_counts"]["inverted"] == 10
+    assert models["deepgram"]["polarity"]["utterance_inversion_count"] == 9
+    assert models["deepgram"]["polarity"]["token_counts"]["deleted"] >= 1
+
+    # Whisper: 11/21 inversions, 10/18 affected utterances
+    assert models["whisper"]["polarity"]["token_counts"]["inverted"] == 11
+    assert models["whisper"]["polarity"]["utterance_inversion_count"] == 10
+    assert models["whisper"]["polarity"]["token_counts"]["preserved"] == 1
+    assert models["whisper"]["polarity"]["token_counts"]["ambiguous"] == 9
+

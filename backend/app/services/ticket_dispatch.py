@@ -26,6 +26,7 @@ def generate_ticket(
     IntakeOutcome and audited.
     """
     ts = timestamp or datetime.now(timezone.utc)
+    local_ts = ts.astimezone()
 
     # Deterministic tracking ID from transcript content — stable for tests.
     digest = hashlib.sha256(transcript.encode()).hexdigest()[:8].upper()
@@ -37,11 +38,16 @@ def generate_ticket(
 
     return {
         "artifact_type": "municipal_ticket",
+        "case_id": f"CASE-{digest}",
         "tracking_id": tracking_id,
-        "status": "dispatched",
+        "status": "draft_ready_for_confirmation",
+        "is_draft": True,
+        "dispatch_notice": "Draft only — SautiCivic has not contacted a government agency.",
         "location": location_entity.value if location_entity else "unspecified",
         "complaint_type": complaint_entity.value if complaint_entity else "unspecified",
         "description": transcript,
         "created_at": ts.isoformat(),
+        "local_created_at": local_ts.isoformat(),
         "priority": "normal",
+        "department": "Municipal infrastructure services",
     }

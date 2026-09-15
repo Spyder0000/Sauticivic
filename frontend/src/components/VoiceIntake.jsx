@@ -26,6 +26,7 @@ export default function VoiceIntake({ onIntakeSubmit, isLoading }) {
   const [detectedLang, setDetectedLang] = useState('English + Yoruba');
   const [liveTranscript, setLiveTranscript] = useState('');
   const [confidenceLevel, setConfidenceLevel] = useState('High');
+  const [consent, setConsent] = useState(false);
 
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
@@ -80,7 +81,9 @@ export default function VoiceIntake({ onIntakeSubmit, isLoading }) {
       };
 
       mediaRecorder.onstop = () => {
-        const blob = new Blob(audioChunksRef.current, { type: 'audio/wav' });
+        // Chrome/Edge normally record WebM/Opus. Do not label those bytes WAV:
+        // cloud ASR providers validate the container against the filename/MIME.
+        const blob = new Blob(audioChunksRef.current, { type: mediaRecorder.mimeType || 'audio/webm' });
         setAudioBlob(blob);
         setAudioUrl(URL.createObjectURL(blob));
         captureSampleTranscript();
@@ -103,7 +106,6 @@ export default function VoiceIntake({ onIntakeSubmit, isLoading }) {
       mediaRecorderRef.current.stream.getTracks().forEach((track) => track.stop());
     }
     setIsRecording(false);
-    if (!liveTranscript) captureSampleTranscript();
   };
 
   const handleFileUpload = (e) => {
@@ -117,14 +119,19 @@ export default function VoiceIntake({ onIntakeSubmit, isLoading }) {
 
   const handleSubmitVoice = () => {
     if (audioBlob) {
-      onIntakeSubmit({ type: 'voice', file: audioBlob, transcriptHint: liveTranscript });
+      const extension = audioBlob.type.includes('webm') ? 'webm'
+        : audioBlob.type.includes('ogg') ? 'ogg'
+        : audioBlob.type.includes('mpeg') ? 'mp3'
+        : 'wav';
+      const recording = new File([audioBlob], `recording.${extension}`, { type: audioBlob.type || 'audio/webm' });
+      onIntakeSubmit({ type: 'voice', file: recording, transcriptHint: liveTranscript, consent });
     } else if (liveTranscript) {
       onIntakeSubmit({ type: 'text', text: liveTranscript });
     }
   };
 
   const handleSubmitText = () => {
-    if (textInput.trim()) onIntakeSubmit({ type: 'text', text: textInput.trim() });
+    if (textInput.trim()) onIntakeSubmit({ type: 'text', text: textInput.trim(), consent });
   };
 
   const captured = Boolean(audioBlob || liveTranscript);
@@ -262,7 +269,7 @@ export default function VoiceIntake({ onIntakeSubmit, isLoading }) {
 
             <div className="flex-1 rounded-2xl bg-warm grain ring-1 ring-line/70 p-6 min-h-[168px] flex flex-col justify-center">
               {liveTranscript ? (
-                <CodeSwitchTranscript text={liveTranscript} reveal className="text-[1.35rem] leading-relaxed" />
+                <textarea aria-label="Correct transcript before confirming" value={liveTranscript} onChange={(e) => setLiveTranscript(e.target.value)} className="w-full min-h-[126px] resize-y bg-transparent font-serif italic text-[1.35rem] leading-relaxed text-ink/90 outline-none" />
               ) : (
                 <p className="font-serif italic text-muted/70 text-lg leading-relaxed">
                   Your words appear here as you speak — each one coloured by the language it came from, because
@@ -281,7 +288,8 @@ export default function VoiceIntake({ onIntakeSubmit, isLoading }) {
               )}
             </div>
 
-            <div className="flex items-center justify-between gap-4 mt-6 pt-5 border-t border-line/70">
+            <label className="mt-5 flex gap-2 text-xs text-muted"><input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} /> I confirm this transcript is correct and consent to draft intake processing.</label>
+            <div className="flex items-center justify-between gap-4 mt-4 pt-5 border-t border-line/70">
               <button
                 type="button"
                 onClick={() => setActiveTab('text')}
@@ -291,7 +299,7 @@ export default function VoiceIntake({ onIntakeSubmit, isLoading }) {
               </button>
               <button
                 onClick={handleSubmitVoice}
-                disabled={isLoading || !captured}
+                disabled={isLoading || !captured || !consent}
                 className="px-6 py-2.5 rounded-full bg-palm hover:bg-palm-dark disabled:opacity-40 disabled:hover:bg-palm text-white text-sm font-semibold inline-flex items-center gap-2 shadow-sm transition-all"
               >
                 {isLoading ? (
@@ -324,6 +332,7 @@ export default function VoiceIntake({ onIntakeSubmit, isLoading }) {
                 <LangLegend className="mt-3" />
               </div>
             )}
+            <label className="mt-4 flex gap-2 text-xs text-muted"><input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} /> I confirm this transcript is correct and consent to draft intake processing.</label>
           </div>
 
           <div>
@@ -352,7 +361,7 @@ export default function VoiceIntake({ onIntakeSubmit, isLoading }) {
             </button>
             <button
               onClick={handleSubmitText}
-              disabled={isLoading || !textInput.trim()}
+              disabled={isLoading || !textInput.trim() || !consent}
               className="px-6 py-2.5 rounded-full bg-palm hover:bg-palm-dark disabled:opacity-40 disabled:hover:bg-palm text-white text-sm font-semibold inline-flex items-center gap-2 shadow-sm transition-all"
             >
               {isLoading ? (

@@ -24,8 +24,8 @@ from __future__ import annotations
 import logging
 from dataclasses import asdict
 
-from fastapi import APIRouter, HTTPException, UploadFile
-from pydantic import BaseModel
+from fastapi import APIRouter, Form, HTTPException, UploadFile
+from pydantic import BaseModel, Field
 
 from ..config import settings
 from ..pipeline import run_intake
@@ -35,6 +35,7 @@ from ..session_store import (
     build_combined_transcript,
     create_session,
     get_session,
+    record_llm_call,
 )
 
 log = logging.getLogger(__name__)
@@ -60,7 +61,8 @@ def _outcome_with_session(outcome, session_id: str) -> dict:
 # ---------------------------------------------------------------------------
 
 class TextIntakeRequest(BaseModel):
-    text: str
+    text: str = Field(min_length=1, max_length=12000)
+    consent: bool = False
 
 
 @router.post("")
@@ -72,8 +74,12 @@ def intake_text(req: TextIntakeRequest) -> dict:
     for follow-up clarification calls.
     """
     session_id = create_session(req.text)
-    outcome = run_intake(req.text, session_id=session_id)
-    return _outcome_with_session(outcome, session_id)
+    outcome = run_intake(req.text, session_id=session_id, allow_llm=req.consent)
+    if req.consent:
+        record_llm_call(session_id)
+    result = _outcome_with_session(outcome, session_id)
+    result["consent"] = {"confirmed": req.consent, "scope": "draft intake processing"}
+    return result
 
 
 # ---------------------------------------------------------------------------
@@ -81,7 +87,7 @@ def intake_text(req: TextIntakeRequest) -> dict:
 # ---------------------------------------------------------------------------
 
 @router.post("/voice")
-async def intake_voice(audio: UploadFile) -> dict:
+async def intake_voice(audio: UploadFile, consent: bool = Form(False)) -> dict:
     """Transcribe an audio complaint and run the full intake pipeline.
 
     The voice path is a thin wrapper: audio → transcript → run_intake().
@@ -116,13 +122,16 @@ async def intake_voice(audio: UploadFile) -> dict:
     )
 
     session_id = create_session(asr_result.transcript)
-    outcome = run_intake(asr_result.transcript, session_id=session_id)
+    outcome = run_intake(asr_result.transcript, session_id=session_id, allow_llm=consent)
+    if consent:
+        record_llm_call(session_id)
     result = _outcome_with_session(outcome, session_id)
     result["asr"] = {
         "backend": asr_result.backend,
         "language": asr_result.language,
         "confidence": asr_result.confidence,
     }
+    result["consent"] = {"confirmed": consent, "scope": "draft intake processing"}
     return result
 
 
@@ -132,6 +141,7 @@ async def intake_voice(audio: UploadFile) -> dict:
 
 class ClarifyRequest(BaseModel):
     answer: str
+    consent: bool = False
 
 
 @router.post("/{session_id}/clarify")
@@ -176,7 +186,10 @@ def intake_clarify(session_id: str, req: ClarifyRequest) -> dict:
         session_id, len(state.clarification_rounds), len(combined),
     )
 
-    outcome = run_intake(combined, session_id=session_id)
+    allow_llm = req.consent and state.llm_call_count < 2
+    outcome = run_intake(combined, session_id=session_id, allow_llm=allow_llm)
+    if allow_llm:
+        record_llm_call(session_id)
     result = _outcome_with_session(outcome, session_id)
     result["clarification_round"] = len(state.clarification_rounds)
     result["rounds_remaining"] = max_rounds - len(state.clarification_rounds)

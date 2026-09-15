@@ -35,12 +35,12 @@ export default function TicketCard({ artifact, onReset }) {
             <CheckCircle2 className="w-6 h-6" />
           </div>
           <div>
-            <h3 className="font-display text-lg tracking-tight">Sent to municipal services</h3>
-            <p className="text-xs text-mint-soft/90 mt-0.5">Logged, geo-tagged, and assigned to the responsible agency.</p>
+            <h3 className="font-display text-lg tracking-tight">Municipal ticket draft</h3>
+            <p className="text-xs text-mint-soft/90 mt-0.5">Ready for your review. This prototype has not contacted a government agency.</p>
           </div>
         </div>
-        <span className="hidden sm:inline-flex px-3 py-1 rounded-full bg-white/15 text-[11px] font-mono uppercase tracking-[0.12em]">
-          Municipal ticket
+          <span className="hidden sm:inline-flex px-3 py-1 rounded-full bg-white/15 text-[11px] font-mono uppercase tracking-[0.12em]">
+          Draft ticket
         </span>
       </div>
 
@@ -88,7 +88,7 @@ export default function TicketCard({ artifact, onReset }) {
 
           <div className="flex flex-col sm:flex-row items-stretch gap-3 pt-5 border-t border-line/70">
             <button
-              onClick={() => alert(`Preparing dispatch receipt for ${ticketId}…`)}
+              onClick={() => alert(`Preparing a local draft receipt for ${ticketId}…`)}
               className="flex-1 px-4 py-2.5 rounded-full bg-paper hover:bg-line/60 text-ink text-sm font-semibold inline-flex items-center justify-center gap-2 transition-colors"
             >
               <Download className="w-4 h-4" /> Download receipt
@@ -97,7 +97,7 @@ export default function TicketCard({ artifact, onReset }) {
               onClick={onReset}
               className="px-5 py-2.5 rounded-full bg-palm hover:bg-palm-dark text-white text-sm font-semibold inline-flex items-center justify-center gap-2 transition-colors"
             >
-              New intake <ArrowRight className="w-4 h-4" />
+              Delete draft & restart <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         </div>
@@ -144,7 +144,7 @@ export default function TicketCard({ artifact, onReset }) {
                 <MapPin className="w-5 h-5 text-gold-deep shrink-0" />
                 <div>
                   <p className="text-xs font-semibold text-ink">{location}</p>
-                  <p className="text-[10px] text-muted">Filed {dateStr}</p>
+              <p className="text-[10px] text-muted">Draft created {dateStr}</p>
                 </div>
               </div>
             </div>

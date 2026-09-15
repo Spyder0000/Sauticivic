@@ -31,11 +31,14 @@ def test_ticket_has_required_fields():
     ticket = generate_ticket("Pothole for Allen Avenue", extraction)
     assert ticket["artifact_type"] == "municipal_ticket"
     assert ticket["tracking_id"].startswith("TKT-")
-    assert ticket["status"] == "dispatched"
+    assert ticket["status"] == "draft_ready_for_confirmation"
+    assert ticket["is_draft"] is True
+    assert ticket["case_id"].startswith("CASE-")
     assert ticket["location"] == "Allen Avenue"
     assert ticket["complaint_type"] == "pothole"
     assert ticket["description"] == "Pothole for Allen Avenue"
     assert "created_at" in ticket
+    assert "local_created_at" in ticket
 
 
 def test_ticket_missing_entities_uses_unspecified():
@@ -64,11 +67,14 @@ def test_brief_has_required_fields():
     brief = generate_brief("My landlord wan evict me", extraction)
     assert brief["artifact_type"] == "legal_brief"
     assert brief["brief_id"].startswith("BRIEF-")
-    assert brief["status"] == "intake_complete"
+    assert brief["status"] == "draft_ready_for_confirmation"
+    assert brief["is_draft"] is True
+    assert brief["case_id"].startswith("CASE-")
     assert brief["respondent"] == "landlord"
     assert brief["grievance_type"] == "eviction"
     assert brief["statement_of_facts"] == "My landlord wan evict me"
     assert "created_at" in brief
+    assert "local_created_at" in brief
 
 
 def test_brief_missing_entities_uses_unspecified():
@@ -87,7 +93,7 @@ def test_routed_infra_has_populated_artifact():
     assert out.artifact is not None
     assert out.artifact["artifact_type"] == "municipal_ticket"
     assert out.artifact["tracking_id"].startswith("TKT-")
-    assert out.artifact["status"] == "dispatched"
+    assert out.artifact["status"] == "draft_ready_for_confirmation"
     assert "Allen Avenue" in out.artifact["location"]
 
 
@@ -98,7 +104,7 @@ def test_routed_legal_has_populated_artifact():
     assert out.artifact is not None
     assert out.artifact["artifact_type"] == "legal_brief"
     assert out.artifact["brief_id"].startswith("BRIEF-")
-    assert out.artifact["status"] == "intake_complete"
+    assert out.artifact["status"] == "draft_ready_for_confirmation"
 
 
 def test_abstain_has_no_artifact():

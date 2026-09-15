@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   LayoutDashboard,
   PlusCircle,
@@ -50,66 +50,50 @@ const METRICS = [
   { label: 'Abstention rate', value: '8.3%', note: 'caught before misfiling · τ = 70%', Icon: ShieldCheck, tone: 'text-palm', wide: true },
 ];
 
+const CASE_HISTORY_KEY = 'sauticivic.case-history.v1';
+
+function loadCases() {
+  try {
+    const saved = JSON.parse(window.localStorage.getItem(CASE_HISTORY_KEY) || '[]');
+    return Array.isArray(saved) ? saved : [];
+  } catch {
+    return [];
+  }
+}
+
+function caseFromOutcome(data) {
+  const artifact = data.artifact || {};
+  return {
+    id: artifact.case_id || artifact.tracking_id || artifact.brief_id || `CASE-${Date.now()}`,
+    reference: artifact.tracking_id || artifact.brief_id || 'Draft reference pending',
+    type: data.domain,
+    title: artifact.draft_title || artifact.complaint_type || artifact.grievance_type || data.transcript?.slice(0, 72) || 'Citizen report',
+    status: artifact.status === 'draft_ready_for_confirmation' ? 'Draft ready' : 'In review',
+    date: new Date(artifact.local_created_at || artifact.created_at || Date.now()).toLocaleString(),
+    assigned: artifact.department || (data.domain === 'infrastructure' ? 'Municipal infrastructure services' : 'Legal-aid intake'),
+    priority: artifact.priority || 'normal',
+  };
+}
+
 export default function Dashboard() {
   const [activeNav, setActiveNav] = useState('new-intake'); // 'dashboard' | 'new-intake' | 'cases' | 'history' | 'analytics' | 'settings'
   const [currentOutcome, setCurrentOutcome] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [requestError, setRequestError] = useState('');
 
-  // Initial mock cases matching Screen 2 and Screen 5A of image1.jpeg
-  const [cases, setCases] = useState([
-    {
-      id: 'GRA-2026-0087',
-      type: 'infrastructure',
-      title: 'Blocked Drainage at Alagomeji',
-      status: 'Completed',
-      date: 'Aug 14, 2026',
-      assigned: 'Lagos Environmental Services',
-      priority: 'Medium'
-    },
-    {
-      id: 'LEG-2026-0051',
-      type: 'legal',
-      title: 'Land dispute with neighbor',
-      status: 'In Review',
-      date: 'Aug 13, 2026',
-      assigned: 'Legal Aid Counsel',
-      priority: 'High'
-    },
-    {
-      id: 'GRA-2026-0086',
-      type: 'infrastructure',
-      title: 'Street light not working',
-      status: 'Completed',
-      date: 'Aug 12, 2026',
-      assigned: 'Power & Grid Unit',
-      priority: 'Low'
-    },
-    {
-      id: 'LEG-2026-0048',
-      type: 'legal',
-      title: 'Noise disturbance complaint',
-      status: 'Pending',
-      date: 'Aug 11, 2026',
-      assigned: 'Pro Bono Network',
-      priority: 'Medium'
-    },
-    {
-      id: 'ABB-2026-0012',
-      type: 'abstained',
-      title: 'Unclear community complaint',
-      status: 'Clarification Sent',
-      date: 'Aug 10, 2026',
-      assigned: 'Gate Triage',
-      priority: 'Low'
-    }
-  ]);
+  const [cases, setCases] = useState(loadCases);
 
   const [filterCategory, setFilterCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
+  useEffect(() => {
+    window.localStorage.setItem(CASE_HISTORY_KEY, JSON.stringify(cases));
+  }, [cases]);
+
   // Handle Voice / Text Intake submission to Backend API
   const handleIntakeSubmit = async (payload) => {
     setIsLoading(true);
+    setRequestError('');
 
     try {
       let response;
@@ -117,11 +101,12 @@ export default function Dashboard() {
         response = await fetch('/intake', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text: payload.text }),
+          body: JSON.stringify({ text: payload.text, consent: payload.consent }),
         });
       } else if (payload.type === 'voice' && payload.file) {
         const formData = new FormData();
-        formData.append('audio', payload.file, 'recording.wav');
+        formData.append('audio', payload.file, payload.file.name || 'recording.webm');
+        formData.append('consent', String(payload.consent));
         response = await fetch('/intake/voice', {
           method: 'POST',
           body: formData,
@@ -132,86 +117,21 @@ export default function Dashboard() {
         const data = await response.json();
         setCurrentOutcome(data);
         if (data.status === 'routed') {
-          const newCase = {
-            id: data.artifact?.tracking_id || data.artifact?.brief_id || `INT-${Date.now().toString().slice(-4)}`,
-            type: data.domain,
-            title: data.artifact?.complaint_type || data.artifact?.grievance_type || (data.transcript.slice(0, 35) + '...'),
-            status: 'In Review',
-            date: 'Today',
-            assigned: data.domain === 'infrastructure' ? 'Municipal Services' : 'Legal Aid Counsel',
-            priority: 'High'
-          };
-          setCases(prev => [newCase, ...prev]);
+          const newCase = caseFromOutcome(data);
+          setCases(prev => prev.some(item => item.id === newCase.id) ? prev : [newCase, ...prev]);
         }
       } else {
-        // Fallback simulation for client-only / offline demo mode
-        const text = payload.text || payload.transcriptHint || "";
-        const isLegal = /landlord|evict|rent|police|assault|dispute|tenant|court|rights/i.test(text);
-        const isInfra = /drain|pothole|water|road|light|pipe|overflow|trash|waste/i.test(text);
-
-        setTimeout(() => {
-          if (!isLegal && !isInfra) {
-            // Abstain Gate Triggered
-            setCurrentOutcome({
-              status: 'needs_clarification',
-              session_id: 'sess-' + Math.random().toString(36).substring(2, 9),
-              transcript: text,
-              classification: { domain: 'needs_clarification', confidence: 0.52 },
-              extraction: { entities: [] },
-              clarifying_question: "Is this complaint about public infrastructure (like roads or water) or a legal issue (like tenancy or rights)?",
-              reasons: ["Classifier confidence 52% below threshold 70%", "Missing required location / party entities"]
-            });
-          } else if (isInfra) {
-            setCurrentOutcome({
-              status: 'routed',
-              domain: 'infrastructure',
-              session_id: 'sess-' + Math.random().toString(36).substring(2, 9),
-              transcript: text,
-              classification: { domain: 'infrastructure', confidence: 0.94 },
-              extraction: {
-                entities: [
-                  { type: 'location', value: 'Alagomeji, Yaba, Lagos', confidence: 0.96 },
-                  { type: 'complaint_type', value: 'Blocked Drainage Overflow', confidence: 0.91 }
-                ]
-              },
-              artifact: {
-                tracking_id: 'GRA-2026-0087',
-                category: 'Blocked Drainage & Flood Risk',
-                location: 'Alagomeji, Yaba, Lagos Mainland',
-                assigned_department: 'Lagos State Ministry of the Environment',
-                priority: 'High',
-                status: 'Accepted & Dispatched'
-              },
-              reasons: ["High confidence infrastructure classification (94%)", "Location entity extracted"]
-            });
-          } else {
-            setCurrentOutcome({
-              status: 'routed',
-              domain: 'legal',
-              session_id: 'sess-' + Math.random().toString(36).substring(2, 9),
-              transcript: text,
-              classification: { domain: 'legal', confidence: 0.91 },
-              extraction: {
-                entities: [
-                  { type: 'party', value: 'Landlord / Property Owner', confidence: 0.92 },
-                  { type: 'grievance_type', value: 'Unlawful Eviction Notice', confidence: 0.88 }
-                ]
-              },
-              artifact: {
-                brief_id: 'LEG-2026-0051',
-                grievance_type: 'Tenancy Dispute & 3-Day Notice',
-                respondent_party: 'Landlord / Property Owner',
-                assigned_network: 'Legal Aid Council of Nigeria & Pro Bono Clearinghouse',
-                urgency: 'High',
-                statement_of_facts: text
-              },
-              reasons: ["Legal domain detected with 91% confidence", "Adverse party identified"]
-            });
-          }
-        }, 700);
+        let detail = '';
+        try {
+          const body = await response.json();
+          detail = typeof body.detail === 'string' ? body.detail : '';
+        } catch {
+          // A non-JSON gateway error still gets a clear status below.
+        }
+        throw new Error(detail || `The intake service returned ${response.status}.`)
       }
     } catch (err) {
-      console.error(err);
+      setRequestError(navigator.onLine ? err.message : 'You are offline. Your recording remains on this device; reconnect and try again.');
     } finally {
       setIsLoading(false);
     }
@@ -226,66 +146,22 @@ export default function Dashboard() {
       const res = await fetch(`/intake/${currentOutcome.session_id}/clarify`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ answer }),
+          body: JSON.stringify({ answer, consent: true }),
       });
 
       if (res.ok) {
         const data = await res.json();
         setCurrentOutcome(data);
+        if (data.status === 'routed') {
+          const newCase = caseFromOutcome(data);
+          setCases(prev => prev.some(item => item.id === newCase.id) ? prev : [newCase, ...prev]);
+        }
       } else {
-        const isLegal = /legal|landlord|dispute|person|rights/i.test(answer);
-        setTimeout(() => {
-          if (isLegal) {
-            setCurrentOutcome({
-              status: 'routed',
-              domain: 'legal',
-              session_id: currentOutcome.session_id,
-              transcript: currentOutcome.transcript + " " + answer,
-              classification: { domain: 'legal', confidence: 0.89 },
-              extraction: {
-                entities: [
-                  { type: 'party', value: 'Landlord / Adverse Party', confidence: 0.88 },
-                  { type: 'grievance_type', value: 'Civil Rights & Tenancy Dispute', confidence: 0.85 }
-                ]
-              },
-              artifact: {
-                brief_id: 'LEG-2026-0052',
-                grievance_type: 'Tenancy Grievance Clarified',
-                respondent_party: 'Landlord',
-                assigned_network: 'Legal Aid Council of Nigeria',
-                urgency: 'High',
-                statement_of_facts: currentOutcome.transcript + " Clarification: " + answer
-              },
-              reasons: ["Clarification resolved domain ambiguity", "Routed to Legal Aid"]
-            });
-          } else {
-            setCurrentOutcome({
-              status: 'routed',
-              domain: 'infrastructure',
-              session_id: currentOutcome.session_id,
-              transcript: currentOutcome.transcript + " " + answer,
-              classification: { domain: 'infrastructure', confidence: 0.92 },
-              extraction: {
-                entities: [
-                  { type: 'location', value: 'Lagos Mainland', confidence: 0.90 },
-                  { type: 'complaint_type', value: 'Public Infrastructure Maintenance', confidence: 0.92 }
-                ]
-              },
-              artifact: {
-                tracking_id: 'GRA-2026-0088',
-                category: 'Public Infrastructure Maintenance',
-                location: 'Lagos Mainland Municipal Area',
-                assigned_department: 'Lagos Environmental Services',
-                priority: 'Medium',
-                status: 'Accepted & Dispatched'
-              },
-              reasons: ["Clarification confirmed municipal infrastructure", "Ticket generated"]
-            });
-          }
-        }, 650);
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.detail || `The clarification service returned ${res.status}.`);
       }
     } catch (err) {
-      console.error(err);
+      setRequestError(navigator.onLine ? err.message : 'You are offline. Reconnect and send the clarification again.');
     } finally {
       setIsLoading(false);
     }
@@ -414,6 +290,7 @@ export default function Dashboard() {
                 onIntakeSubmit={handleIntakeSubmit}
                 isLoading={isLoading}
               />
+              {requestError && <div role="alert" className="rounded-2xl border border-gold/30 bg-gold/10 p-4 text-sm text-ink"><b>We could not process this yet.</b> {requestError} You can correct the transcript or try again.</div>}
 
               {currentOutcome && (
                 <ClassificationView
@@ -599,8 +476,8 @@ export default function Dashboard() {
                   </div>
                   <div className="p-3 bg-paper rounded-xl ring-1 ring-line flex items-center justify-between">
                     <div>
-                      <p className="font-semibold text-ink">Whisper large-v3 (Colab / Fallback)</p>
-                      <p className="text-[11px] text-muted">Zero-downtime text/voice contingency</p>
+                      <p className="font-semibold text-ink">Deepgram Nova-3 → Gemini (Cloud fallback)</p>
+                      <p className="text-[11px] text-muted">Tried only if Sahara is unavailable or rejects an upload</p>
                     </div>
                     <span className="px-2 py-0.5 rounded-md bg-line text-muted font-mono font-semibold text-[10px]">Standby</span>
                   </div>
