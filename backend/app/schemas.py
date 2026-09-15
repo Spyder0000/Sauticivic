@@ -66,6 +66,7 @@ class ClassificationResult:
 class OutcomeStatus(str, Enum):
     ROUTED = "routed"                            # confident enough -> artifact will be generated
     NEEDS_CLARIFICATION = "needs_clarification"  # gate abstained -> ask instead of guessing
+    HUMAN_REVIEW = "human_review"                # clarification limit reached -> stop automated routing
     EMERGENCY_RECOMMENDATION = "emergency_recommendation"  # gate detected immediate danger
 
 

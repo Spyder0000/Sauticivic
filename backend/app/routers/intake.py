@@ -29,6 +29,7 @@ from pydantic import BaseModel, Field
 
 from ..config import settings
 from ..pipeline import run_intake
+from ..schemas import OutcomeStatus
 from ..services.sahara_asr import transcribe_audio
 from ..session_store import (
     add_clarification,
@@ -153,9 +154,9 @@ def intake_clarify(session_id: str, req: ClarifyRequest) -> dict:
     The gate makes a fresh decision on each round — it may still abstain if
     the combined context still isn't confident enough.
 
-    Enforces gate_max_clarification_rounds (from config.py). Returns 400 if
-    the session has already hit the limit — the citizen should be escalated
-    to human review.
+    Enforces gate_max_clarification_rounds (from config.py). If the final
+    permitted answer still cannot be routed, returns a terminal human-review
+    outcome so the client stops asking for more clarification.
 
     Returns the same IntakeOutcome shape as POST /intake, always with the
     same session_id so the frontend can chain calls.
@@ -193,4 +194,14 @@ def intake_clarify(session_id: str, req: ClarifyRequest) -> dict:
     result = _outcome_with_session(outcome, session_id)
     result["clarification_round"] = len(state.clarification_rounds)
     result["rounds_remaining"] = max_rounds - len(state.clarification_rounds)
+    if (
+        result["rounds_remaining"] == 0
+        and outcome.status is OutcomeStatus.NEEDS_CLARIFICATION
+    ):
+        result["status"] = OutcomeStatus.HUMAN_REVIEW
+        result["clarifying_question"] = None
+        result["reasons"].append(
+            "Automated clarification limit reached; human review is required."
+        )
+        result["safety_gate_result"] = "human_review_required"
     return result

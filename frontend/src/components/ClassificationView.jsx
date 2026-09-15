@@ -11,6 +11,7 @@ import {
   Building2,
   Scale,
 } from 'lucide-react';
+import { getClarificationState } from './clarificationState.js';
 
 const ENTITY_ICON = {
   location: MapPin,
@@ -25,8 +26,8 @@ export default function ClassificationView({ outcome, onClarifySubmit, isLoading
 
   if (!outcome) return null;
 
-  const isEmergency = outcome.status === 'emergency_recommendation';
-  const isAbstain = outcome.status === 'needs_clarification' || isEmergency;
+  const { isEmergency, isHumanReview, canClarify } = getClarificationState(outcome);
+  const isAbstain = outcome.status === 'needs_clarification' || isEmergency || isHumanReview;
   const classification = outcome.classification || {};
   const extraction = outcome.extraction || { entities: [] };
   const confidencePercent = classification.confidence ? Math.round(classification.confidence * 100) : 85;
@@ -72,7 +73,7 @@ export default function ClassificationView({ outcome, onClarifySubmit, isLoading
             </div>
             <div>
               <h3 className="font-display text-xl text-ink tracking-tight">
-                {isEmergency ? 'Immediate safety recommendation' : isAbstain ? 'Held for one question' : 'Routing decision'}
+                {isEmergency ? 'Immediate safety recommendation' : isHumanReview ? 'Human review needed' : isAbstain ? 'Held for one question' : 'Routing decision'}
               </h3>
               <p className="text-xs text-muted mt-0.5">
                 Session <span className="font-mono text-ink/70">{outcome.session_id || 'sess-local-01'}</span>
@@ -82,7 +83,7 @@ export default function ClassificationView({ outcome, onClarifySubmit, isLoading
 
           <span className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold ring-1 ${accent.chip}`}>
             {isAbstain ? (
-              <><HelpCircle className="w-3.5 h-3.5" /> {isEmergency ? 'Emergency recommendation' : 'Abstained — asking first'}</>
+              <><HelpCircle className="w-3.5 h-3.5" /> {isEmergency ? 'Emergency recommendation' : isHumanReview ? 'Needs human review' : 'Abstained — asking first'}</>
             ) : isInfra ? (
               <><CheckCircle2 className="w-3.5 h-3.5" /> Routed to municipal services</>
             ) : (
@@ -159,22 +160,22 @@ export default function ClassificationView({ outcome, onClarifySubmit, isLoading
               <HelpCircle className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="font-display text-xl text-ink tracking-tight">{isEmergency ? 'Please put safety first' : "We'd rather ask than guess"}</h4>
+              <h4 className="font-display text-xl text-ink tracking-tight">{isEmergency ? 'Please put safety first' : isHumanReview ? 'A person should review this' : "We'd rather ask than guess"}</h4>
               <p className="text-sm text-muted mt-1 max-w-xl text-pretty">
-                {isEmergency ? 'This is an escalation recommendation, not an emergency dispatch. Contact 112 or your local emergency number if anyone is in immediate danger.' : "Sending this to the wrong place would cost you time — or worse. One quick answer and we'll route it right."}
+                {isEmergency ? 'This is an escalation recommendation, not an emergency dispatch. Contact 112 or your local emergency number if anyone is in immediate danger.' : isHumanReview ? 'The automated intake could not route this confidently after the available clarification attempts. Please contact a human advisor or start a new report with more detail.' : "Sending this to the wrong place would cost you time — or worse. One quick answer and we'll route it right."}
               </p>
             </div>
           </div>
 
-          <div className="rounded-2xl bg-surface ring-1 ring-gold/25 p-5 mb-6">
+          {!isHumanReview && <div className="rounded-2xl bg-surface ring-1 ring-gold/25 p-5 mb-6">
             <span className="text-[11px] font-mono uppercase tracking-[0.14em] text-gold-deep">Our question</span>
             <p className="font-serif text-xl text-ink mt-1.5 leading-snug text-pretty">
               {outcome.clarifying_question
                 || 'Is this about public infrastructure — drainage, roads, power — or a private legal matter like tenancy, threats, or your rights?'}
             </p>
-          </div>
+          </div>}
 
-          {!isEmergency && <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
+          {canClarify && <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
             {quickAnswers.map(({ label, Icon }, idx) => (
               <button
                 key={idx}
@@ -190,7 +191,7 @@ export default function ClassificationView({ outcome, onClarifySubmit, isLoading
             ))}
           </div>}
 
-          {!isEmergency && <form onSubmit={handleCustomSubmit} className="flex flex-col sm:flex-row gap-3 pt-5 border-t border-gold/20">
+          {canClarify && <form onSubmit={handleCustomSubmit} className="flex flex-col sm:flex-row gap-3 pt-5 border-t border-gold/20">
             <input
               type="text"
               value={clarifyAnswer}

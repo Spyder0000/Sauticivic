@@ -140,8 +140,13 @@ export default function Dashboard() {
 
   // Handle Clarify Submission (POST /intake/{session_id}/clarify)
   const handleClarifySubmit = async (answer) => {
-    if (!currentOutcome?.session_id) return;
+    if (
+      !currentOutcome?.session_id
+      || currentOutcome.status === 'human_review'
+      || currentOutcome.rounds_remaining === 0
+    ) return;
     setIsLoading(true);
+    setRequestError('');
 
     try {
       const res = await fetch(`${API_BASE}/intake/${currentOutcome.session_id}/clarify`, {
