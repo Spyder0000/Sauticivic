@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/intake",
+      "destination": "https://sauticivic-api.onrender.com/intake"
+    },
+    {
+      "source": "/intake/:path*",
+      "destination": "https://sauticivic-api.onrender.com/intake/:path*"
+    },
+    {
+      "source": "/health",
+      "destination": "https://sauticivic-api.onrender.com/health"
+    }
+  ]
+}
