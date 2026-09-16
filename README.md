@@ -1,4 +1,4 @@
-# 🎙️ SautiCivic Bridge
+# SautiCivic Bridge
 
 <div align="center">
 
@@ -10,27 +10,27 @@
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
-[![Tests](https://img.shields.io/badge/Tests-71%20Passing-brightgreen?style=for-the-badge&logo=pytest&logoColor=white)](#testing)
+[![Tests](https://img.shields.io/badge/Tests-71%20Passing-brightgreen?style=for-the-badge&logo=pytest&logoColor=white)](#testing--verification)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
 </div>
 
 ---
 
-## 🌐 Live Deployments & Essential Links
+## Live Deployments & Essential Links
 
 | Resource | Link | Description |
 |---|---|---|
-| 🚀 **Live Web Application** | **[https://sauticivic.pages.dev/](https://sauticivic.pages.dev/)** | Deployed interactive voice & text intake interface with dual-transcript rendering and live gate clarification |
-| ⚡ **Production Backend API** | **[https://sauticivic-api.onrender.com/docs](https://sauticivic-api.onrender.com/docs)** | OpenAPI / Swagger interactive documentation for the FastAPI intake, voice upload, and clarification endpoints |
-| 📄 **3-Page Technical Benchmark Report (PDF)** | **[docs/BENCHMARK_REPORT_FINAL.pdf](docs/BENCHMARK_REPORT_FINAL.pdf)** | Full publication-grade XeLaTeX technical benchmark report (v20 Addendum with Multi-Speaker Validation) |
-| 📐 **System Architecture Specification** | **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** | Architectural deep-dive: single choke-point pipeline, module boundaries, database schemas, and contracts |
-| 🛡️ **Ethics, Consent & Inclusion Framework** | **[docs/ETHICS_INCLUSION_NOTE.md](docs/ETHICS_INCLUSION_NOTE.md)** | Responsible AI declaration, life-safety routing guidelines, and speaker pseudonymization protocols |
-| 📝 **Informed Data Consent Log** | **[docs/DATA_CONSENT_LOG.md](docs/DATA_CONSENT_LOG.md)** | Signed speaker consent verification for all speech recordings across regional substrates |
+| **Live Web Application** | **[https://sauticivic.pages.dev/](https://sauticivic.pages.dev/)** | Deployed interactive voice & text intake interface with dual-transcript rendering and live gate clarification |
+| **Production Backend API** | **[https://sauticivic-api.onrender.com/docs](https://sauticivic-api.onrender.com/docs)** | OpenAPI / Swagger interactive documentation for the FastAPI intake, voice upload, and clarification endpoints |
+| **3-Page Technical Benchmark Report (PDF)** | **[docs/BENCHMARK_REPORT_FINAL.pdf](docs/BENCHMARK_REPORT_FINAL.pdf)** | Full publication-grade XeLaTeX technical benchmark report (v20 Addendum with Multi-Speaker Validation) |
+| **System Architecture Specification** | **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** | Architectural deep-dive: single choke-point pipeline, module boundaries, database schemas, and contracts |
+| **Ethics, Consent & Inclusion Framework** | **[docs/ETHICS_INCLUSION_NOTE.md](docs/ETHICS_INCLUSION_NOTE.md)** | Responsible AI declaration, life-safety routing guidelines, and speaker pseudonymization protocols |
+| **Informed Data Consent Log** | **[docs/DATA_CONSENT_LOG.md](docs/DATA_CONSENT_LOG.md)** | Signed speaker consent verification for all speech recordings across regional substrates |
 
 ---
 
-## 💡 Executive Summary & The Problem
+## Executive Summary & The Problem
 
 Over 100 million citizens across Nigeria and West Africa naturally communicate by code-switching between **Nigerian Pidgin (Naija)**, indigenous substrate languages (Yoruba, Igbo, Hausa), and English. However, existing public services and justice mechanisms remain structural gatekeepers:
 
@@ -62,7 +62,7 @@ Without an architectural safety gate, downstream routing would silently discard 
 
 ---
 
-## 🛡️ Core Innovations
+## Core Innovations
 
 ### 1. Abstention as a First-Class Outcome
 Rather than guessing when acoustic confidence is low or required context is incomplete, SautiCivic introduces an architectural confidence/completeness gate (`gate.py::decide()`). The pipeline safely transitions to a `"needs_clarification"` state, prompting the citizen with a concise, targeted question rather than misfiling a claim.
@@ -84,7 +84,7 @@ To guarantee scientific accountability, our evaluation harness (`bench/metrics/r
 
 ---
 
-## 🏗️ System Architecture & Data Flow
+## System Architecture & Data Flow
 
 ```mermaid
 flowchart TD
@@ -110,7 +110,7 @@ flowchart TD
 
 ---
 
-## 📊 Empirical Benchmark Results (v20 Addendum)
+## Empirical Benchmark Results (v20 Addendum)
 
 The SautiCivic benchmark evaluated **four production speech architectures** across **120 audio recordings** and **10 adversarial safety traps**:
 
@@ -139,7 +139,7 @@ The SautiCivic benchmark evaluated **four production speech architectures** acro
 
 ---
 
-## 📂 Repository Structure
+## Repository Structure
 
 ```
 sauticivic/
@@ -190,7 +190,7 @@ sauticivic/
 
 ---
 
-## 🚀 Quickstart & Local Setup
+## Quickstart & Local Setup
 
 ### Prerequisites
 - **Python 3.11+**
@@ -244,7 +244,7 @@ docker-compose up -d
 
 ---
 
-## 🧪 Testing & Verification
+## Testing & Verification
 
 ### Run the 71-Test Automated Test Suite
 The repository includes comprehensive unit, safety gate, regression, and benchmark validation tests:
@@ -268,7 +268,7 @@ PYTHONPATH=backend python3 bench/metrics/run_tier_a_multispeaker_validation.py
 
 ---
 
-## 🔌 API Reference
+## API Reference
 
 ### 1. `POST /intake` — Text Intake (Fallback Path)
 Submit a code-switched text complaint. Shared pipeline with voice intake.
@@ -301,7 +301,7 @@ curl -X POST https://sauticivic-api.onrender.com/intake/sess_12345/clarify \
 
 ---
 
-## 🤝 Responsible AI, Ethics & Data Governance
+## Responsible AI, Ethics & Data Governance
 
 1. **Informed Consent:** All speech recordings in Tier A and Tier A-MSV were collected under explicit, informed consent with registered participants across Nigerian socio-linguistic regions ([docs/DATA_CONSENT_LOG.md](docs/DATA_CONSENT_LOG.md)).
 2. **Pseudonymization:** Real contributor identities are decoupled from evaluation audio using identifiers (`SPK-01` through `SPK-05`).
@@ -310,7 +310,7 @@ curl -X POST https://sauticivic-api.onrender.com/intake/sess_12345/clarify \
 
 ---
 
-## 👥 Authors & Acknowledgments
+## Authors & Acknowledgments
 
 - **Agoro Timilehin** ([@drizzy765](https://github.com/drizzy765)) — Lead Architect, Pipeline & Benchmark Research
 - **David Akhuabe** — Frontend Engineering, Artifact Generators & Documentation
@@ -319,13 +319,13 @@ Developed for the **Sahara CodeSwitch Africa Challenge 2026** (Legal & Public Se
 
 ---
 
-## 📜 License
+## License
 
 This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 📚 Citation
+## Citation
 
 If you use our benchmark results, methodology, or code in your research:
 ```bibtex
