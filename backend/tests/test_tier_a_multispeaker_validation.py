@@ -138,20 +138,103 @@ def test_msv_four_model_results_json():
 
     # Sahara: 0/21 inversions, 0/18 affected utterances
     assert models["sahara"]["polarity"]["token_counts"]["inverted"] == 0
+    assert models["sahara"]["polarity"]["token_counts"]["preserved"] == 21
     assert models["sahara"]["polarity"]["utterance_inversion_count"] == 0
 
     # Gemini: 10/21 inversions, 9/18 affected utterances
     assert models["gemini"]["polarity"]["token_counts"]["inverted"] == 10
+    assert models["gemini"]["polarity"]["token_counts"]["preserved"] == 8
+    assert models["gemini"]["polarity"]["token_counts"]["ambiguous"] == 3
     assert models["gemini"]["polarity"]["utterance_inversion_count"] == 9
 
-    # Deepgram: 10/21 inversions, 9/18 affected utterances (with deletions reported)
+    # Deepgram: 10/21 inversions, 1 preserved, 1 deleted, 9 ambiguous, 9/18 affected utterances
     assert models["deepgram"]["polarity"]["token_counts"]["inverted"] == 10
+    assert models["deepgram"]["polarity"]["token_counts"]["preserved"] == 1
+    assert models["deepgram"]["polarity"]["token_counts"]["deleted"] == 1
+    assert models["deepgram"]["polarity"]["token_counts"]["ambiguous"] == 9
     assert models["deepgram"]["polarity"]["utterance_inversion_count"] == 9
-    assert models["deepgram"]["polarity"]["token_counts"]["deleted"] >= 1
+    assert models["deepgram"]["polarity"]["utterance_denominator"] == 18
 
     # Whisper: 11/21 inversions, 10/18 affected utterances
     assert models["whisper"]["polarity"]["token_counts"]["inverted"] == 11
     assert models["whisper"]["polarity"]["utterance_inversion_count"] == 10
     assert models["whisper"]["polarity"]["token_counts"]["preserved"] == 1
     assert models["whisper"]["polarity"]["token_counts"]["ambiguous"] == 9
+
+
+def test_msv_model_invariants_sum_and_unique_keys():
+    from pathlib import Path
+    results_path = Path("bench/results/tier_a_multispeaker_validation_results.json")
+    assert results_path.is_file()
+    data = json.loads(results_path.read_text(encoding="utf-8"))
+
+    for model_name in ("sahara", "gemini", "deepgram", "whisper"):
+        model_data = data["models"][model_name]
+        tc = model_data["polarity"]["token_counts"]
+
+        # Invariant 1: inverted + preserved + deleted + ambiguous = 21
+        total_tokens = tc["inverted"] + tc["preserved"] + tc["deleted"] + tc["ambiguous"]
+        assert total_tokens == 21, f"{model_name} total tokens {total_tokens} != 21"
+
+        # Invariant 2: exactly 21 unique (clip_id, target_index) keys
+        target_audit = model_data["target_audit"]
+        assert len(target_audit) == 21, f"{model_name} audit rows {len(target_audit)} != 21"
+        keys = [(r["clip_id"], r["target_index"]) for r in target_audit]
+        assert len(keys) == 21
+        assert len(set(keys)) == 21, f"{model_name} has duplicate (clip_id, target_index) keys"
+
+        # Verify outcome categories and exact sum
+        outcomes = [r["outcome"] for r in target_audit]
+        for o in outcomes:
+            assert o in ("preserved", "inverted", "deleted", "ambiguous")
+        from collections import Counter
+        counts = Counter(outcomes)
+        for cat in ("preserved", "inverted", "deleted", "ambiguous"):
+            assert counts[cat] == tc[cat], f"{model_name} {cat} count mismatch: {counts[cat]} != {tc[cat]}"
+
+
+def test_msv_published_union_reproduces_from_audit_rows():
+    import csv
+    from pathlib import Path
+    audit_path = Path("bench/results/tier_a_multispeaker_validation_audit.csv")
+    assert audit_path.is_file()
+    with audit_path.open(encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+
+    # Group by (clip_id, target_index)
+    by_target = {}
+    for r in rows:
+        key = (r["clip_id"], int(r["target_index"]))
+        if key not in by_target:
+            by_target[key] = {}
+        by_target[key][r["model"]] = r["outcome"]
+
+    assert len(by_target) == 21, f"Expected 21 unique targets, got {len(by_target)}"
+
+    # Count a target in union only when at least one model has an adjudicated 'inverted' outcome
+    union_inversions = 0
+    uninverted_keys = []
+    for key, model_outcomes in sorted(by_target.items()):
+        if any(model_outcomes.get(m) == "inverted" for m in ("gemini", "deepgram", "whisper")):
+            union_inversions += 1
+        else:
+            uninverted_keys.append((key, model_outcomes))
+
+    # Exactly 20 of 21 unique targets inverted by at least one global model
+    assert union_inversions == 20
+    assert len(uninverted_keys) == 1
+    # The single uninverted target is spk4_m_003 (prompt 3, target 1)
+    assert uninverted_keys[0][0] == ("spk4_m_003", 1)
+    assert uninverted_keys[0][1]["sahara"] == "preserved"
+    assert uninverted_keys[0][1]["gemini"] == "ambiguous"
+    assert uninverted_keys[0][1]["deepgram"] == "ambiguous"
+    assert uninverted_keys[0][1]["whisper"] == "ambiguous"
+
+    # Invariant from results.json
+    results_path = Path("bench/results/tier_a_multispeaker_validation_results.json")
+    data = json.loads(results_path.read_text(encoding="utf-8"))
+    assert data["multi_model_union"]["union_inversions"] == 20
+    assert data["multi_model_union"]["total_targets"] == 21
+    assert abs(data["multi_model_union"]["union_inversion_rate"] - (20 / 21)) < 1e-6
+
 

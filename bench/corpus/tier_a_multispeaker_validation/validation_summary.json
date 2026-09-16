@@ -1,6 +1,6 @@
 {
   "status": "ok",
-  "checked_at": "2026-09-13T21:58:19.624515+00:00",
+  "checked_at": "2026-09-15T17:57:46.823402+00:00",
   "checks": {
     "exactly_30_audio": true,
     "ten_per_speaker": true,

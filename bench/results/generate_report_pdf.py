@@ -264,16 +264,17 @@ def build_story():
     story.append(section_heading("3a.", "Tier A Multi-Speaker Validation (MSV)"))
     story.append(SP(0.05*cm))
     story.append(Paragraph(
-        "Tier A-MSV adds 30 recordings from three previously unseen speakers (SPK-03 F, SPK-04 M, SPK-05 M) using the same ten selected prompts. Eighteen recordings contain 21 expected <i>don</i> targets; 12 are controls. The corpus passed structural/audio validation and uses script-based reference transcripts; spontaneous wording deviations were not independently audited. Original v19 remains frozen. No valid MSV ASR transcript was produced in this environment: 39 model-clip attempts failed due dependency/network constraints and 81 were not attempted, so MSV polarity rates are not estimable.",
+        "Tier A-MSV adds 30 recordings from three previously unseen speakers (SPK-03 F, SPK-04 M, SPK-05 M) across ten standardized prompts (18 polarity clips with 21 expected <i>don</i> targets; 12 controls). The v19 baseline remains frozen. Sahara achieved 0/21 inversions across all 3 speakers. Global models exhibited substantial inversions (Gemini 10/21, Deepgram 10/21, Whisper 11/21). Deepgram's affected utterances are 9/18 (50.0%) with 1 deletion; Whisper's MSV WER (111.7%) reflects 10 non-Latin script hallucinations.",
         _s("msv", fontSize=7.5, leading=10, alignment=TA_JUSTIFY)))
     story.append(SP(0.04*cm))
     story.append(data_table(
-        ["Model", "Attempted", "Completed", "Polarity result", "Failures"],
-        [["Sahara v2.5", "30", "0", "N/E (0/21)", "30 failed"],
-         ["Gemini 3.5", "9", "0", "N/E (0/21)", "9 failed; 21 unattempted"],
-         ["Deepgram Nova-3", "0", "0", "N/E (0/21)", "30 unattempted"],
-         ["Whisper large-v3", "0", "0", "N/E (0/21)", "30 unattempted"]],
-        [3.0*cm, 1.4*cm, 1.4*cm, 2.3*cm, CONTENT_W-8.1*cm]))
+        ["Model", "SPK-03 (F)", "SPK-04 (M)", "SPK-05 (M)", "Token Inv.", "Utterance Inv.", "MSV WER"],
+        [["Sahara v2.5", "0/7 (0.0%)", "0/7 (0.0%)", "0/7 (0.0%)", "0/21 (0.0%)", "0/18 (0.0%)", "16.3%"],
+         ["Gemini 3.5", "4/7 (57.1%)", "2/7 (28.6%)", "4/7 (57.1%)", "10/21 (47.6%)", "9/18 (50.0%)", "28.7%"],
+         ["Deepgram Nova-3", "4/7 (57.1%)", "2/7 (28.6%)", "4/7 (57.1%)", "10/21 (47.6%)", "9/18 (50.0%)*", "68.9%"],
+         ["Whisper large-v3", "2/7 (28.6%)", "5/7 (71.4%)", "4/7 (57.1%)", "11/21 (52.4%)", "10/18 (55.6%)", "111.7%"]],
+        [2.8*cm, 2.0*cm, 2.0*cm, 2.0*cm, 2.2*cm, 2.5*cm, CONTENT_W - 13.5*cm],
+        amber_row=0))
     story.append(SP(0.08*cm))
     sec3 = section_heading("3.", "Polarity Inversion \u2014 A Civic Safety Failure Class")
     red_rule = Table([[Paragraph("", _s("sp2")), sec3]],

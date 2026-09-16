@@ -59,5 +59,11 @@ audit_buffer.jsonl
 htmlcov/
 .pytest_cache/
 
-# OS
-Thumbs.db
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk

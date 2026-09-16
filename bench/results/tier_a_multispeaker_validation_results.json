@@ -1,13 +1,298 @@
 {
   "dataset": "Tier A Multi-Speaker Validation",
   "tier": "tier_a_msv",
-  "generated_at": "2026-09-13T21:58:37.906001+00:00",
+  "generated_at": "2026-09-15T17:58:05.834358+00:00",
   "corpus_manifest_sha256": "0edf9838b817b8969b3cd052e005dbebe0b502f8123c6c25968d1721d0b206d6",
   "expected_counts": {
     "clips": 30,
     "target_recordings": 18,
     "target_tokens": 21,
     "controls": 12
+  },
+  "multi_model_union": {
+    "models_evaluated": [
+      "gemini",
+      "deepgram",
+      "whisper"
+    ],
+    "total_targets": 21,
+    "union_inversions": 20,
+    "union_inversion_rate": 0.9523809523809523,
+    "per_target_adjudication": [
+      {
+        "clip_id": "spk3_f_001",
+        "speaker_id": "SPK-03",
+        "prompt_number": 1,
+        "target_index": 1,
+        "outcomes": {
+          "sahara": "preserved",
+          "gemini": "preserved",
+          "deepgram": "inverted",
+          "whisper": "inverted"
+        },
+        "inverted_in_union": true
+      },
+      {
+        "clip_id": "spk3_f_002",
+        "speaker_id": "SPK-03",
+        "prompt_number": 2,
+        "target_index": 1,
+        "outcomes": {
+          "sahara": "preserved",
+          "gemini": "inverted",
+          "deepgram": "ambiguous",
+          "whisper": "ambiguous"
+        },
+        "inverted_in_union": true
+      },
+      {
+        "clip_id": "spk3_f_002",
+        "speaker_id": "SPK-03",
+        "prompt_number": 2,
+        "target_index": 2,
+        "outcomes": {
+          "sahara": "preserved",
+          "gemini": "inverted",
+          "deepgram": "ambiguous",
+          "whisper": "preserved"
+        },
+        "inverted_in_union": true
+      },
+      {
+        "clip_id": "spk3_f_003",
+        "speaker_id": "SPK-03",
+        "prompt_number": 3,
+        "target_index": 1,
+        "outcomes": {
+          "sahara": "preserved",
+          "gemini": "preserved",
+          "deepgram": "inverted",
+          "whisper": "ambiguous"
+        },
+        "inverted_in_union": true
+      },
+      {
+        "clip_id": "spk3_f_004",
+        "speaker_id": "SPK-03",
+        "prompt_number": 4,
+        "target_index": 1,
+        "outcomes": {
+          "sahara": "preserved",
+          "gemini": "inverted",
+          "deepgram": "inverted",
+          "whisper": "inverted"
+        },
+        "inverted_in_union": true
+      },
+      {
+        "clip_id": "spk3_f_005",
+        "speaker_id": "SPK-03",
+        "prompt_number": 5,
+        "target_index": 1,
+        "outcomes": {
+          "sahara": "preserved",
+          "gemini": "inverted",
+          "deepgram": "ambiguous",
+          "whisper": "ambiguous"
+        },
+        "inverted_in_union": true
+      },
+      {
+        "clip_id": "spk3_f_009",
+        "speaker_id": "SPK-03",
+        "prompt_number": 9,
+        "target_index": 1,
+        "outcomes": {
+          "sahara": "preserved",
+          "gemini": "preserved",
+          "deepgram": "inverted",
+          "whisper": "ambiguous"
+        },
+        "inverted_in_union": true
+      },
+      {
+        "clip_id": "spk4_m_001",
+        "speaker_id": "SPK-04",
+        "prompt_number": 1,
+        "target_index": 1,
+        "outcomes": {
+          "sahara": "preserved",
+          "gemini": "inverted",
+          "deepgram": "preserved",
+          "whisper": "inverted"
+        },
+        "inverted_in_union": true
+      },
+      {
+        "clip_id": "spk4_m_002",
+        "speaker_id": "SPK-04",
+        "prompt_number": 2,
+        "target_index": 1,
+        "outcomes": {
+          "sahara": "preserved",
+          "gemini": "inverted",
+          "deepgram": "ambiguous",
+          "whisper": "inverted"
+        },
+        "inverted_in_union": true
+      },
+      {
+        "clip_id": "spk4_m_002",
+        "speaker_id": "SPK-04",
+        "prompt_number": 2,
+        "target_index": 2,
+        "outcomes": {
+          "sahara": "preserved",
+          "gemini": "preserved",
+          "deepgram": "ambiguous",
+          "whisper": "inverted"
+        },
+        "inverted_in_union": true
+      },
+      {
+        "clip_id": "spk4_m_003",
+        "speaker_id": "SPK-04",
+        "prompt_number": 3,
+        "target_index": 1,
+        "outcomes": {
+          "sahara": "preserved",
+          "gemini": "ambiguous",
+          "deepgram": "ambiguous",
+          "whisper": "ambiguous"
+        },
+        "inverted_in_union": false
+      },
+      {
+        "clip_id": "spk4_m_004",
+        "speaker_id": "SPK-04",
+        "prompt_number": 4,
+        "target_index": 1,
+        "outcomes": {
+          "sahara": "preserved",
+          "gemini": "preserved",
+          "deepgram": "deleted",
+          "whisper": "inverted"
+        },
+        "inverted_in_union": true
+      },
+      {
+        "clip_id": "spk4_m_005",
+        "speaker_id": "SPK-04",
+        "prompt_number": 5,
+        "target_index": 1,
+        "outcomes": {
+          "sahara": "preserved",
+          "gemini": "preserved",
+          "deepgram": "inverted",
+          "whisper": "inverted"
+        },
+        "inverted_in_union": true
+      },
+      {
+        "clip_id": "spk4_m_009",
+        "speaker_id": "SPK-04",
+        "prompt_number": 9,
+        "target_index": 1,
+        "outcomes": {
+          "sahara": "preserved",
+          "gemini": "preserved",
+          "deepgram": "inverted",
+          "whisper": "ambiguous"
+        },
+        "inverted_in_union": true
+      },
+      {
+        "clip_id": "spk5_m_001",
+        "speaker_id": "SPK-05",
+        "prompt_number": 1,
+        "target_index": 1,
+        "outcomes": {
+          "sahara": "preserved",
+          "gemini": "inverted",
+          "deepgram": "ambiguous",
+          "whisper": "inverted"
+        },
+        "inverted_in_union": true
+      },
+      {
+        "clip_id": "spk5_m_002",
+        "speaker_id": "SPK-05",
+        "prompt_number": 2,
+        "target_index": 1,
+        "outcomes": {
+          "sahara": "preserved",
+          "gemini": "ambiguous",
+          "deepgram": "inverted",
+          "whisper": "ambiguous"
+        },
+        "inverted_in_union": true
+      },
+      {
+        "clip_id": "spk5_m_002",
+        "speaker_id": "SPK-05",
+        "prompt_number": 2,
+        "target_index": 2,
+        "outcomes": {
+          "sahara": "preserved",
+          "gemini": "ambiguous",
+          "deepgram": "inverted",
+          "whisper": "ambiguous"
+        },
+        "inverted_in_union": true
+      },
+      {
+        "clip_id": "spk5_m_003",
+        "speaker_id": "SPK-05",
+        "prompt_number": 3,
+        "target_index": 1,
+        "outcomes": {
+          "sahara": "preserved",
+          "gemini": "preserved",
+          "deepgram": "inverted",
+          "whisper": "inverted"
+        },
+        "inverted_in_union": true
+      },
+      {
+        "clip_id": "spk5_m_004",
+        "speaker_id": "SPK-05",
+        "prompt_number": 4,
+        "target_index": 1,
+        "outcomes": {
+          "sahara": "preserved",
+          "gemini": "inverted",
+          "deepgram": "inverted",
+          "whisper": "inverted"
+        },
+        "inverted_in_union": true
+      },
+      {
+        "clip_id": "spk5_m_005",
+        "speaker_id": "SPK-05",
+        "prompt_number": 5,
+        "target_index": 1,
+        "outcomes": {
+          "sahara": "preserved",
+          "gemini": "inverted",
+          "deepgram": "ambiguous",
+          "whisper": "ambiguous"
+        },
+        "inverted_in_union": true
+      },
+      {
+        "clip_id": "spk5_m_009",
+        "speaker_id": "SPK-05",
+        "prompt_number": 9,
+        "target_index": 1,
+        "outcomes": {
+          "sahara": "preserved",
+          "gemini": "inverted",
+          "deepgram": "ambiguous",
+          "whisper": "inverted"
+        },
+        "inverted_in_union": true
+      }
+    ]
   },
   "models": {
     "sahara": {
@@ -91,6 +376,7 @@
       "wer": {
         "all": {
           "status": "ok",
+          "raw_wer": 0.23601,
           "corpus_wer": 0.163017,
           "total_edit_distance": 67,
           "total_word_count": 411,
@@ -433,6 +719,7 @@
         },
         "polarity_stress": {
           "status": "ok",
+          "raw_wer": 0.258824,
           "corpus_wer": 0.184314,
           "total_edit_distance": 47,
           "total_word_count": 255,
@@ -643,6 +930,7 @@
         },
         "control": {
           "status": "ok",
+          "raw_wer": 0.198718,
           "corpus_wer": 0.128205,
           "total_edit_distance": 20,
           "total_word_count": 156,
@@ -1185,6 +1473,7 @@
       "wer": {
         "all": {
           "status": "ok",
+          "raw_wer": 0.3309,
           "corpus_wer": 0.287105,
           "total_edit_distance": 118,
           "total_word_count": 411,
@@ -1527,6 +1816,7 @@
         },
         "polarity_stress": {
           "status": "ok",
+          "raw_wer": 0.313725,
           "corpus_wer": 0.278431,
           "total_edit_distance": 71,
           "total_word_count": 255,
@@ -1737,6 +2027,7 @@
         },
         "control": {
           "status": "ok",
+          "raw_wer": 0.358974,
           "corpus_wer": 0.301282,
           "total_edit_distance": 47,
           "total_word_count": 156,
@@ -2201,48 +2492,27 @@
     "deepgram": {
       "status": "ok",
       "expected_clips": 30,
-      "attempted_clips": 26,
-      "not_attempted_clips": 4,
-      "successful_clips": 26,
-      "failed_clips": [
-        {
-          "clip_id": "spk4_m_004",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk4_m_006",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk4_m_008",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk5_m_006",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        }
-      ],
-      "clips_with_transcripts": 26,
+      "attempted_clips": 30,
+      "not_attempted_clips": 0,
+      "successful_clips": 30,
+      "failed_clips": [],
+      "clips_with_transcripts": 30,
       "polarity": {
         "token_counts": {
           "preserved": 1,
           "inverted": 10,
-          "deleted": 2,
-          "ambiguous": 7
+          "deleted": 1,
+          "ambiguous": 9
         },
         "expected_token_denominator": 21,
         "evaluable_token_denominator": 11,
         "token_inversion_rate": 0.47619047619047616,
         "token_preservation_rate": 0.09090909090909091,
-        "target_deletion_rate": 0.09523809523809523,
-        "ambiguous_collapse_rate": 0.3333333333333333,
+        "target_deletion_rate": 0.047619047619047616,
+        "ambiguous_collapse_rate": 0.42857142857142855,
         "utterance_inversion_count": 9,
-        "utterance_denominator": 17,
-        "utterance_inversion_rate": 0.5294117647058824
+        "utterance_denominator": 18,
+        "utterance_inversion_rate": 0.5
       },
       "polarity_by_speaker": {
         "SPK-03": {
@@ -2267,31 +2537,31 @@
             "preserved": 1,
             "inverted": 2,
             "deleted": 1,
-            "ambiguous": 2
+            "ambiguous": 3
           },
           "expected_token_denominator": 7,
           "evaluable_token_denominator": 3,
           "token_inversion_rate": 0.2857142857142857,
           "token_preservation_rate": 0.3333333333333333,
           "target_deletion_rate": 0.14285714285714285,
-          "ambiguous_collapse_rate": 0.2857142857142857,
+          "ambiguous_collapse_rate": 0.42857142857142855,
           "utterance_inversion_count": 2,
-          "utterance_denominator": 5,
-          "utterance_inversion_rate": 0.4
+          "utterance_denominator": 6,
+          "utterance_inversion_rate": 0.3333333333333333
         },
         "SPK-05": {
           "token_counts": {
             "preserved": 0,
             "inverted": 4,
-            "deleted": 1,
-            "ambiguous": 2
+            "deleted": 0,
+            "ambiguous": 3
           },
           "expected_token_denominator": 7,
           "evaluable_token_denominator": 4,
           "token_inversion_rate": 0.5714285714285714,
           "token_preservation_rate": 0.0,
-          "target_deletion_rate": 0.14285714285714285,
-          "ambiguous_collapse_rate": 0.2857142857142857,
+          "target_deletion_rate": 0.0,
+          "ambiguous_collapse_rate": 0.42857142857142855,
           "utterance_inversion_count": 3,
           "utterance_denominator": 6,
           "utterance_inversion_rate": 0.5
@@ -2300,6 +2570,7 @@
       "wer": {
         "all": {
           "status": "ok",
+          "raw_wer": 0.752066,
           "corpus_wer": 0.688705,
           "total_edit_distance": 250,
           "total_word_count": 363,
@@ -2598,6 +2869,7 @@
         },
         "polarity_stress": {
           "status": "ok",
+          "raw_wer": 0.72314,
           "corpus_wer": 0.644628,
           "total_edit_distance": 156,
           "total_word_count": 242,
@@ -2797,6 +3069,7 @@
         },
         "control": {
           "status": "ok",
+          "raw_wer": 0.809917,
           "corpus_wer": 0.77686,
           "total_edit_distance": 94,
           "total_word_count": 121,
@@ -3059,9 +3332,9 @@
           "adjudication_note": "adjudicated: cross-language hallucination or phonetic collapse"
         },
         {
-          "outcome": "deleted",
-          "evidence_span": "",
-          "reason": "empty transcript",
+          "outcome": "ambiguous",
+          "evidence_span": "І шість лед сполоджат затяг, що нелівок і донда хвилює виліт.",
+          "reason": "non-Latin script hallucination",
           "reference_target_phrase": "The streetlight for Ojota junction no dey work, e don dark well well.",
           "automatic": true,
           "clip_id": "spk4_m_003",
@@ -3070,23 +3343,23 @@
           "target_index": 1,
           "raw_transcript": "І шість лед сполоджат затяг, що нелівок і донда хвилює виліт.",
           "normalized_transcript": "",
-          "adjudicated_outcome": "deleted",
-          "adjudication_note": "adjudicated: empty transcript"
+          "adjudicated_outcome": "ambiguous",
+          "adjudication_note": "adjudicated: non-Latin script hallucination"
         },
         {
-          "outcome": null,
+          "outcome": "deleted",
           "evidence_span": "",
-          "reason": "runner not invoked for this clip",
-          "reference_target_phrase": "don target",
-          "automatic": false,
+          "reason": "empty transcript",
+          "reference_target_phrase": "My boss don sack me without paying my three months salary and overtime.",
+          "automatic": true,
           "clip_id": "spk4_m_004",
           "speaker_id": "SPK-04",
           "model": "deepgram",
           "target_index": 1,
           "raw_transcript": "",
           "normalized_transcript": "",
-          "adjudicated_outcome": null,
-          "adjudication_note": "unadjudicated: no transcript"
+          "adjudicated_outcome": "deleted",
+          "adjudication_note": "adjudicated: empty transcript"
         },
         {
           "outcome": "inverted",
@@ -3209,9 +3482,9 @@
           "adjudication_note": "adjudicated: cross-language hallucination or phonetic collapse"
         },
         {
-          "outcome": "deleted",
-          "evidence_span": "",
-          "reason": "empty transcript",
+          "outcome": "ambiguous",
+          "evidence_span": "우리 까매일 수도 있는 아름 거장머니 방일보리 보고 우리 이 내가 거리스 횟수 일",
+          "reason": "non-Latin script hallucination",
           "reference_target_phrase": "The community leader don collect money from everybody for borehole wey never complete since two years.",
           "automatic": true,
           "clip_id": "spk5_m_009",
@@ -3220,590 +3493,1105 @@
           "target_index": 1,
           "raw_transcript": "우리 까매일 수도 있는 아름 거장머니 방일보리 보고 우리 이 내가 거리스 횟수 일",
           "normalized_transcript": "",
-          "adjudicated_outcome": "deleted",
-          "adjudication_note": "adjudicated: empty transcript"
+          "adjudicated_outcome": "ambiguous",
+          "adjudication_note": "adjudicated: non-Latin script hallucination"
         }
       ]
     },
     "whisper": {
-      "status": "not_available",
+      "status": "ok",
       "expected_clips": 30,
-      "attempted_clips": 0,
-      "not_attempted_clips": 30,
-      "successful_clips": 0,
-      "failed_clips": [
-        {
-          "clip_id": "spk3_f_001",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk3_f_002",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk3_f_003",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk3_f_004",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk3_f_005",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk3_f_006",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk3_f_007",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk3_f_008",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk3_f_009",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk3_f_010",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk4_m_001",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk4_m_002",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk4_m_003",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk4_m_004",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk4_m_005",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk4_m_006",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk4_m_007",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk4_m_008",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk4_m_009",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk4_m_010",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk5_m_001",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk5_m_002",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk5_m_003",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk5_m_004",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk5_m_005",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk5_m_006",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk5_m_007",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk5_m_008",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk5_m_009",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        },
-        {
-          "clip_id": "spk5_m_010",
-          "error": "runner not invoked for this clip",
-          "request_status": "not_attempted"
-        }
-      ],
-      "clips_with_transcripts": 0,
+      "attempted_clips": 30,
+      "not_attempted_clips": 0,
+      "successful_clips": 30,
+      "failed_clips": [],
+      "clips_with_transcripts": 30,
       "polarity": {
         "token_counts": {
-          "preserved": 0,
-          "inverted": 0,
+          "preserved": 1,
+          "inverted": 11,
           "deleted": 0,
-          "ambiguous": 0
+          "ambiguous": 9
         },
         "expected_token_denominator": 21,
-        "evaluable_token_denominator": 0,
-        "token_inversion_rate": 0.0,
-        "token_preservation_rate": 0.0,
+        "evaluable_token_denominator": 12,
+        "token_inversion_rate": 0.5238095238095238,
+        "token_preservation_rate": 0.08333333333333333,
         "target_deletion_rate": 0.0,
-        "ambiguous_collapse_rate": 0.0,
-        "utterance_inversion_count": 0,
-        "utterance_denominator": 0,
-        "utterance_inversion_rate": 0.0
+        "ambiguous_collapse_rate": 0.42857142857142855,
+        "utterance_inversion_count": 10,
+        "utterance_denominator": 18,
+        "utterance_inversion_rate": 0.5555555555555556
       },
       "polarity_by_speaker": {
         "SPK-03": {
           "token_counts": {
-            "preserved": 0,
-            "inverted": 0,
+            "preserved": 1,
+            "inverted": 2,
             "deleted": 0,
-            "ambiguous": 0
+            "ambiguous": 4
           },
           "expected_token_denominator": 7,
-          "evaluable_token_denominator": 0,
-          "token_inversion_rate": 0.0,
-          "token_preservation_rate": 0.0,
+          "evaluable_token_denominator": 3,
+          "token_inversion_rate": 0.2857142857142857,
+          "token_preservation_rate": 0.3333333333333333,
           "target_deletion_rate": 0.0,
-          "ambiguous_collapse_rate": 0.0,
-          "utterance_inversion_count": 0,
-          "utterance_denominator": 0,
-          "utterance_inversion_rate": 0.0
+          "ambiguous_collapse_rate": 0.5714285714285714,
+          "utterance_inversion_count": 2,
+          "utterance_denominator": 6,
+          "utterance_inversion_rate": 0.3333333333333333
         },
         "SPK-04": {
           "token_counts": {
             "preserved": 0,
-            "inverted": 0,
+            "inverted": 5,
             "deleted": 0,
-            "ambiguous": 0
+            "ambiguous": 2
           },
           "expected_token_denominator": 7,
-          "evaluable_token_denominator": 0,
-          "token_inversion_rate": 0.0,
+          "evaluable_token_denominator": 5,
+          "token_inversion_rate": 0.7142857142857143,
           "token_preservation_rate": 0.0,
           "target_deletion_rate": 0.0,
-          "ambiguous_collapse_rate": 0.0,
-          "utterance_inversion_count": 0,
-          "utterance_denominator": 0,
-          "utterance_inversion_rate": 0.0
+          "ambiguous_collapse_rate": 0.2857142857142857,
+          "utterance_inversion_count": 4,
+          "utterance_denominator": 6,
+          "utterance_inversion_rate": 0.6666666666666666
         },
         "SPK-05": {
           "token_counts": {
             "preserved": 0,
-            "inverted": 0,
+            "inverted": 4,
             "deleted": 0,
-            "ambiguous": 0
+            "ambiguous": 3
           },
           "expected_token_denominator": 7,
-          "evaluable_token_denominator": 0,
-          "token_inversion_rate": 0.0,
+          "evaluable_token_denominator": 4,
+          "token_inversion_rate": 0.5714285714285714,
           "token_preservation_rate": 0.0,
           "target_deletion_rate": 0.0,
-          "ambiguous_collapse_rate": 0.0,
-          "utterance_inversion_count": 0,
-          "utterance_denominator": 0,
-          "utterance_inversion_rate": 0.0
+          "ambiguous_collapse_rate": 0.42857142857142855,
+          "utterance_inversion_count": 4,
+          "utterance_denominator": 6,
+          "utterance_inversion_rate": 0.6666666666666666
         }
       },
       "wer": {
         "all": {
-          "status": "not_available",
-          "corpus_wer": 0.0,
-          "total_edit_distance": 0,
-          "total_word_count": 0,
-          "total_insertions": 0,
-          "total_deletions": 0,
-          "total_substitutions": 0,
-          "num_clips": 0,
-          "per_clip": []
+          "status": "ok",
+          "raw_wer": 1.019465,
+          "corpus_wer": 1.116788,
+          "total_edit_distance": 459,
+          "total_word_count": 411,
+          "total_insertions": 219,
+          "total_deletions": 46,
+          "total_substitutions": 194,
+          "num_clips": 30,
+          "per_clip": [
+            {
+              "wer": 0.214286,
+              "insertions": 0,
+              "deletions": 0,
+              "substitutions": 3,
+              "edit_distance": 3,
+              "word_count": 14,
+              "hyp_normalized": "there is a big pothole for arlene avenue junction you done't spoil plenty tyre",
+              "ref_normalized": "there is a big pothole for allen avenue junction it done spoil plenty tyre",
+              "clip_id": "spk3_f_001"
+            },
+            {
+              "wer": 0.181818,
+              "insertions": 0,
+              "deletions": 0,
+              "substitutions": 2,
+              "edit_distance": 2,
+              "word_count": 11,
+              "hyp_normalized": "water done buzz for our streets since morning everywhere done flood",
+              "ref_normalized": "water done burst for our street since morning everywhere done flood",
+              "clip_id": "spk3_f_002"
+            },
+            {
+              "wer": 4.230769,
+              "insertions": 42,
+              "deletions": 0,
+              "substitutions": 13,
+              "edit_distance": 55,
+              "word_count": 13,
+              "hyp_normalized": "੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧",
+              "ref_normalized": "the streetlight for ojota junction not is work it done dark well well",
+              "clip_id": "spk3_f_003"
+            },
+            {
+              "wer": 0.153846,
+              "insertions": 0,
+              "deletions": 0,
+              "substitutions": 2,
+              "edit_distance": 2,
+              "word_count": 13,
+              "hyp_normalized": "my boss done't sack me without paying my three month salary and overtime",
+              "ref_normalized": "my boss done sack me without paying my three months salary and overtime",
+              "clip_id": "spk3_f_004"
+            },
+            {
+              "wer": 3.055556,
+              "insertions": 37,
+              "deletions": 0,
+              "substitutions": 18,
+              "edit_distance": 55,
+              "word_count": 18,
+              "hyp_normalized": "੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧",
+              "ref_normalized": "my husband done chase me and the children comot for house refuse to give us money for feeding",
+              "clip_id": "spk3_f_005"
+            },
+            {
+              "wer": 0.166667,
+              "insertions": 0,
+              "deletions": 0,
+              "substitutions": 2,
+              "edit_distance": 2,
+              "word_count": 12,
+              "hyp_normalized": "my landlord won evict me and refused to return my rent deposit",
+              "ref_normalized": "my landlord want evict me and refuse to return my rent deposit",
+              "clip_id": "spk3_f_006"
+            },
+            {
+              "wer": 1.0,
+              "insertions": 0,
+              "deletions": 14,
+              "substitutions": 1,
+              "edit_distance": 15,
+              "word_count": 15,
+              "hyp_normalized": "തതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതത",
+              "ref_normalized": "police officer arrested my brother for nothing them detain him for three days without charge",
+              "clip_id": "spk3_f_007"
+            },
+            {
+              "wer": 0.181818,
+              "insertions": 0,
+              "deletions": 0,
+              "substitutions": 2,
+              "edit_distance": 2,
+              "word_count": 11,
+              "hyp_normalized": "my landlord refused to fix the boss type in the flat",
+              "ref_normalized": "my landlord refused to fix the burst pipe in the flat",
+              "clip_id": "spk3_f_008"
+            },
+            {
+              "wer": 2.3125,
+              "insertions": 21,
+              "deletions": 0,
+              "substitutions": 16,
+              "edit_distance": 37,
+              "word_count": 16,
+              "hyp_normalized": "র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র",
+              "ref_normalized": "the community leader done collect money from everybody for borehole wey never complete since two years",
+              "clip_id": "spk3_f_009"
+            },
+            {
+              "wer": 0.142857,
+              "insertions": 1,
+              "deletions": 0,
+              "substitutions": 1,
+              "edit_distance": 2,
+              "word_count": 14,
+              "hyp_normalized": "i want report we tin happen yesterday but i not sure who go handle him",
+              "ref_normalized": "i want report what happen yesterday but i not sure who go handle him",
+              "clip_id": "spk3_f_010"
+            },
+            {
+              "wer": 0.285714,
+              "insertions": 0,
+              "deletions": 0,
+              "substitutions": 4,
+              "edit_distance": 4,
+              "word_count": 14,
+              "hyp_normalized": "there is a big photo for adrian avenue junction it done't spoil plenty tire",
+              "ref_normalized": "there is a big pothole for allen avenue junction it done spoil plenty tyre",
+              "clip_id": "spk4_m_001"
+            },
+            {
+              "wer": 0.545455,
+              "insertions": 0,
+              "deletions": 0,
+              "substitutions": 6,
+              "edit_distance": 6,
+              "word_count": 11,
+              "hyp_normalized": "potsah done't boast for a street since morning everywhere done't float",
+              "ref_normalized": "water done burst for our street since morning everywhere done flood",
+              "clip_id": "spk4_m_002"
+            },
+            {
+              "wer": 3.461538,
+              "insertions": 32,
+              "deletions": 0,
+              "substitutions": 13,
+              "edit_distance": 45,
+              "word_count": 13,
+              "hyp_normalized": "ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ",
+              "ref_normalized": "the streetlight for ojota junction not is work it done dark well well",
+              "clip_id": "spk4_m_003"
+            },
+            {
+              "wer": 0.307692,
+              "insertions": 0,
+              "deletions": 0,
+              "substitutions": 4,
+              "edit_distance": 4,
+              "word_count": 13,
+              "hyp_normalized": "my boss done't suck me without paying my 3 month salary and overtime",
+              "ref_normalized": "my boss done sack me without paying my three months salary and overtime",
+              "clip_id": "spk4_m_004"
+            },
+            {
+              "wer": 0.333333,
+              "insertions": 1,
+              "deletions": 0,
+              "substitutions": 5,
+              "edit_distance": 6,
+              "word_count": 18,
+              "hyp_normalized": "my husband done't chase me and the children come off our house if you give us money for feeding",
+              "ref_normalized": "my husband done chase me and the children comot for house refuse to give us money for feeding",
+              "clip_id": "spk4_m_005"
+            },
+            {
+              "wer": 3.083333,
+              "insertions": 25,
+              "deletions": 0,
+              "substitutions": 12,
+              "edit_distance": 37,
+              "word_count": 12,
+              "hyp_normalized": "ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ",
+              "ref_normalized": "my landlord want evict me and refuse to return my rent deposit",
+              "clip_id": "spk4_m_006"
+            },
+            {
+              "wer": 0.2,
+              "insertions": 0,
+              "deletions": 0,
+              "substitutions": 3,
+              "edit_distance": 3,
+              "word_count": 15,
+              "hyp_normalized": "police officer arrested my brother for nothing they detained him for 3 days without charge",
+              "ref_normalized": "police officer arrested my brother for nothing them detain him for three days without charge",
+              "clip_id": "spk4_m_007"
+            },
+            {
+              "wer": 0.090909,
+              "insertions": 0,
+              "deletions": 0,
+              "substitutions": 1,
+              "edit_distance": 1,
+              "word_count": 11,
+              "hyp_normalized": "my landlord refused to fix the bus pipe in the flat",
+              "ref_normalized": "my landlord refused to fix the burst pipe in the flat",
+              "clip_id": "spk4_m_008"
+            },
+            {
+              "wer": 2.3125,
+              "insertions": 21,
+              "deletions": 0,
+              "substitutions": 16,
+              "edit_distance": 37,
+              "word_count": 16,
+              "hyp_normalized": "র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র",
+              "ref_normalized": "the community leader done collect money from everybody for borehole wey never complete since two years",
+              "clip_id": "spk4_m_009"
+            },
+            {
+              "wer": 0.642857,
+              "insertions": 3,
+              "deletions": 0,
+              "substitutions": 6,
+              "edit_distance": 9,
+              "word_count": 14,
+              "hyp_normalized": "i won't report what happened yesterday but i'm not sure what will go on during the day",
+              "ref_normalized": "i want report what happen yesterday but i not sure who go handle him",
+              "clip_id": "spk4_m_010"
+            },
+            {
+              "wer": 0.571429,
+              "insertions": 1,
+              "deletions": 2,
+              "substitutions": 5,
+              "edit_distance": 8,
+              "word_count": 14,
+              "hyp_normalized": "there's a big plot hole in allen avenue junction done't spoil plenty tire",
+              "ref_normalized": "there is a big pothole for allen avenue junction it done spoil plenty tyre",
+              "clip_id": "spk5_m_001"
+            },
+            {
+              "wer": 1.0,
+              "insertions": 0,
+              "deletions": 8,
+              "substitutions": 3,
+              "edit_distance": 11,
+              "word_count": 11,
+              "hyp_normalized": "ਸ ਸ র",
+              "ref_normalized": "water done burst for our street since morning everywhere done flood",
+              "clip_id": "spk5_m_002"
+            },
+            {
+              "wer": 0.923077,
+              "insertions": 3,
+              "deletions": 0,
+              "substitutions": 9,
+              "edit_distance": 12,
+              "word_count": 13,
+              "hyp_normalized": "the street life for jota knew the funk knew the work he done't dark way way",
+              "ref_normalized": "the streetlight for ojota junction not is work it done dark well well",
+              "clip_id": "spk5_m_003"
+            },
+            {
+              "wer": 0.384615,
+              "insertions": 1,
+              "deletions": 0,
+              "substitutions": 4,
+              "edit_distance": 5,
+              "word_count": 13,
+              "hyp_normalized": "my boss done't sack me will i pay my three months salary an overtime",
+              "ref_normalized": "my boss done sack me without paying my three months salary and overtime",
+              "clip_id": "spk5_m_004"
+            },
+            {
+              "wer": 1.0,
+              "insertions": 0,
+              "deletions": 5,
+              "substitutions": 13,
+              "edit_distance": 18,
+              "word_count": 18,
+              "hyp_normalized": "mawezi kwa ndonchi ismi amachiri ya kongo wa 350 euros mwani kwa sidi",
+              "ref_normalized": "my husband done chase me and the children comot for house refuse to give us money for feeding",
+              "clip_id": "spk5_m_005"
+            },
+            {
+              "wer": 0.833333,
+              "insertions": 0,
+              "deletions": 4,
+              "substitutions": 6,
+              "edit_distance": 10,
+              "word_count": 12,
+              "hyp_normalized": "mano lodo an refute suri to barrage deposit",
+              "ref_normalized": "my landlord want evict me and refuse to return my rent deposit",
+              "clip_id": "spk5_m_006"
+            },
+            {
+              "wer": 3.0,
+              "insertions": 30,
+              "deletions": 0,
+              "substitutions": 15,
+              "edit_distance": 45,
+              "word_count": 15,
+              "hyp_normalized": "ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ",
+              "ref_normalized": "police officer arrested my brother for nothing them detain him for three days without charge",
+              "clip_id": "spk5_m_007"
+            },
+            {
+              "wer": 0.090909,
+              "insertions": 0,
+              "deletions": 0,
+              "substitutions": 1,
+              "edit_distance": 1,
+              "word_count": 11,
+              "hyp_normalized": "my landlord refused to fix the post pipe in the flat",
+              "ref_normalized": "my landlord refused to fix the burst pipe in the flat",
+              "clip_id": "spk5_m_008"
+            },
+            {
+              "wer": 0.5,
+              "insertions": 1,
+              "deletions": 0,
+              "substitutions": 7,
+              "edit_distance": 8,
+              "word_count": 16,
+              "hyp_normalized": "the community did not collect money from everybody for ball when he never completed his three years",
+              "ref_normalized": "the community leader done collect money from everybody for borehole wey never complete since two years",
+              "clip_id": "spk5_m_009"
+            },
+            {
+              "wer": 1.0,
+              "insertions": 0,
+              "deletions": 13,
+              "substitutions": 1,
+              "edit_distance": 14,
+              "word_count": 14,
+              "hyp_normalized": "ਹ",
+              "ref_normalized": "i want report what happen yesterday but i not sure who go handle him",
+              "clip_id": "spk5_m_010"
+            }
+          ]
         },
         "polarity_stress": {
-          "status": "not_available",
-          "corpus_wer": 0.0,
-          "total_edit_distance": 0,
-          "total_word_count": 0,
-          "total_insertions": 0,
-          "total_deletions": 0,
-          "total_substitutions": 0,
-          "num_clips": 0,
-          "per_clip": []
+          "status": "ok",
+          "raw_wer": 1.184314,
+          "corpus_wer": 1.247059,
+          "total_edit_distance": 318,
+          "total_word_count": 255,
+          "total_insertions": 160,
+          "total_deletions": 15,
+          "total_substitutions": 143,
+          "num_clips": 18,
+          "per_clip": [
+            {
+              "wer": 0.214286,
+              "insertions": 0,
+              "deletions": 0,
+              "substitutions": 3,
+              "edit_distance": 3,
+              "word_count": 14,
+              "hyp_normalized": "there is a big pothole for arlene avenue junction you done't spoil plenty tyre",
+              "ref_normalized": "there is a big pothole for allen avenue junction it done spoil plenty tyre",
+              "clip_id": "spk3_f_001"
+            },
+            {
+              "wer": 0.181818,
+              "insertions": 0,
+              "deletions": 0,
+              "substitutions": 2,
+              "edit_distance": 2,
+              "word_count": 11,
+              "hyp_normalized": "water done buzz for our streets since morning everywhere done flood",
+              "ref_normalized": "water done burst for our street since morning everywhere done flood",
+              "clip_id": "spk3_f_002"
+            },
+            {
+              "wer": 4.230769,
+              "insertions": 42,
+              "deletions": 0,
+              "substitutions": 13,
+              "edit_distance": 55,
+              "word_count": 13,
+              "hyp_normalized": "੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧",
+              "ref_normalized": "the streetlight for ojota junction not is work it done dark well well",
+              "clip_id": "spk3_f_003"
+            },
+            {
+              "wer": 0.153846,
+              "insertions": 0,
+              "deletions": 0,
+              "substitutions": 2,
+              "edit_distance": 2,
+              "word_count": 13,
+              "hyp_normalized": "my boss done't sack me without paying my three month salary and overtime",
+              "ref_normalized": "my boss done sack me without paying my three months salary and overtime",
+              "clip_id": "spk3_f_004"
+            },
+            {
+              "wer": 3.055556,
+              "insertions": 37,
+              "deletions": 0,
+              "substitutions": 18,
+              "edit_distance": 55,
+              "word_count": 18,
+              "hyp_normalized": "੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧",
+              "ref_normalized": "my husband done chase me and the children comot for house refuse to give us money for feeding",
+              "clip_id": "spk3_f_005"
+            },
+            {
+              "wer": 2.3125,
+              "insertions": 21,
+              "deletions": 0,
+              "substitutions": 16,
+              "edit_distance": 37,
+              "word_count": 16,
+              "hyp_normalized": "র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র",
+              "ref_normalized": "the community leader done collect money from everybody for borehole wey never complete since two years",
+              "clip_id": "spk3_f_009"
+            },
+            {
+              "wer": 0.285714,
+              "insertions": 0,
+              "deletions": 0,
+              "substitutions": 4,
+              "edit_distance": 4,
+              "word_count": 14,
+              "hyp_normalized": "there is a big photo for adrian avenue junction it done't spoil plenty tire",
+              "ref_normalized": "there is a big pothole for allen avenue junction it done spoil plenty tyre",
+              "clip_id": "spk4_m_001"
+            },
+            {
+              "wer": 0.545455,
+              "insertions": 0,
+              "deletions": 0,
+              "substitutions": 6,
+              "edit_distance": 6,
+              "word_count": 11,
+              "hyp_normalized": "potsah done't boast for a street since morning everywhere done't float",
+              "ref_normalized": "water done burst for our street since morning everywhere done flood",
+              "clip_id": "spk4_m_002"
+            },
+            {
+              "wer": 3.461538,
+              "insertions": 32,
+              "deletions": 0,
+              "substitutions": 13,
+              "edit_distance": 45,
+              "word_count": 13,
+              "hyp_normalized": "ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ",
+              "ref_normalized": "the streetlight for ojota junction not is work it done dark well well",
+              "clip_id": "spk4_m_003"
+            },
+            {
+              "wer": 0.307692,
+              "insertions": 0,
+              "deletions": 0,
+              "substitutions": 4,
+              "edit_distance": 4,
+              "word_count": 13,
+              "hyp_normalized": "my boss done't suck me without paying my 3 month salary and overtime",
+              "ref_normalized": "my boss done sack me without paying my three months salary and overtime",
+              "clip_id": "spk4_m_004"
+            },
+            {
+              "wer": 0.333333,
+              "insertions": 1,
+              "deletions": 0,
+              "substitutions": 5,
+              "edit_distance": 6,
+              "word_count": 18,
+              "hyp_normalized": "my husband done't chase me and the children come off our house if you give us money for feeding",
+              "ref_normalized": "my husband done chase me and the children comot for house refuse to give us money for feeding",
+              "clip_id": "spk4_m_005"
+            },
+            {
+              "wer": 2.3125,
+              "insertions": 21,
+              "deletions": 0,
+              "substitutions": 16,
+              "edit_distance": 37,
+              "word_count": 16,
+              "hyp_normalized": "র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র র",
+              "ref_normalized": "the community leader done collect money from everybody for borehole wey never complete since two years",
+              "clip_id": "spk4_m_009"
+            },
+            {
+              "wer": 0.571429,
+              "insertions": 1,
+              "deletions": 2,
+              "substitutions": 5,
+              "edit_distance": 8,
+              "word_count": 14,
+              "hyp_normalized": "there's a big plot hole in allen avenue junction done't spoil plenty tire",
+              "ref_normalized": "there is a big pothole for allen avenue junction it done spoil plenty tyre",
+              "clip_id": "spk5_m_001"
+            },
+            {
+              "wer": 1.0,
+              "insertions": 0,
+              "deletions": 8,
+              "substitutions": 3,
+              "edit_distance": 11,
+              "word_count": 11,
+              "hyp_normalized": "ਸ ਸ র",
+              "ref_normalized": "water done burst for our street since morning everywhere done flood",
+              "clip_id": "spk5_m_002"
+            },
+            {
+              "wer": 0.923077,
+              "insertions": 3,
+              "deletions": 0,
+              "substitutions": 9,
+              "edit_distance": 12,
+              "word_count": 13,
+              "hyp_normalized": "the street life for jota knew the funk knew the work he done't dark way way",
+              "ref_normalized": "the streetlight for ojota junction not is work it done dark well well",
+              "clip_id": "spk5_m_003"
+            },
+            {
+              "wer": 0.384615,
+              "insertions": 1,
+              "deletions": 0,
+              "substitutions": 4,
+              "edit_distance": 5,
+              "word_count": 13,
+              "hyp_normalized": "my boss done't sack me will i pay my three months salary an overtime",
+              "ref_normalized": "my boss done sack me without paying my three months salary and overtime",
+              "clip_id": "spk5_m_004"
+            },
+            {
+              "wer": 1.0,
+              "insertions": 0,
+              "deletions": 5,
+              "substitutions": 13,
+              "edit_distance": 18,
+              "word_count": 18,
+              "hyp_normalized": "mawezi kwa ndonchi ismi amachiri ya kongo wa 350 euros mwani kwa sidi",
+              "ref_normalized": "my husband done chase me and the children comot for house refuse to give us money for feeding",
+              "clip_id": "spk5_m_005"
+            },
+            {
+              "wer": 0.5,
+              "insertions": 1,
+              "deletions": 0,
+              "substitutions": 7,
+              "edit_distance": 8,
+              "word_count": 16,
+              "hyp_normalized": "the community did not collect money from everybody for ball when he never completed his three years",
+              "ref_normalized": "the community leader done collect money from everybody for borehole wey never complete since two years",
+              "clip_id": "spk5_m_009"
+            }
+          ]
         },
         "control": {
-          "status": "not_available",
-          "corpus_wer": 0.0,
-          "total_edit_distance": 0,
-          "total_word_count": 0,
-          "total_insertions": 0,
-          "total_deletions": 0,
-          "total_substitutions": 0,
-          "num_clips": 0,
-          "per_clip": []
+          "status": "ok",
+          "raw_wer": 0.75,
+          "corpus_wer": 0.903846,
+          "total_edit_distance": 141,
+          "total_word_count": 156,
+          "total_insertions": 59,
+          "total_deletions": 31,
+          "total_substitutions": 51,
+          "num_clips": 12,
+          "per_clip": [
+            {
+              "wer": 0.166667,
+              "insertions": 0,
+              "deletions": 0,
+              "substitutions": 2,
+              "edit_distance": 2,
+              "word_count": 12,
+              "hyp_normalized": "my landlord won evict me and refused to return my rent deposit",
+              "ref_normalized": "my landlord want evict me and refuse to return my rent deposit",
+              "clip_id": "spk3_f_006"
+            },
+            {
+              "wer": 1.0,
+              "insertions": 0,
+              "deletions": 14,
+              "substitutions": 1,
+              "edit_distance": 15,
+              "word_count": 15,
+              "hyp_normalized": "തതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതതത",
+              "ref_normalized": "police officer arrested my brother for nothing them detain him for three days without charge",
+              "clip_id": "spk3_f_007"
+            },
+            {
+              "wer": 0.181818,
+              "insertions": 0,
+              "deletions": 0,
+              "substitutions": 2,
+              "edit_distance": 2,
+              "word_count": 11,
+              "hyp_normalized": "my landlord refused to fix the boss type in the flat",
+              "ref_normalized": "my landlord refused to fix the burst pipe in the flat",
+              "clip_id": "spk3_f_008"
+            },
+            {
+              "wer": 0.142857,
+              "insertions": 1,
+              "deletions": 0,
+              "substitutions": 1,
+              "edit_distance": 2,
+              "word_count": 14,
+              "hyp_normalized": "i want report we tin happen yesterday but i not sure who go handle him",
+              "ref_normalized": "i want report what happen yesterday but i not sure who go handle him",
+              "clip_id": "spk3_f_010"
+            },
+            {
+              "wer": 3.083333,
+              "insertions": 25,
+              "deletions": 0,
+              "substitutions": 12,
+              "edit_distance": 37,
+              "word_count": 12,
+              "hyp_normalized": "ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ",
+              "ref_normalized": "my landlord want evict me and refuse to return my rent deposit",
+              "clip_id": "spk4_m_006"
+            },
+            {
+              "wer": 0.2,
+              "insertions": 0,
+              "deletions": 0,
+              "substitutions": 3,
+              "edit_distance": 3,
+              "word_count": 15,
+              "hyp_normalized": "police officer arrested my brother for nothing they detained him for 3 days without charge",
+              "ref_normalized": "police officer arrested my brother for nothing them detain him for three days without charge",
+              "clip_id": "spk4_m_007"
+            },
+            {
+              "wer": 0.090909,
+              "insertions": 0,
+              "deletions": 0,
+              "substitutions": 1,
+              "edit_distance": 1,
+              "word_count": 11,
+              "hyp_normalized": "my landlord refused to fix the bus pipe in the flat",
+              "ref_normalized": "my landlord refused to fix the burst pipe in the flat",
+              "clip_id": "spk4_m_008"
+            },
+            {
+              "wer": 0.642857,
+              "insertions": 3,
+              "deletions": 0,
+              "substitutions": 6,
+              "edit_distance": 9,
+              "word_count": 14,
+              "hyp_normalized": "i won't report what happened yesterday but i'm not sure what will go on during the day",
+              "ref_normalized": "i want report what happen yesterday but i not sure who go handle him",
+              "clip_id": "spk4_m_010"
+            },
+            {
+              "wer": 0.833333,
+              "insertions": 0,
+              "deletions": 4,
+              "substitutions": 6,
+              "edit_distance": 10,
+              "word_count": 12,
+              "hyp_normalized": "mano lodo an refute suri to barrage deposit",
+              "ref_normalized": "my landlord want evict me and refuse to return my rent deposit",
+              "clip_id": "spk5_m_006"
+            },
+            {
+              "wer": 3.0,
+              "insertions": 30,
+              "deletions": 0,
+              "substitutions": 15,
+              "edit_distance": 45,
+              "word_count": 15,
+              "hyp_normalized": "ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ ਸ",
+              "ref_normalized": "police officer arrested my brother for nothing them detain him for three days without charge",
+              "clip_id": "spk5_m_007"
+            },
+            {
+              "wer": 0.090909,
+              "insertions": 0,
+              "deletions": 0,
+              "substitutions": 1,
+              "edit_distance": 1,
+              "word_count": 11,
+              "hyp_normalized": "my landlord refused to fix the post pipe in the flat",
+              "ref_normalized": "my landlord refused to fix the burst pipe in the flat",
+              "clip_id": "spk5_m_008"
+            },
+            {
+              "wer": 1.0,
+              "insertions": 0,
+              "deletions": 13,
+              "substitutions": 1,
+              "edit_distance": 14,
+              "word_count": 14,
+              "hyp_normalized": "ਹ",
+              "ref_normalized": "i want report what happen yesterday but i not sure who go handle him",
+              "clip_id": "spk5_m_010"
+            }
+          ]
         }
       },
       "target_audit": [
         {
-          "outcome": null,
-          "evidence_span": "",
-          "reason": "runner not invoked for this clip",
-          "reference_target_phrase": "don target",
-          "automatic": false,
+          "outcome": "inverted",
+          "evidence_span": "there is a big pothole for arlene avenue junction you don't spoil plenty tyre",
+          "reason": "don spoil inverted to negative",
+          "reference_target_phrase": "There is a big pothole for Allen Avenue junction, e don spoil plenty tyre.",
+          "automatic": true,
           "clip_id": "spk3_f_001",
           "speaker_id": "SPK-03",
           "model": "whisper",
           "target_index": 1,
-          "raw_transcript": "",
-          "normalized_transcript": "",
-          "adjudicated_outcome": null,
-          "adjudication_note": "unadjudicated: no transcript"
+          "raw_transcript": "There is a big pothole for Arlene Avenue Junction. You don't spoil plenty tyre.",
+          "normalized_transcript": "there is a big pothole for arlene avenue junction you don't spoil plenty tyre",
+          "adjudicated_outcome": "inverted",
+          "adjudication_note": "adjudicated: don spoil inverted to negative"
         },
         {
-          "outcome": null,
-          "evidence_span": "",
-          "reason": "runner not invoked for this clip",
-          "reference_target_phrase": "don target 1",
-          "automatic": false,
+          "outcome": "ambiguous",
+          "evidence_span": "water done buzz for our streets since morning everywhere done flood",
+          "reason": "burst clause corrupted/unaligned",
+          "reference_target_phrase": "Water don burst for our street since morning, everywhere don flood.",
+          "automatic": true,
           "clip_id": "spk3_f_002",
           "speaker_id": "SPK-03",
           "model": "whisper",
           "target_index": 1,
-          "raw_transcript": "",
-          "normalized_transcript": "",
-          "adjudicated_outcome": null,
-          "adjudication_note": "unadjudicated: no transcript"
+          "raw_transcript": "Water done buzz for our streets since morning, everywhere done flood.",
+          "normalized_transcript": "water done buzz for our streets since morning everywhere done flood",
+          "adjudicated_outcome": "ambiguous",
+          "adjudication_note": "adjudicated: burst clause corrupted/unaligned"
         },
         {
-          "outcome": null,
-          "evidence_span": "",
-          "reason": "runner not invoked for this clip",
-          "reference_target_phrase": "don target 2",
-          "automatic": false,
+          "outcome": "preserved",
+          "evidence_span": "water done buzz for our streets since morning everywhere done flood",
+          "reason": "everywhere don flood preserved",
+          "reference_target_phrase": "Water don burst for our street since morning, everywhere don flood.",
+          "automatic": true,
           "clip_id": "spk3_f_002",
           "speaker_id": "SPK-03",
           "model": "whisper",
           "target_index": 2,
-          "raw_transcript": "",
-          "normalized_transcript": "",
-          "adjudicated_outcome": null,
-          "adjudication_note": "unadjudicated: no transcript"
+          "raw_transcript": "Water done buzz for our streets since morning, everywhere done flood.",
+          "normalized_transcript": "water done buzz for our streets since morning everywhere done flood",
+          "adjudicated_outcome": "preserved",
+          "adjudication_note": "adjudicated: everywhere don flood preserved"
         },
         {
-          "outcome": null,
-          "evidence_span": "",
-          "reason": "runner not invoked for this clip",
-          "reference_target_phrase": "don target",
-          "automatic": false,
+          "outcome": "ambiguous",
+          "evidence_span": "੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ �",
+          "reason": "non-Latin script hallucination",
+          "reference_target_phrase": "The streetlight for Ojota junction no dey work, e don dark well well.",
+          "automatic": true,
           "clip_id": "spk3_f_003",
           "speaker_id": "SPK-03",
           "model": "whisper",
           "target_index": 1,
-          "raw_transcript": "",
+          "raw_transcript": "੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ �",
           "normalized_transcript": "",
-          "adjudicated_outcome": null,
-          "adjudication_note": "unadjudicated: no transcript"
+          "adjudicated_outcome": "ambiguous",
+          "adjudication_note": "adjudicated: non-Latin script hallucination"
         },
         {
-          "outcome": null,
-          "evidence_span": "",
-          "reason": "runner not invoked for this clip",
-          "reference_target_phrase": "don target",
-          "automatic": false,
+          "outcome": "inverted",
+          "evidence_span": "my boss don't sack me without paying my three month salary and overtime",
+          "reason": "don sack inverted to negative",
+          "reference_target_phrase": "My boss don sack me without paying my three months salary and overtime.",
+          "automatic": true,
           "clip_id": "spk3_f_004",
           "speaker_id": "SPK-03",
           "model": "whisper",
           "target_index": 1,
-          "raw_transcript": "",
-          "normalized_transcript": "",
-          "adjudicated_outcome": null,
-          "adjudication_note": "unadjudicated: no transcript"
+          "raw_transcript": "My boss don't sack me without paying my three-month salary and overtime.",
+          "normalized_transcript": "my boss don't sack me without paying my three month salary and overtime",
+          "adjudicated_outcome": "inverted",
+          "adjudication_note": "adjudicated: don sack inverted to negative"
         },
         {
-          "outcome": null,
-          "evidence_span": "",
-          "reason": "runner not invoked for this clip",
-          "reference_target_phrase": "don target",
-          "automatic": false,
+          "outcome": "ambiguous",
+          "evidence_span": "੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ �",
+          "reason": "non-Latin script hallucination",
+          "reference_target_phrase": "My husband don chase me and the children comot for house, refuse to give us money for feeding.",
+          "automatic": true,
           "clip_id": "spk3_f_005",
           "speaker_id": "SPK-03",
           "model": "whisper",
           "target_index": 1,
-          "raw_transcript": "",
+          "raw_transcript": "੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ ੧ �",
           "normalized_transcript": "",
-          "adjudicated_outcome": null,
-          "adjudication_note": "unadjudicated: no transcript"
+          "adjudicated_outcome": "ambiguous",
+          "adjudication_note": "adjudicated: non-Latin script hallucination"
         },
         {
-          "outcome": null,
-          "evidence_span": "",
-          "reason": "runner not invoked for this clip",
-          "reference_target_phrase": "don target",
-          "automatic": false,
+          "outcome": "ambiguous",
+          "evidence_span": "রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে",
+          "reason": "non-Latin script hallucination",
+          "reference_target_phrase": "The community leader don collect money from everybody for borehole wey never complete since two years.",
+          "automatic": true,
           "clip_id": "spk3_f_009",
           "speaker_id": "SPK-03",
           "model": "whisper",
           "target_index": 1,
-          "raw_transcript": "",
+          "raw_transcript": "রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে",
           "normalized_transcript": "",
-          "adjudicated_outcome": null,
-          "adjudication_note": "unadjudicated: no transcript"
+          "adjudicated_outcome": "ambiguous",
+          "adjudication_note": "adjudicated: non-Latin script hallucination"
         },
         {
-          "outcome": null,
-          "evidence_span": "",
-          "reason": "runner not invoked for this clip",
-          "reference_target_phrase": "don target",
-          "automatic": false,
+          "outcome": "inverted",
+          "evidence_span": "there is a big photo for adrian avenue junction it don't spoil plenty tire",
+          "reason": "don spoil inverted to negative",
+          "reference_target_phrase": "There is a big pothole for Allen Avenue junction, e don spoil plenty tyre.",
+          "automatic": true,
           "clip_id": "spk4_m_001",
           "speaker_id": "SPK-04",
           "model": "whisper",
           "target_index": 1,
-          "raw_transcript": "",
-          "normalized_transcript": "",
-          "adjudicated_outcome": null,
-          "adjudication_note": "unadjudicated: no transcript"
+          "raw_transcript": "There is a big photo for Adrian Avenue Junction. It don't spoil plenty tire.",
+          "normalized_transcript": "there is a big photo for adrian avenue junction it don't spoil plenty tire",
+          "adjudicated_outcome": "inverted",
+          "adjudication_note": "adjudicated: don spoil inverted to negative"
         },
         {
-          "outcome": null,
-          "evidence_span": "",
-          "reason": "runner not invoked for this clip",
-          "reference_target_phrase": "don target 1",
-          "automatic": false,
+          "outcome": "inverted",
+          "evidence_span": "potsah don't boast for a street since morning everywhere don't float",
+          "reason": "water don burst inverted to negative",
+          "reference_target_phrase": "Water don burst for our street since morning, everywhere don flood.",
+          "automatic": true,
           "clip_id": "spk4_m_002",
           "speaker_id": "SPK-04",
           "model": "whisper",
           "target_index": 1,
-          "raw_transcript": "",
-          "normalized_transcript": "",
-          "adjudicated_outcome": null,
-          "adjudication_note": "unadjudicated: no transcript"
+          "raw_transcript": "Potsah don't boast for a street since morning. Everywhere don't float.",
+          "normalized_transcript": "potsah don't boast for a street since morning everywhere don't float",
+          "adjudicated_outcome": "inverted",
+          "adjudication_note": "adjudicated: water don burst inverted to negative"
         },
         {
-          "outcome": null,
-          "evidence_span": "",
-          "reason": "runner not invoked for this clip",
-          "reference_target_phrase": "don target 2",
-          "automatic": false,
+          "outcome": "inverted",
+          "evidence_span": "potsah don't boast for a street since morning everywhere don't float",
+          "reason": "everywhere don flood inverted to negative",
+          "reference_target_phrase": "Water don burst for our street since morning, everywhere don flood.",
+          "automatic": true,
           "clip_id": "spk4_m_002",
           "speaker_id": "SPK-04",
           "model": "whisper",
           "target_index": 2,
-          "raw_transcript": "",
-          "normalized_transcript": "",
-          "adjudicated_outcome": null,
-          "adjudication_note": "unadjudicated: no transcript"
+          "raw_transcript": "Potsah don't boast for a street since morning. Everywhere don't float.",
+          "normalized_transcript": "potsah don't boast for a street since morning everywhere don't float",
+          "adjudicated_outcome": "inverted",
+          "adjudication_note": "adjudicated: everywhere don flood inverted to negative"
         },
         {
-          "outcome": null,
-          "evidence_span": "",
-          "reason": "runner not invoked for this clip",
-          "reference_target_phrase": "don target",
-          "automatic": false,
+          "outcome": "ambiguous",
+          "evidence_span": "ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ",
+          "reason": "non-Latin script hallucination",
+          "reference_target_phrase": "The streetlight for Ojota junction no dey work, e don dark well well.",
+          "automatic": true,
           "clip_id": "spk4_m_003",
           "speaker_id": "SPK-04",
           "model": "whisper",
           "target_index": 1,
-          "raw_transcript": "",
+          "raw_transcript": "ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ੍ਸ",
           "normalized_transcript": "",
-          "adjudicated_outcome": null,
-          "adjudication_note": "unadjudicated: no transcript"
+          "adjudicated_outcome": "ambiguous",
+          "adjudication_note": "adjudicated: non-Latin script hallucination"
         },
         {
-          "outcome": null,
-          "evidence_span": "",
-          "reason": "runner not invoked for this clip",
-          "reference_target_phrase": "don target",
-          "automatic": false,
+          "outcome": "inverted",
+          "evidence_span": "my boss don't suck me without paying my 3 month salary and overtime",
+          "reason": "don sack inverted to negative",
+          "reference_target_phrase": "My boss don sack me without paying my three months salary and overtime.",
+          "automatic": true,
           "clip_id": "spk4_m_004",
           "speaker_id": "SPK-04",
           "model": "whisper",
           "target_index": 1,
-          "raw_transcript": "",
-          "normalized_transcript": "",
-          "adjudicated_outcome": null,
-          "adjudication_note": "unadjudicated: no transcript"
+          "raw_transcript": "My boss don't suck me without paying my 3 month salary and overtime",
+          "normalized_transcript": "my boss don't suck me without paying my 3 month salary and overtime",
+          "adjudicated_outcome": "inverted",
+          "adjudication_note": "adjudicated: don sack inverted to negative"
         },
         {
-          "outcome": null,
-          "evidence_span": "",
-          "reason": "runner not invoked for this clip",
-          "reference_target_phrase": "don target",
-          "automatic": false,
+          "outcome": "inverted",
+          "evidence_span": "my husband don't chase me and the children come off our house if you give us money for feeding",
+          "reason": "don chase inverted to negative",
+          "reference_target_phrase": "My husband don chase me and the children comot for house, refuse to give us money for feeding.",
+          "automatic": true,
           "clip_id": "spk4_m_005",
           "speaker_id": "SPK-04",
           "model": "whisper",
           "target_index": 1,
-          "raw_transcript": "",
-          "normalized_transcript": "",
-          "adjudicated_outcome": null,
-          "adjudication_note": "unadjudicated: no transcript"
+          "raw_transcript": "My husband don't chase me and the children come off our house. If you give us money for feeding.",
+          "normalized_transcript": "my husband don't chase me and the children come off our house if you give us money for feeding",
+          "adjudicated_outcome": "inverted",
+          "adjudication_note": "adjudicated: don chase inverted to negative"
         },
         {
-          "outcome": null,
-          "evidence_span": "",
-          "reason": "runner not invoked for this clip",
-          "reference_target_phrase": "don target",
-          "automatic": false,
+          "outcome": "ambiguous",
+          "evidence_span": "রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে",
+          "reason": "non-Latin script hallucination",
+          "reference_target_phrase": "The community leader don collect money from everybody for borehole wey never complete since two years.",
+          "automatic": true,
           "clip_id": "spk4_m_009",
           "speaker_id": "SPK-04",
           "model": "whisper",
           "target_index": 1,
-          "raw_transcript": "",
+          "raw_transcript": "রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে রে",
           "normalized_transcript": "",
-          "adjudicated_outcome": null,
-          "adjudication_note": "unadjudicated: no transcript"
+          "adjudicated_outcome": "ambiguous",
+          "adjudication_note": "adjudicated: non-Latin script hallucination"
         },
         {
-          "outcome": null,
-          "evidence_span": "",
-          "reason": "runner not invoked for this clip",
-          "reference_target_phrase": "don target",
-          "automatic": false,
+          "outcome": "inverted",
+          "evidence_span": "there's a big plot hole in allen avenue junction don't spoil plenty tire",
+          "reason": "don spoil inverted to negative",
+          "reference_target_phrase": "There is a big pothole for Allen Avenue junction, e don spoil plenty tyre.",
+          "automatic": true,
           "clip_id": "spk5_m_001",
           "speaker_id": "SPK-05",
           "model": "whisper",
           "target_index": 1,
-          "raw_transcript": "",
-          "normalized_transcript": "",
-          "adjudicated_outcome": null,
-          "adjudication_note": "unadjudicated: no transcript"
+          "raw_transcript": "There's a big plot hole in Allen Avenue Junction. Don't spoil plenty tire.",
+          "normalized_transcript": "there's a big plot hole in allen avenue junction don't spoil plenty tire",
+          "adjudicated_outcome": "inverted",
+          "adjudication_note": "adjudicated: don spoil inverted to negative"
         },
         {
-          "outcome": null,
-          "evidence_span": "",
-          "reason": "runner not invoked for this clip",
-          "reference_target_phrase": "don target 1",
-          "automatic": false,
+          "outcome": "ambiguous",
+          "evidence_span": "ਸੋਸੇরੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱ",
+          "reason": "non-Latin script hallucination",
+          "reference_target_phrase": "Water don burst for our street since morning, everywhere don flood.",
+          "automatic": true,
           "clip_id": "spk5_m_002",
           "speaker_id": "SPK-05",
           "model": "whisper",
           "target_index": 1,
-          "raw_transcript": "",
+          "raw_transcript": "ਸੋਸੇরੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱ",
           "normalized_transcript": "",
-          "adjudicated_outcome": null,
-          "adjudication_note": "unadjudicated: no transcript"
+          "adjudicated_outcome": "ambiguous",
+          "adjudication_note": "adjudicated: non-Latin script hallucination"
         },
         {
-          "outcome": null,
-          "evidence_span": "",
-          "reason": "runner not invoked for this clip",
-          "reference_target_phrase": "don target 2",
-          "automatic": false,
+          "outcome": "ambiguous",
+          "evidence_span": "ਸੋਸੇরੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱ",
+          "reason": "non-Latin script hallucination",
+          "reference_target_phrase": "Water don burst for our street since morning, everywhere don flood.",
+          "automatic": true,
           "clip_id": "spk5_m_002",
           "speaker_id": "SPK-05",
           "model": "whisper",
           "target_index": 2,
-          "raw_transcript": "",
+          "raw_transcript": "ਸੋਸੇরੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱੇੱ",
           "normalized_transcript": "",
-          "adjudicated_outcome": null,
-          "adjudication_note": "unadjudicated: no transcript"
+          "adjudicated_outcome": "ambiguous",
+          "adjudication_note": "adjudicated: non-Latin script hallucination"
         },
         {
-          "outcome": null,
-          "evidence_span": "",
-          "reason": "runner not invoked for this clip",
-          "reference_target_phrase": "don target",
-          "automatic": false,
+          "outcome": "inverted",
+          "evidence_span": "the street life for jota knew the funk knew the work he don't dark way way",
+          "reason": "don dark inverted to negative",
+          "reference_target_phrase": "The streetlight for Ojota junction no dey work, e don dark well well.",
+          "automatic": true,
           "clip_id": "spk5_m_003",
           "speaker_id": "SPK-05",
           "model": "whisper",
           "target_index": 1,
-          "raw_transcript": "",
-          "normalized_transcript": "",
-          "adjudicated_outcome": null,
-          "adjudication_note": "unadjudicated: no transcript"
+          "raw_transcript": "The street life for Jota knew the funk, knew the work. He don't dark way way.",
+          "normalized_transcript": "the street life for jota knew the funk knew the work he don't dark way way",
+          "adjudicated_outcome": "inverted",
+          "adjudication_note": "adjudicated: don dark inverted to negative"
         },
         {
-          "outcome": null,
-          "evidence_span": "",
-          "reason": "runner not invoked for this clip",
-          "reference_target_phrase": "don target",
-          "automatic": false,
+          "outcome": "inverted",
+          "evidence_span": "my boss don't sack me will i pay my three months salary an overtime",
+          "reason": "don sack inverted to negative",
+          "reference_target_phrase": "My boss don sack me without paying my three months salary and overtime.",
+          "automatic": true,
           "clip_id": "spk5_m_004",
           "speaker_id": "SPK-05",
           "model": "whisper",
           "target_index": 1,
-          "raw_transcript": "",
-          "normalized_transcript": "",
-          "adjudicated_outcome": null,
-          "adjudication_note": "unadjudicated: no transcript"
+          "raw_transcript": "My boss don't sack me, will I pay my three months salary an overtime?",
+          "normalized_transcript": "my boss don't sack me will i pay my three months salary an overtime",
+          "adjudicated_outcome": "inverted",
+          "adjudication_note": "adjudicated: don sack inverted to negative"
         },
         {
-          "outcome": null,
-          "evidence_span": "",
-          "reason": "runner not invoked for this clip",
-          "reference_target_phrase": "don target",
-          "automatic": false,
+          "outcome": "ambiguous",
+          "evidence_span": "mawezi kwa ndonchi ismi amachiri ya kongo wa 350 euros mwani kwa sidi",
+          "reason": "cross-language hallucination or phonetic collapse",
+          "reference_target_phrase": "My husband don chase me and the children comot for house, refuse to give us money for feeding.",
+          "automatic": true,
           "clip_id": "spk5_m_005",
           "speaker_id": "SPK-05",
           "model": "whisper",
           "target_index": 1,
-          "raw_transcript": "",
-          "normalized_transcript": "",
-          "adjudicated_outcome": null,
-          "adjudication_note": "unadjudicated: no transcript"
+          "raw_transcript": "Mawezi kwa ndonchi, ismi amachiri ya kongo wa 350 euros mwani kwa sidi.",
+          "normalized_transcript": "mawezi kwa ndonchi ismi amachiri ya kongo wa 350 euros mwani kwa sidi",
+          "adjudicated_outcome": "ambiguous",
+          "adjudication_note": "adjudicated: cross-language hallucination or phonetic collapse"
         },
         {
-          "outcome": null,
-          "evidence_span": "",
-          "reason": "runner not invoked for this clip",
-          "reference_target_phrase": "don target",
-          "automatic": false,
+          "outcome": "inverted",
+          "evidence_span": "the community did not collect money from everybody for ball when he never completed his three years",
+          "reason": "don collect inverted to negative",
+          "reference_target_phrase": "The community leader don collect money from everybody for borehole wey never complete since two years.",
+          "automatic": true,
           "clip_id": "spk5_m_009",
           "speaker_id": "SPK-05",
           "model": "whisper",
           "target_index": 1,
-          "raw_transcript": "",
-          "normalized_transcript": "",
-          "adjudicated_outcome": null,
-          "adjudication_note": "unadjudicated: no transcript"
+          "raw_transcript": "The community did not collect money from everybody for ball when he never completed his three years.",
+          "normalized_transcript": "the community did not collect money from everybody for ball when he never completed his three years",
+          "adjudicated_outcome": "inverted",
+          "adjudication_note": "adjudicated: don collect inverted to negative"
         }
       ]
     }

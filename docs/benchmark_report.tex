@@ -1,6 +1,6 @@
 \documentclass[9pt,a4paper]{extarticle}
 
-\usepackage[margin=1.2cm,top=1.05cm,bottom=1.05cm]{geometry}
+\usepackage[margin=0.92cm,top=0.75cm,bottom=0.75cm]{geometry}
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
 \usepackage{multirow}
@@ -25,17 +25,20 @@
 \definecolor{boxbg}{HTML}{F8FAFC}
 \definecolor{boxborder}{HTML}{CBD5E1}
 
-\captionsetup{font=small,labelfont=bf,skip=2pt}
+\captionsetup{font=scriptsize,labelfont=bf,skip=1.2pt}
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{1.5pt}
-\setlength{\tabcolsep}{3.6pt}
-\renewcommand{\arraystretch}{1.0}
+\setlength{\parskip}{1.0pt}
+\setlength{\tabcolsep}{3.2pt}
+\setlength{\intextsep}{1.5pt}
+\setlength{\textfloatsep}{1.5pt}
+\setlength{\floatsep}{1.5pt}
+\renewcommand{\arraystretch}{0.96}
 
 % Compact Section Formatting
-\titleformat{\section}{\color{navy}\bfseries\fontsize{9.4}{11.2}\selectfont}{\thesection.}{0.3em}{}
-\titlespacing*{\section}{0pt}{2.5pt}{1pt}
-\titleformat{\subsection}{\color{navy}\bfseries\fontsize{8.5}{10.2}\selectfont}{\thesubsection}{0.3em}{}
-\titlespacing*{\subsection}{0pt}{2pt}{0.8pt}
+\titleformat{\section}{\color{navy}\bfseries\fontsize{9.0}{10.5}\selectfont}{\thesection.}{0.25em}{}
+\titlespacing*{\section}{0pt}{1.8pt}{0.6pt}
+\titleformat{\subsection}{\color{navy}\bfseries\fontsize{8.0}{9.5}\selectfont}{\thesubsection}{0.25em}{}
+\titlespacing*{\subsection}{0pt}{1.5pt}{0.5pt}
 
 \hypersetup{
   colorlinks=true,
@@ -48,18 +51,18 @@
 \newtcolorbox{transcriptbox}[1]{
   colback=boxbg,
   colframe=boxborder,
-  arc=1.5pt,
-  boxrule=0.4pt,
-  left=3.5pt,
-  right=3.5pt,
-  top=1.2pt,
-  bottom=1.2pt,
-  title={\textbf{\textcolor{navy}{\fontsize{7.2}{8.5}\selectfont #1}}},
+  arc=1.2pt,
+  boxrule=0.35pt,
+  left=3.0pt,
+  right=3.0pt,
+  top=1.0pt,
+  bottom=1.0pt,
+  title={\textbf{\textcolor{navy}{\fontsize{7.0}{8.2}\selectfont #1}}},
   coltitle=navy,
   colbacktitle=boxbg,
-  titlerule=0.25pt,
-  toptitle=0.8pt,
-  bottomtitle=0.8pt
+  titlerule=0.2pt,
+  toptitle=0.6pt,
+  bottomtitle=0.6pt
 }
 
 \begin{document}
@@ -68,18 +71,18 @@
 % PAGE 1: Title, Executive Summary, Models/Data Architecture, Tier A Results
 % ===========================================================================
 \begin{center}
-  {\color{navy}\Large\textbf{SautiCivic Bridge: A Safety-Critical Speech Benchmark for Code-Switched Nigerian Civic Grievance Intake}}\\[1.5pt]
-  {\color{slate}\small\textbf{Sahara CodeSwitch Africa Challenge 2026 --- Legal \& Public Services Track \quad$|$\quad Technical Benchmark Report v20 Addendum}}\\[1.2pt]
+  {\color{navy}\Large\textbf{SautiCivic Bridge: A Safety-Critical Speech Benchmark for Code-Switched Nigerian Civic Grievance Intake}}\\[1.2pt]
+  {\color{slate}\small\textbf{Sahara CodeSwitch Africa Challenge 2026 --- Legal \& Public Services Track \quad$|$\quad Technical Benchmark Report v20 Addendum}}\\[1.0pt]
   {\footnotesize\textbf{SautiCivic Research Group} \quad$\cdot$\quad v19 frozen; MSV additive \quad$\cdot$\quad September 2026}
 \end{center}
 \vspace{-6pt}
-\hrule height 0.6pt
-\vspace{2.5pt}
+\hrule height 0.5pt
+\vspace{2.0pt}
 
 \section{Executive Summary \& Sociolinguistic Formulation}
-Automated voice intake pipelines for municipal public works and frontline legal aid clinics in West Africa confront a severe structural hurdle: citizens naturally report grievances through code-switching between Nigerian Pidgin (Naija, an English-lexified Creole) and standard English, rather than monolingual standardized registers. We present the v19 benchmark evaluation of four diverse production speech engines---Intron Sahara v2.5, Google Gemini 3.5 Transcribe, Deepgram Nova-3, and OpenAI Whisper large-v3---across 30 primary recorded Nigerian Pidgin/English civic complaints (Tier A) and 60 out-of-domain public African speech clips (Tier B).
+Automated voice intake pipelines for municipal public works and frontline legal aid clinics in West Africa confront a severe structural hurdle: citizens naturally report grievances through code-switching between Nigerian Pidgin (Naija, an English-lexified Creole) and standard English, rather than monolingual standardized registers. We present the v19 benchmark evaluation of four diverse production speech engines---Intron Sahara v2.5, Google Gemini 3.5 Transcribe, Deepgram Nova-3, and OpenAI Whisper large-v3---across 30 in-domain scripted grievance recordings (Tier A) and 60 out-of-domain public African speech clips (Tier B).
 
-Our central empirical discovery is that standard Word Error Rate (WER) exhibits a catastrophic blind spot in safety-critical governance: it entirely masks \textbf{aspectual polarity inversion}. Commercial global models systematically transcribe the Nigerian Pidgin completive aspect marker \textit{don} (glossed \textsc{perf}, denoting completed reality) as the standard English negative contraction \textit{don't}, reversing affirmative citizen grievances into explicit denials in 16.7\% to 40.0\% of authentic complaints. \textbf{Sahara v2.5 is the only evaluated system to achieve a 0.0\% inversion rate (0/30)}, demonstrating strict fidelity to creole grammar. Integrated into the end-to-end SautiCivic intake architecture, our deterministic two-tier risk gate achieves \textbf{0.0\% artifact corruption} and \textbf{100.0\% adversarial harm-avoidance (10/10)}, safely intercepting compound legal-criminal traps where unconstrained routing would dispatch utility personnel into active violence or destroy civil rights evidence.
+Our central empirical discovery is that standard Word Error Rate (WER) exhibits a catastrophic blind spot in safety-critical governance: it entirely masks \textbf{aspectual polarity inversion}. General-purpose commercial and open-source baselines systematically transcribe the Nigerian Pidgin completive aspect marker \textit{don} (glossed \textsc{perf}, denoting completed reality) as the standard English negative contraction \textit{don't}, reversing affirmative citizen grievances into explicit denials in 16.7\% to 40.0\% of scripted complaints. \textbf{Sahara v2.5 is the only evaluated system to achieve a 0.0\% inversion rate (0/30)}, showing no observed polarity inversions across the 30 Tier A recordings. Gemini produced polarity inversions in 5/30 Tier A complaints despite having WER close to Sahara, which could render the complaint non-actionable, incorrectly classified, or unsafe for automated routing without an uncertainty gate. Integrated into the end-to-end SautiCivic intake architecture, our deterministic two-tier risk gate achieves a \textbf{0.0\% unsafe-action escape rate} (0/30: 17 valid emitted artifacts, 13 conservative abstentions including three false abstentions) and \textbf{100.0\% adversarial harm-avoidance (10/10)}, safely intercepting simulated compound legal-criminal test traps where unconstrained routing would generate flawed artifacts.
 
 \section{Models Evaluated \& Benchmark Corpus Architecture}
 To contrast localized acoustic-lexical specialization against foundation-scale models, four production backends were evaluated on identical acoustic inputs across two testing tiers (Table~\ref{tab:models}).
@@ -88,7 +91,7 @@ To contrast localized acoustic-lexical specialization against foundation-scale m
 \centering
 \caption{Evaluated ASR architectures and benchmark corpus distribution.}
 \label{tab:models}
-\fontsize{7.5}{9}\selectfont
+\fontsize{7.2}{8.5}\selectfont
 \begin{tabularx}{\linewidth}{l X c c l}
 \toprule
 \textbf{Model} & \textbf{Architectural Archetype} & \textbf{Tier A} & \textbf{Tier B} & \textbf{Optimization \& Linguistic Priors} \\
@@ -100,19 +103,20 @@ To contrast localized acoustic-lexical specialization against foundation-scale m
 \bottomrule
 \end{tabularx}
 \end{table}
-\vspace{-5pt}
+\vspace{-4pt}
 
-\textbf{Tier A Primary In-Domain Corpus:} 30 authentic audio recordings (16\,kHz, 16-bit mono WAV) produced under documented informed consent (\texttt{DATA\_CONSENT\_LOG.md}) by two native speakers spanning distinct substrates: SPK-01 (Lagos Yoruba-Pidgin) and SPK-02 (Edo-Pidgin). The corpus contains 20 expected-routed grievances (10 municipal infrastructure, 10 legal aid) and 10 expected-abstain edge cases (\texttt{needs\_clarification}). All clips are validated via dual-decoder checks and frozen with SHA-256 integrity hashes.\\
-\textbf{Tier B Out-of-Domain Generalization Suite:} 60 public speech clips across three distinct benchmarks: (1) \textit{AfriSwitch} (30 clips across Pidgin-English, Yoruba-English, and Hausa-English, sorted by descending Code-Mixing Index / CMI); (2) \textit{AfriSpeech-200} (15 clips of Nigerian-accented clinical English); and (3) \textit{FLEURS} (15 clips of monolingual read Hausa and Yoruba).
+\textbf{Tier A In-Domain Scripted Corpus:} 30 consented recordings of realistic Nigerian Pidgin/English grievance scenarios (16\,kHz, 16-bit mono WAV) produced under documented informed consent (\texttt{DATA\_CONSENT\_LOG.md}) across two native speakers: SPK-01 (Lagos Yoruba-Pidgin substrate) and SPK-02 (Edo-Pidgin substrate). The corpus contains 20 expected-routed scenarios (10 municipal infrastructure, 10 legal aid) and 10 expected-abstain edge cases (\texttt{needs\_clarification}). All clips are validated via dual-decoder checks and frozen with SHA-256 integrity hashes.\\
+\textbf{Tier B Out-of-Domain Generalization Suite:} 60 public speech clips across three distinct benchmarks: (1) \textit{AfriSwitch} (30 clips across Pidgin-English, Yoruba-English, and Hausa-English, sorted by descending Code-Mixing Index / CMI); (2) \textit{AfriSpeech-200} (15 clips of Nigerian-accented clinical English); and (3) \textit{FLEURS} (15 clips of monolingual read Hausa and Yoruba).\\
+\textbf{Data \& Evaluation Protocol:} Tier A and Tier A-MSV comprise consented scripted grievance scenarios rather than naturally occurring citizen complaints. Within each evaluation, every model received identical frozen 16\,kHz, 16-bit mono audio. WER was calculated against verified spoken-reference transcripts using documented normalization. Tier A-MSV included 18 polarity recordings containing 21 target \textit{don} occurrences and 12 non-\textit{don} controls; each target was adjudicated as preserved, inverted, deleted, or ambiguous. Raw model outputs were retained unchanged without model-specific transcript correction, with corpus and result integrity protected through SHA-256 manifests.
 
 \section{Tier A Primary Benchmark Results}
-Table~\ref{tab:tier_a} details comparative performance across the 30 primary recorded civic complaints. In addition to normalized Word Error Rate (WER, using conservative Naija contraction expansions), we report three safety-critical diagnostic metrics: (1) \textbf{Polarity Inversion Rate} (frequency of \textit{don} $\to$ \textit{don't} reversals); (2) \textbf{Hallucination Rate} (outputs exhibiting complete phonetic collapse or cross-language fabulation); and (3) \textbf{ASR Faults} (downstream classification or routing errors directly induced by transcription error, determined via oracle comparison against ground truth).
+Table~\ref{tab:tier_a} details comparative performance across the 30 in-domain scripted grievance recordings. In addition to normalized Word Error Rate (WER, using conservative Naija contraction expansions), we report three safety-critical diagnostic metrics: (1) \textbf{Polarity Inversion Rate} (frequency of \textit{don} $\to$ \textit{don't} reversals); (2) \textbf{Hallucination Rate} (outputs exhibiting complete phonetic collapse or cross-language fabulation); and (3) \textbf{ASR Faults} (downstream classification or routing errors directly induced by transcription error, determined via oracle comparison against ground truth).
 
 \begin{table}[H]
 \centering
-\caption{Tier A benchmark evaluation across 30 authentic Nigerian Pidgin/English civic complaints.}
+\caption{Tier A benchmark evaluation across 30 in-domain scripted grievance recordings.}
 \label{tab:tier_a}
-\fontsize{7.5}{9}\selectfont
+\fontsize{7.2}{8.5}\selectfont
 \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}l c c c c c c@{}}
 \toprule
 \textbf{Model} & \textbf{Corpus WER} & \textbf{Polarity Inversions} & \textbf{Inversion Rate} & \textbf{Hallucinations} & \textbf{ASR Faults} & \textbf{Concordant Correct} \\
@@ -124,174 +128,172 @@ Whisper large-v3 & 47.9\% & 9 / 30 & 30.0\% & 4 / 30 (13.3\%) & 9 & 18 / 30 (60.
 \bottomrule
 \end{tabular*}
 \end{table}
-\vspace{-5pt}
+\vspace{-4pt}
 
-\textbf{The WER Insufficiency Paradox:} A superficial assessment based solely on WER ranks Gemini 3.5 (14.8\%) as nearly equivalent to Sahara v2.5 (12.4\%)---a mere 2.4 percentage-point delta. However, the aspectual polarity audit demonstrates that this metric proximity is an evaluation illusion. Gemini converted \textit{don} into \textit{don't} in 16.7\% of utterances, systematically transforming affirmative complaints into denials. Sahara inverted none. In an automated civic routing pipeline, Gemini would silently corrupt 1 out of every 6 complaints while appearing nominally high-performing on standard ASR leaderboards.
+\textbf{The WER Insufficiency Paradox:} A superficial assessment based solely on WER ranks Gemini 3.5 (14.8\%) as nearly equivalent to Sahara v2.5 (12.4\%)---a mere 2.4 percentage-point delta. However, the aspectual polarity audit demonstrates that this metric proximity is an evaluation illusion. Gemini produced polarity inversions in 5/30 Tier A complaints despite having WER close to Sahara, which could render the complaint non-actionable, incorrectly classified, or unsafe for automated routing without an uncertainty gate. Sahara inverted none. WER-only ASR rankings do not capture this semantic inversion failure mode.
 
 \pagebreak
 
 % ===========================================================================
-% PAGE 2: Polarity Inversion Audit & Tier B Generalization Suite
+% PAGE 2: MSV, Polarity Mechanics, Tier B Suite
 % ===========================================================================
-\section{Aspectual Polarity Inversion: Mechanics \& Qualitative Audit}
-\subsection*{3a. Multi-Speaker Polarity Stress Validation (Tier A-MSV)}
-To address speaker diversity limitations in the original two-speaker Tier~A corpus, we conducted a targeted confirmatory evaluation across three previously unseen speakers: SPK-03 (female), SPK-04 (male), and SPK-05 (male). Each recorded the same ten selected prompts (30 clips total), yielding 18 polarity-stress clips (21 target tokens of Pidgin completive aspect marker \textit{don}) and 12 controls. The original v19 benchmark remains frozen.
+\section{Tier A Multi-Speaker Validation (Tier A-MSV)}
+\label{sec:msv}
+To evaluate the consistency of aspectual polarity inversion beyond the initial two-speaker corpus, we conducted a targeted confirmatory evaluation across three previously unseen speakers, including one female and two male speakers: SPK-03 (female), SPK-04 (male), and SPK-05 (male). Each recorded ten scripted prompts (30 clips total), yielding 18 polarity-stress clips (21 target tokens of Pidgin completive aspect marker \textit{don}) and 12 controls. Regional accent metadata is unverified in corpus records. All models were evaluated on identical audio from cached offline transcripts; original v19 results remain frozen.
 
 \begin{table}[H]
 \centering
 \caption{Tier A-MSV aspectual polarity inversion results across three previously unseen speakers.}
 \label{tab:msv_results}
-\fontsize{7.2}{8.5}\selectfont
+\fontsize{7.0}{8.2}\selectfont
 \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}l c c c c c c@{}}
 \toprule
 \textbf{Model} & \textbf{SPK-03 (F)} & \textbf{SPK-04 (M)} & \textbf{SPK-05 (M)} & \textbf{Token Inversions} & \textbf{Affected Utterances} & \textbf{MSV WER} \\
 \midrule
 \textbf{Sahara v2.5} & \textbf{0 / 7 (0.0\%)} & \textbf{0 / 7 (0.0\%)} & \textbf{0 / 7 (0.0\%)} & \textbf{0 / 21 (0.0\%)} & \textbf{0 / 18 (0.0\%)} & \textbf{16.3\%} \\
 Gemini 3.5 Transcribe & 4 / 7 (57.1\%) & 2 / 7 (28.6\%) & 4 / 7 (57.1\%) & 10 / 21 (47.6\%) & 9 / 18 (50.0\%) & 28.7\% \\
-Deepgram Nova-3 & 4 / 7 (57.1\%) & 2 / 7 (28.6\%) & 4 / 7 (57.1\%) & 10 / 21 (47.6\%) & 9 / 17 (52.9\%) & 68.9\% \\
-Whisper large-v3 & N/E & N/E & N/E & N/E & N/E & N/E$^*$ \\
+Deepgram Nova-3 & 4 / 7 (57.1\%) & 2 / 7 (28.6\%) & 4 / 7 (57.1\%) & 10 / 21 (47.6\%) & 9 / 18 (50.0\%)$^*$ & 68.9\% \\
+Whisper large-v3 & 2 / 7 (28.6\%) & 5 / 7 (71.4\%) & 4 / 7 (57.1\%) & 11 / 21 (52.4\%) & 10 / 18 (55.6\%) & 111.7\%$^\dagger$ \\
 \bottomrule
 \end{tabular*}
 \vspace{1pt}
-{\scriptsize $^*$Whisper large-v3 execution deferred to Google Colab T4 GPU per compute environment protocol.}
+{\scriptsize $^*$Deepgram affected-utterance rate is 9/18 (50.0\%) across all 18 evaluated target recordings with 1 token deletion (spk4\_m\_004) reported separately. $^\dagger$Whisper MSV WER reflects repetitive non-Latin hallucinations (10/30 clips). Normalized WER (111.7\%) exceeds raw WER (102.0\%) because character/diacritic separation inflates insertion counts (219 insertions).}
 \end{table}
-\vspace{-5pt}
-\textbf{Empirical Replication:} Sahara v2.5 maintained \textbf{0.0\% polarity inversion} (0/21 tokens preserved across all 3 speakers), replicating the original Tier~A finding across gender and regional accent variation. Evaluated global engines individually exhibited a \textbf{47.6\% inversion rate} (10 of 21 target tokens inverted in both Gemini 3.5 and Deepgram Nova-3; 20/42 pooled across global models), while at least one global model inverted \textbf{18 of the 21 unique target tokens (85.7\%)}, confirming that aspectual negation is an architecture-general failure mode.
+\vspace{-4pt}
 
+\textbf{Empirical Replication \& Baseline Reconciliation:} Sahara produced 0/21 target-token inversions; 21/21 preserved, replicating the Tier~A finding across three unseen speakers (one female, two male; regional accent unverified). General-purpose baselines showed high inversion rates: Sahara 0/21; Gemini and Deepgram each 10/21; Whisper 11/21. At least one general-purpose baseline inverted each of 20 of the 21 unique targets (95.2\% union result; models are not pooled as independent population samples). Deepgram produced 10 inversions, 1 preserved target, 1 deleted target (\texttt{spk4\_m\_004} empty output), and 9 ambiguous tokens, summing to 21. Whisper produced 11 inversions, 1 preserved target, 0 deleted targets, and 9 ambiguous tokens (7 non-Latin hallucinations, 1 cross-language collapse, 1 acoustic verb corruption), likewise summing to 21 (10/30 recordings showed non-Latin hallucinations: 6 target, 4 control). For \texttt{synth\_002}, canonical text is preserved alongside verified spoken references; WER evaluation strictly uses verified spoken references.
 
-In West African creole linguistics, \textit{don} serves as an indispensable preverbal completive/perfective aspect marker denoting that an action or hazard has definitively occurred (analogous to English \textit{``has/have done''}). Because global models lack a creole language model prior, their beam search decoders penalize \textit{``[subject] don [verb]''} as an acoustic outlier and collapse it onto the high-frequency English negative contraction \textit{``don't''}, directly reversing complaint polarity.
+\section{Polarity Mechanics \& Qualitative Audit}
+\label{sec:polarity}
+In West African creole linguistics, \textit{don} serves as an indispensable preverbal completive aspect marker denoting completed reality. One plausible explanation is that general-purpose decoding priors favor the high-frequency English contraction \textit{don't} over the Nigerian Pidgin completive construction \textit{[subject] don [verb]}. The present benchmark identifies the recurring failure pattern but does not establish its internal model-level cause.
 
 \textbf{synth\_001} (Municipal Pothole): Ground truth \textit{``...e don spoil plenty tyre''} was preserved by Sahara (\texttt{``...e don spoil plenty tire''}), but inverted to negative denial (\textit{``don't spoil''}) by Gemini, Deepgram, and Whisper.
 \vspace{1pt}
 
-\begin{transcriptbox}{synth\_024: Domestic Abuse \& Eviction (High-Stakes Legal Aid Case)}
-\fontsize{6.8}{8}\selectfont
+\begin{transcriptbox}{synth\_024: Domestic Abandonment \& Eviction (High-Stakes Legal Aid Scenario)}
+\fontsize{6.6}{7.8}\selectfont
 \textbf{Ground Truth:} \textit{``My husband don chase me and the children comot for house, refuse to give us money for feeding.''} \\
 \textbf{Sahara v2.5:} \texttt{``My husband don chase me and the children comot for house refuse to give us money for feeding''} \hfill \textcolor{forest}{\textbf{[Preserved]}} \\
 \textbf{Gemini 3.5:} \texttt{``My husband don't chase me and the children come out for house, refuse to give us money for feeding.''} \hfill \textcolor{crimson}{\textbf{[INVERTED]}} \\
 \textbf{Deepgram:} \texttt{``My husband don't chase me and the children come off our house, refuse to give us money for feeding''} \hfill \textcolor{crimson}{\textbf{[INVERTED]}} \\
 \textbf{Whisper v3:} \texttt{``my husband and daughter chase me and children come up for house refuse or give us money for food''} \hfill \textcolor{slate}{\textbf{[Syntactic Collapse]}} \\
-\vspace{0.5pt}\hrule height 0.3pt\vspace{1pt}
-\textbf{Sociotechnical Harm Analysis:} Both Gemini and Deepgram convert an emergency report of family abandonment (\textit{``my husband has chased me and the children out of the house''}) into an explicit denial of violence (\textit{``my husband has NOT chased me out''}), causing automated intake to discard the complaint as non-actionable.
+\vspace{0.4pt}\hrule height 0.25pt\vspace{0.8pt}
+\textbf{Sociotechnical Harm Analysis:} In this high-stakes domestic-abuse, eviction, and abandonment scenario, both Gemini and Deepgram invert affirmative abandonment into negative denial (\textit{``don't chase''}), which could render the complaint non-actionable, incorrectly classified, or unsafe for automated routing without an uncertainty gate.
 \end{transcriptbox}
-\vspace{-3pt}
+\vspace{-2pt}
 
 \textbf{Hallucination Pathology:} Tier A hallucinations occurred in 5/120 outputs: Whisper (4/30, 13.3\%) and Gemini (1/30, 3.3\%). Gemini's shift to French-like text and Whisper's phonetic collapse show why WER and language-validity audits must accompany polarity checks.
 
 \section{Tier B Out-of-Domain Generalization \& Acoustic Stress Suite}
+\label{sec:tier_b}
 Tier B tests generalization across 60 public African speech clips spanning code-mixing density, regional accents, and monolingual speech. Tables~\ref{tab:tier_b_dataset} and~\ref{tab:tier_b_lang} report full cross-dataset and language pair evaluations.
 
-\begin{table}[H]
+\noindent\begin{minipage}[t]{0.52\linewidth}
 \centering
-\caption{Tier B Word Error Rate across public African speech benchmarks.}
+\captionof{table}{Tier B Word Error Rate across benchmarks.}
 \label{tab:tier_b_dataset}
-\fontsize{7.5}{9}\selectfont
-\begin{tabularx}{\linewidth}{l c c c c c}
+\fontsize{6.8}{8.0}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}l c c c c@{}}
 \toprule
-\textbf{Model} & \textbf{AfriSpeech (15)} & \textbf{FLEURS (15)} & \textbf{AfriSwitch (30)} & \textbf{Aggregate (60)} & \textbf{Named Entity Recall} \\
+\textbf{Model} & \textbf{Spch} & \textbf{FLE} & \textbf{Swt} & \textbf{Agg} \\
 \midrule
-\textbf{Gemini 3.5 Transcribe} & 25.6\% & \textbf{36.4\%} & \textbf{35.6\%} & \textbf{34.2\%} & \textbf{92.3\%} \\
-\textbf{Sahara v2.5} & \textbf{23.2\%} & 94.5\% & 67.2\% & 67.5\% & 91.7\% \\
-\textbf{Whisper large-v3} & 30.6\% & 93.7\%$^*$ & 68.2\% & 68.5\% & \textbf{92.3\%} \\
-\textbf{Deepgram Nova-3} & 40.1\% & 100.0\%$^\dagger$ & 73.5\% & 75.4\% & 90.8\% \\
+\textbf{Gemini 3.5} & 25.6\% & \textbf{36.4\%} & \textbf{35.6\%} & \textbf{34.2\%} \\
+\textbf{Sahara v2.5} & \textbf{23.2\%} & 94.5\% & 67.2\% & 67.5\% \\
+\textbf{Whisper v3} & 30.6\% & 93.7\%$^*$ & 68.2\% & 68.5\% \\
+\textbf{Deepgram} & 40.1\% & 100.0\%$^\dagger$ & 73.5\% & 75.4\% \\
 \bottomrule
-\end{tabularx}
-\end{table}
-\vspace{-5pt}
-
-\begin{table}[H]
+\end{tabular*}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.46\linewidth}
 \centering
-\caption{AfriSwitch intra-sentential code-switching WER by language pair (10 clips each).}
+\captionof{table}{AfriSwitch WER by language pair.}
 \label{tab:tier_b_lang}
-\fontsize{7.5}{9}\selectfont
-\begin{tabularx}{\linewidth}{l c c c c}
+\fontsize{6.8}{8.0}\selectfont
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}l c c c@{}}
 \toprule
-\textbf{Model} & \textbf{Pidgin-English} & \textbf{Yoruba-English} & \textbf{Hausa-English} & \textbf{AfriSwitch Aggregate} \\
+\textbf{Model} & \textbf{Pid-En} & \textbf{Yor-En} & \textbf{Hau-En} \\
 \midrule
-\textbf{Sahara v2.5} & \textbf{22.8\%} & 79.4\% & 87.8\% & 67.2\% \\
-\textbf{Gemini 3.5 Transcribe} & 25.3\% & \textbf{45.8\%} & \textbf{36.0\%} & \textbf{35.6\%} \\
-\textbf{Whisper large-v3} & 31.0\% & 81.7\% & 88.8\%$^\ddagger$ & 68.2\% \\
-\textbf{Deepgram Nova-3} & 35.6\% & 81.3\% & 92.7\% & 73.5\% \\
+\textbf{Sahara v2.5} & \textbf{22.8\%} & 79.4\% & 87.8\% \\
+\textbf{Gemini 3.5} & 25.3\% & \textbf{45.8\%} & \textbf{36.0\%} \\
+\textbf{Whisper v3} & 31.0\% & 81.7\% & 88.8\%$^\ddagger$ \\
+\textbf{Deepgram} & 35.6\% & 81.3\% & 92.7\% \\
 \bottomrule
-\end{tabularx}
+\end{tabular*}
+\end{minipage}
 \vspace{1pt}
-{\scriptsize $^*$Whisper FLEURS excludes 2 clips due to cross-script hallucination (Ethiopic/CJK text). $^\dagger$Deepgram FLEURS 100.0\% reflects severe word deletion (69.5\% dropout) rather than hallucination. $^\ddagger$Whisper AfriSwitch excludes \texttt{afriswitch\_hau\_008} for Ethiopic script hallucination.}
-\end{table}
-\vspace{-5pt}
+{\scriptsize $^*$Whisper FLEURS excludes 2 clips due to cross-script hallucination. $^\dagger$Deepgram FLEURS 100.0\% reflects word deletion (69.5\% dropout). $^\ddagger$Whisper AfriSwitch excludes \texttt{afriswitch\_hau\_008} for Ethiopic hallucination. Some Whisper subgroup WER values use reduced denominators after cross-script failures (51/60 scored overall), so direct aggregate comparison should be interpreted alongside model coverage rather than as fully like-for-like.}
 
 \textbf{Linguistic \& Architectural Takeaways from Tier B:}
-\begin{enumerate}[leftmargin=*,itemsep=0.4pt,topsep=0.4pt]
-  \item \textbf{Engine Complementarity:} Gemini achieves superior aggregate WER (34.2\%) via world-knowledge entity normalization, while Sahara leads in Pidgin-English (22.8\%) where creole syntax dominates. A resilient pipeline pairs Sahara as the primary recognizer with Gemini as an entity fallback.
-  \item \textbf{Domain Specialization Boundary:} Sahara's elevated FLEURS WER (94.5\%) reflects an architectural boundary: Sahara v2.5 is optimized for bilingual code-switching; formal monolingual read Hausa/Yoruba constitutes an out-of-domain distribution.
-  \item \textbf{Deletion vs. Hallucination Failure Modes:} Deepgram’s 100.0\% FLEURS WER stems from aggressive phoneme suppression (69.5\% word deletion), emitting zero non-English words. In contrast, Whisper hallucinates non-Latin scripts (Ethiopic characters), breaking downstream parsers.
-\end{enumerate}
+(1)~\textbf{Engine Complementarity:} Gemini achieved the lowest aggregate Tier B WER (34.2\%); the benchmark does not isolate the internal cause. Sahara leads on Pidgin-English (22.8\%) where creole syntax dominates. These complementary results motivate future evaluation of a Sahara-primary, constrained Gemini entity-fallback design.
+(2)~\textbf{Domain Specialization Boundary:} Sahara's elevated FLEURS WER (94.5\%) reflects out-of-domain monolingual read speech.
+(3)~\textbf{Deletion vs. Hallucination Modes:} Deepgram’s 100.0\% FLEURS WER stems from phoneme suppression (69.5\% word deletion). Whisper hallucinates non-Latin scripts (Ethiopic/CJK characters).
 
 \pagebreak
 
 % ===========================================================================
-% PAGE 3: Pipeline Safety, Data Plan, Limitations, Reproduction
+% PAGE 3: Pipeline Safety, Ethics/Limitations, Reproduction
 % ===========================================================================
 \section{End-to-End Pipeline Integrity, Two-Tier Risk Gate \& Adversarial Defense}
+\label{sec:safety}
 The SautiCivic intake architecture routes transcribed complaints through a deterministic two-tier safety gate (\texttt{gate.py}). In safety-critical civic intake, \textit{an abstention is a safe failure, but a corrupted dispatch artifact is a catastrophic failure}. Table~\ref{tab:safety} summarizes downstream routing integrity.
 
 \begin{table}[H]
 \centering
 \caption{SautiCivic Bridge downstream routing, calibration, and safety metrics (v19 frozen baseline).}
 \label{tab:safety}
-\fontsize{7.5}{9}\selectfont
+\fontsize{7.0}{8.2}\selectfont
 \begin{tabularx}{\linewidth}{l c X}
 \toprule
 \textbf{Metric} & \textbf{v19 Result} & \textbf{Operational Interpretation \& Benchmark Bar} \\
 \midrule
-\textbf{Artifact-Safe Rate} & \textbf{100.0\% (30/30)} & 100\% of emitted municipal tickets or legal briefs are legally and semantically sound. \\
-\textbf{Artifact-Corrupted Rate} & \textbf{0.0\% (0/30)} & Zero corrupted tickets or legal briefs escaped to downstream service channels. \\
-\textbf{Classification-Exact} & \textbf{85.0\% (17/20)} & Correct categorization on unambiguous grievances (10 infrastructure, 10 legal). \\
-\textbf{Abstention Rate} & 43.3\% (13/30) & 10 correct abstentions on ambiguous grievances; false abstentions reduced to 3. \\
-\textbf{Adversarial Harm-Avoidance} & \textbf{100.0\% (10/10)} & 10/10 intentional adversarial traps neutralized; 0 high-severity gate breaches. \\
-\textbf{Expected Calibration Error (ECE)} & 30.9\% & Baseline calibration under mock heuristic confidence scoring; benchmark for LLM tuning. \\
+\textbf{Unsafe-Action Escape Rate} & \textbf{0.0\% (0/30)} & No unsafe artifact or routing action occurred across 30 inputs; 17 produced valid artifacts and 13 conservatively abstained, including three false abstentions. \\
+\textbf{Emitted-Artifact Integrity} & \textbf{100.0\% (17/17)} & 17/17 emitted artifacts (10 municipal tickets, 7 legal briefs) matched benchmark expectations and passed deterministic artifact checks; corrupted emitted artifacts: 0/17. \\
+\textbf{Classification-Exact} & \textbf{85.0\% (17/20)} & Correct routed outcomes on unambiguous grievances (10 infrastructure, 7 legal; false abstentions: 3/20). \\
+\textbf{Ambiguity Abstentions} & \textbf{100.0\% (10/10)} & 10/10 correct ambiguity abstentions on ambiguous inputs; overall abstention rate: 43.3\% (13/30). \\
+\textbf{Adversarial Harm-Avoidance} & \textbf{100.0\% (10/10)} & 10/10 intentional adversarial test traps neutralized in simulated evaluation; 0 high-severity gate breaches. \\
+\textbf{Expected Calibration Error} & 30.9\% & Baseline heuristic classifier; indicates weak confidence calibration under mock scoring. \\
 \textbf{Speaker Voice Equity} & 90.9\% vs 77.8\% & SPK-01 (90.9\%) vs SPK-02 (77.8\%); confounded by clip complexity (see Section~\ref{sec:limitations}). \\
 \bottomrule
 \end{tabularx}
 \end{table}
-\vspace{-5pt}
+\vspace{-4pt}
 
 \textbf{The Two-Tier Risk Interceptor Architecture:}
-\begin{itemize}[leftmargin=*,itemsep=0.3pt,topsep=0.3pt]
-  \item \textbf{Tier 1 --- Life-Safety Interceptor:} Scans transcription streams for acute threats to life (active structural fires, electrical explosions, chemical spills). Triggers \textbf{immediate forced abstention} to emergency triage (\texttt{112}), bypassing slow municipal and civil legal queues.
-  \item \textbf{Tier 2 --- Criminal \& Extortion Interceptor:} Evaluates complaints bound for municipal works. If compound lexical signals indicate unlawful coercion, taskforce extortion, armed violence, or tenancy lockouts, infrastructure ticket dispatch is \textbf{force-blocked} to prevent destroying physical evidence or endangering dispatch personnel.
-  \item \textbf{Operational Thresholding \& Fallbacks:} The pipeline enforces a confidence threshold ($\tau \ge 0.70$). Inputs falling below $\tau$ or exhibiting multi-engine semantic discrepancy trigger automated clarification flows rather than guessing citizen intent.
+\begin{itemize}[leftmargin=*,itemsep=0.1pt,topsep=0.2pt,parsep=0pt]
+  \item \textbf{Tier 1 --- Life-Safety Interceptor:} Scans transcription streams for acute threats to life (active fires, explosions, chemical spills). Blocks ordinary artifact dispatch and returns an emergency-escalation recommendation, including guidance to contact 112, bypassing municipal and civil queues.
+  \item \textbf{Tier 2 --- Criminal \& Extortion Interceptor:} Evaluates complaints bound for municipal works. If compound lexical cues indicate unlawful coercion, taskforce extortion, armed violence, or tenancy lockouts, infrastructure ticket dispatch is force-blocked to prevent misrouting.
+  \item \textbf{Operational Thresholding \& Fallbacks:} The pipeline enforces confidence thresholds ($\tau \ge 0.70$). Inputs falling below $\tau$ or missing required entities trigger automated clarification flows rather than guessing citizen intent.
 \end{itemize}
 
-\textbf{Neutralization of Adversarial Traps (10/10 Verified):} All ten distinct adversarial scenarios in \path{bench/corpus/adversarial_cases.json} were neutralized by the Two-Tier Risk Gate (overcoming earlier baseline breaches in \texttt{adv\_003}--\texttt{adv\_005}):
-\begin{enumerate}[leftmargin=*,itemsep=0.3pt,topsep=0.3pt]
-  \item \textbf{\texttt{adv\_003} (State Demolition \& Extortion):} Demolition masked as rubble clearing; blocked by Tier 2 criminal demolition logic to preserve civil rights evidence.
-  \item \textbf{\texttt{adv\_004} (Workplace Fire \& Chained Exit):} Chained exit during wage dispute; intercepted by Tier 1 life-safety rules, routing to emergency triage (\texttt{112}).
+\textbf{Neutralization of Adversarial Traps (10/10 Verified in Simulated Evaluation):} All ten distinct adversarial test scenarios in \path{bench/corpus/adversarial_cases.json} were neutralized by the Two-Tier Risk Gate in simulated evaluation:
+\begin{enumerate}[leftmargin=*,itemsep=0.1pt,topsep=0.2pt,parsep=0pt]
+  \item \textbf{\texttt{adv\_003} (State Demolition \& Extortion):} Demolition masked as rubble clearing; blocked by Tier 2 criminal demolition logic to prevent misrouting.
+  \item \textbf{\texttt{adv\_004} (Workplace Fire \& Chained Exit):} Chained exit during wage dispute; intercepted by Tier 1 life-safety rules, blocking ordinary dispatch and recommending emergency escalation to 112.
   \item \textbf{\texttt{adv\_005} (Vigilante Assault at Borehole):} Violent assault at public tap; intercepted by criminal violence cues, suppressing tap repair dispatch.
   \item \textbf{\texttt{adv\_001}, \texttt{adv\_007}, \texttt{adv\_009} (Domestic Violence, Land Grab, Acid Spill):} Masked drainage dump, armed land demolition, and acid spill safely suppressed from standard sanitation dispatch.
 \end{enumerate}
 
-\section{Societal Impact, Ethics \& Algorithmic Justice}
-Automated voice intake pipelines deployed across West Africa must confront systemic linguistic inequality. In Nigeria, over 100 million citizens rely on Nigerian Pidgin as their primary lingua franca. When commercial foundation models systematically convert affirmative completive markers (\textit{don}) into English negative contractions (\textit{don't}), citizens reporting broken water mains, power failures, or landlord violence are recorded as explicitly denying those same crises. This structural failure mode causes automated public works systems to discard legitimate complaints, quietly disenfranchising creole speakers.
-
-By validating localized speech models like Sahara v2.5 alongside deterministic safety gates, SautiCivic Bridge establishes an equitable intake standard. All audio recordings across Tier A and the additive MSV suite were gathered under documented informed consent (\texttt{DATA\_CONSENT\_LOG.md}) with fair compensation. The pipeline enforces strict data minimization: caller telephony metadata and raw voiceprints are decoupled, and transcripts are sanitized prior to administrative logging to protect citizens from state or landlord retaliation.
-
-\section{Scientific Disclosures \& Known Limitations}
+\section{Societal Impact, Ethics \& Known Limitations}
 \label{sec:limitations}
-In keeping with rigorous empirical standards, five explicit limitations are disclosed:
-\begin{enumerate}[leftmargin=*,itemsep=0.3pt,topsep=0.3pt]
-  \item \textbf{Confidence Calibration:} The reported ECE (30.9\%) reflects the baseline heuristic classifier. While sufficient to validate thresholding mechanics ($\tau \ge 0.70$), this metric must be re-calibrated as calibrated LLMs replace heuristic classifiers.
-  \item \textbf{Speaker Equity Confound:} The observed performance difference between SPK-01 (90.9\%) and SPK-02 (77.8\%) is confounded with clip difficulty: SPK-02 was allocated 50\% more ambiguous grievances (40.0\% vs. 26.7\%) and greater dialectal density. It cannot be interpreted as an intrinsic voice disparity.
+\textbf{Societal Impact \& Linguistic Context:} Nigerian Pidgin is used by millions of speakers and serves as a widely used lingua franca. When general-purpose speech models convert affirmative completive markers (\textit{don}) into English negative contractions (\textit{don't}), citizens reporting broken water mains, power failures, or tenancy crises risk having their reports recorded as denials, which could render complaints non-actionable, incorrectly classified, or unsafe for automated routing without an uncertainty gate. By validating localized speech models like Sahara alongside deterministic safety gates, SautiCivic Bridge supports an equitable intake standard.
+
+\textbf{Data Protection \& Consent:} The evaluation uses pseudonymous speaker IDs (\texttt{SPK-01}--\texttt{SPK-05}), documented consent (\path{DATA_CONSENT_LOG.md}), restricted benchmark access, and PII-minimized metadata. Because voice recordings may themselves be identifying, raw audio requires controlled access and retention. Public reports do not expose private speaker names.
+
+\textbf{Scientific Disclosures \& Known Limitations:} Five explicit limitations are disclosed:
+\begin{enumerate}[leftmargin=*,itemsep=0.1pt,topsep=0.2pt,parsep=0pt]
+  \item \textbf{Confidence Calibration:} The 30.9\% ECE indicates weak confidence calibration under the heuristic classifier. It should not be interpreted as deployment-grade calibration.
+  \item \textbf{Speaker Equity Confound:} The performance difference between SPK-01 (90.9\%) and SPK-02 (77.8\%) is confounded with clip difficulty: SPK-02 was allocated 50\% more ambiguous grievances (40.0\% vs. 26.7\%). It cannot be interpreted as an intrinsic voice disparity.
   \item \textbf{Single-Labeler Baseline:} Tier A ground-truth references were established by a single expert labeler due to challenge timeline constraints.
-  \item \textbf{AfriSwitch Upstream Provenance:} Immutable upstream identifiers were introduced in v19 to eliminate transcript misalignment; benchmark versions v16--v18 are superseded and should not be used for comparative analysis.
-  \item \textbf{Regional Dialectal Granularity:} While the additive MSV suite validated robustness across three unseen speakers and both genders, Nigerian Pidgin exhibits rich dialectal variations across Delta, Rivers, and Northern urban centers that warrant future scaled field cohorts.
+  \item \textbf{AfriSwitch Denominators \& Provenance:} Upstream identifiers were added in v19 to eliminate transcript misalignment. Some Whisper subgroup WER values use reduced denominators after cross-script failures (51/60 scored overall).
+  \item \textbf{MSV Sample Composition:} MSV replicated the observed polarity pattern across three additional speakers. Its one-female/two-male composition is insufficient for gender fairness conclusions, and regional accent metadata remains unverified.
 \end{enumerate}
 
 \section{Reproducibility \& Open Science Verification Suite}
 The complete benchmark suite is reproducible via the following commands executed from the repository root:
-\begin{itemize}[leftmargin=*,itemsep=0.3pt,topsep=0.3pt]
-  \item \textbf{Unit \& Safety Tests:} \texttt{PYTHONPATH=backend python3 -m pytest backend/tests/} (validates gate logic, schema integrity, and raw output immutability).
-  \item \textbf{Corpus Ingestion \& v19 Baseline:} Verify frozen hash \texttt{sha256sum bench/results/v19\_results.json} matches \texttt{c3cb688...}; run \texttt{bench.metrics.run\_full\_benchmark}.
-  \item \textbf{Multi-Speaker Validation (MSV):} \texttt{python3 bench/metrics/run\_tier\_a\_multispeaker\_validation.py} (clause-aware polarity adjudication across SPK-03, SPK-04, and SPK-05).
+\begin{itemize}[leftmargin=*,itemsep=0.1pt,topsep=0.2pt,parsep=0pt]
+  \item \textbf{Unit \& Safety Tests:} \texttt{PYTHONPATH=backend python3 -m pytest backend/tests/} (70 tests passed at report freeze, covering gate logic, benchmark invariants, schema integrity, and raw transcript immutability).
+  \item \textbf{Corpus Ingestion \& v19 Baseline:} Verify frozen hash \texttt{sha256sum bench/results/v19\_results.json} matches \texttt{c3cb688...} (full hash: \texttt{c3cb68824f70a231dd05f776de423042b02e750175c917e4367d82a108c127b8}); recomputed via \texttt{PYTHONPATH=backend python3 -m bench.metrics.run\_full\_benchmark}.
+  \item \textbf{Multi-Speaker Validation (MSV):} \texttt{python3 bench/metrics/run\_tier\_a\_multispeaker\_validation.py} (clause-aware polarity adjudication across SPK-03, SPK-04, and SPK-05 from cached transcripts).
   \item \textbf{Polarity Stress Analysis:} \texttt{python3 bench/metrics/polarity\_stress\_analysis.py} (generates clip audit to \path{bench/results/tier_a_multispeaker_validation_audit.csv}).
 \end{itemize}
 

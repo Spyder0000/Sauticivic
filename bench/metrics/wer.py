@@ -217,7 +217,12 @@ def wer(
 # Corpus-level WER
 # ---------------------------------------------------------------------------
 
-def corpus_wer(clips: list[dict]) -> dict:
+def corpus_wer(
+    clips: list[dict],
+    *,
+    normalize_text: bool = True,
+    expand_contractions: bool = True,
+) -> dict:
     """Aggregate WER across a corpus of clips.
 
     Standard corpus-level WER: sum of edit distances / sum of reference words.
@@ -228,6 +233,8 @@ def corpus_wer(clips: list[dict]) -> dict:
             - "clip_id": str
             - "hypothesis": str  (ASR transcript)
             - "reference":  str  (ground-truth transcript)
+        normalize_text: Apply normalize() before scoring (default True).
+        expand_contractions: Passed to normalize(). Ignored if normalize_text=False.
 
     Returns:
         {
@@ -245,7 +252,12 @@ def corpus_wer(clips: list[dict]) -> dict:
     total_edit = total_words = total_ins = total_dels = total_subs = 0
 
     for clip in clips:
-        result = wer(clip["hypothesis"], clip["reference"])
+        result = wer(
+            clip["hypothesis"],
+            clip["reference"],
+            normalize_text=normalize_text,
+            expand_contractions=expand_contractions,
+        )
         result["clip_id"] = clip.get("clip_id", "unknown")
         per_clip.append(result)
 

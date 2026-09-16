@@ -1,27 +1,27 @@
 [
   {
     "speaker_id": "SPK-03",
-    "name": "Chinenye",
+    "name": "SPK-03",
     "gender": "female",
-    "verified_accent_or_language_background": "Nigerian English / Nigerian Pidgin / Igbo substrate",
+    "verified_accent_or_language_background": "Nigerian English / Nigerian Pidgin (regional accent unverified)",
     "recording_device": "Mobile Audio Recorder (16kHz mono)",
     "recording_environment": "Quiet indoor room",
     "consent_status": "Explicit informed consent for research and benchmarking; registered in docs/DATA_CONSENT_LOG.md"
   },
   {
     "speaker_id": "SPK-04",
-    "name": "Daniel",
+    "name": "SPK-04",
     "gender": "male",
-    "verified_accent_or_language_background": "Nigerian English / Nigerian Pidgin",
+    "verified_accent_or_language_background": "Nigerian English / Nigerian Pidgin (regional accent unverified)",
     "recording_device": "Mobile Audio Recorder (16kHz mono)",
     "recording_environment": "Quiet indoor room",
     "consent_status": "Explicit informed consent for research and benchmarking; registered in docs/DATA_CONSENT_LOG.md"
   },
   {
     "speaker_id": "SPK-05",
-    "name": "Mukhtar",
+    "name": "SPK-05",
     "gender": "male",
-    "verified_accent_or_language_background": "Nigerian English / Nigerian Pidgin / Northern substrate",
+    "verified_accent_or_language_background": "Nigerian English / Nigerian Pidgin (regional accent unverified)",
     "recording_device": "Mobile Audio Recorder (16kHz mono)",
     "recording_environment": "Quiet indoor room",
     "consent_status": "Explicit informed consent for research and benchmarking; registered in docs/DATA_CONSENT_LOG.md"

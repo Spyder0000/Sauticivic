@@ -24,9 +24,9 @@ from bench.metrics.run_tier_a_multispeaker_validation import (  # noqa: E402
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--corpus", type=Path, required=True)
-    parser.add_argument("--transcripts", type=Path, required=True)
-    parser.add_argument("--output", type=Path, default=Path("bench/results/tier_a_multispeaker_validation_results.json"))
+    parser.add_argument("--corpus", type=Path, default=REPO_ROOT / "bench" / "corpus" / "tier_a_multispeaker_validation")
+    parser.add_argument("--transcripts", type=Path, default=REPO_ROOT / "bench" / "results" / "transcripts" / "tier_a_multispeaker_validation")
+    parser.add_argument("--output", type=Path, default=REPO_ROOT / "bench" / "results" / "tier_a_multispeaker_validation_results.json")
     args = parser.parse_args()
     corpus_path = args.corpus / "ground_truth.json" if args.corpus.is_dir() else args.corpus
     corpus = json.loads(corpus_path.read_text(encoding="utf-8"))

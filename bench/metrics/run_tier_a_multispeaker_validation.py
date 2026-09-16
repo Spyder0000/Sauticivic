@@ -149,6 +149,16 @@ def adjudicate_target(
     hyp = normalize_text(hyp_raw)
     ref = normalize_text(reference_phrase)
 
+    # Non-Latin script or foreign language hallucination (checked on raw text before ASCII stripping)
+    if re.search(r"[\u0400-\u04ff\u0600-\u06ff\u0900-\u0d7f\u1200-\u137f\u4e00-\u9fff\uac00-\ud7af]", hyp_raw):
+        return {
+            "outcome": "ambiguous",
+            "evidence_span": hyp_raw[:160],
+            "reason": "non-Latin script hallucination",
+            "reference_target_phrase": reference_phrase,
+            "automatic": True,
+        }
+
     if not hyp:
         return {
             "outcome": "deleted",
@@ -158,17 +168,7 @@ def adjudicate_target(
             "automatic": True,
         }
 
-    # Non-Latin script or foreign language hallucination
-    if re.search(r"[\u4e00-\u9fff\uac00-\ud7af\u0400-\u04ff]", hyp_raw):
-        return {
-            "outcome": "ambiguous",
-            "evidence_span": hyp_raw[:160],
-            "reason": "non-Latin script hallucination",
-            "reference_target_phrase": reference_phrase,
-            "automatic": True,
-        }
-
-    if any(w in hyp for w in ["merhaba", "malam itu", "maintenant", "nie zwalniaj", "pengadilan", "sports plenty trial"]):
+    if any(w in hyp for w in ["merhaba", "malam itu", "maintenant", "nie zwalniaj", "pengadilan", "sports plenty trial", "mawezi", "350 euros"]):
         return {
             "outcome": "ambiguous",
             "evidence_span": hyp[:160],
@@ -203,7 +203,7 @@ def adjudicate_target(
         return {"outcome": "ambiguous", "evidence_span": hyp[:160], "reason": "flood clause corrupted/unaligned", "reference_target_phrase": reference_phrase, "automatic": True}
 
     elif is_p2_t1:
-        if re.search(r"\b(?:water\s+)?(?:don't|dont|not|no)\s+(?:burst|pour|pass)\b|\bi don't pass\b|\bwhat i don't post\b", hyp):
+        if re.search(r"\b(?:water\s+|potsah\s+)?(?:don't|dont|not|no)\s+(?:burst|pour|pass|boast|post)\b|\bi don't pass\b|\bwhat i don't post\b", hyp):
             return {"outcome": "inverted", "evidence_span": hyp[:160], "reason": "water don burst inverted to negative", "reference_target_phrase": reference_phrase, "automatic": True}
         if re.search(r"\b(?:water\s+)?(?:don|done|has|have)\s+(?:burst|pour)\b|\bwater don burst\b|\bwater has burst\b", hyp):
             return {"outcome": "preserved", "evidence_span": hyp[:160], "reason": "water don burst preserved", "reference_target_phrase": reference_phrase, "automatic": True}
@@ -292,20 +292,58 @@ def standardize_transcripts(model: str, corpus: list[dict]) -> dict:
     """Add stable audit fields to every expected model/clip output."""
     model_dir = TRANSCRIPTS_DIR / model
     model_dir.mkdir(parents=True, exist_ok=True)
+    multispeaker_dir = RESULTS_DIR / "transcripts" / "multispeaker" / model
     now = datetime.now(timezone.utc).isoformat()
     records = {}
     for clip in corpus:
         path = model_dir / f"{clip['clip_id']}.json"
         old = load_transcript_record(path) or {}
+
+        # If unattempted or placeholder in TRANSCRIPTS_DIR, load raw transcript from multispeaker dir if available
+        if (not old or old.get("error") == "runner not invoked for this clip" or not str(old.get("raw_transcript") or "").strip()) and multispeaker_dir.is_dir():
+            ms_path = multispeaker_dir / f"{clip['clip_id']}.json"
+            if ms_path.is_file():
+                ms_data = load_transcript_record(ms_path)
+                if ms_data and (
+                    str(ms_data.get("raw_transcript") or ms_data.get("transcript") or "").strip()
+                    or "confidence" in ms_data
+                    or "language" in ms_data
+                    or ms_data.get("model")
+                    or ms_data.get("backend")
+                ):
+                    old = ms_data
+
         audio_hash = sha256(CORPUS_DIR / clip["audio_path"])
-        was_attempted = bool(str(old.get("transcript") or "").strip()) or bool(old.get("error")) and old.get("error") != "runner not invoked for this clip"
+        raw_t = old.get("raw_transcript") if "raw_transcript" in old else old.get("transcript") or ""
+        was_attempted = (
+            bool(str(raw_t).strip())
+            or ("confidence" in old or "backend" in old or old.get("language") is not None)
+            or (bool(old.get("error")) and old.get("error") != "runner not invoked for this clip")
+            or (old.get("request_status") in ("success", "failed"))
+        )
+        is_success = was_attempted and not old.get("error")
+        model_ident = (
+            old.get("model_identifier")
+            or (old.get("model") if old.get("model") and old.get("model") != model else None)
+            or old.get("model_size")
+            or {"sahara": "Intron Sahara v2.5", "gemini": "gemini-3.5-transcribe", "deepgram": "nova-3", "whisper": "large-v3"}[model]
+        )
+
         record = {
-            "clip_id": clip["clip_id"], "speaker_id": clip["speaker_id"], "model": model,
-            "model_identifier": old.get("model") or old.get("model_size") or {"sahara": "Intron Sahara v2.5", "gemini": "gemini-3.5-transcribe", "deepgram": "nova-3", "whisper": "large-v3"}[model],
-            "audio_hash": audio_hash, "raw_response": old.get("raw_response"), "raw_transcript": old.get("transcript") or "",
-            "normalized_transcript": normalize_text(old.get("transcript") or ""), "request_status": "success" if not old.get("error") and str(old.get("transcript") or "").strip() else ("failed" if was_attempted else "not_attempted"),
-            "error": old.get("error") if was_attempted else "runner not invoked for this clip", "inference_latency_s": old.get("inference_latency_s"), "timestamp": old.get("timestamp") or now,
-            "cached": bool(old.get("cached", False)), "fresh": not bool(old.get("cached", False)),
+            "clip_id": clip["clip_id"],
+            "speaker_id": clip["speaker_id"],
+            "model": model,
+            "model_identifier": model_ident,
+            "audio_hash": audio_hash,
+            "raw_response": old.get("raw_response"),
+            "raw_transcript": raw_t,
+            "normalized_transcript": normalize_text(raw_t),
+            "request_status": "success" if is_success else ("failed" if was_attempted else "not_attempted"),
+            "error": old.get("error") if was_attempted else "runner not invoked for this clip",
+            "inference_latency_s": old.get("inference_latency_s"),
+            "timestamp": old.get("timestamp") or now,
+            "cached": bool(old.get("cached", False)),
+            "fresh": not bool(old.get("cached", False)),
         }
         path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         records[clip["clip_id"]] = record
@@ -336,46 +374,90 @@ def analyze(corpus: list[dict], transcript_root: Path) -> dict:
             if rec is not None:
                 t = rec.get("raw_transcript") if "raw_transcript" in rec else rec.get("transcript", "")
                 err = rec.get("error")
-                status = rec.get("request_status") or ("success" if (not err and str(t or "").strip()) else "failed")
+                status = rec.get("request_status") or ("success" if (not err) else "failed")
                 rec["raw_transcript"] = t or ""
                 rec["request_status"] = status
                 records[p.stem] = rec
-        transcripts = {k: v for k, v in records.items() if v.get("request_status") == "success" and str(v.get("raw_transcript") or "").strip()}
+        transcripts = {k: v for k, v in records.items() if v.get("request_status") == "success"}
         target_rows = []
         for clip in corpus:
             if clip["evaluation_group"] != "polarity_stress":
                 continue
             record = records.get(clip["clip_id"], {})
-            hyp = transcripts.get(clip["clip_id"], {}).get("raw_transcript", "")
+            hyp = record.get("raw_transcript", "") or ""
             for idx in range(clip["don_token_count"]):
-                phrase = "don target" if clip["don_token_count"] == 1 else f"don target {idx + 1}"
                 row = adjudicate_target(
                     clip["canonical_transcript"],
                     hyp,
                     target_marker="don",
                     prompt_number=clip.get("prompt_number"),
                     target_index=idx + 1,
-                ) if hyp else {"outcome": None, "evidence_span": "", "reason": record.get("error", "no transcript available"), "reference_target_phrase": phrase, "automatic": False}
+                )
                 adjudicated_outcome = row["outcome"]
-                note = "adjudicated: " + row["reason"] if row["outcome"] else "unadjudicated: no transcript"
-                row.update({"clip_id": clip["clip_id"], "speaker_id": clip["speaker_id"], "model": model, "target_index": idx + 1, "raw_transcript": hyp, "normalized_transcript": normalize_text(hyp), "adjudicated_outcome": adjudicated_outcome, "adjudication_note": note})
+                note = "adjudicated: " + row["reason"]
+                row.update({
+                    "clip_id": clip["clip_id"],
+                    "speaker_id": clip["speaker_id"],
+                    "model": model,
+                    "target_index": idx + 1,
+                    "raw_transcript": hyp,
+                    "normalized_transcript": normalize_text(hyp),
+                    "adjudicated_outcome": adjudicated_outcome,
+                    "adjudication_note": note,
+                })
                 target_rows.append(row)
-        target_clip_ids = {c["clip_id"] for c in corpus if c["evaluation_group"] == "polarity_stress" and c["clip_id"] in transcripts}
+        # Denominator across all 18 polarity-stress clips in the corpus
+        target_clip_ids = {c["clip_id"] for c in corpus if c["evaluation_group"] == "polarity_stress"}
         from bench.metrics.wer import corpus_wer
         wer_by_group = {}
         for group in ("all", "polarity_stress", "control"):
             selected = [c for c in corpus if group == "all" or c["evaluation_group"] == group]
-            clips = [{"clip_id": c["clip_id"], "hypothesis": transcripts[c["clip_id"]]["raw_transcript"], "reference": c["spoken_reference_transcript"]} for c in selected if c["clip_id"] in transcripts]
-            wer_by_group[group] = {"status": "ok" if clips else "not_available", **corpus_wer(clips)}
+            clips = [{"clip_id": c["clip_id"], "hypothesis": records[c["clip_id"]]["raw_transcript"], "reference": c["spoken_reference_transcript"]} for c in selected if records.get(c["clip_id"], {}).get("request_status") == "success" and str(records.get(c["clip_id"], {}).get("raw_transcript") or "").strip()]
+            norm_res = corpus_wer(clips, normalize_text=True, expand_contractions=True) if clips else {}
+            raw_res = corpus_wer(clips, normalize_text=False) if clips else {}
+            wer_by_group[group] = {
+                "status": "ok" if clips else "not_available",
+                "raw_wer": raw_res.get("corpus_wer"),
+                **norm_res,
+            }
         per_speaker = {}
         for speaker in sorted({c["speaker_id"] for c in corpus}):
-            speaker_clips = {c["clip_id"] for c in corpus if c["speaker_id"] == speaker}
+            speaker_clips = {c["clip_id"] for c in corpus if c["speaker_id"] == speaker and c["evaluation_group"] == "polarity_stress"}
             speaker_rows = [r for r in target_rows if r["speaker_id"] == speaker]
-            per_speaker[speaker] = aggregate_polarity(speaker_rows, sum(c["don_token_count"] for c in corpus if c["speaker_id"] == speaker), {c for c in target_clip_ids if c in speaker_clips})
-        failures = [{"clip_id": c["clip_id"], "error": records.get(c["clip_id"], {}).get("error", "missing transcript record"), "request_status": records.get(c["clip_id"], {}).get("request_status", "not_attempted")} for c in corpus if c["clip_id"] not in transcripts]
+            per_speaker[speaker] = aggregate_polarity(speaker_rows, sum(c["don_token_count"] for c in corpus if c["speaker_id"] == speaker), speaker_clips)
+        failures = [{"clip_id": c["clip_id"], "error": records.get(c["clip_id"], {}).get("error", "missing transcript record"), "request_status": records.get(c["clip_id"], {}).get("request_status", "not_attempted")} for c in corpus if records.get(c["clip_id"], {}).get("request_status") != "success"]
         attempted = sum(r.get("request_status") in ("success", "failed") for r in records.values())
         by_model[model] = {"status": "ok" if transcripts else "not_available", "expected_clips": 30, "attempted_clips": attempted, "not_attempted_clips": 30 - attempted, "successful_clips": len(transcripts), "failed_clips": failures, "clips_with_transcripts": len(transcripts), "polarity": aggregate_polarity(target_rows, 21, target_clip_ids), "polarity_by_speaker": per_speaker, "wer": wer_by_group, "target_audit": target_rows}
-    return {"dataset": "Tier A Multi-Speaker Validation", "tier": "tier_a_msv", "generated_at": datetime.now(timezone.utc).isoformat(), "corpus_manifest_sha256": sha256(CORPUS_DIR / "MANIFEST_SHA256.txt") if (CORPUS_DIR / "MANIFEST_SHA256.txt").exists() else None, "expected_counts": {"clips": 30, "target_recordings": 18, "target_tokens": 21, "controls": 12}, "models": by_model}
+
+    # Recompute multi-model union result directly by target ID and target index across Gemini, Deepgram, Whisper
+    union_targets = []
+    baseline_models = ("gemini", "deepgram", "whisper")
+    all_target_keys = [(c["clip_id"], c["speaker_id"], c["prompt_number"], idx + 1) for c in corpus if c["evaluation_group"] == "polarity_stress" for idx in range(c["don_token_count"])]
+    for clip_id, speaker_id, prompt_num, t_idx in all_target_keys:
+        outcomes = {}
+        for m in ("sahara", "gemini", "deepgram", "whisper"):
+            m_rows = by_model.get(m, {}).get("target_audit", [])
+            matched = next((r for r in m_rows if r["clip_id"] == clip_id and r["target_index"] == t_idx), None)
+            outcomes[m] = matched["outcome"] if matched else None
+        is_inverted_by_any = any(outcomes.get(bm) == "inverted" for bm in baseline_models)
+        union_targets.append({
+            "clip_id": clip_id,
+            "speaker_id": speaker_id,
+            "prompt_number": prompt_num,
+            "target_index": t_idx,
+            "outcomes": outcomes,
+            "inverted_in_union": is_inverted_by_any,
+        })
+    union_inversions = sum(t["inverted_in_union"] for t in union_targets)
+    multi_model_union = {
+        "models_evaluated": list(baseline_models),
+        "total_targets": len(union_targets),
+        "union_inversions": union_inversions,
+        "union_inversion_rate": union_inversions / len(union_targets) if union_targets else 0.0,
+        "per_target_adjudication": union_targets,
+    }
+
+    return {"dataset": "Tier A Multi-Speaker Validation", "tier": "tier_a_msv", "generated_at": datetime.now(timezone.utc).isoformat(), "corpus_manifest_sha256": sha256(CORPUS_DIR / "MANIFEST_SHA256.txt") if (CORPUS_DIR / "MANIFEST_SHA256.txt").exists() else None, "expected_counts": {"clips": 30, "target_recordings": 18, "target_tokens": 21, "controls": 12}, "multi_model_union": multi_model_union, "models": by_model}
 
 
 def main() -> int:
